@@ -25,20 +25,6 @@ const HOME_SLIDER_SCENES = [
         after: "https://cdn.shopify.com/s/files/1/1989/5889/files/madison-studio-a04d7c57.jpg?v=1765532762", 
         labelBefore: "Before",
         labelAfter: "After"
-    },
-    {
-        // Scene 2: Clear vs Safari
-        before: "https://www.bestbottles.com/images/store/enlarged_pics/GBMtlCylGl.gif",
-        after: "https://www.bestbottles.com/images/store/enlarged_pics/GBMtlCylGl.gif",
-        labelBefore: "Stock 100ml",
-        labelAfter: "Safari Edition"
-    },
-    {
-        // Scene 3: Amber vs Labeled
-        before: "https://www.bestbottles.com/images/store/enlarged_pics/GBVAmb1DrmBlkDropper.gif",
-        after: "https://www.bestbottles.com/images/store/enlarged_pics/GBVAmb1DrmBlkDropper.gif",
-        labelBefore: "Stock Amber",
-        labelAfter: "Apothecary"
     }
 ];
 
@@ -167,7 +153,7 @@ export const ModernHome: React.FC<ModernHomeProps> = ({
                     See what's possible.
                 </h2>
                 <p className="text-[#637588] dark:text-gray-300 mb-8 max-w-md leading-relaxed">
-                    Explore our curated mood boards for specific fragrance profiles like "Rose Eau De Parfum" and "African Safari". Visualize your brand on our bottles before you buy.
+                    Explore our curated mood boards for specific fragrance profiles like "Rose Eau De Parfum". Visualize your brand on our bottles before you buy.
                 </p>
                 <button 
                     onClick={onPackagingIdeasClick}

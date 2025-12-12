@@ -46,19 +46,7 @@ export const Header: React.FC<HeaderProps> = ({
   return (
     <div className="sticky top-0 z-50 bg-white dark:bg-[#151515] transition-colors duration-300">
       
-      {/* 0. Utility Bar (Contact Info) */}
-      <div className="bg-[#405D68] text-white px-6 py-2 text-[11px] font-bold tracking-wider uppercase flex flex-col md:flex-row justify-center md:justify-end items-center gap-4 md:gap-8 transition-colors">
-         <div className="flex items-center gap-6">
-             <a href="mailto:sales@nematinternational.com" className="hover:text-[#C5A065] transition-colors flex items-center gap-2">
-                <span className="material-symbols-outlined text-[14px]">mail</span>
-                sales@nematinternational.com
-             </a>
-             <a href="tel:5104450300" className="hover:text-[#C5A065] transition-colors flex items-center gap-2">
-                <span className="material-symbols-outlined text-[14px]">call</span>
-                (510) 445-0300
-             </a>
-         </div>
-      </div>
+      {/* Top Banner removed as requested. Reserved for sales/announcements. */}
 
       <header className="border-b border-gray-200 dark:border-gray-800 shadow-sm relative bg-white dark:bg-[#151515]">
         <div className="max-w-[1800px] mx-auto">
@@ -68,7 +56,7 @@ export const Header: React.FC<HeaderProps> = ({
               
               {/* 1. Logo */}
               <a
-                  className="font-serif text-2xl md:text-3xl font-bold tracking-tight text-text-light dark:text-text-dark cursor-pointer flex-shrink-0"
+                  className="font-serif text-2xl md:text-3xl font-bold tracking-tight text-text-light dark:text-text-dark cursor-pointer flex-shrink-0 uppercase"
                   href="#"
                   onClick={(e) => { e.preventDefault(); onHomeClick?.(); }}
               >
@@ -114,9 +102,14 @@ export const Header: React.FC<HeaderProps> = ({
               </div>
           </div>
 
-          {/* BOTTOM ROW: Navigation (Centered) */}
-          <div className="hidden md:flex justify-center border-t border-gray-100 dark:border-gray-800">
-              <nav className="flex items-center space-x-12 text-xs font-bold uppercase tracking-[0.15em] text-text-light/80 dark:text-text-dark/80">
+          {/* BOTTOM ROW: Navigation (Centered) & Contact Info (Right) */}
+          <div className="hidden md:flex items-center justify-between px-6 border-t border-gray-100 dark:border-gray-800">
+              
+              {/* Left Spacer to balance the layout for centering nav */}
+              <div className="flex-1 hidden lg:block"></div>
+
+              {/* Navigation */}
+              <nav className="flex items-center space-x-12 text-xs font-bold uppercase tracking-[0.15em] text-text-light/80 dark:text-text-dark/80 mx-auto">
                   <a 
                       className="hover:text-[#C5A065] transition-colors cursor-pointer py-4 border-b-2 border-transparent hover:border-[#C5A065]" 
                       href="#"
@@ -156,6 +149,18 @@ export const Header: React.FC<HeaderProps> = ({
                       Journal
                   </a>
               </nav>
+
+              {/* Contact Info (Right Aligned) */}
+              <div className="flex-1 flex justify-end gap-6 text-[10px] font-bold tracking-wider uppercase text-gray-500 dark:text-gray-400">
+                 <a href="mailto:sales@nematinternational.com" className="hover:text-[#C5A065] transition-colors flex items-center gap-2">
+                    <span className="material-symbols-outlined text-[14px]">mail</span>
+                    sales@nematinternational.com
+                 </a>
+                 <a href="tel:5104450300" className="hover:text-[#C5A065] transition-colors flex items-center gap-2">
+                    <span className="material-symbols-outlined text-[14px]">call</span>
+                    (510) 445-0300
+                 </a>
+              </div>
           </div>
         </div>
 
