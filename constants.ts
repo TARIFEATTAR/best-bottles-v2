@@ -1,3 +1,4 @@
+
 import { Product, NavItem, Feature } from "./types";
 
 export const NAV_ITEMS: NavItem[] = [
@@ -39,19 +40,19 @@ export const JOURNAL_POSTS = [
     title: "The Art of Scent Preservation",
     excerpt: "Why UV-protection is crucial for organic fragrances.",
     date: "Oct 12, 2023",
-    image: "https://images.unsplash.com/photo-1615634260167-c8c9c313880b?auto=format&fit=crop&q=80&w=800"
+    image: "https://cdn.shopify.com/s/files/1/1989/5889/files/madison-studio-853ad816_1.jpg?v=1765532240"
   },
   {
     title: "Sustainable Packaging Trends 2024",
     excerpt: "Moving beyond recycling to complete circularity.",
     date: "Sep 28, 2023",
-    image: "https://images.unsplash.com/photo-1546868871-7041f2a55e12?auto=format&fit=crop&q=80&w=800"
+    image: "https://cdn.shopify.com/s/files/1/1989/5889/files/madison-studio-ea69669f.jpg?v=1765531548" 
   },
   {
     title: "Design Language of Luxury",
     excerpt: "How weight and texture influence consumer perception.",
     date: "Sep 15, 2023",
-    image: "https://images.unsplash.com/photo-1585675100412-42b100619297?auto=format&fit=crop&q=80&w=800"
+    image: "https://cdn.shopify.com/s/files/1/1989/5889/files/madison-studio-48628740_1.jpg?v=1765524503"
   }
 ];
 

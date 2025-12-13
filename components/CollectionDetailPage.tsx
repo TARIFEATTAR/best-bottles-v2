@@ -5,10 +5,12 @@ import { Product } from "../types";
 interface CollectionDetailPageProps {
   onBack: () => void;
   onProductClick?: (product: Product) => void;
+  onAddToCart?: (product: Product, quantity: number) => void;
 }
 
-export const CollectionDetailPage: React.FC<CollectionDetailPageProps> = ({ onBack, onProductClick }) => {
+export const CollectionDetailPage: React.FC<CollectionDetailPageProps> = ({ onBack, onProductClick, onAddToCart }) => {
   const [selectedCategory, setSelectedCategory] = useState("All");
+  const [quickViewProduct, setQuickViewProduct] = useState<Product | null>(null);
   
   // Extract categories for filter
   const categories = useMemo(() => ["All", ...Array.from(new Set(PRODUCTS.map(p => p.category)))], []);
@@ -17,6 +19,20 @@ export const CollectionDetailPage: React.FC<CollectionDetailPageProps> = ({ onBa
   const filteredProducts = PRODUCTS.filter(product => {
      return selectedCategory === "All" || product.category === selectedCategory;
   });
+
+  const handleQuickView = (e: React.MouseEvent, product: Product) => {
+    e.stopPropagation();
+    setQuickViewProduct(product);
+  };
+
+  const closeQuickView = () => {
+    setQuickViewProduct(null);
+  };
+
+  const handleAddToCart = (e: React.MouseEvent, product: Product) => {
+    e.stopPropagation();
+    onAddToCart?.(product, 1);
+  };
 
   return (
     <div className="w-full bg-white dark:bg-background-dark min-h-screen font-sans">
@@ -115,10 +131,23 @@ export const CollectionDetailPage: React.FC<CollectionDetailPageProps> = ({ onBa
                                 )}
                             </div>
 
-                            {/* Quick Action Overlay */}
+                            {/* Floating Quick View (Icon) */}
+                            <button
+                                onClick={(e) => handleQuickView(e, product)}
+                                className="absolute top-3 right-3 w-8 h-8 rounded-full bg-white dark:bg-gray-800 text-gray-500 dark:text-white shadow-md flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-primary hover:text-white translate-y-2 group-hover:translate-y-0"
+                                title="Quick View"
+                            >
+                                <span className="material-symbols-outlined text-lg">visibility</span>
+                            </button>
+
+                            {/* Quick Action Overlay (Add to Cart) */}
                             <div className="absolute bottom-4 left-0 w-full px-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 translate-y-2 group-hover:translate-y-0">
-                                <button className="w-full bg-[#1D1D1F] dark:bg-white text-white dark:text-[#1D1D1F] py-3 rounded-lg text-xs font-bold uppercase tracking-widest shadow-xl hover:bg-primary dark:hover:bg-gray-200 transition-colors">
-                                    Quick View
+                                <button 
+                                    onClick={(e) => handleAddToCart(e, product)}
+                                    className="w-full bg-[#1D1D1F] dark:bg-white text-white dark:text-[#1D1D1F] py-3 rounded-lg text-xs font-bold uppercase tracking-widest shadow-xl hover:bg-[#C5A059] dark:hover:bg-gray-200 transition-colors flex items-center justify-center gap-2"
+                                >
+                                    <span className="material-symbols-outlined text-sm">shopping_bag</span>
+                                    Add to Cart
                                 </button>
                             </div>
                         </div>
@@ -171,6 +200,78 @@ export const CollectionDetailPage: React.FC<CollectionDetailPageProps> = ({ onBa
          </div>
       </div>
       
+      {/* Quick View Modal */}
+      {quickViewProduct && (
+         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+            <div className="absolute inset-0 bg-black/60 backdrop-blur-sm animate-fade-in" onClick={closeQuickView}></div>
+            <div className="relative bg-white dark:bg-[#1e2732] rounded-2xl shadow-2xl w-full max-w-4xl overflow-hidden flex flex-col md:flex-row max-h-[90vh] md:max-h-[600px] animate-fade-up">
+               <button onClick={closeQuickView} className="absolute top-4 right-4 z-10 p-2 bg-white/50 dark:bg-black/50 rounded-full hover:bg-white dark:hover:bg-black transition-colors text-text-light dark:text-text-dark">
+                  <span className="material-symbols-outlined">close</span>
+               </button>
+               
+               {/* Image Side */}
+               <div className="w-full md:w-1/2 bg-gray-50 dark:bg-black/20 p-8 flex items-center justify-center border-b md:border-b-0 md:border-r border-gray-100 dark:border-gray-700">
+                  <img src={quickViewProduct.imageUrl} alt={quickViewProduct.name} className="max-h-[300px] md:max-h-[400px] object-contain mix-blend-multiply dark:mix-blend-normal" />
+               </div>
+
+               {/* Details Side */}
+               <div className="w-full md:w-1/2 p-8 overflow-y-auto custom-scrollbar flex flex-col">
+                  <span className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-2 block">{quickViewProduct.category}</span>
+                  <h2 className="text-3xl font-serif font-bold text-[#111418] dark:text-white mb-4 leading-tight">{quickViewProduct.name}</h2>
+                  <div className="flex items-center gap-4 mb-6">
+                      <span className="text-2xl font-medium text-[#111418] dark:text-white">{quickViewProduct.price}</span>
+                      {quickViewProduct.bulkPrice && (
+                          <span className="text-xs font-bold text-green-700 bg-green-100 dark:bg-green-900/30 dark:text-green-400 px-3 py-1 rounded-full">
+                              {quickViewProduct.bulkPrice}
+                          </span>
+                      )}
+                  </div>
+                  
+                  <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-8">
+                      {quickViewProduct.description}
+                  </p>
+
+                  <div className="space-y-4 mb-8 text-sm bg-gray-50 dark:bg-black/20 p-4 rounded-xl">
+                      <div className="flex justify-between items-center border-b border-gray-200 dark:border-gray-700 pb-2 last:border-0 last:pb-0">
+                          <span className="text-gray-500 font-medium">Capacity</span>
+                          <span className="font-semibold text-[#111418] dark:text-white">{quickViewProduct.capacity}</span>
+                      </div>
+                      <div className="flex justify-between items-center border-b border-gray-200 dark:border-gray-700 pb-2 last:border-0 last:pb-0">
+                          <span className="text-gray-500 font-medium">Color</span>
+                          <span className="font-semibold text-[#111418] dark:text-white">{quickViewProduct.color}</span>
+                      </div>
+                      <div className="flex justify-between items-center border-b border-gray-200 dark:border-gray-700 pb-2 last:border-0 last:pb-0">
+                          <span className="text-gray-500 font-medium">SKU</span>
+                          <span className="font-mono text-xs font-semibold text-[#111418] dark:text-white">{quickViewProduct.sku}</span>
+                      </div>
+                  </div>
+
+                  <div className="flex flex-col gap-3 mt-auto">
+                      <button 
+                        onClick={(e) => {
+                            handleAddToCart(e, quickViewProduct);
+                            closeQuickView();
+                        }}
+                        className="w-full bg-[#111418] dark:bg-white text-white dark:text-[#111418] py-3.5 rounded-lg font-bold uppercase text-xs tracking-wider hover:opacity-90 transition-opacity shadow-lg flex items-center justify-center gap-2"
+                      >
+                          <span className="material-symbols-outlined text-sm">shopping_cart</span>
+                          Add to Cart
+                      </button>
+                      <button 
+                        onClick={() => {
+                            closeQuickView();
+                            onProductClick?.(quickViewProduct);
+                        }}
+                        className="w-full py-3.5 border border-gray-200 dark:border-gray-700 rounded-lg font-bold uppercase text-xs tracking-wider text-[#111418] dark:text-white hover:border-primary hover:text-primary transition-colors"
+                      >
+                          View Full Details
+                      </button>
+                  </div>
+               </div>
+            </div>
+         </div>
+       )}
+
       {/* Mini Footer */}
       <div className="max-w-[1440px] mx-auto px-6 py-8 flex justify-between items-center border-t border-gray-100 dark:border-gray-800 mt-20">
           <div className="flex items-center gap-2 opacity-50">

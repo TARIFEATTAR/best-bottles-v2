@@ -10,6 +10,8 @@ export const HelpCenterPage: React.FC<HelpCenterPageProps> = ({ onBack, onContac
   const [searchQuery, setSearchQuery] = useState("");
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
   const [expandedItems, setExpandedItems] = useState<Set<string>>(new Set());
+  // Default all categories to open initially for better discoverability
+  const [expandedCategories, setExpandedCategories] = useState<Set<string>>(new Set(FAQ_DATA.map(c => c.category)));
 
   // Search Filtering
   const filteredData = FAQ_DATA.map(category => {
@@ -30,9 +32,34 @@ export const HelpCenterPage: React.FC<HelpCenterPageProps> = ({ onBack, onContac
     setExpandedItems(newExpanded);
   };
 
+  const toggleCategory = (category: string) => {
+    const newExpanded = new Set(expandedCategories);
+    if (newExpanded.has(category)) {
+      newExpanded.delete(category);
+    } else {
+      newExpanded.add(category);
+    }
+    setExpandedCategories(newExpanded);
+  };
+
   const handleCategoryClick = (category: string) => {
-      setActiveCategory(category === activeCategory ? null : category);
-      // Optional: scroll to category
+      const isSame = category === activeCategory;
+      setActiveCategory(isSame ? null : category);
+      
+      if (!isSame) {
+          // Ensure the selected category is expanded
+          const newExpanded = new Set(expandedCategories);
+          newExpanded.add(category);
+          setExpandedCategories(newExpanded);
+
+          // Smooth scroll to the category
+          setTimeout(() => {
+              const element = document.getElementById(`faq-cat-${category.replace(/\s+/g, '')}`);
+              if (element) {
+                  element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+              }
+          }, 100);
+      }
   };
 
   return (
@@ -87,44 +114,69 @@ export const HelpCenterPage: React.FC<HelpCenterPageProps> = ({ onBack, onContac
         )}
 
         {/* FAQ List */}
-        <div className="space-y-8">
+        <div className="space-y-6">
             {filteredData.length > 0 ? (
-                filteredData.map((category) => (
-                    <div key={category.category} className="bg-white dark:bg-[#1A1D21] rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 overflow-hidden">
-                        <div className="px-8 py-6 border-b border-gray-100 dark:border-gray-800 bg-gray-50/50 dark:bg-white/5">
-                            <h2 className="text-xl font-serif font-bold text-[#1D1D1F] dark:text-white flex items-center gap-2">
-                                {category.category}
-                            </h2>
-                        </div>
-                        <div className="divide-y divide-gray-100 dark:divide-gray-800">
-                            {category.items.map((item, idx) => {
-                                const isOpen = expandedItems.has(item.question) || searchQuery.length > 0; // Auto expand on search
-                                return (
-                                    <div key={idx} className="group">
-                                        <button 
-                                            onClick={() => toggleItem(item.question)}
-                                            className="w-full text-left px-8 py-5 flex justify-between items-center hover:bg-gray-50 dark:hover:bg-white/5 transition-colors focus:outline-none"
-                                        >
-                                            <span className="font-bold text-sm text-[#1D1D1F] dark:text-gray-200 pr-8 leading-relaxed">
-                                                {item.question}
-                                            </span>
-                                            <span className={`material-symbols-outlined text-gray-400 transition-transform duration-300 ${isOpen ? 'rotate-180 text-[#C5A065]' : ''}`}>
-                                                expand_more
-                                            </span>
-                                        </button>
-                                        <div 
-                                            className={`overflow-hidden transition-all duration-300 ease-in-out ${isOpen ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'}`}
-                                        >
-                                            <div className="px-8 pb-6 pt-0 text-sm text-gray-500 dark:text-gray-400 leading-relaxed max-w-3xl">
-                                                {item.answer}
+                filteredData.map((category) => {
+                    // If searching, force open categories that have matches
+                    const isCategoryOpen = expandedCategories.has(category.category) || searchQuery.length > 0;
+                    
+                    return (
+                        <div 
+                            key={category.category} 
+                            id={`faq-cat-${category.category.replace(/\s+/g, '')}`}
+                            className="bg-white dark:bg-[#1A1D21] rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 overflow-hidden"
+                        >
+                            {/* Category Header (Collapsible Trigger) */}
+                            <button 
+                                onClick={() => toggleCategory(category.category)}
+                                className="w-full px-8 py-6 border-b border-gray-100 dark:border-gray-800 bg-gray-50/50 dark:bg-white/5 flex justify-between items-center text-left hover:bg-gray-100 dark:hover:bg-white/10 transition-colors focus:outline-none"
+                            >
+                                <h2 className="text-xl font-serif font-bold text-[#1D1D1F] dark:text-white flex items-center gap-2">
+                                    {category.category}
+                                </h2>
+                                <div className="flex items-center gap-3">
+                                    <span className="text-xs font-bold uppercase tracking-widest text-gray-400 bg-white dark:bg-black/20 px-2 py-1 rounded">
+                                        {category.items.length} Qs
+                                    </span>
+                                    <span className={`material-symbols-outlined text-gray-400 transition-transform duration-300 ${isCategoryOpen ? 'rotate-180 text-[#C5A065]' : ''}`}>
+                                        expand_more
+                                    </span>
+                                </div>
+                            </button>
+
+                            {/* Category Content (Collapsible Body) */}
+                            <div className={`transition-all duration-500 ease-in-out overflow-hidden ${isCategoryOpen ? 'max-h-[3000px] opacity-100' : 'max-h-0 opacity-0'}`}>
+                                <div className="divide-y divide-gray-100 dark:divide-gray-800">
+                                    {category.items.map((item, idx) => {
+                                        const isOpen = expandedItems.has(item.question) || searchQuery.length > 0; // Auto expand on search
+                                        return (
+                                            <div key={idx} className="group bg-white dark:bg-[#1A1D21]">
+                                                <button 
+                                                    onClick={() => toggleItem(item.question)}
+                                                    className="w-full text-left px-8 py-5 flex justify-between items-start hover:bg-gray-50 dark:hover:bg-white/5 transition-colors focus:outline-none"
+                                                >
+                                                    <span className={`font-bold text-sm pr-8 leading-relaxed transition-colors ${isOpen ? 'text-[#C5A065]' : 'text-[#1D1D1F] dark:text-gray-200'}`}>
+                                                        {item.question}
+                                                    </span>
+                                                    <span className={`material-symbols-outlined text-gray-400 shrink-0 transition-transform duration-300 ${isOpen ? 'rotate-45 text-[#C5A065]' : ''}`}>
+                                                        add
+                                                    </span>
+                                                </button>
+                                                <div 
+                                                    className={`overflow-hidden transition-all duration-300 ease-in-out ${isOpen ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'}`}
+                                                >
+                                                    <div className="px-8 pb-6 text-sm text-gray-500 dark:text-gray-400 leading-relaxed max-w-3xl">
+                                                        {item.answer}
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                );
-                            })}
+                                        );
+                                    })}
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                ))
+                    );
+                })
             ) : (
                 <div className="text-center py-20">
                     <span className="material-symbols-outlined text-6xl text-gray-300 mb-4">search_off</span>

@@ -27,7 +27,7 @@ const COLLECTIONS_GRID = [
     id: "cream-jars",
     title: "Cream Jars & Pumps",
     description: "Heavy-base glass jars designed for premium skincare formulations.",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuAzFKfIKkKIfQekgGdT9AVpCvXgwNm92Kir9-Vk21s5P9-Ib3ev-PoIrgfeG6UX2C7FF8-rLf2H85RRgapmm75AIcIB8UjDDFTmdF0ZaEXLsjoI24mAeAPlEzK9zQmB0JZsQM6wq28hOR729M_zbN56iDIWNEeVYr_Ukw3L3KMgXtaivrBMaWrujqF4R4D10hytg8SPqHRpWnAaVA4Tu7hKwdpeSBOGYMua6xH7W-ODq0x2yuni_vRMN_4f1SEHwRDYnfaEM8KG6DU",
+    image: "https://cdn.shopify.com/s/files/1/1989/5889/files/madison-studio-1a5ce90f_1.jpg?v=1765597664",
     size: "wide", // col-span-2
     theme: "light"
   },
