@@ -118,23 +118,28 @@ export const BentoGrid: React.FC<BentoGridProps & { onContractClick?: () => void
           </div>
         </div>
 
-        {/* 5. Wholesale (Standard - Bottom Left) */}
+        {/* 5. Wholesale (Wide - Bottom Left) - Updated Image & Width */}
         <div 
             onClick={onCollectionClick}
-            className="bento-card group relative col-span-1 md:col-span-1 md:row-span-1 rounded-3xl overflow-hidden cursor-pointer bg-white"
+            className="bento-card group relative col-span-2 md:col-span-2 md:row-span-1 rounded-3xl overflow-hidden cursor-pointer bg-black"
         >
-          <div className="absolute inset-0 opacity-0 group-hover:opacity-5 transition-opacity">
-               <img src="https://images.unsplash.com/photo-1556740758-90de2929450a?auto=format&fit=crop&q=80&w=800" className="w-full h-full object-cover grayscale" />
+          <div className="absolute inset-0">
+               <img 
+                 src="https://cdn.shopify.com/s/files/1/1989/5889/files/madison-dabd3843.jpg?v=1765665942" 
+                 alt="Wholesale"
+                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-80" 
+               />
+               <div className="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition-colors"></div>
           </div>
 
-          <div className="flex flex-col h-full justify-center p-4 md:p-8 relative z-10">
-              <h3 className="text-[#1D1D1F] text-xl md:text-3xl font-serif font-medium mb-2 md:mb-3">
+          <div className="flex flex-col h-full justify-center p-6 md:p-8 relative z-10">
+              <h3 className="text-white text-xl md:text-3xl font-serif font-medium mb-2 md:mb-3">
                 Wholesale
               </h3>
-              <p className="text-[#637588] text-xs md:text-sm font-light mb-4 md:mb-6 leading-relaxed">
+              <p className="text-white/80 text-xs md:text-sm font-light mb-4 md:mb-6 leading-relaxed max-w-sm">
                 Bulk pricing tailored to your scale.
               </p>
-              <span className="text-[#405D68] font-bold text-[10px] uppercase tracking-widest flex items-center gap-2 group-hover:gap-3 transition-all">
+              <span className="text-white font-bold text-[10px] uppercase tracking-widest flex items-center gap-2 group-hover:gap-3 transition-all">
                 Pricing
                 <span className="material-symbols-outlined text-sm">
                   arrow_forward
@@ -175,18 +180,6 @@ export const BentoGrid: React.FC<BentoGridProps & { onContractClick?: () => void
                    View Options
                </button>
            </div>
-        </div>
-        
-        {/* Accessories - Small Tile */}
-        <div 
-            onClick={onCollectionClick}
-            className="bento-card group relative col-span-1 md:col-span-1 md:row-span-1 rounded-3xl overflow-hidden cursor-pointer bg-neutral-100 dark:bg-neutral-800"
-        >
-             <div className="flex flex-col h-full justify-center p-6 text-center">
-                 <span className="material-symbols-outlined text-4xl mb-2 text-gray-400 group-hover:text-[#C5A065] transition-colors">category</span>
-                 <h3 className="text-[#1D1D1F] dark:text-white font-bold">More</h3>
-                 <span className="text-xs text-gray-500">Accessories & Caps</span>
-             </div>
         </div>
 
       </div>

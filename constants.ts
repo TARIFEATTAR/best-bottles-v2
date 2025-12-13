@@ -27,7 +27,7 @@ export const FEATURES: Feature[] = [
 ];
 
 export const FINDER_CATEGORIES = [
-  { icon: "spray", label: "Spray Bottles" },
+  { icon: "spray", label: "Vintage Bottles" },
   { icon: "water_drop", label: "Oil Vials" },
   { icon: "spa", label: "Essential Oils" },
   { icon: "gesture", label: "Roll-ons" },
