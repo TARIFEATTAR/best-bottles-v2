@@ -12,14 +12,14 @@ export const BentoGrid: React.FC<BentoGridProps & { onContractClick?: () => void
     <div className="w-full px-4 md:px-10 flex justify-center">
       <div className="max-w-[1440px] w-full grid grid-cols-1 md:grid-cols-4 gap-6 auto-rows-[minmax(180px,auto)] md:auto-rows-[250px]">
         
-        {/* 1. Signature Glass Collection (Large Portrait - Left) */}
+        {/* 1. Classic & Elegant Roll On Bottles (Large Portrait - Left) */}
         <div 
             onClick={onCollectionClick}
             className="bento-card group relative md:col-span-2 md:row-span-2 rounded-3xl overflow-hidden cursor-pointer bg-[#D8C6B0]"
         >
           <img 
-             src="https://cdn.shopify.com/s/files/1/1989/5889/files/madison-studio-48628740_1.jpg?v=1765524503"
-             alt="Signature Collection"
+             src="https://cdn.shopify.com/s/files/1/1989/5889/files/madison-e4f78ebc.jpg?v=1765600574"
+             alt="Classic Roll On Bottles"
              className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
@@ -29,8 +29,8 @@ export const BentoGrid: React.FC<BentoGridProps & { onContractClick?: () => void
               Flagship Series
             </span>
             <h2 className="text-white text-4xl md:text-5xl font-serif font-medium leading-tight mb-4">
-              Signature <br />
-              Glass Collection
+              Classic & Elegant <br />
+              Roll On Bottles
             </h2>
             <p className="text-white/80 text-sm font-light max-w-sm mb-6 line-clamp-2">
               Timeless clarity meets modern silhouette. Engineered for brands that demand presence.

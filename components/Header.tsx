@@ -315,18 +315,18 @@ export const Header: React.FC<HeaderProps> = ({
                                 <p className="text-xs text-gray-500 mt-1">UV protection meets timeless apothecary aesthetics.</p>
                             </div>
 
-                            {/* Visual Collection 2 */}
+                            {/* Visual Collection 2 - Updated with new Vintage Bottles Image */}
                             <div className="col-span-3 group cursor-pointer" onClick={() => { setActiveMenu(null); onCollectionsClick?.(); }}>
                                 <div className="aspect-[3/4] overflow-hidden rounded-lg mb-4 relative">
                                     <img 
-                                        src="https://cdn.shopify.com/s/files/1/1989/5889/files/madison-studio-48628740_1.jpg?v=1765524503" 
-                                        alt="Luxury Glass"
+                                        src="https://cdn.shopify.com/s/files/1/1989/5889/files/madison-studio-5b205acb.jpg?v=1765600055" 
+                                        alt="Vintage Collection"
                                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                                     />
                                     <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors"></div>
                                 </div>
-                                <h4 className="font-serif text-lg text-text-light dark:text-white group-hover:text-[#C5A065] transition-colors">Luxury Perfumery</h4>
-                                <p className="text-xs text-gray-500 mt-1">Heavy-based glass for premium fragrance brands.</p>
+                                <h4 className="font-serif text-lg text-text-light dark:text-white group-hover:text-[#C5A065] transition-colors">Vintage Collection</h4>
+                                <p className="text-xs text-gray-500 mt-1">Unique silhouettes for distinct brand identity.</p>
                             </div>
 
                             {/* Visual Collection 3 */}

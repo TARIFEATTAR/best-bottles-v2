@@ -48,7 +48,7 @@ export const CollectionDetailPage: React.FC<CollectionDetailPageProps> = ({ onBa
       {/* Header */}
       <div className="max-w-[1440px] mx-auto px-6 mb-12">
         <h1 className="text-4xl md:text-5xl font-serif font-medium text-text-light dark:text-text-dark mb-4">
-          Signature Collection
+          Classic & Elegant Roll On Bottles
         </h1>
         <p className="text-[#637588] dark:text-gray-400 max-w-2xl text-sm md:text-base leading-relaxed">
           Curated premium glass and sustainable packaging solutions designed for the world's finest fragrances. 

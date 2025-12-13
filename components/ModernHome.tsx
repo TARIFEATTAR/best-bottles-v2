@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { FINDER_CATEGORIES, FEATURES, JOURNAL_POSTS } from "../constants";
 import { BentoGrid } from "./BentoGrid";
 import { LuxuryPackageSlider } from "./LuxuryPackageSlider";
 import { Reveal } from "./Reveal";
 import { Product } from "../types";
 import { motion, AnimatePresence } from "framer-motion";
+import { GoogleGenAI, LiveServerMessage, Modality } from "@google/genai";
 
 interface ModernHomeProps {
   onProductClick?: () => void;
@@ -29,6 +30,36 @@ const HOME_SLIDER_SCENES = [
     }
 ];
 
+// --- Audio Utils ---
+function base64ToFloat32Array(base64: string): Float32Array {
+  const binaryString = atob(base64);
+  const len = binaryString.length;
+  const bytes = new Uint8Array(len);
+  for (let i = 0; i < len; i++) {
+    bytes[i] = binaryString.charCodeAt(i);
+  }
+  const int16Array = new Int16Array(bytes.buffer);
+  const float32Array = new Float32Array(int16Array.length);
+  for (let i = 0; i < int16Array.length; i++) {
+    float32Array[i] = int16Array[i] / 32768.0;
+  }
+  return float32Array;
+}
+
+function float32ToB64(array: Float32Array): string {
+  const int16Array = new Int16Array(array.length);
+  for (let i = 0; i < array.length; i++) {
+    int16Array[i] = Math.max(-32768, Math.min(32767, array[i] * 32768));
+  }
+  const bytes = new Uint8Array(int16Array.buffer);
+  let binary = '';
+  const len = bytes.byteLength;
+  for (let i = 0; i < len; i++) {
+    binary += String.fromCharCode(bytes[i]);
+  }
+  return btoa(binary);
+}
+
 export const ModernHome: React.FC<ModernHomeProps> = ({ 
   onProductClick, 
   onConsultationClick, 
@@ -38,7 +69,17 @@ export const ModernHome: React.FC<ModernHomeProps> = ({
 }) => {
   const [offsetY, setOffsetY] = useState(0);
   const [isListening, setIsListening] = useState(false);
-  const [voiceText, setVoiceText] = useState("Listening...");
+  const [voiceText, setVoiceText] = useState("Connect");
+  
+  // Live API Refs
+  const audioContextRef = useRef<AudioContext | null>(null);
+  const inputAudioContextRef = useRef<AudioContext | null>(null);
+  const streamRef = useRef<MediaStream | null>(null);
+  const processorRef = useRef<ScriptProcessorNode | null>(null);
+  const sourceRef = useRef<MediaStreamAudioSourceNode | null>(null);
+  const nextStartTimeRef = useRef<number>(0);
+  const sessionRef = useRef<any>(null); // To store the session object (if exposed) or just close capability
+  const activeSourcesRef = useRef<Set<AudioBufferSourceNode>>(new Set());
 
   // Parallax Effect Hook
   useEffect(() => {
@@ -47,24 +88,171 @@ export const ModernHome: React.FC<ModernHomeProps> = ({
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const handleVoiceInteraction = () => {
-    setIsListening(true);
-    setVoiceText("Listening...");
+  const stopAudio = () => {
+    // Stop microphone
+    if (processorRef.current) {
+      processorRef.current.disconnect();
+      processorRef.current = null;
+    }
+    if (sourceRef.current) {
+      sourceRef.current.disconnect();
+      sourceRef.current = null;
+    }
+    if (streamRef.current) {
+      streamRef.current.getTracks().forEach(track => track.stop());
+      streamRef.current = null;
+    }
+    if (inputAudioContextRef.current) {
+      inputAudioContextRef.current.close();
+      inputAudioContextRef.current = null;
+    }
+
+    // Stop playback
+    activeSourcesRef.current.forEach(source => {
+        try { source.stop(); } catch(e) {}
+    });
+    activeSourcesRef.current.clear();
     
-    // Simulate Voice Processing Flow
-    setTimeout(() => {
-        setVoiceText("Analyzing request...");
-    }, 2000);
+    if (audioContextRef.current) {
+        audioContextRef.current.close();
+        audioContextRef.current = null;
+    }
 
-    setTimeout(() => {
-        setVoiceText("Finding matching bottles...");
-    }, 3500);
+    // Close session (Note: specific close method depends on implementation, 
+    // usually purely closing the socket or letting the object GC)
+    // There isn't a direct .close() on the session promise result in standard docs 
+    // but the `onclose` callback handles cleanup.
+    
+    setIsListening(false);
+    setVoiceText("Connect");
+  };
 
-    setTimeout(() => {
+  const handleVoiceInteraction = async () => {
+    if (isListening) {
+        stopAudio();
+        return;
+    }
+
+    try {
+        setIsListening(true);
+        setVoiceText("Connecting...");
+
+        // 1. Setup Audio Output Context (24kHz for Gemini 2.5 Live)
+        const AudioContextClass = window.AudioContext || (window as any).webkitAudioContext;
+        audioContextRef.current = new AudioContextClass({ sampleRate: 24000 });
+        nextStartTimeRef.current = audioContextRef.current.currentTime;
+
+        // 2. Setup Audio Input Context (16kHz required for Gemini Input)
+        inputAudioContextRef.current = new AudioContextClass({ sampleRate: 16000 });
+        
+        // 3. Get Microphone Stream
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        streamRef.current = stream;
+
+        // 4. Initialize Gemini
+        const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+        
+        // 5. Connect to Live API
+        const sessionPromise = ai.live.connect({
+            model: 'gemini-2.5-flash-native-audio-preview-09-2025',
+            config: {
+                responseModalities: [Modality.AUDIO],
+                speechConfig: {
+                    voiceConfig: { prebuiltVoiceConfig: { voiceName: 'Kore' } }
+                },
+                systemInstruction: {
+                    parts: [{
+                        text: "You are the voice assistant for Best Bottles, a luxury packaging supplier. You are helpful, concise, and professional. Help the user find bottles, jars, or custom packaging solutions."
+                    }]
+                }
+            },
+            callbacks: {
+                onopen: () => {
+                    setVoiceText("Listening...");
+                    
+                    // Setup Input Processing
+                    if (!inputAudioContextRef.current || !streamRef.current) return;
+                    
+                    const inputSource = inputAudioContextRef.current.createMediaStreamSource(streamRef.current);
+                    const processor = inputAudioContextRef.current.createScriptProcessor(4096, 1, 1);
+                    
+                    processor.onaudioprocess = (e) => {
+                        const inputData = e.inputBuffer.getChannelData(0);
+                        const base64Data = float32ToB64(inputData);
+                        
+                        sessionPromise.then(session => {
+                            session.sendRealtimeInput({
+                                media: {
+                                    mimeType: "audio/pcm;rate=16000",
+                                    data: base64Data
+                                }
+                            });
+                        });
+                    };
+
+                    inputSource.connect(processor);
+                    processor.connect(inputAudioContextRef.current.destination);
+                    
+                    sourceRef.current = inputSource;
+                    processorRef.current = processor;
+                },
+                onmessage: async (msg: LiveServerMessage) => {
+                    const audioData = msg.serverContent?.modelTurn?.parts?.[0]?.inlineData?.data;
+                    
+                    if (audioData && audioContextRef.current) {
+                        const float32Data = base64ToFloat32Array(audioData);
+                        const buffer = audioContextRef.current.createBuffer(1, float32Data.length, 24000);
+                        buffer.getChannelData(0).set(float32Data);
+
+                        const source = audioContextRef.current.createBufferSource();
+                        source.buffer = buffer;
+                        source.connect(audioContextRef.current.destination);
+
+                        // Schedule playback
+                        const currentTime = audioContextRef.current.currentTime;
+                        // If nextStartTime is in the past (gap in speech), reset to now
+                        if (nextStartTimeRef.current < currentTime) {
+                            nextStartTimeRef.current = currentTime;
+                        }
+                        
+                        source.start(nextStartTimeRef.current);
+                        nextStartTimeRef.current += buffer.duration;
+                        
+                        activeSourcesRef.current.add(source);
+                        source.onended = () => {
+                            activeSourcesRef.current.delete(source);
+                        };
+                    }
+
+                    // Handle Interruption
+                    if (msg.serverContent?.interrupted) {
+                        activeSourcesRef.current.forEach(s => s.stop());
+                        activeSourcesRef.current.clear();
+                        if (audioContextRef.current) {
+                            nextStartTimeRef.current = audioContextRef.current.currentTime;
+                        }
+                    }
+                },
+                onclose: () => {
+                    setVoiceText("Disconnected");
+                    setIsListening(false);
+                    stopAudio();
+                },
+                onerror: (err) => {
+                    console.error("Gemini Live Error:", err);
+                    setVoiceText("Error");
+                    setIsListening(false);
+                    stopAudio();
+                }
+            }
+        });
+
+    } catch (e) {
+        console.error("Failed to initialize voice:", e);
         setIsListening(false);
-        // Redirect to consultation page with context
-        onConsultationClick?.();
-    }, 4500);
+        setVoiceText("Error");
+        stopAudio();
+    }
   };
 
   return (
@@ -180,12 +368,20 @@ export const ModernHome: React.FC<ModernHomeProps> = ({
                                 initial={{ opacity: 0, width: 0 }}
                                 animate={{ opacity: 1, width: "100%" }}
                                 exit={{ opacity: 0, width: 0 }}
-                                className="absolute inset-0 z-50 bg-green-500 rounded-full flex items-center justify-center gap-4 overflow-hidden"
+                                className="absolute inset-0 z-50 bg-[#1D1D1F] rounded-full flex items-center justify-center gap-4 overflow-hidden"
                             >
-                                <span className="w-3 h-3 bg-white rounded-full animate-bounce"></span>
-                                <span className="w-3 h-3 bg-white rounded-full animate-bounce delay-75"></span>
-                                <span className="w-3 h-3 bg-white rounded-full animate-bounce delay-150"></span>
-                                <span className="text-white font-mono text-sm tracking-widest uppercase font-bold">{voiceText}</span>
+                                <span className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></span>
+                                <span className="w-1.5 h-16 bg-[#C5A065] rounded-full animate-[pulse_1s_ease-in-out_infinite]"></span>
+                                <span className="w-1.5 h-8 bg-[#C5A065] rounded-full animate-[pulse_1.2s_ease-in-out_infinite]"></span>
+                                <span className="w-1.5 h-12 bg-[#C5A065] rounded-full animate-[pulse_0.8s_ease-in-out_infinite]"></span>
+                                <span className="text-white font-mono text-sm tracking-widest uppercase font-bold ml-4">{voiceText}</span>
+                                
+                                <button 
+                                    onClick={stopAudio}
+                                    className="ml-4 w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center"
+                                >
+                                    <span className="material-symbols-outlined text-white text-sm">close</span>
+                                </button>
                             </motion.div>
                         )}
                         </AnimatePresence>
@@ -203,12 +399,12 @@ export const ModernHome: React.FC<ModernHomeProps> = ({
                                 onClick={handleVoiceInteraction}
                                 className={`absolute right-2 p-3 rounded-full transition-all duration-500 flex items-center justify-center overflow-visible ${
                                     isListening 
-                                    ? "bg-green-500 text-white scale-110 shadow-[0_0_20px_rgba(34,197,94,0.3)]" 
+                                    ? "bg-red-500 text-white scale-110 shadow-[0_0_20px_rgba(239,68,68,0.3)]" 
                                     : "text-[#F59E0B] hover:bg-gray-100 dark:hover:bg-white/10"
                                 }`}
                                 title="Ask Best Bottles Brain"
                              >
-                                 {/* Idle Glow/Breathing - Reduced opacity from 20 to 10 */}
+                                 {/* Idle Glow/Breathing */}
                                  {!isListening && (
                                      <span className="absolute inset-0 rounded-full bg-[#F59E0B]/10 blur-md animate-pulse"></span>
                                  )}
@@ -217,14 +413,12 @@ export const ModernHome: React.FC<ModernHomeProps> = ({
                                  {isListening && (
                                      <>
                                         <span className="absolute inset-0 rounded-full border border-white/50 animate-[ping_1.5s_cubic-bezier(0,0,0.2,1)_infinite]"></span>
-                                        <span className="absolute inset-0 rounded-full border border-white/30 animate-[ping_1.5s_cubic-bezier(0,0,0.2,1)_infinite_0.5s]"></span>
                                      </>
                                  )}
 
-                                 {/* Icon Drop Shadow - Reduced opacity from 0.8 to 0.4 */}
-                                 <span className={`material-symbols-outlined filled-icon text-2xl relative z-10 ${
-                                     !isListening ? "drop-shadow-[0_0_8px_rgba(245,158,11,0.4)]" : ""
-                                 }`}>mic</span>
+                                 <span className={`material-symbols-outlined filled-icon text-2xl relative z-10`}>
+                                     {isListening ? 'mic_off' : 'mic'}
+                                 </span>
                              </button>
                         </div>
 
