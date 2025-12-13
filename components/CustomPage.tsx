@@ -95,7 +95,7 @@ export const CustomPage: React.FC = () => {
                         <span className="material-symbols-outlined text-gold mt-1">check_circle</span>
                         <div>
                             <strong className="block text-text-light dark:text-text-dark text-sm">Custom Colors</strong>
-                            <span className="text-xs text-text-gray">Pantone matching available for orders >5k units.</span>
+                            <span className="text-xs text-text-gray">Pantone matching available for orders &gt;5k units.</span>
                         </div>
                     </li>
                 </ul>
