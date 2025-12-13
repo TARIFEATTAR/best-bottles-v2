@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -301,18 +302,18 @@ export const Header: React.FC<HeaderProps> = ({
                     <div className="max-w-[1600px] mx-auto px-6 py-12">
                         <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
                             
-                            {/* Visual Collection 1 */}
+                            {/* Visual Collection 1: Atomizer Series */}
                             <div className="col-span-3 group cursor-pointer" onClick={() => { setActiveMenu(null); onCollectionsClick?.(); }}>
                                 <div className="aspect-[3/4] overflow-hidden rounded-lg mb-4 relative">
                                     <img 
                                         src="https://cdn.shopify.com/s/files/1/1989/5889/files/madison-studio-ea69669f.jpg?v=1765531548" 
-                                        alt="Amber Collection"
+                                        alt="Atomizer Series"
                                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                                     />
                                     <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors"></div>
                                 </div>
-                                <h4 className="font-serif text-lg text-text-light dark:text-white group-hover:text-[#C5A065] transition-colors">The Amber Collection</h4>
-                                <p className="text-xs text-gray-500 mt-1">UV protection meets timeless apothecary aesthetics.</p>
+                                <h4 className="font-serif text-lg text-text-light dark:text-text-white group-hover:text-[#C5A065] transition-colors">Atomizer Series</h4>
+                                <p className="text-xs text-gray-500 mt-1">Streamlined design for portability and convenience. Beautiful for your brand.</p>
                             </div>
 
                             {/* Visual Collection 2 - Updated with new Vintage Bottles Image */}
@@ -325,7 +326,7 @@ export const Header: React.FC<HeaderProps> = ({
                                     />
                                     <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors"></div>
                                 </div>
-                                <h4 className="font-serif text-lg text-text-light dark:text-white group-hover:text-[#C5A065] transition-colors">Vintage Collection</h4>
+                                <h4 className="font-serif text-lg text-text-light dark:text-text-white group-hover:text-[#C5A065] transition-colors">Vintage Collection</h4>
                                 <p className="text-xs text-gray-500 mt-1">Unique silhouettes for distinct brand identity.</p>
                             </div>
 
@@ -333,14 +334,14 @@ export const Header: React.FC<HeaderProps> = ({
                             <div className="col-span-3 group cursor-pointer" onClick={() => { setActiveMenu(null); onCollectionsClick?.(); }}>
                                 <div className="aspect-[3/4] overflow-hidden rounded-lg mb-4 relative">
                                     <img 
-                                        src="https://cdn.shopify.com/s/files/1/1989/5889/files/madison-studio-2c62f91d.jpg?v=1765533142" 
-                                        alt="Clear Series"
+                                        src="https://cdn.shopify.com/s/files/1/1989/5889/files/madison-studio-177c235a.jpg?v=1765653066" 
+                                        alt="Classic Roll-On Bottles"
                                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                                     />
                                     <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors"></div>
                                 </div>
-                                <h4 className="font-serif text-lg text-text-light dark:text-white group-hover:text-[#C5A065] transition-colors">Crystal Clear</h4>
-                                <p className="text-xs text-gray-500 mt-1">Showcase the purity of your product.</p>
+                                <h4 className="font-serif text-lg text-text-light dark:text-text-white group-hover:text-[#C5A065] transition-colors">Classic Roll-On Bottles</h4>
+                                <p className="text-xs text-gray-500 mt-1">Timeless clarity meets modern silhouette.</p>
                             </div>
 
                             {/* List of Other Collections */}
@@ -349,7 +350,7 @@ export const Header: React.FC<HeaderProps> = ({
                                 <ul className="space-y-4">
                                     {['Cobalt Blue', 'Emerald Green', 'Frosted Editions', 'Travel Size (1-5ml)', 'Sample Vials'].map(item => (
                                         <li key={item}>
-                                            <a href="#" onClick={() => { setActiveMenu(null); onCollectionsClick?.(); }} className="text-sm font-medium text-text-light dark:text-white hover:text-[#C5A065] flex items-center justify-between group">
+                                            <a href="#" onClick={() => { setActiveMenu(null); onCollectionsClick?.(); }} className="text-sm font-medium text-text-light dark:text-text-white hover:text-[#C5A065] flex items-center justify-between group">
                                                 {item}
                                                 <span className="material-symbols-outlined text-[14px] opacity-0 group-hover:opacity-100 transition-opacity -translate-x-2 group-hover:translate-x-0">arrow_forward</span>
                                             </a>

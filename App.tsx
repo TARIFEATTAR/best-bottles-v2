@@ -40,22 +40,57 @@ const PageTransition: React.FC<{ children: React.ReactNode }> = ({ children }) =
     );
 };
 
+export interface ProjectDraft {
+    category?: string;
+    capacity?: string;
+    quantity?: number;
+    color?: string;
+}
+
 const App: React.FC = () => {
   const [view, setView] = useState<'home' | 'detail' | 'consultation' | 'collections' | 'collection-detail' | 'custom' | 'journal' | 'packaging-ideas' | 'help-center' | 'contact' | 'signup' | 'contract-packaging'>('home');
   const [cartItems, setCartItems] = useState<{product: any, quantity: number}[]>([]);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
+  
+  // State for passing data to builder from voice chat
+  const [projectDraft, setProjectDraft] = useState<ProjectDraft | null>(null);
 
   // Scroll to top on view change
   useEffect(() => {
       window.scrollTo(0, 0);
   }, [view]);
 
-  // Listen for custom navigation events from BentoGrid and other components
+  // Listen for custom navigation events
   useEffect(() => {
+    // Contract Packaging
     const handleContractNav = () => setView('contract-packaging');
+    
+    // Project Builder (from Voice/Search)
+    const handleBuilderNav = (e: Event) => {
+        const customEvent = e as CustomEvent;
+        const details = customEvent.detail;
+        
+        console.log("Navigating to builder with details:", details);
+        
+        // Update persistent draft state
+        setProjectDraft({
+            category: details.category,
+            capacity: details.capacity,
+            quantity: details.quantity ? Number(details.quantity) : undefined,
+            color: details.color
+        });
+        
+        setView('consultation');
+    };
+
     window.addEventListener('navigate-to-contract', handleContractNav);
-    return () => window.removeEventListener('navigate-to-contract', handleContractNav);
+    window.addEventListener('navigate-to-builder', handleBuilderNav);
+    
+    return () => {
+        window.removeEventListener('navigate-to-contract', handleContractNav);
+        window.removeEventListener('navigate-to-builder', handleBuilderNav);
+    };
   }, []);
 
   const addToCart = (product: any, quantity: number) => {
@@ -65,7 +100,7 @@ const App: React.FC = () => {
         const existingIndex = prev.findIndex(item => {
              // Check standard SKU
              if (item.product.sku && product.sku && item.product.sku === product.sku) return true;
-             // Check name + variant (for custom objects from ProductDetail)
+             // Check name + variant (for custom objects from ProductDetail/Consultation)
              if (item.product.name === product.name && item.product.variant === product.variant) return true;
              return false;
         });
@@ -95,7 +130,7 @@ const App: React.FC = () => {
 
   const navigateToHome = () => setView('home');
   const navigateToDetail = () => setView('detail');
-  const navigateToConsultation = () => setView('consultation');
+  const navigateToConsultation = () => { setView('consultation'); };
   const navigateToCollections = () => setView('collections');
   const navigateToCollectionDetail = () => setView('collection-detail');
   const navigateToCustom = () => setView('custom');
@@ -118,7 +153,7 @@ const App: React.FC = () => {
             onAddToCart={addToCart}
           />;
           case 'detail': return <ProductDetail onBack={navigateToHome} onAddToCart={addToCart} />;
-          case 'consultation': return <ConsultationPage onBack={navigateToHome} />;
+          case 'consultation': return <ConsultationPage onBack={navigateToHome} projectDraft={projectDraft} onAddToCart={addToCart} />;
           case 'collections': return <CollectionsPage onCollectionClick={navigateToCollectionDetail} />;
           case 'collection-detail': return <CollectionDetailPage onBack={navigateToCollections} onProductClick={navigateToDetail} onAddToCart={addToCart} />;
           case 'custom': return <CustomPage />;

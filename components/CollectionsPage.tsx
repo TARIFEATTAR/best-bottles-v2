@@ -1,3 +1,4 @@
+
 import React from "react";
 
 interface CollectionsPageProps {
@@ -19,7 +20,7 @@ const COLLECTIONS_GRID = [
     id: "roll-on",
     title: "Roll-On Series",
     description: "Precision fitments for oils and aromatherapy blends.",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuAZPzMv3XTOBIdXfskvddDgLAgMI37FcCizAhrZFWxjcDp_DpT11oLd_0ZtGkbnW0W31X4dNXnJdc895221lxCbGSNyxE8v4SsVXtr5q49XQkVAfqJO6Qrm9L9pZ06HYgr6COgWul1P0_QOXZTzFpaEq3LB1ZDauvoiH3Sph8Do4FdA19cOdl5xL0ptuoRWtlLTNPWwvPgP4z5NOBPPmdtj0yhGgxXFhvq0yWDjqwKUqtamjwjoN5VexgKfQb_3G8li6G9QldPL56A",
+    image: "https://cdn.shopify.com/s/files/1/1989/5889/files/madison-studio-177c235a.jpg?v=1765653066",
     size: "tall",
     theme: "dark"
   },
@@ -178,7 +179,7 @@ export const CollectionsPage: React.FC<CollectionsPageProps> = ({ onCollectionCl
                 </p>
             </div>
             <div className="relative z-20">
-                <button className="bg-white text-[#1D1D1F] px-8 py-4 rounded-full font-bold uppercase tracking-widest text-xs hover:bg-[#C5A065] hover:text-white transition-all shadow-lg transform hover:scale-105 active:scale-95">
+                <button className="bg-white text-[#1D1D1F] px-8 py-4 rounded-full font-bold uppercase tracking-widest text-xs hover:bg-[#C5A059] hover:text-white transition-all shadow-lg transform hover:scale-105 active:scale-95">
                     Start Custom Project
                 </button>
             </div>

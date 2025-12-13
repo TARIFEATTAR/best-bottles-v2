@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Reveal } from "./Reveal";
+import { ProjectDraft } from "../App";
 
 interface ConsultationPageProps {
   onBack?: () => void;
+  projectDraft?: ProjectDraft | null;
+  onAddToCart?: (product: any, quantity: number) => void;
 }
 
-// --- Builder Data ---
+// --- Builder Data (Matches constants.ts PRODUCTS) ---
 const CATEGORIES = [
     { id: 'perfume', label: 'Perfume / Fragrance', icon: 'scent' },
     { id: 'oil', label: 'Essential Oils', icon: 'spa' },
@@ -13,11 +15,30 @@ const CATEGORIES = [
 ];
 
 const VESSELS = [
-    { id: 'amber-vial', name: 'Amber Dram Vial', capacity: '4ml', price: 0.25, img: 'https://www.bestbottles.com/images/store/enlarged_pics/GBVAmb1DrmBlkDropper.gif' },
-    { id: 'blue-vial', name: 'Cobalt Blue Vial', capacity: '4ml', price: 0.30, img: 'https://www.bestbottles.com/images/store/enlarged_pics/GBVBlu1DrmBlkDropper.gif' },
-    { id: 'green-vial', name: 'Emerald Green Vial', capacity: '4ml', price: 0.30, img: 'https://www.bestbottles.com/images/store/enlarged_pics/GBVGr1DrmBlkDropper.gif' },
-    { id: 'clear-boston', name: 'Flint Boston Round', capacity: '15ml', price: 0.55, img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAZPzMv3XTOBIdXfskvddDgLAgMI37FcCizAhrZFWxjcDp_DpT11oLd_0ZtGkbnW0W31X4dNXnJdc895221lxCbGSNyxE8v4SsVXtr5q49XQkVAfqJO6Qrm9L9pZ06HYgr6COgWul1P0_QOXZTzFpaEq3LB1ZDauvoiH3Sph8Do4FdA19cOdl5xL0ptuoRWtlLTNPWwvPgP4z5NOBPPmdtj0yhGgxXFhvq0yWDjqwKUqtamjwjoN5VexgKfQb_3G8li6G9QldPL56A' },
-    { id: 'frosted-square', name: 'Frosted Square', capacity: '30ml', price: 1.20, img: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&q=80&w=600' },
+    // 1. Amber 10ml
+    { id: 'amber-10', name: 'Amber Roller Bottle', capacity: '10ml', price: 0.45, color: 'Amber', img: 'https://www.bestbottles.com/images/store/enlarged_pics/GBVAmb1DrmBlkDropper.gif' },
+    // 2. Blue 10ml
+    { id: 'blue-10', name: 'Cobalt Blue Roller', capacity: '10ml', price: 0.55, color: 'Blue', img: 'https://www.bestbottles.com/images/store/enlarged_pics/GBVBlu1DrmBlkDropper.gif' },
+    // 3. Clear 30ml
+    { id: 'clear-30', name: 'Flint Boston Round', capacity: '30ml', price: 0.85, color: 'Clear', img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAZPzMv3XTOBIdXfskvddDgLAgMI37FcCizAhrZFWxjcDp_DpT11oLd_0ZtGkbnW0W31X4dNXnJdc895221lxCbGSNyxE8v4SsVXtr5q49XQkVAfqJO6Qrm9L9pZ06HYgr6COgWul1P0_QOXZTzFpaEq3LB1ZDauvoiH3Sph8Do4FdA19cOdl5xL0ptuoRWtlLTNPWwvPgP4z5NOBPPmdtj0yhGgxXFhvq0yWDjqwKUqtamjwjoN5VexgKfQb_3G8li6G9QldPL56A' },
+    // 4. Frosted 50ml
+    { id: 'frosted-50', name: 'Frosted Square', capacity: '50ml', price: 1.85, color: 'Frosted', img: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&q=80&w=600' },
+    // 5. Black 30ml
+    { id: 'black-30', name: 'Matte Black Cylinder', capacity: '30ml', price: 1.10, color: 'Black', img: 'https://images.unsplash.com/photo-1615634260167-c8c9c313880b?auto=format&fit=crop&q=80&w=400' },
+    // 6. Royal 12ml
+    { id: 'royal-12', name: 'Royal Cylinder', capacity: '12ml', price: 6.79, color: 'Gold', img: 'https://www.bestbottles.com/images/store/enlarged_pics/GBMtlCylGl.gif' },
+    // 7. Green 15ml
+    { id: 'green-15', name: 'Emerald Euro', capacity: '15ml', price: 0.65, color: 'Green', img: 'https://www.bestbottles.com/images/store/enlarged_pics/GBVGr1DrmBlkDropper.gif' },
+    // 8. Metal 5ml
+    { id: 'metal-5', name: 'Metal Shell Atomizer', capacity: '5ml', price: 2.25, color: 'Silver', img: 'https://cdn.shopify.com/s/files/1/1989/5889/files/madison-studio-6ba7f817.jpg?v=1765508537' },
+    // 9. Clear 100ml
+    { id: 'clear-100', name: 'Classic Rectangular', capacity: '100ml', price: 2.50, color: 'Clear', img: 'https://www.bestbottles.com/images/store/enlarged_pics/GBSQSTClear.gif' },
+    // 10. Bamboo 10ml
+    { id: 'bamboo-10', name: 'Bamboo Shell', capacity: '10ml', price: 1.45, color: 'Wood', img: 'https://images.unsplash.com/photo-1595855709940-fa1d4f243029?auto=format&fit=crop&q=80&w=400' },
+    // 11. White 30ml
+    { id: 'white-30', name: 'White Opal Cylinder', capacity: '30ml', price: 1.60, color: 'White', img: 'https://cdn.shopify.com/s/files/1/1989/5889/files/madison-studio-1a5ce90f_1.jpg?v=1765597664' },
+    // 12. Violet 50ml
+    { id: 'violet-50', name: 'Violet Glass Jar', capacity: '50ml', price: 3.50, color: 'Purple', img: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&q=80&w=400' },
 ];
 
 const FITMENTS = [
@@ -35,29 +56,75 @@ const CAPS = [
     { id: 'silver-alum', name: 'Brushed Silver', material: 'Aluminum', price: 0.25, color: '#C0C0C0' },
     { id: 'white-smooth', name: 'Gloss White', material: 'Plastic', price: 0.10, color: '#F0F0F0' },
     { id: 'wood-ash', name: 'Ash Wood', material: 'Wood', price: 0.45, color: '#A08060' },
+    { id: 'bamboo', name: 'Natural Bamboo', material: 'Wood', price: 0.55, color: '#E3CBA8' }
 ];
 
-export const ConsultationPage: React.FC<ConsultationPageProps> = ({ onBack }) => {
+export const ConsultationPage: React.FC<ConsultationPageProps> = ({ onBack, projectDraft, onAddToCart }) => {
   // Mode: 'brief' (intake) -> 'studio' (builder) -> 'summary' (checkout)
   const [mode, setMode] = useState<'brief' | 'studio' | 'summary'>('brief');
-  const [context, setContext] = useState<string | null>(null);
   
-  // Builder State
+  // Project State
+  const [contextCategory, setContextCategory] = useState<string | null>(null);
   const [activeStep, setActiveStep] = useState<0 | 1 | 2>(0); // 0: Vessel, 1: Fitment, 2: Closure
   const [selections, setSelections] = useState<{
       vessel: typeof VESSELS[0] | null,
       fitment: typeof FITMENTS[0] | null,
-      closure: typeof CAPS[0] | null
+      closure: typeof CAPS[0] | null,
+      quantity: number
   }>({
       vessel: null,
       fitment: null,
-      closure: null
+      closure: null,
+      quantity: 100 // Default quantity
   });
+
+  // Assistant State
+  const [assistantInput, setAssistantInput] = useState("");
+
+  // Initialize from Draft
+  useEffect(() => {
+      if (projectDraft) {
+          setContextCategory(projectDraft.category || null);
+          
+          setSelections(prev => ({
+              ...prev,
+              quantity: projectDraft.quantity || 100
+          }));
+
+          // Enhanced Pre-selection Logic
+          // We now try to match both CAPACITY and COLOR/NAME if available
+          if (projectDraft.capacity) {
+              const capClean = projectDraft.capacity.toLowerCase().replace(" ", "");
+              
+              const matchedVessel = VESSELS.find(v => {
+                  const vCap = v.capacity.toLowerCase();
+                  // Check Capacity
+                  const capMatch = vCap.includes(capClean) || capClean.includes(vCap);
+                  
+                  // Check Color if provided, otherwise default to true (any color)
+                  let colorMatch = true;
+                  if (projectDraft.color) {
+                      const reqColor = projectDraft.color.toLowerCase();
+                      colorMatch = v.color.toLowerCase().includes(reqColor) || v.name.toLowerCase().includes(reqColor);
+                  }
+                  
+                  return capMatch && colorMatch;
+              });
+
+              if (matchedVessel) {
+                  setSelections(prev => ({ ...prev, vessel: matchedVessel }));
+              }
+          }
+
+          // If drafted, jump straight to Studio
+          setMode('studio');
+      }
+  }, [projectDraft]);
 
   // Helper to advance steps
   const handleSelect = (type: 'vessel' | 'fitment' | 'closure', item: any) => {
       setSelections(prev => ({ ...prev, [type]: item }));
-      // Auto-advance logic (optional, creates flow)
+      // Auto-advance logic
       if (type === 'vessel') setTimeout(() => setActiveStep(1), 400);
       if (type === 'fitment') setTimeout(() => setActiveStep(2), 400);
   };
@@ -66,7 +133,83 @@ export const ConsultationPage: React.FC<ConsultationPageProps> = ({ onBack }) =>
       const base = selections.vessel?.price || 0;
       const fit = selections.fitment?.price || 0;
       const cap = selections.closure?.price || 0;
+      return ((base + fit + cap) * selections.quantity).toFixed(2);
+  };
+
+  const calculateUnitPrice = () => {
+      const base = selections.vessel?.price || 0;
+      const fit = selections.fitment?.price || 0;
+      const cap = selections.closure?.price || 0;
       return (base + fit + cap).toFixed(2);
+  };
+
+  const handleFinishKit = () => {
+      if (!selections.vessel || !selections.fitment || !selections.closure) return;
+      
+      const customProduct = {
+          name: `Custom Kit: ${selections.vessel.name}`,
+          variant: `${selections.closure.name} + ${selections.fitment.name}`,
+          price: parseFloat(calculateUnitPrice()),
+          imageUrl: selections.vessel.img,
+          category: 'Custom Project',
+          sku: `CUST-${Date.now().toString().slice(-4)}`
+      };
+      
+      onAddToCart?.(customProduct, selections.quantity);
+  };
+
+  // Mock function to simulate AI modification within the studio
+  const handleAssistantSubmit = (e: React.FormEvent) => {
+      e.preventDefault();
+      if (!assistantInput.trim()) return;
+      
+      console.log("AI Modification Request:", assistantInput);
+      const input = assistantInput.toLowerCase();
+      setAssistantInput("");
+      
+      // -- LOGIC FOR AI ASSISTANT MODIFICATIONS --
+      
+      // 1. Color/Material Swapping
+      if (input.includes("amber")) {
+          const v = VESSELS.find(x => x.color === "Amber" && (selections.vessel ? x.capacity === selections.vessel.capacity : true));
+          if (v) setSelections(prev => ({ ...prev, vessel: v }));
+      }
+      else if (input.includes("blue") || input.includes("cobalt")) {
+          const v = VESSELS.find(x => x.color === "Blue" && (selections.vessel ? x.capacity === selections.vessel.capacity : true));
+          if (v) setSelections(prev => ({ ...prev, vessel: v }));
+      }
+      else if (input.includes("frosted")) {
+          const v = VESSELS.find(x => x.color === "Frosted");
+          if (v) setSelections(prev => ({ ...prev, vessel: v }));
+      }
+      else if (input.includes("clear") || input.includes("flint")) {
+          const v = VESSELS.find(x => x.color === "Clear" && (selections.vessel ? x.capacity === selections.vessel.capacity : true));
+          if (v) setSelections(prev => ({ ...prev, vessel: v }));
+      }
+
+      // 2. Cap Swapping
+      if (input.includes("gold")) {
+          const cap = CAPS.find(c => c.id === 'gold-alum');
+          if (cap) setSelections(prev => ({ ...prev, closure: cap }));
+      }
+      if (input.includes("bamboo") || input.includes("wood")) {
+          const cap = CAPS.find(c => c.id === 'bamboo') || CAPS.find(c => c.id === 'wood-ash');
+          if (cap) setSelections(prev => ({ ...prev, closure: cap }));
+      }
+
+      // 3. Quantity Adjustment
+      const qtyMatch = input.match(/\d+/);
+      if (qtyMatch) {
+          const num = parseInt(qtyMatch[0]);
+          // Heuristic: If number is large (>10), assume quantity. If small, might be capacity.
+          if (num > 10) {
+              setSelections(prev => ({ ...prev, quantity: num }));
+          } else {
+              // Try to find a vessel size
+              const v = VESSELS.find(x => x.capacity.includes(num.toString()));
+              if(v) setSelections(prev => ({ ...prev, vessel: v }));
+          }
+      }
   };
 
   // --- Render: Briefing (Intake) ---
@@ -85,7 +228,7 @@ export const ConsultationPage: React.FC<ConsultationPageProps> = ({ onBack }) =>
                      {CATEGORIES.map(cat => (
                          <button 
                             key={cat.id}
-                            onClick={() => { setContext(cat.id); setMode('studio'); }}
+                            onClick={() => { setContextCategory(cat.id); setMode('studio'); }}
                             className="group relative h-48 rounded-xl border border-gray-100 dark:border-gray-800 bg-gray-50 dark:bg-white/5 hover:border-gold dark:hover:border-gold transition-all duration-300 flex flex-col items-center justify-center gap-4 overflow-hidden"
                          >
                              <div className="w-16 h-16 rounded-full bg-white dark:bg-black/20 flex items-center justify-center text-gray-400 group-hover:text-gold group-hover:scale-110 transition-all duration-300 shadow-sm">
@@ -118,7 +261,6 @@ export const ConsultationPage: React.FC<ConsultationPageProps> = ({ onBack }) =>
 
                 {/* Live Kit Preview */}
                 <div className="relative w-full max-w-md aspect-square flex items-center justify-center">
-                    {/* Dynamic Image Layering (Concept) */}
                     <div className="relative w-full h-full flex items-center justify-center transition-all duration-700">
                          {/* Base Bottle */}
                          {selections.vessel ? (
@@ -149,7 +291,9 @@ export const ConsultationPage: React.FC<ConsultationPageProps> = ({ onBack }) =>
 
                 {/* Kit Summary Overlay (Bottom Left) */}
                 <div className="absolute bottom-6 left-6 md:bottom-12 md:left-12 flex flex-col gap-2">
-                     <div className="text-xs font-bold uppercase tracking-widest text-gold mb-2">Current Kit</div>
+                     <div className="text-xs font-bold uppercase tracking-widest text-gold mb-2">
+                        {contextCategory ? `Project: ${contextCategory}` : 'Current Kit'}
+                     </div>
                      <div className="flex flex-col gap-1 text-sm text-[#1D1D1F] dark:text-white">
                          <span className={selections.vessel ? "" : "text-gray-400 opacity-50"}>
                             1. Vessel: {selections.vessel?.name || "Pending..."}
@@ -165,22 +309,25 @@ export const ConsultationPage: React.FC<ConsultationPageProps> = ({ onBack }) =>
 
                 {/* Price Ticker */}
                 <div className="absolute bottom-6 right-6 md:bottom-12 md:right-12 text-right">
-                    <span className="block text-xs text-gray-400 uppercase tracking-widest mb-1">Unit Price</span>
+                    <span className="block text-xs text-gray-400 uppercase tracking-widest mb-1">Total Estimate</span>
                     <span className="block text-3xl font-serif text-[#1D1D1F] dark:text-white">${calculateTotal()}</span>
+                    <span className="block text-[10px] text-gray-400 mt-1">
+                        ${calculateUnitPrice()} / unit for {selections.quantity} units
+                    </span>
                 </div>
             </div>
 
             {/* Right: The Palette (Controls) */}
-            <div className="w-full md:w-1/2 h-[60vh] md:h-full overflow-y-auto bg-[#F9F8F6] dark:bg-background-dark border-l border-gray-200 dark:border-gray-800 flex flex-col">
+            <div className="w-full md:w-1/2 h-[60vh] md:h-full flex flex-col bg-[#F9F8F6] dark:bg-background-dark border-l border-gray-200 dark:border-gray-800 relative">
                 
                 {/* Steps Navigation */}
-                <div className="sticky top-0 z-30 bg-[#F9F8F6]/95 dark:bg-background-dark/95 backdrop-blur border-b border-gray-200 dark:border-gray-800 px-6 md:px-12 py-6 flex justify-between items-center">
-                     <div className="flex gap-6 md:gap-8">
+                <div className="shrink-0 bg-[#F9F8F6]/95 dark:bg-background-dark/95 backdrop-blur border-b border-gray-200 dark:border-gray-800 px-6 md:px-12 py-6 flex justify-between items-center">
+                     <div className="flex gap-6 md:gap-8 overflow-x-auto no-scrollbar">
                          {['Vessel', 'Fitment', 'Closure'].map((step, idx) => (
                              <button
                                 key={step}
                                 onClick={() => setActiveStep(idx as any)}
-                                className={`text-xs font-bold uppercase tracking-widest pb-1 transition-all relative ${
+                                className={`text-xs font-bold uppercase tracking-widest pb-1 transition-all relative whitespace-nowrap ${
                                     activeStep === idx 
                                     ? 'text-[#1D1D1F] dark:text-white' 
                                     : 'text-gray-400 hover:text-gray-600'
@@ -199,13 +346,38 @@ export const ConsultationPage: React.FC<ConsultationPageProps> = ({ onBack }) =>
                             (!selections.vessel || !selections.fitment || !selections.closure) ? 'opacity-50 cursor-not-allowed' : ''
                         }`}
                      >
-                         Complete
+                         Finish
                      </button>
                 </div>
 
-                {/* Options Grid */}
-                <div className="p-6 md:p-12 pb-32">
+                {/* Options Grid (Scrollable) */}
+                <div className="flex-1 overflow-y-auto p-6 md:p-12 pb-32">
                     
+                    {/* Quantity Edit (Always Visible at Top of Options) */}
+                    <div className="mb-8 p-4 bg-white dark:bg-white/5 rounded-xl border border-gray-200 dark:border-gray-700 flex items-center justify-between">
+                        <span className="text-xs font-bold uppercase tracking-widest text-gray-500">Order Quantity</span>
+                        <div className="flex items-center gap-3">
+                            <button 
+                                onClick={() => setSelections(prev => ({ ...prev, quantity: Math.max(1, prev.quantity - 50) }))}
+                                className="w-8 h-8 rounded-full bg-gray-100 dark:bg-white/10 flex items-center justify-center hover:bg-gray-200"
+                            >
+                                <span className="material-symbols-outlined text-sm">remove</span>
+                            </button>
+                            <input 
+                                type="number" 
+                                value={selections.quantity}
+                                onChange={(e) => setSelections(prev => ({ ...prev, quantity: Math.max(1, parseInt(e.target.value) || 0) }))}
+                                className="w-16 text-center bg-transparent border-none font-bold text-[#1D1D1F] dark:text-white"
+                            />
+                            <button 
+                                onClick={() => setSelections(prev => ({ ...prev, quantity: prev.quantity + 50 }))}
+                                className="w-8 h-8 rounded-full bg-gray-100 dark:bg-white/10 flex items-center justify-center hover:bg-gray-200"
+                            >
+                                <span className="material-symbols-outlined text-sm">add</span>
+                            </button>
+                        </div>
+                    </div>
+
                     {/* Step 1: Vessels */}
                     {activeStep === 0 && (
                         <div className="animate-fade-in">
@@ -309,15 +481,32 @@ export const ConsultationPage: React.FC<ConsultationPageProps> = ({ onBack }) =>
 
                 </div>
 
+                {/* Assistant Bar (Bottom of Studio) */}
+                <div className="shrink-0 p-4 border-t border-gray-200 dark:border-gray-800 bg-white dark:bg-black/20">
+                    <form onSubmit={handleAssistantSubmit} className="relative flex items-center">
+                        <span className="absolute left-4 material-symbols-outlined text-gold animate-pulse">auto_awesome</span>
+                        <input 
+                            type="text" 
+                            value={assistantInput}
+                            onChange={(e) => setAssistantInput(e.target.value)}
+                            placeholder="Ask AI to modify (e.g. 'Switch to gold caps', 'Change qty to 500')"
+                            className="w-full pl-12 pr-12 py-3 bg-gray-100 dark:bg-white/5 border border-transparent focus:border-gold rounded-full text-sm outline-none transition-all"
+                        />
+                        <button type="submit" className="absolute right-2 w-8 h-8 bg-[#1D1D1F] dark:bg-white text-white dark:text-[#1D1D1F] rounded-full flex items-center justify-center hover:scale-105 transition-transform">
+                            <span className="material-symbols-outlined text-sm">arrow_upward</span>
+                        </button>
+                    </form>
+                </div>
+
                 {/* Mobile Floating Action Button */}
-                <div className="md:hidden fixed bottom-0 left-0 w-full p-4 bg-white/90 dark:bg-black/90 backdrop-blur border-t border-gray-200 dark:border-gray-800 z-50">
+                <div className="md:hidden fixed bottom-[70px] left-0 w-full p-4 pointer-events-none">
                      <button 
                         onClick={() => {
                             if (activeStep < 2) setActiveStep((prev) => (prev + 1) as any);
                             else setMode('summary');
                         }}
                         disabled={activeStep === 2 && !selections.closure}
-                        className="w-full bg-[#1D1D1F] dark:bg-white text-white dark:text-[#1D1D1F] py-4 rounded-xl text-xs font-bold uppercase tracking-widest shadow-lg"
+                        className="w-full bg-[#1D1D1F] dark:bg-white text-white dark:text-[#1D1D1F] py-4 rounded-xl text-xs font-bold uppercase tracking-widest shadow-lg pointer-events-auto"
                      >
                          {activeStep < 2 ? 'Next Step' : 'Finish Kit'}
                      </button>
@@ -358,14 +547,21 @@ export const ConsultationPage: React.FC<ConsultationPageProps> = ({ onBack }) =>
                           <span className="text-sm text-gray-500">Closure</span>
                           <span className="text-sm font-bold text-[#1D1D1F] dark:text-white">{selections.closure?.name}</span>
                       </div>
+                      <div className="flex justify-between items-center py-3 border-b border-gray-100 dark:border-gray-700">
+                          <span className="text-sm text-gray-500">Quantity</span>
+                          <span className="text-sm font-bold text-[#1D1D1F] dark:text-white">{selections.quantity} units</span>
+                      </div>
                       <div className="flex justify-between items-center pt-4 mt-2">
-                          <span className="text-sm font-bold uppercase tracking-widest text-gray-400">Total / Unit</span>
+                          <span className="text-sm font-bold uppercase tracking-widest text-gray-400">Total Price</span>
                           <span className="text-2xl font-serif font-bold text-[#1D1D1F] dark:text-white">${calculateTotal()}</span>
                       </div>
                   </div>
 
                   <div className="flex flex-col gap-3">
-                      <button className="w-full bg-[#1D1D1F] dark:bg-white text-white dark:text-[#1D1D1F] py-4 rounded-xl text-sm font-bold uppercase tracking-widest hover:opacity-90 shadow-lg">
+                      <button 
+                        onClick={handleFinishKit}
+                        className="w-full bg-[#1D1D1F] dark:bg-white text-white dark:text-[#1D1D1F] py-4 rounded-xl text-sm font-bold uppercase tracking-widest hover:opacity-90 shadow-lg"
+                      >
                           Add Kit to Cart
                       </button>
                       <button 

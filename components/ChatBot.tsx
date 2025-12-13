@@ -123,14 +123,22 @@ export const ChatBot: React.FC = () => {
         onClick={() => setIsOpen(false)}
       />
 
-      {/* Sidebar Drawer */}
+      {/* Main Chat Interface */}
       <div 
-        className={`fixed top-0 right-0 h-full w-[90vw] md:w-[450px] bg-white dark:bg-[#111111] shadow-2xl z-[100] transform transition-transform duration-500 cubic-bezier(0.16, 1, 0.3, 1) flex flex-col border-l border-gray-100 dark:border-gray-800 ${
-          isOpen ? 'translate-x-0' : 'translate-x-full'
-        }`}
+        className={`
+            fixed z-[100] flex flex-col bg-white dark:bg-[#111111] shadow-2xl transition-transform duration-500 cubic-bezier(0.16, 1, 0.3, 1)
+            
+            /* Mobile Styles: Full screen, slide up from bottom */
+            inset-0 
+            ${isOpen ? 'translate-y-0' : 'translate-y-full'}
+            
+            /* Desktop Styles: Right drawer, slide from right */
+            md:top-0 md:right-0 md:bottom-auto md:left-auto md:h-full md:w-[450px] md:border-l md:border-gray-100 md:dark:border-gray-800
+            md:${isOpen ? 'translate-x-0 translate-y-0' : 'translate-x-full translate-y-0'}
+        `}
       >
         {/* Header */}
-        <div className="bg-[#1D1D1F] p-6 flex items-center justify-between shrink-0">
+        <div className="bg-[#1D1D1F] p-6 flex items-center justify-between shrink-0 safe-top">
             <div className="flex items-center gap-4">
                 <div className="relative">
                     <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center border border-white/20">
@@ -145,9 +153,9 @@ export const ChatBot: React.FC = () => {
             </div>
             <button 
                 onClick={() => setIsOpen(false)}
-                className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-white/10 text-white/50 hover:text-white transition-colors"
+                className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-white/10 text-white/70 hover:text-white transition-colors"
             >
-                <span className="material-symbols-outlined">close</span>
+                <span className="material-symbols-outlined">expand_more</span>
             </button>
         </div>
 
@@ -187,7 +195,7 @@ export const ChatBot: React.FC = () => {
         </div>
 
         {/* Input */}
-        <div className="p-4 bg-white dark:bg-[#111111] border-t border-gray-100 dark:border-gray-800 shrink-0">
+        <div className="p-4 bg-white dark:bg-[#111111] border-t border-gray-100 dark:border-gray-800 shrink-0 safe-bottom">
             <div className="flex items-center gap-2 bg-gray-50 dark:bg-[#1E1E1E] rounded-full px-4 py-2 border border-gray-200 dark:border-gray-700 focus-within:border-[#C5A065] focus-within:ring-1 focus-within:ring-[#C5A065] transition-all">
                 <input
                     ref={inputRef}
@@ -214,10 +222,10 @@ export const ChatBot: React.FC = () => {
         </div>
       </div>
 
-      {/* Trigger Tab (Sticky Side Button) - REPOSITIONED */}
+      {/* --- Desktop Trigger (Vertical Sidebar) --- */}
       <button
         onClick={() => setIsOpen(true)}
-        className={`fixed bottom-5 right-0 z-[80] bg-[#1D1D1F] text-white py-6 px-3 rounded-l-xl shadow-[0_4px_20px_rgba(0,0,0,0.2)] flex flex-col items-center gap-4 transition-transform duration-300 hover:bg-[#C5A065] hover:text-[#1D1D1F] group ${
+        className={`hidden md:flex fixed bottom-10 right-0 z-[80] bg-[#1D1D1F]/80 backdrop-blur-md border-l border-t border-b border-white/10 text-white py-6 px-3 rounded-l-xl shadow-[0_4px_20px_rgba(0,0,0,0.2)] flex-col items-center gap-4 transition-transform duration-300 hover:bg-[#C5A065] hover:text-[#1D1D1F] group ${
             isOpen ? 'translate-x-[120%]' : 'translate-x-0'
         }`}
         aria-label="Open Concierge"
@@ -229,6 +237,21 @@ export const ChatBot: React.FC = () => {
         >
           Concierge
         </span>
+      </button>
+
+      {/* --- Mobile Trigger (Floating Action Button) --- */}
+      <button
+        onClick={() => setIsOpen(true)}
+        className={`md:hidden fixed bottom-12 right-6 z-[80] w-14 h-14 rounded-full 
+        bg-[#1D1D1F]/70 backdrop-blur-md border border-white/10 shadow-lg 
+        flex items-center justify-center text-white
+        transition-all duration-300 hover:scale-110 hover:bg-[#1D1D1F]/90 active:scale-95 
+        ${isOpen ? 'scale-0 opacity-0' : 'scale-100 opacity-100'}`}
+        aria-label="Open Chat"
+      >
+          <span className="material-symbols-outlined text-2xl">chat_bubble</span>
+          {/* Notification Dot */}
+          <span className="absolute top-3 right-3 w-2.5 h-2.5 bg-[#C5A065] border-2 border-[#1D1D1F] rounded-full"></span>
       </button>
     </>
   );
