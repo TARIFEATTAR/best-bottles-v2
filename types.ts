@@ -8,6 +8,9 @@ export interface Product {
   capacity: string;
   color: string;
   category: string;
+  neckFinish?: string;
+  material?: string;
+  minOrderQty?: string;
 }
 
 export interface NavItem {
