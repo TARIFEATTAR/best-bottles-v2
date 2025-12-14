@@ -11,6 +11,8 @@ interface HeaderProps {
   onLoginClick?: () => void;
   onSignUpClick?: () => void;
   onCartClick?: () => void;
+  onContactClick?: () => void;
+  onHelpCenterClick?: () => void;
   cartCount?: number;
 }
 
@@ -23,11 +25,18 @@ export const Header: React.FC<HeaderProps> = ({
   onLoginClick,
   onSignUpClick,
   onCartClick,
+  onContactClick,
+  onHelpCenterClick,
   cartCount = 0
 }) => {
   // We use a string to track WHICH menu is open: 'shop', 'collections', or null
   const [activeMenu, setActiveMenu] = useState<'shop' | 'collections' | null>(null);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  
+  // Mobile Expanded States
+  const [mobileExpanded, setMobileExpanded] = useState<{[key: string]: boolean}>({});
+
   const closeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
@@ -53,6 +62,15 @@ export const Header: React.FC<HeaderProps> = ({
     }, 150);
   };
 
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+    setMobileExpanded({}); // Reset expansion on close/open toggle
+  };
+
+  const toggleMobileSection = (section: string) => {
+      setMobileExpanded(prev => ({ ...prev, [section]: !prev[section] }));
+  };
+
   return (
     <div className="sticky top-0 z-50 bg-white dark:bg-[#151515] transition-colors duration-300">
       
@@ -60,8 +78,16 @@ export const Header: React.FC<HeaderProps> = ({
         <div className="max-w-[1800px] mx-auto">
           
           {/* TOP ROW: Logo | Search | Actions */}
-          <div className="flex items-center justify-between px-6 py-5 gap-6 md:gap-8">
+          <div className="flex items-center justify-between px-6 py-5 gap-4 md:gap-8">
               
+              {/* Mobile Hamburger */}
+              <button 
+                onClick={toggleMobileMenu}
+                className="md:hidden p-2 -ml-2 text-text-light dark:text-white hover:bg-gray-100 dark:hover:bg-white/10 rounded-full transition-colors"
+              >
+                <span className="material-symbols-outlined">menu</span>
+              </button>
+
               {/* 1. Logo */}
               <a
                   className="font-serif text-2xl md:text-3xl font-bold tracking-tight text-text-light dark:text-text-dark cursor-pointer flex-shrink-0 uppercase"
@@ -82,7 +108,7 @@ export const Header: React.FC<HeaderProps> = ({
               </div>
 
               {/* 3. Actions (Right) */}
-              <div className="flex items-center gap-4 md:gap-4 flex-shrink-0">
+              <div className="flex items-center gap-2 md:gap-4 flex-shrink-0">
                    
                    {/* Login / Sign Up */}
                    <div className="hidden lg:flex items-center gap-4 text-xs font-bold uppercase tracking-widest text-text-light dark:text-white mr-2">
@@ -210,7 +236,7 @@ export const Header: React.FC<HeaderProps> = ({
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 10 }}
                     transition={{ duration: 0.2 }}
-                    className="absolute top-full left-0 w-full bg-white dark:bg-[#151515] border-t border-gray-100 dark:border-gray-800 shadow-2xl z-40"
+                    className="absolute top-full left-0 w-full bg-[#f4f2ee] dark:bg-[#151515] border-t border-gray-100 dark:border-gray-800 shadow-2xl z-40 hidden md:block"
                     onMouseEnter={() => handleMouseEnter('shop')}
                     onMouseLeave={handleMouseLeave}
                 >
@@ -269,7 +295,7 @@ export const Header: React.FC<HeaderProps> = ({
                             </div>
 
                             {/* Col 4: Featured Action */}
-                            <div className="bg-gray-50 dark:bg-white/5 rounded-xl p-6 flex flex-col justify-between">
+                            <div className="bg-white dark:bg-white/5 rounded-xl p-6 flex flex-col justify-between">
                                 <div>
                                     <span className="bg-[#1D1D1F] text-white text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wider mb-3 inline-block">New Arrival</span>
                                     <h4 className="font-serif text-xl text-text-light dark:text-white mb-2">Metal Shell Atomizers</h4>
@@ -295,7 +321,7 @@ export const Header: React.FC<HeaderProps> = ({
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 10 }}
                     transition={{ duration: 0.2 }}
-                    className="absolute top-full left-0 w-full bg-white dark:bg-[#151515] border-t border-gray-100 dark:border-gray-800 shadow-2xl z-40"
+                    className="absolute top-full left-0 w-full bg-[#f4f2ee] dark:bg-[#151515] border-t border-gray-100 dark:border-gray-800 shadow-2xl z-40 hidden md:block"
                     onMouseEnter={() => handleMouseEnter('collections')}
                     onMouseLeave={handleMouseLeave}
                 >
@@ -365,6 +391,222 @@ export const Header: React.FC<HeaderProps> = ({
                         </div>
                     </div>
                 </motion.div>
+            )}
+        </AnimatePresence>
+
+        {/* --- MOBILE SIDE MENU DRAWER --- */}
+        <AnimatePresence>
+            {isMobileMenuOpen && (
+                <>
+                    {/* Backdrop */}
+                    <motion.div 
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 md:hidden"
+                        onClick={toggleMobileMenu}
+                    />
+                    
+                    {/* Drawer */}
+                    <motion.div 
+                        initial={{ x: "-100%" }}
+                        animate={{ x: 0 }}
+                        exit={{ x: "-100%" }}
+                        transition={{ type: "tween", duration: 0.3 }}
+                        className="fixed inset-y-0 left-0 w-[90%] max-w-[360px] bg-[#f4f2ee] dark:bg-[#151515] z-50 shadow-2xl flex flex-col md:hidden"
+                    >
+                        {/* Drawer Header */}
+                        <div className="p-6 flex justify-between items-center border-b border-gray-200 dark:border-gray-800 shrink-0">
+                            <span className="font-serif text-xl font-bold uppercase tracking-tight text-[#1D1D1F] dark:text-white">Best Bottles</span>
+                            <button onClick={toggleMobileMenu} className="p-2 -mr-2 text-gray-500 hover:text-[#1D1D1F] dark:hover:text-white transition-colors">
+                                <span className="material-symbols-outlined">close</span>
+                            </button>
+                        </div>
+
+                        {/* Drawer Content */}
+                        <div className="flex-1 overflow-y-auto p-6 space-y-6">
+                            
+                            {/* Mobile Search */}
+                            <div className="relative shrink-0">
+                                <input 
+                                    type="text" 
+                                    placeholder="Search catalog..." 
+                                    className="w-full pl-10 pr-4 py-3 rounded-xl bg-white dark:bg-white/5 border border-transparent focus:border-[#C5A065] focus:ring-1 focus:ring-[#C5A065] outline-none text-sm text-[#1D1D1F] dark:text-white placeholder:text-gray-500"
+                                />
+                                <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-[18px]">search</span>
+                            </div>
+
+                            {/* Navigation Links */}
+                            <nav className="flex flex-col space-y-2">
+                                
+                                {/* 1. Shop Products (Collapsible) */}
+                                <div>
+                                    <button 
+                                        onClick={() => toggleMobileSection('shop')}
+                                        className="w-full flex items-center justify-between text-lg font-bold text-[#1D1D1F] dark:text-white hover:text-[#C5A065] py-2 transition-colors group"
+                                    >
+                                        Shop Products
+                                        <span className={`material-symbols-outlined text-gray-300 group-hover:text-[#C5A065] transition-transform duration-300 ${mobileExpanded['shop'] ? 'rotate-90 text-[#C5A065]' : ''}`}>chevron_right</span>
+                                    </button>
+                                    
+                                    <AnimatePresence>
+                                        {mobileExpanded['shop'] && (
+                                            <motion.div
+                                                initial={{ height: 0, opacity: 0 }}
+                                                animate={{ height: "auto", opacity: 1 }}
+                                                exit={{ height: 0, opacity: 0 }}
+                                                className="overflow-hidden pl-4"
+                                            >
+                                                {/* Bottles Sub-section */}
+                                                <div className="py-2">
+                                                    <span className="text-xs font-bold text-gray-400 uppercase tracking-widest block mb-2">Bottles & Vials</span>
+                                                    <ul className="space-y-2 border-l border-gray-200 dark:border-gray-800 pl-4">
+                                                        {['Glass Bottles', 'Plastic Bottles', 'Aluminum Bottles', 'Glass Vials (Drams)', 'Roll-On Bottles', 'Jars & Pots'].map(item => (
+                                                            <li key={item}>
+                                                                <a href="#" onClick={(e) => { e.preventDefault(); toggleMobileMenu(); onHomeClick?.(); }} className="text-sm text-gray-600 dark:text-gray-300 block py-1 hover:text-[#C5A065]">{item}</a>
+                                                            </li>
+                                                        ))}
+                                                    </ul>
+                                                </div>
+                                                
+                                                {/* Closures Sub-section */}
+                                                <div className="py-2">
+                                                    <span className="text-xs font-bold text-gray-400 uppercase tracking-widest block mb-2">Closures</span>
+                                                    <ul className="space-y-2 border-l border-gray-200 dark:border-gray-800 pl-4">
+                                                        {['Caps (Phenolic & Metal)', 'Fine Mist Sprayers', 'Treatment Pumps', 'Droppers & Pipettes'].map(item => (
+                                                            <li key={item}>
+                                                                <a href="#" onClick={(e) => { e.preventDefault(); toggleMobileMenu(); onHomeClick?.(); }} className="text-sm text-gray-600 dark:text-gray-300 block py-1 hover:text-[#C5A065]">{item}</a>
+                                                            </li>
+                                                        ))}
+                                                    </ul>
+                                                </div>
+
+                                                <button onClick={(e) => { e.preventDefault(); toggleMobileMenu(); onHomeClick?.(); }} className="mt-2 text-xs font-bold text-[#C5A065] uppercase tracking-widest">
+                                                    View All Products
+                                                </button>
+                                            </motion.div>
+                                        )}
+                                    </AnimatePresence>
+                                </div>
+
+                                {/* 2. Collections (Collapsible - Carousel Updated) */}
+                                <div>
+                                    <button 
+                                        onClick={() => toggleMobileSection('collections')}
+                                        className="w-full flex items-center justify-between text-lg font-bold text-[#1D1D1F] dark:text-white hover:text-[#C5A065] py-2 transition-colors group"
+                                    >
+                                        Collections
+                                        <span className={`material-symbols-outlined text-gray-300 group-hover:text-[#C5A065] transition-transform duration-300 ${mobileExpanded['collections'] ? 'rotate-90 text-[#C5A065]' : ''}`}>chevron_right</span>
+                                    </button>
+
+                                    <AnimatePresence>
+                                        {mobileExpanded['collections'] && (
+                                            <motion.div
+                                                initial={{ height: 0, opacity: 0 }}
+                                                animate={{ height: "auto", opacity: 1 }}
+                                                exit={{ height: 0, opacity: 0 }}
+                                                className="overflow-hidden"
+                                            >
+                                                {/* Carousel Container */}
+                                                <div className="flex gap-4 overflow-x-auto pb-4 pt-2 -mx-6 px-6 snap-x snap-mandatory no-scrollbar">
+                                                    {/* Card 1: Atomizer */}
+                                                    <div 
+                                                        className="snap-center shrink-0 w-40 bg-white dark:bg-white/5 rounded-lg p-2 flex flex-col group cursor-pointer"
+                                                        onClick={() => { toggleMobileMenu(); onCollectionsClick?.(); }}
+                                                    >
+                                                        <img src="https://cdn.shopify.com/s/files/1/1989/5889/files/madison-studio-ea69669f.jpg?v=1765531548" className="w-full aspect-square object-cover rounded mb-2 transition-transform duration-500 group-active:scale-95" alt="Atomizer" />
+                                                        <span className="text-[10px] font-bold block leading-tight text-[#1D1D1F] dark:text-white">Atomizer Series</span>
+                                                    </div>
+                                                    
+                                                    {/* Card 2: Vintage */}
+                                                    <div 
+                                                        className="snap-center shrink-0 w-40 bg-white dark:bg-white/5 rounded-lg p-2 flex flex-col group cursor-pointer"
+                                                        onClick={() => { toggleMobileMenu(); onCollectionsClick?.(); }}
+                                                    >
+                                                        <img src="https://cdn.shopify.com/s/files/1/1989/5889/files/madison-studio-5b205acb.jpg?v=1765600055" className="w-full aspect-square object-cover rounded mb-2 transition-transform duration-500 group-active:scale-95" alt="Vintage" />
+                                                        <span className="text-[10px] font-bold block leading-tight text-[#1D1D1F] dark:text-white">Vintage Collection</span>
+                                                    </div>
+
+                                                    {/* Card 3: Roll-On */}
+                                                    <div 
+                                                        className="snap-center shrink-0 w-40 bg-white dark:bg-white/5 rounded-lg p-2 flex flex-col group cursor-pointer"
+                                                        onClick={() => { toggleMobileMenu(); onCollectionsClick?.(); }}
+                                                    >
+                                                        <img src="https://cdn.shopify.com/s/files/1/1989/5889/files/madison-studio-177c235a.jpg?v=1765653066" className="w-full aspect-square object-cover rounded mb-2 transition-transform duration-500 group-active:scale-95" alt="Roll-On" />
+                                                        <span className="text-[10px] font-bold block leading-tight text-[#1D1D1F] dark:text-white">Classic Roll-On</span>
+                                                    </div>
+                                                </div>
+
+                                                <div className="py-2 pl-4">
+                                                    <ul className="space-y-2 border-l border-gray-200 dark:border-gray-800 pl-4">
+                                                        {['Cobalt Blue Series', 'Emerald Green Series', 'Travel Size (1-5ml)'].map(item => (
+                                                            <li key={item}>
+                                                                <a href="#collections" onClick={(e) => { e.preventDefault(); toggleMobileMenu(); onCollectionsClick?.(); }} className="text-sm text-gray-600 dark:text-gray-300 block py-1 hover:text-[#C5A065]">{item}</a>
+                                                            </li>
+                                                        ))}
+                                                    </ul>
+                                                </div>
+                                            </motion.div>
+                                        )}
+                                    </AnimatePresence>
+                                </div>
+
+                                <a 
+                                    href="#custom" 
+                                    onClick={(e) => { e.preventDefault(); toggleMobileMenu(); onCustomClick?.(); }}
+                                    className="text-lg font-bold text-[#1D1D1F] dark:text-white hover:text-[#C5A065] py-2 transition-colors flex items-center justify-between group"
+                                >
+                                    Custom Projects
+                                    <span className="material-symbols-outlined text-gray-300 group-hover:text-[#C5A065]">chevron_right</span>
+                                </a>
+                                <a 
+                                    href="#journal" 
+                                    onClick={(e) => { e.preventDefault(); toggleMobileMenu(); onJournalClick?.(); }}
+                                    className="text-lg font-bold text-[#1D1D1F] dark:text-white hover:text-[#C5A065] py-2 transition-colors flex items-center justify-between group"
+                                >
+                                    Journal
+                                    <span className="material-symbols-outlined text-gray-300 group-hover:text-[#C5A065]">chevron_right</span>
+                                </a>
+                            </nav>
+
+                            <div className="h-px bg-gray-100 dark:bg-gray-800 shrink-0"></div>
+
+                            {/* Specialist Action */}
+                            <button 
+                                onClick={() => { toggleMobileMenu(); onConsultationClick?.(); }}
+                                className="w-full bg-[#1D1D1F] dark:bg-white text-white dark:text-[#1D1D1F] py-4 rounded-lg text-xs font-bold uppercase tracking-widest flex items-center justify-center gap-2 shadow-md shrink-0"
+                            >
+                                <span className="material-symbols-outlined text-sm">support_agent</span>
+                                Consult Specialist
+                            </button>
+
+                            {/* Auth Actions */}
+                            <div className="grid grid-cols-2 gap-4 shrink-0 pb-6">
+                                <button 
+                                    onClick={() => { toggleMobileMenu(); onLoginClick?.(); }}
+                                    className="py-3 text-sm font-bold text-[#1D1D1F] dark:text-white border border-gray-200 dark:border-gray-700 rounded-lg hover:border-[#1D1D1F] dark:hover:border-white transition-colors"
+                                >
+                                    Log In
+                                </button>
+                                <button 
+                                    onClick={() => { toggleMobileMenu(); onSignUpClick?.(); }}
+                                    className="py-3 text-sm font-bold text-[#1D1D1F] dark:text-white border border-gray-200 dark:border-gray-700 rounded-lg hover:border-[#1D1D1F] dark:hover:border-white transition-colors"
+                                >
+                                    Sign Up
+                                </button>
+                            </div>
+                        </div>
+
+                        {/* Drawer Footer */}
+                        <div className="p-6 bg-[#f4f2ee] dark:bg-white/5 border-t border-gray-200 dark:border-gray-800 shrink-0">
+                            <div className="flex gap-4 text-xs text-gray-500 justify-center">
+                                <button onClick={() => { toggleMobileMenu(); onContactClick?.(); }} className="hover:text-[#1D1D1F] dark:hover:text-white">Contact</button>
+                                <button onClick={() => { toggleMobileMenu(); onHelpCenterClick?.(); }} className="hover:text-[#1D1D1F] dark:hover:text-white">Shipping</button>
+                                <button onClick={() => { toggleMobileMenu(); onHelpCenterClick?.(); }} className="hover:text-[#1D1D1F] dark:hover:text-white">FAQ</button>
+                            </div>
+                        </div>
+                    </motion.div>
+                </>
             )}
         </AnimatePresence>
 

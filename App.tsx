@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import { Header } from "./components/Header";
 import { ModernHome } from "./components/ModernHome";
@@ -178,6 +179,8 @@ const App: React.FC = () => {
         onLoginClick={() => setIsAuthModalOpen(true)}
         onSignUpClick={navigateToSignUp}
         onCartClick={() => setIsCartOpen(true)}
+        onContactClick={navigateToContact}
+        onHelpCenterClick={navigateToHelpCenter}
         cartCount={totalCartCount}
       />
       <main className="flex-grow w-full flex flex-col">

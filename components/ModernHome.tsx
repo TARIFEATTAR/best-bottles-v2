@@ -543,6 +543,10 @@ export const ModernHome: React.FC<ModernHomeProps> = ({
                     customImageUrl = "https://cdn.shopify.com/s/files/1/1989/5889/files/madison-e928a6cf.jpg?v=1765664801";
                 } else if (cat.icon === 'shopping_bag') {
                     customImageUrl = "https://cdn.shopify.com/s/files/1/1989/5889/files/madison-413abfc9.jpg?v=1765666458";
+                } else if (cat.icon === 'spa') {
+                    customImageUrl = "https://cdn.shopify.com/s/files/1/1989/5889/files/madison-e928a6cf.jpg?v=1765664801";
+                } else if (cat.icon === 'check_circle') {
+                    customImageUrl = "https://cdn.shopify.com/s/files/1/1989/5889/files/madison-e928a6cf.jpg?v=1765664801";
                 }
 
                 return (
