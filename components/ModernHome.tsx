@@ -331,7 +331,7 @@ export const ModernHome: React.FC<ModernHomeProps> = ({
              <img 
                 src="https://cdn.shopify.com/s/files/1/1989/5889/files/madison-23e11813.jpg?v=1765598795" 
                 alt="Antique Perfume Bottle" 
-                className="w-full h-full object-cover brightness-[0.85]"
+                className="w-full h-full object-cover brightness-[0.85] object-[75%_center] md:object-center"
              />
              <div className="absolute inset-0 bg-black/30"></div>
         </motion.div>
