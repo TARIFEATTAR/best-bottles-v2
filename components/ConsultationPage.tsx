@@ -370,10 +370,11 @@ export const ConsultationPage: React.FC<ConsultationPageProps> = ({ onBack, proj
         chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
     }, [messages]);
 
-    // Initialize from draft
+    // Initialize from draft - defer to avoid cascading render
     useEffect(() => {
         if (projectDraft) {
-            setMode('studio');
+            const timer = requestAnimationFrame(() => setMode('studio'));
+            return () => cancelAnimationFrame(timer);
         }
     }, [projectDraft]);
 
@@ -522,6 +523,9 @@ export const ConsultationPage: React.FC<ConsultationPageProps> = ({ onBack, proj
         return `${selections.vessel.skuPrefix}${rollerCode}${selections.closure.skuCode}`;
     };
 
+    // --- Cart State ---
+    const [addedToCart, setAddedToCart] = useState(false);
+
     // --- Handle Add to Cart ---
     const handleFinishKit = () => {
         if (!selections.vessel || !selections.closure) return;
@@ -537,6 +541,10 @@ export const ConsultationPage: React.FC<ConsultationPageProps> = ({ onBack, proj
         };
 
         onAddToCart?.(customProduct, selections.quantity);
+        
+        // Show success feedback
+        setAddedToCart(true);
+        setTimeout(() => setAddedToCart(false), 2500);
     };
 
     // --- Render: Briefing (Chat Interface) ---
@@ -655,7 +663,7 @@ export const ConsultationPage: React.FC<ConsultationPageProps> = ({ onBack, proj
                                     {/* Live transcript */}
                                     {voiceTranscript && (
                                         <div className="mt-3 pt-3 border-t border-white/10">
-                                            <p className="text-white/70 text-sm italic">"{voiceTranscript}"</p>
+                                            <p className="text-white/70 text-sm italic">&ldquo;{voiceTranscript}&rdquo;</p>
                                         </div>
                                     )}
                                 </div>
@@ -710,7 +718,17 @@ export const ConsultationPage: React.FC<ConsultationPageProps> = ({ onBack, proj
 
     // --- Render: Studio (Builder) ---
     return (
-        <div className="h-screen bg-[#F5F5F7] dark:bg-background-dark flex flex-col overflow-hidden">
+        <div className="h-screen bg-[#F5F5F7] dark:bg-background-dark flex flex-col overflow-hidden relative">
+            {/* Success Toast */}
+            {addedToCart && (
+                <div className="fixed top-4 left-1/2 -translate-x-1/2 z-50 animate-slide-up">
+                    <div className="bg-[#1D1D1F] text-white px-6 py-3 rounded-full shadow-xl flex items-center gap-3">
+                        <i className="ph-thin ph-check-circle text-green-400 text-xl" />
+                        <span className="text-sm font-medium">Added to cart</span>
+                    </div>
+                </div>
+            )}
+            
             <TopBar 
                 assistantInput="" 
                 setAssistantInput={() => {}} 

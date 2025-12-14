@@ -656,3 +656,5 @@ export const ProductDetailConfigurable: React.FC<ProductDetailConfigurableProps>
 };
 
 export default ProductDetailConfigurable;
+
+
