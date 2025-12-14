@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { Header } from "./components/Header";
 import { ModernHome } from "./components/ModernHome";
 import { ProductDetail } from "./components/ProductDetail";
+import { ProductDetailConfigurable } from "./components/ProductDetailConfigurable";
 import { ConsultationPage } from "./components/ConsultationPage";
 import { CollectionsPage } from "./components/CollectionsPage";
 import { CollectionDetailPage } from "./components/CollectionDetailPage";
@@ -49,7 +50,7 @@ export interface ProjectDraft {
 }
 
 const App: React.FC = () => {
-  const [view, setView] = useState<'home' | 'detail' | 'consultation' | 'collections' | 'collection-detail' | 'custom' | 'journal' | 'packaging-ideas' | 'help-center' | 'contact' | 'signup' | 'contract-packaging'>('home');
+  const [view, setView] = useState<'home' | 'detail' | 'roll-on-detail' | 'consultation' | 'collections' | 'collection-detail' | 'custom' | 'journal' | 'packaging-ideas' | 'help-center' | 'contact' | 'signup' | 'contract-packaging'>('home');
   const [cartItems, setCartItems] = useState<{product: any, quantity: number}[]>([]);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
@@ -131,6 +132,7 @@ const App: React.FC = () => {
 
   const navigateToHome = () => setView('home');
   const navigateToDetail = () => setView('detail');
+  const navigateToRollOnDetail = () => setView('roll-on-detail');
   const navigateToConsultation = () => { setView('consultation'); };
   const navigateToCollections = () => setView('collections');
   const navigateToCollectionDetail = () => setView('collection-detail');
@@ -147,16 +149,17 @@ const App: React.FC = () => {
   const renderView = () => {
       switch(view) {
           case 'home': return <ModernHome 
-            onProductClick={navigateToDetail} 
+            onProductClick={navigateToRollOnDetail} 
             onConsultationClick={navigateToConsultation}
             onCollectionClick={navigateToCollectionDetail}
             onPackagingIdeasClick={navigateToPackagingIdeas}
             onAddToCart={addToCart}
           />;
           case 'detail': return <ProductDetail onBack={navigateToHome} onAddToCart={addToCart} />;
+          case 'roll-on-detail': return <ProductDetailConfigurable onBack={navigateToHome} onAddToCart={addToCart} />;
           case 'consultation': return <ConsultationPage onBack={navigateToHome} projectDraft={projectDraft} onAddToCart={addToCart} />;
           case 'collections': return <CollectionsPage onCollectionClick={navigateToCollectionDetail} />;
-          case 'collection-detail': return <CollectionDetailPage onBack={navigateToCollections} onProductClick={navigateToDetail} onAddToCart={addToCart} />;
+          case 'collection-detail': return <CollectionDetailPage onBack={navigateToCollections} onProductClick={navigateToRollOnDetail} onAddToCart={addToCart} />;
           case 'custom': return <CustomPage />;
           case 'journal': return <JournalPage />;
           case 'packaging-ideas': return <PackagingIdeasPage onBack={navigateToHome} onStartProject={navigateToCustom} />;
@@ -170,27 +173,29 @@ const App: React.FC = () => {
 
   return (
     <div className="relative flex min-h-screen w-full flex-col font-sans bg-background-light dark:bg-background-dark">
-      <Header 
-        onHomeClick={navigateToHome} 
-        onConsultationClick={navigateToConsultation}
-        onCollectionsClick={navigateToCollections}
-        onCustomClick={navigateToCustom}
-        onJournalClick={navigateToJournal}
-        onLoginClick={() => setIsAuthModalOpen(true)}
-        onSignUpClick={navigateToSignUp}
-        onCartClick={() => setIsCartOpen(true)}
-        onContactClick={navigateToContact}
-        onHelpCenterClick={navigateToHelpCenter}
-        cartCount={totalCartCount}
-      />
+      {view !== 'consultation' && (
+        <Header 
+          onHomeClick={navigateToHome} 
+          onConsultationClick={navigateToConsultation}
+          onCollectionsClick={navigateToCollections}
+          onCustomClick={navigateToCustom}
+          onJournalClick={navigateToJournal}
+          onLoginClick={() => setIsAuthModalOpen(true)}
+          onSignUpClick={navigateToSignUp}
+          onCartClick={() => setIsCartOpen(true)}
+          onContactClick={navigateToContact}
+          onHelpCenterClick={navigateToHelpCenter}
+          cartCount={totalCartCount}
+        />
+      )}
       <main className="flex-grow w-full flex flex-col">
         {/* Wrap active view in transition container */}
         <PageTransition key={view}>
             {renderView()}
         </PageTransition>
       </main>
-      {view !== 'collection-detail' && view !== 'signup' && <Footer onHelpCenterClick={navigateToHelpCenter} onContactClick={navigateToContact} />}
-      <ChatBot />
+      {view !== 'collection-detail' && view !== 'signup' && view !== 'consultation' && <Footer onHelpCenterClick={navigateToHelpCenter} onContactClick={navigateToContact} />}
+      {view !== 'consultation' && <ChatBot />}
       <AuthModal 
         isOpen={isAuthModalOpen} 
         onClose={() => setIsAuthModalOpen(false)} 

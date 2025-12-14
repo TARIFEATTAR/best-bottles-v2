@@ -1,6 +1,8 @@
 import React, { useState, useMemo } from "react";
-import { PRODUCTS } from "../constants";
+import { DEMO_PRODUCTS } from "../constants";
 import { Product } from "../types";
+
+// Using DEMO_PRODUCTS for client demo - only 9ml cylinder roll-ons
 
 interface ProductSectionProps {
   onProductClick?: () => void;
@@ -13,13 +15,13 @@ export const ProductSection: React.FC<ProductSectionProps> = ({ onProductClick, 
   const [selectedCapacity, setSelectedCapacity] = useState("All");
   const [quickViewProduct, setQuickViewProduct] = useState<Product | null>(null);
 
-  // Extract unique values for filters
-  const categories = useMemo(() => ["All", ...Array.from(new Set(PRODUCTS.map(p => p.category)))], []);
-  const colors = useMemo(() => ["All", ...Array.from(new Set(PRODUCTS.map(p => p.color)))], []);
-  const capacities = useMemo(() => ["All", ...Array.from(new Set(PRODUCTS.map(p => p.capacity)))], []);
+  // Extract unique values for filters (from demo products only)
+  const categories = useMemo(() => ["All", ...Array.from(new Set(DEMO_PRODUCTS.map(p => p.category)))], []);
+  const colors = useMemo(() => ["All", ...Array.from(new Set(DEMO_PRODUCTS.map(p => p.color)))], []);
+  const capacities = useMemo(() => ["All", ...Array.from(new Set(DEMO_PRODUCTS.map(p => p.capacity)))], []);
 
-  // Filter products
-  const filteredProducts = PRODUCTS.filter(product => {
+  // Filter products (from demo products only)
+  const filteredProducts = DEMO_PRODUCTS.filter(product => {
     const matchCategory = selectedCategory === "All" || product.category === selectedCategory;
     const matchColor = selectedColor === "All" || product.color === selectedColor;
     const matchCapacity = selectedCapacity === "All" || product.capacity === selectedCapacity;

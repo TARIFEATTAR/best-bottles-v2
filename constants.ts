@@ -131,3 +131,14 @@ export const FAQ_DATA = [
 import INVENTORY from './inventory.json';
 
 export const PRODUCTS: Product[] = INVENTORY as Product[];
+
+// --- DEMO: Only 9ml Cylinder Roll-On Bottles ---
+// For client demo - showing ONLY the 9ml roll-on category
+export const DEMO_PRODUCTS: Product[] = (INVENTORY as Product[]).filter(p => {
+  // Filter for 9ml cylinder roll-on bottles only
+  const isCylinder = p.sku?.includes('Cyl') && p.sku?.includes('9');
+  const isRollOn = p.sku?.includes('Roll') || p.name?.toLowerCase().includes('roller');
+  const is9ml = p.capacity?.includes('9 ml') || p.capacity?.includes('0.3 oz');
+  
+  return isCylinder && isRollOn && is9ml;
+});

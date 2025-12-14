@@ -1,0 +1,224 @@
+{
+  "categoryId": "roll-on-9ml-cylinder",
+  "categoryName": "9ml Cylinder Roll-On Bottles",
+  "categoryDescription": "Clear, frosted and colored glass roll-on bottles with steel roller-balls, capacity range about 1/3oz (from 8ml to 10ml)",
+  "sourceUrl": "https://www.bestbottles.com/all-bottles/Perfume-vials-glass-bottles/roll-on-roller-bottles-frosted-black-silver-gold-white-caps.php?subcat=79",
+  
+  "sharedSpecs": {
+    "capacity": "9 ml (0.3 oz)",
+    "neckThreadSize": "17-415",
+    "heightWithCap": "83 ±1 mm",
+    "heightWithoutCap": "70 ±1 mm",
+    "diameter": "20 ±0.5 mm",
+    "recommendedUse": ["perfume", "fragrance oil", "essential oils", "aromatic oils", "aromatherapy"]
+  },
+
+  "baseBottles": [
+    {
+      "id": "cyl-9ml-clear",
+      "name": "Clear Glass",
+      "color": "clear",
+      "material": "clear glass",
+      "imageUrl": "https://www.bestbottles.com/images/store/enlarged_pics/GBCyl9MtlRollBlkDot.gif",
+      "imageUrlMetal": "https://www.bestbottles.com/images/store/enlarged_pics/GBCyl9MtlRollBlkDot.gif",
+      "imageUrlPlastic": "https://www.bestbottles.com/images/store/enlarged_pics/GBCyl9RollBlkDot.gif",
+      "skuPrefix": "GBCyl9"
+    },
+    {
+      "id": "cyl-9ml-amber",
+      "name": "Amber Glass",
+      "color": "amber",
+      "material": "amber glass",
+      "imageUrl": "https://www.bestbottles.com/images/store/enlarged_pics/GBCylAmb9MtlRollBlkDot.gif",
+      "imageUrlMetal": "https://www.bestbottles.com/images/store/enlarged_pics/GBCylAmb9MtlRollBlkDot.gif",
+      "imageUrlPlastic": "https://www.bestbottles.com/images/store/enlarged_pics/GBCylAmb9RollBlkDot.gif",
+      "skuPrefix": "GBCylAmb9"
+    },
+    {
+      "id": "cyl-9ml-blue",
+      "name": "Cobalt Blue Glass",
+      "color": "cobalt blue",
+      "material": "cobalt blue glass",
+      "imageUrl": "https://www.bestbottles.com/images/store/enlarged_pics/GBCylBlu9MtlRollBlkDot.gif",
+      "imageUrlMetal": "https://www.bestbottles.com/images/store/enlarged_pics/GBCylBlu9MtlRollBlkDot.gif",
+      "imageUrlPlastic": "https://www.bestbottles.com/images/store/enlarged_pics/GBCylBlu9RollBlkDot.gif",
+      "skuPrefix": "GBCylBlu9"
+    },
+    {
+      "id": "cyl-9ml-frosted",
+      "name": "Frosted Glass",
+      "color": "frosted",
+      "material": "frosted glass",
+      "imageUrl": "https://www.bestbottles.com/images/store/enlarged_pics/GBCylFrst9MtlRollBlkDot.gif",
+      "imageUrlMetal": "https://www.bestbottles.com/images/store/enlarged_pics/GBCylFrst9MtlRollBlkDot.gif",
+      "imageUrlPlastic": "https://www.bestbottles.com/images/store/enlarged_pics/GBCylFrst9RollBlkDot.gif",
+      "skuPrefix": "GBCylFrst9"
+    },
+    {
+      "id": "cyl-9ml-swirl",
+      "name": "Swirl Pattern Glass",
+      "color": "clear with swirl",
+      "material": "glass",
+      "imageUrl": "https://www.bestbottles.com/images/store/enlarged_pics/GBCylSwrl9MtlRollBlkDot.gif",
+      "imageUrlMetal": "https://www.bestbottles.com/images/store/enlarged_pics/GBCylSwrl9MtlRollBlkDot.gif",
+      "imageUrlPlastic": "https://www.bestbottles.com/images/store/enlarged_pics/GBCylSwrl9RollBlkDot.gif",
+      "skuPrefix": "GBCylSwrl9"
+    }
+  ],
+
+  "rollerOptions": [
+    {
+      "id": "metal-roller",
+      "name": "Metal Roller Ball",
+      "type": "metal",
+      "skuCode": "MtlRoll",
+      "priceModifier": 0.09,
+      "description": "Premium stainless steel roller ball for smooth application"
+    },
+    {
+      "id": "plastic-roller",
+      "name": "Plastic Roller Ball", 
+      "type": "plastic",
+      "skuCode": "Roll",
+      "priceModifier": 0,
+      "description": "Standard plastic roller ball"
+    }
+  ],
+
+  "capOptions": [
+    {
+      "id": "black-dot",
+      "name": "Black Dot",
+      "color": "#1a1a1a",
+      "finish": "shiny with dots",
+      "skuCode": "BlkDot",
+      "imageCode": "BlkDot",
+      "imageUrl": "https://www.bestbottles.com/images/store/caps/17-415CpRollBlkDot.png",
+      "hasCompositeImage": true,
+      "available": true
+    },
+    {
+      "id": "gold-matte",
+      "name": "Gold Matte",
+      "color": "#B8860B",
+      "finish": "matte",
+      "skuCode": "MattGl",
+      "imageCode": "MattGl",
+      "imageUrl": "https://www.bestbottles.com/images/store/caps/17-415CpRollMattGl.png",
+      "hasCompositeImage": true,
+      "available": true
+    },
+    {
+      "id": "silver-matte",
+      "name": "Silver Matte",
+      "color": "#A8A8A8",
+      "finish": "matte",
+      "skuCode": "MattSl",
+      "imageCode": "MattSl",
+      "imageUrl": "https://www.bestbottles.com/images/store/caps/17-415CpRollMattSl.png",
+      "hasCompositeImage": true,
+      "available": true
+    },
+    {
+      "id": "white",
+      "name": "White",
+      "color": "#ffffff",
+      "finish": "matte",
+      "skuCode": "Wht",
+      "imageCode": "Wht",
+      "imageUrl": "https://www.bestbottles.com/images/store/caps/17-415CpRollWhite.png",
+      "hasCompositeImage": true,
+      "available": true
+    },
+    {
+      "id": "pink-dot",
+      "name": "Pink Dot",
+      "color": "#FFB6C1",
+      "finish": "shiny with dots",
+      "skuCode": "PnkDot",
+      "imageCode": "PnkDot",
+      "imageUrl": "https://www.bestbottles.com/images/store/caps/17-415CpRollPnkDot.png",
+      "hasCompositeImage": true,
+      "available": true
+    },
+    {
+      "id": "gold-shiny",
+      "name": "Gold Shiny",
+      "color": "#D4AF37",
+      "finish": "shiny",
+      "skuCode": "ShnGl",
+      "imageCode": "ShnGl",
+      "imageUrl": "https://www.bestbottles.com/images/store/caps/17-415CpRollShnGl.png",
+      "hasCompositeImage": true,
+      "available": true
+    },
+    {
+      "id": "black-shiny",
+      "name": "Black Shiny",
+      "color": "#1a1a1a",
+      "finish": "shiny",
+      "skuCode": "ShBlk",
+      "imageCode": "ShBlk",
+      "imageUrl": "https://www.bestbottles.com/images/store/caps/17-415CpRollShBlk.png",
+      "hasCompositeImage": true,
+      "available": true
+    },
+    {
+      "id": "silver-dot",
+      "name": "Silver Dot",
+      "color": "#C0C0C0",
+      "finish": "shiny with dots",
+      "skuCode": "SlDot",
+      "imageCode": "SlDot",
+      "imageUrl": "https://www.bestbottles.com/images/store/caps/17-415CpRollSlDot.png",
+      "hasCompositeImage": true,
+      "available": true
+    },
+    {
+      "id": "silver-shiny",
+      "name": "Silver Shiny",
+      "color": "#C0C0C0",
+      "finish": "shiny",
+      "skuCode": "ShnSl",
+      "imageCode": "ShnSl",
+      "imageUrl": "https://www.bestbottles.com/images/store/caps/17-415CpRollShnSl.png",
+      "hasCompositeImage": true,
+      "available": true
+    },
+    {
+      "id": "copper-matte",
+      "name": "Copper Matte",
+      "color": "#B87333",
+      "finish": "matte",
+      "skuCode": "MattCu",
+      "imageCode": "MattCu",
+      "imageUrl": "https://www.bestbottles.com/images/store/caps/17-415CpRollMattCu.png",
+      "hasCompositeImage": true,
+      "available": true
+    }
+  ],
+
+  "pricingMatrix": {
+    "basePrices": {
+      "cyl-9ml-clear": { "1": 0.67, "12": 0.63, "144": 0.59, "576": 0.55, "2880": 0.49 },
+      "cyl-9ml-amber": { "1": 0.69, "12": 0.65, "144": 0.61, "600": 0.57, "3000": 0.51 },
+      "cyl-9ml-blue": { "1": 0.72, "12": 0.68, "144": 0.64, "576": 0.59, "2880": 0.53 },
+      "cyl-9ml-frosted": { "1": 0.77, "12": 0.73, "144": 0.68, "576": 0.63, "2880": 0.56 },
+      "cyl-9ml-swirl": { "1": 0.79, "12": 0.74, "144": 0.70, "684": 0.65, "3420": 0.58 }
+    },
+    "metalRollerUpcharge": 0.09
+  },
+
+  "skuMatrix": [
+    { "bottle": "cyl-9ml-clear", "roller": "metal-roller", "cap": "black-dot", "sku": "GBCyl9MtlRollBlkDot" },
+    { "bottle": "cyl-9ml-clear", "roller": "plastic-roller", "cap": "black-dot", "sku": "GBCyl9RollBlkDot" },
+    { "bottle": "cyl-9ml-amber", "roller": "metal-roller", "cap": "black-dot", "sku": "GBCylAmb9MtlRollBlkDot" },
+    { "bottle": "cyl-9ml-amber", "roller": "plastic-roller", "cap": "black-dot", "sku": "GBCylAmb9RollBlkDot" },
+    { "bottle": "cyl-9ml-blue", "roller": "metal-roller", "cap": "black-dot", "sku": "GBCylBlu9MtlRollBlkDot" },
+    { "bottle": "cyl-9ml-blue", "roller": "plastic-roller", "cap": "black-dot", "sku": "GBCylBlu9RollBlkDot" },
+    { "bottle": "cyl-9ml-frosted", "roller": "metal-roller", "cap": "black-dot", "sku": "GBCylFrst9MtlRollBlkDot" },
+    { "bottle": "cyl-9ml-frosted", "roller": "plastic-roller", "cap": "black-dot", "sku": "GBCylFrst9RollBlkDot" },
+    { "bottle": "cyl-9ml-swirl", "roller": "metal-roller", "cap": "black-dot", "sku": "GBCylSwrl9MtlRollBlkDot" },
+    { "bottle": "cyl-9ml-swirl", "roller": "plastic-roller", "cap": "black-dot", "sku": "GBCylSwrl9RollBlkDot" }
+  ]
+}
