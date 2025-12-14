@@ -13,6 +13,7 @@ import { PackagingIdeasPage } from "./components/PackagingIdeasPage";
 import { HelpCenterPage } from "./components/HelpCenterPage";
 import { ContactPage } from "./components/ContactPage";
 import { ContractPackagingPage } from "./components/ContractPackagingPage";
+import { CheckoutPage } from "./components/CheckoutPage";
 import { Footer } from "./components/Footer";
 import { ChatBot } from "./components/ChatBot";
 import { AuthModal } from "./components/AuthModal";
@@ -50,7 +51,7 @@ export interface ProjectDraft {
 }
 
 const App: React.FC = () => {
-  const [view, setView] = useState<'home' | 'detail' | 'roll-on-detail' | 'consultation' | 'collections' | 'collection-detail' | 'custom' | 'journal' | 'packaging-ideas' | 'help-center' | 'contact' | 'signup' | 'contract-packaging'>('home');
+  const [view, setView] = useState<'home' | 'detail' | 'roll-on-detail' | 'consultation' | 'collections' | 'collection-detail' | 'custom' | 'journal' | 'packaging-ideas' | 'help-center' | 'contact' | 'signup' | 'contract-packaging' | 'checkout'>('home');
   const [cartItems, setCartItems] = useState<{product: any, quantity: number}[]>([]);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
@@ -143,6 +144,7 @@ const App: React.FC = () => {
   const navigateToContact = () => setView('contact');
   const navigateToSignUp = () => setView('signup');
   const navigateToContractPackaging = () => setView('contract-packaging');
+  const navigateToCheckout = () => { setIsCartOpen(false); setView('checkout'); };
 
   const totalCartCount = cartItems.reduce((acc, item) => acc + item.quantity, 0);
 
@@ -167,13 +169,14 @@ const App: React.FC = () => {
           case 'contact': return <ContactPage onBack={navigateToHome} />;
           case 'signup': return <SignUpPage onBack={navigateToHome} onLoginClick={() => { setView('home'); setIsAuthModalOpen(true); }} />;
           case 'contract-packaging': return <ContractPackagingPage onBack={navigateToHome} onContactClick={navigateToContact} />;
+          case 'checkout': return <CheckoutPage cartItems={cartItems} onBack={() => { setView('home'); setIsCartOpen(true); }} onComplete={() => { setCartItems([]); setView('home'); }} />;
           default: return <ModernHome />;
       }
   };
 
   return (
     <div className="relative flex min-h-screen w-full flex-col font-sans bg-background-light dark:bg-background-dark">
-      {view !== 'consultation' && (
+      {view !== 'consultation' && view !== 'checkout' && (
         <Header 
           onHomeClick={navigateToHome} 
           onConsultationClick={navigateToConsultation}
@@ -208,6 +211,7 @@ const App: React.FC = () => {
         onRemoveItem={removeFromCart}
         onUpdateQuantity={updateCartQuantity}
         onAddToCart={addToCart}
+        onCheckout={navigateToCheckout}
       />
     </div>
   );

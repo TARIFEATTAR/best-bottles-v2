@@ -13,6 +13,7 @@ interface CartDrawerProps {
   onRemoveItem: (index: number) => void;
   onUpdateQuantity: (index: number, newQty: number) => void;
   onAddToCart: (product: any, quantity: number) => void;
+  onCheckout?: () => void;
 }
 
 export const CartDrawer: React.FC<CartDrawerProps> = ({ 
@@ -21,7 +22,8 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
   cartItems, 
   onRemoveItem, 
   onUpdateQuantity,
-  onAddToCart 
+  onAddToCart,
+  onCheckout
 }) => {
   
   // --- Calculations ---
@@ -222,7 +224,10 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                     <span className="text-sm text-gray-900 dark:text-white">{amountToFree <= 0 ? 'Free' : 'Calculated at checkout'}</span>
                 </div>
                 
-                <button className="w-full bg-[#1D1D1F] dark:bg-white text-white dark:text-[#1D1D1F] py-4 rounded-xl text-sm font-bold uppercase tracking-widest hover:opacity-90 transition-opacity shadow-lg flex items-center justify-center gap-2">
+                <button 
+                    onClick={onCheckout}
+                    className="w-full bg-[#1D1D1F] dark:bg-white text-white dark:text-[#1D1D1F] py-4 rounded-xl text-sm font-bold uppercase tracking-widest hover:opacity-90 transition-opacity shadow-lg flex items-center justify-center gap-2"
+                >
                     <span className="material-symbols-outlined text-lg">lock</span>
                     Secure Checkout
                 </button>

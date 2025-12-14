@@ -99,6 +99,64 @@ export const ModernHome: React.FC<ModernHomeProps> = ({
     const [offsetY, setOffsetY] = useState(0);
     const [isListening, setIsListening] = useState(false);
     const [voiceText, setVoiceText] = useState("Connect");
+    const [searchQuery, setSearchQuery] = useState("");
+    
+    // Filter selections (accumulated before search)
+    const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+    const [selectedColor, setSelectedColor] = useState<string | null>(null);
+    const [selectedSize, setSelectedSize] = useState<string | null>(null);
+    
+    // Handle search submit - parse query and navigate to Bottle Specialist
+    const handleSearchSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        navigateWithFilters();
+    };
+    
+    // Navigate with all accumulated filters
+    const navigateWithFilters = () => {
+        const query = searchQuery.toLowerCase();
+        
+        // Use selected filters or parse from query
+        let category = selectedCategory || 'roll-on'; // Default for demo
+        let color = selectedColor || '';
+        let capacity = selectedSize || '';
+        
+        // Also parse the query for additional hints
+        if (query) {
+            if (!selectedCategory) {
+                if (query.includes('roll') || query.includes('roller')) category = 'roll-on';
+                else if (query.includes('drop') || query.includes('dropper')) category = 'dropper';
+                else if (query.includes('spray') || query.includes('mist')) category = 'spray';
+            }
+            
+            if (!selectedColor) {
+                if (query.includes('amber')) color = 'amber';
+                else if (query.includes('blue') || query.includes('cobalt')) color = 'cobalt blue';
+                else if (query.includes('clear')) color = 'clear';
+                else if (query.includes('frost')) color = 'frosted';
+            }
+            
+            if (!selectedSize) {
+                const sizeMatch = query.match(/(\d+)\s*(ml|oz)/i);
+                if (sizeMatch) capacity = sizeMatch[0];
+            }
+        }
+        
+        // Navigate to builder with all details
+        const event = new CustomEvent('navigate-to-builder', {
+            detail: { category, color, capacity, query: searchQuery }
+        });
+        window.dispatchEvent(event);
+        
+        // Reset state
+        setSearchQuery("");
+        setSelectedCategory(null);
+        setSelectedColor(null);
+        setSelectedSize(null);
+    };
+    
+    // Check if any filter is selected
+    const hasFilters = selectedCategory || selectedColor || selectedSize || searchQuery.trim();
 
     // Live API Refs
     const audioContextRef = useRef<AudioContext | null>(null);
@@ -333,80 +391,148 @@ Be concise, enthusiastic, and helpful. Keep responses under 3 sentences when pos
     return (
         <div className="w-full bg-[#F5F3EF] dark:bg-background-dark overflow-x-hidden transition-colors duration-500">
 
-            {/* 1. Hero Section: Cinematic Full-Bleed with Parallax */}
-            <section className="relative w-full h-[85vh] md:h-[95vh] min-h-[500px] md:min-h-[700px] flex items-center px-4 md:px-10 lg:px-20 overflow-hidden bg-[#8C867D]">
-                {/* Parallax Background */}
-                <motion.div
-                    className="absolute inset-0 z-0"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 1.2 }}
-                >
-                    <img
-                        src="https://cdn.shopify.com/s/files/1/1989/5889/files/madison-23e11813.jpg?v=1765598795"
-                        alt="Antique Perfume Bottle"
-                        className="w-full h-full object-cover brightness-[0.85]"
-                    />
-                    <div className="absolute inset-0 bg-black/30"></div>
-                </motion.div>
-
-                {/* Content Overlay */}
-                <div className="relative z-10 w-full max-w-[1440px] mx-auto pl-0 md:pl-0 grid grid-cols-1 md:grid-cols-2">
-                    <div className="md:col-span-1 max-w-2xl pt-20 md:pt-0">
-                        <Reveal delay={0.2} effect="fade">
-                            <div className="flex items-center gap-4 mb-4 md:mb-8">
-                                <div className="h-[1px] w-8 md:w-12 bg-[#C5A065]"></div>
-                                <span className="text-white/90 text-xs md:text-sm font-bold tracking-[0.2em] uppercase">
-                                    Premium Packaging Solutions
+            {/* 1. Hero Section: Mobile-First with Product Focus */}
+            <section className="relative w-full min-h-[100svh] md:h-[95vh] md:min-h-[700px] flex flex-col md:flex-row md:items-center overflow-hidden bg-[#8C867D]">
+                
+                {/* Mobile: Split Layout - Text Top, Image Bottom */}
+                <div className="md:hidden flex flex-col h-full min-h-[100svh]">
+                    {/* Mobile Top: Text Content */}
+                    <div className="flex-shrink-0 px-5 pt-20 pb-6 bg-gradient-to-b from-[#8C867D] to-[#8C867D]/90 relative z-10">
+                        <motion.div
+                            initial={{ opacity: 0, y: 15 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.6 }}
+                        >
+                            <div className="flex items-center gap-3 mb-4">
+                                <div className="h-[1px] w-8 bg-[#C5A065]"></div>
+                                <span className="text-white/80 text-[10px] font-bold tracking-[0.2em] uppercase">
+                                    Premium Packaging
                                 </span>
                             </div>
-                        </Reveal>
-
-                        <div className="mb-4 md:mb-8 overflow-hidden">
-                            <motion.div
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.8, delay: 0.2 }}
-                            >
-                                <h1 className="text-5xl md:text-7xl lg:text-8xl font-serif font-semibold text-white leading-[0.95] tracking-tight drop-shadow-lg">
-                                    Beautifully <br />
-                                    <span className="text-[#e0ded6]">Contained</span>
-                                </h1>
-                            </motion.div>
-                        </div>
-
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.8, delay: 0.4 }}
-                        >
-                            <p className="text-white/95 text-lg md:text-2xl font-light leading-relaxed max-w-xl mb-8 md:mb-12 border-l border-white/30 pl-6 backdrop-blur-sm bg-black/10 rounded-r-lg py-2">
+                            <h1 className="text-4xl font-serif font-semibold text-white leading-[1] tracking-tight mb-3">
+                                Beautifully<br />
+                                <span className="text-[#e0ded6]">Contained</span>
+                            </h1>
+                            <p className="text-white/80 text-sm font-light leading-relaxed max-w-xs">
                                 Premium packaging solutions for brands ready to grow.
                             </p>
                         </motion.div>
-
-                        <motion.div
+                    </div>
+                    
+                    {/* Mobile Bottom: Product Image - Takes Remaining Space */}
+                    <motion.div 
+                        className="flex-1 relative min-h-[45vh]"
+                        initial={{ opacity: 0, scale: 1.05 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.8, delay: 0.2 }}
+                    >
+                        <img
+                            src="https://cdn.shopify.com/s/files/1/1989/5889/files/madison-23e11813.jpg?v=1765598795"
+                            alt="Premium Glass Bottle"
+                            className="w-full h-full object-cover object-center"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-[#8C867D]/60"></div>
+                        
+                        {/* Mobile CTAs - Overlaid at bottom of image */}
+                        <motion.div 
+                            className="absolute bottom-0 left-0 right-0 p-5 pb-8"
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.8, delay: 0.6 }}
+                            transition={{ duration: 0.6, delay: 0.4 }}
                         >
-                            <div className="flex flex-col sm:flex-row gap-4">
+                            <div className="flex flex-col gap-3">
                                 <button
                                     onClick={onCollectionClick}
-                                    className="bg-white text-[#1D1D1F] px-10 py-5 rounded-full text-xs font-bold uppercase tracking-widest hover:bg-[#C5A065] hover:text-white transition-all shadow-lg min-w-[200px] hover:scale-105 duration-300"
+                                    className="w-full bg-white text-[#1D1D1F] py-4 rounded-full text-xs font-bold uppercase tracking-widest shadow-lg active:scale-[0.98] transition-transform"
                                 >
                                     Explore Collections
                                 </button>
                                 <button
                                     onClick={onConsultationClick}
-                                    className="backdrop-blur-md bg-white/10 border border-white/30 text-white px-10 py-5 rounded-full text-xs font-bold uppercase tracking-widest hover:bg-white hover:text-[#1D1D1F] transition-all min-w-[200px] hover:scale-105 duration-300"
+                                    className="w-full backdrop-blur-md bg-white/15 border border-white/30 text-white py-4 rounded-full text-xs font-bold uppercase tracking-widest active:scale-[0.98] transition-transform"
                                 >
                                     Start Project
                                 </button>
                             </div>
                         </motion.div>
+                    </motion.div>
+                </div>
+
+                {/* Desktop: Original Parallax Layout */}
+                <div className="hidden md:flex md:items-center w-full h-full px-10 lg:px-20">
+                    {/* Parallax Background */}
+                    <motion.div
+                        className="absolute inset-0 z-0"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 1.2 }}
+                    >
+                        <img
+                            src="https://cdn.shopify.com/s/files/1/1989/5889/files/madison-23e11813.jpg?v=1765598795"
+                            alt="Antique Perfume Bottle"
+                            className="w-full h-full object-cover brightness-[0.85]"
+                        />
+                        <div className="absolute inset-0 bg-black/30"></div>
+                    </motion.div>
+
+                    {/* Content Overlay */}
+                    <div className="relative z-10 w-full max-w-[1440px] mx-auto grid grid-cols-2">
+                        <div className="col-span-1 max-w-2xl">
+                            <Reveal delay={0.2} effect="fade">
+                                <div className="flex items-center gap-4 mb-8">
+                                    <div className="h-[1px] w-12 bg-[#C5A065]"></div>
+                                    <span className="text-white/90 text-sm font-bold tracking-[0.2em] uppercase">
+                                        Premium Packaging Solutions
+                                    </span>
+                                </div>
+                            </Reveal>
+
+                            <div className="mb-8 overflow-hidden">
+                                <motion.div
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.8, delay: 0.2 }}
+                                >
+                                    <h1 className="text-7xl lg:text-8xl font-serif font-semibold text-white leading-[0.95] tracking-tight drop-shadow-lg">
+                                        Beautifully <br />
+                                        <span className="text-[#e0ded6]">Contained</span>
+                                    </h1>
+                                </motion.div>
+                            </div>
+
+                            <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.8, delay: 0.4 }}
+                            >
+                                <p className="text-white/95 text-2xl font-light leading-relaxed max-w-xl mb-12 border-l border-white/30 pl-6 backdrop-blur-sm bg-black/10 rounded-r-lg py-2">
+                                    Premium packaging solutions for brands ready to grow.
+                                </p>
+                            </motion.div>
+
+                            <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.8, delay: 0.6 }}
+                            >
+                                <div className="flex flex-row gap-4">
+                                    <button
+                                        onClick={onCollectionClick}
+                                        className="bg-white text-[#1D1D1F] px-10 py-5 rounded-full text-xs font-bold uppercase tracking-widest hover:bg-[#C5A065] hover:text-white transition-all shadow-lg min-w-[200px] hover:scale-105 duration-300"
+                                    >
+                                        Explore Collections
+                                    </button>
+                                    <button
+                                        onClick={onConsultationClick}
+                                        className="backdrop-blur-md bg-white/10 border border-white/30 text-white px-10 py-5 rounded-full text-xs font-bold uppercase tracking-widest hover:bg-white hover:text-[#1D1D1F] transition-all min-w-[200px] hover:scale-105 duration-300"
+                                    >
+                                        Start Project
+                                    </button>
+                                </div>
+                            </motion.div>
+                        </div>
+                        <div></div>
                     </div>
-                    <div className="hidden md:block"></div>
                 </div>
             </section>
 
@@ -422,11 +548,11 @@ Be concise, enthusiastic, and helpful. Keep responses under 3 sentences when pos
             </section>
 
             {/* 2.5 Finder Strip & Search */}
-            <section className="bg-white dark:bg-[#1A1D21] py-8 md:py-16 border-b border-gray-100 dark:border-gray-800 relative z-20">
-                <div className="max-w-[1600px] mx-auto px-4 md:px-6 lg:px-12">
+            <section className="bg-white dark:bg-[#1A1D21] py-6 md:py-16 border-b border-gray-100 dark:border-gray-800 relative z-20">
+                <div className="max-w-[1600px] mx-auto px-5 md:px-6 lg:px-12">
 
                     {/* Expanded Smart Search Bar - Sticky */}
-                    <div className="sticky top-0 z-40 w-full mx-auto mb-10 md:mb-16 py-4 bg-white/80 dark:bg-[#1A1D21]/80 backdrop-blur-lg lg:rounded-b-2xl transition-all shadow-md">
+                    <div className="sticky top-0 z-40 w-full mx-auto mb-6 md:mb-16 py-3 md:py-4 bg-white/80 dark:bg-[#1A1D21]/80 backdrop-blur-lg lg:rounded-b-2xl transition-all shadow-md">
                         <Reveal effect="scale" width="100%">
                             <div className="relative w-full">
 
@@ -459,10 +585,12 @@ Be concise, enthusiastic, and helpful. Keep responses under 3 sentences when pos
                                     </AnimatePresence>
 
                                     {/* Left: Input & Mic (Flex Grow) */}
-                                    <div className="flex-1 w-full flex items-center relative md:border-r border-gray-100 dark:border-gray-800 px-2 md:px-4">
+                                    <form onSubmit={handleSearchSubmit} className="flex-1 w-full flex items-center relative md:border-r border-gray-100 dark:border-gray-800 px-2 md:px-4">
                                         <span className="material-symbols-outlined text-gray-400 group-focus-within:text-[#C5A065] transition-colors text-2xl ml-2">search</span>
                                         <input
                                             type="text"
+                                            value={searchQuery}
+                                            onChange={(e) => setSearchQuery(e.target.value)}
                                             placeholder="Describe your project (e.g. 'I need a 10ml amber roller')..."
                                             className="w-full py-3 md:py-4 pl-3 md:pl-4 pr-12 md:pr-16 bg-transparent border-none outline-none text-base md:text-lg text-[#1D1D1F] dark:text-white placeholder:text-gray-400"
                                         />
@@ -489,34 +617,125 @@ Be concise, enthusiastic, and helpful. Keep responses under 3 sentences when pos
                                                 {isListening ? 'mic_off' : 'mic'}
                                             </span>
                                         </button>
-                                    </div>
+                                    </form>
 
                                     {/* Desktop: Filters & Action */}
                                     <div className="hidden md:flex w-auto items-center justify-end px-6 py-2 gap-4">
                                         <div className="flex items-center gap-4">
+                                            {/* Category Filter */}
                                             <div className="relative group/filter">
-                                                <button className="flex items-center gap-2 py-2 text-sm font-bold text-gray-600 dark:text-gray-300 hover:text-[#1D1D1F] dark:hover:text-white transition-colors">
-                                                    <span>Bottle Type</span>
+                                                <button className={`flex items-center gap-2 py-2 text-sm font-bold transition-colors ${
+                                                    selectedCategory 
+                                                        ? 'text-[#C5A065]' 
+                                                        : 'text-gray-600 dark:text-gray-300 hover:text-[#1D1D1F] dark:hover:text-white'
+                                                }`}>
+                                                    <span>{selectedCategory ? 
+                                                        (selectedCategory === 'roll-on' ? 'Roll-On' : selectedCategory.charAt(0).toUpperCase() + selectedCategory.slice(1)) 
+                                                        : 'Category'}</span>
                                                     <span className="material-symbols-outlined text-sm opacity-50">expand_more</span>
                                                 </button>
+                                                {/* Dropdown */}
+                                                <div className="absolute top-full left-0 mt-2 w-48 bg-white dark:bg-[#1D1D1F] rounded-xl shadow-xl border border-gray-100 dark:border-gray-700 opacity-0 invisible group-hover/filter:opacity-100 group-hover/filter:visible transition-all z-50">
+                                                    <div className="p-2">
+                                                        {[
+                                                            { label: 'Roll-On Bottles', value: 'roll-on', available: true },
+                                                            { label: 'Dropper Bottles', value: 'dropper', available: false },
+                                                            { label: 'Spray Bottles', value: 'spray', available: false },
+                                                            { label: 'Vintage Bottles', value: 'vintage', available: false },
+                                                        ].map(cat => (
+                                                            <button
+                                                                key={cat.value}
+                                                                onClick={() => cat.available && setSelectedCategory(cat.value)}
+                                                                disabled={!cat.available}
+                                                                className={`w-full text-left px-3 py-2 rounded-lg text-sm flex items-center justify-between ${
+                                                                    cat.available 
+                                                                        ? 'hover:bg-gray-100 dark:hover:bg-white/10 text-[#1D1D1F] dark:text-white' 
+                                                                        : 'text-gray-400 cursor-not-allowed'
+                                                                } ${selectedCategory === cat.value ? 'bg-[#C5A065]/10 text-[#C5A065]' : ''}`}
+                                                            >
+                                                                {cat.label}
+                                                                {!cat.available && <span className="text-xs text-gray-400">(Soon)</span>}
+                                                                {selectedCategory === cat.value && <span className="material-symbols-outlined text-sm">check</span>}
+                                                            </button>
+                                                        ))}
+                                                    </div>
+                                                </div>
                                             </div>
                                             <div className="h-4 w-[1px] bg-gray-200 dark:bg-gray-700"></div>
+                                            
+                                            {/* Glass Color Filter */}
                                             <div className="relative group/filter">
-                                                <button className="flex items-center gap-2 py-2 text-sm font-bold text-gray-600 dark:text-gray-300 hover:text-[#1D1D1F] dark:hover:text-white transition-colors">
-                                                    <span>Cap Style</span>
+                                                <button className={`flex items-center gap-2 py-2 text-sm font-bold transition-colors ${
+                                                    selectedColor 
+                                                        ? 'text-[#C5A065]' 
+                                                        : 'text-gray-600 dark:text-gray-300 hover:text-[#1D1D1F] dark:hover:text-white'
+                                                }`}>
+                                                    <span>{selectedColor ? selectedColor.charAt(0).toUpperCase() + selectedColor.slice(1) : 'Glass Color'}</span>
                                                     <span className="material-symbols-outlined text-sm opacity-50">expand_more</span>
                                                 </button>
+                                                {/* Dropdown */}
+                                                <div className="absolute top-full left-0 mt-2 w-40 bg-white dark:bg-[#1D1D1F] rounded-xl shadow-xl border border-gray-100 dark:border-gray-700 opacity-0 invisible group-hover/filter:opacity-100 group-hover/filter:visible transition-all z-50">
+                                                    <div className="p-2">
+                                                        {['Clear', 'Amber', 'Cobalt Blue', 'Frosted', 'Swirl'].map(color => (
+                                                            <button
+                                                                key={color}
+                                                                onClick={() => setSelectedColor(color.toLowerCase())}
+                                                                className={`w-full text-left px-3 py-2 rounded-lg text-sm flex items-center justify-between hover:bg-gray-100 dark:hover:bg-white/10 text-[#1D1D1F] dark:text-white ${
+                                                                    selectedColor === color.toLowerCase() ? 'bg-[#C5A065]/10 text-[#C5A065]' : ''
+                                                                }`}
+                                                            >
+                                                                {color}
+                                                                {selectedColor === color.toLowerCase() && <span className="material-symbols-outlined text-sm">check</span>}
+                                                            </button>
+                                                        ))}
+                                                    </div>
+                                                </div>
                                             </div>
                                             <div className="h-4 w-[1px] bg-gray-200 dark:bg-gray-700"></div>
+                                            
+                                            {/* Size Filter */}
                                             <div className="relative group/filter">
-                                                <button className="flex items-center gap-2 py-2 text-sm font-bold text-gray-600 dark:text-gray-300 hover:text-[#1D1D1F] dark:hover:text-white transition-colors">
-                                                    <span>Capacity</span>
+                                                <button className={`flex items-center gap-2 py-2 text-sm font-bold transition-colors ${
+                                                    selectedSize 
+                                                        ? 'text-[#C5A065]' 
+                                                        : 'text-gray-600 dark:text-gray-300 hover:text-[#1D1D1F] dark:hover:text-white'
+                                                }`}>
+                                                    <span>{selectedSize || 'Size'}</span>
                                                     <span className="material-symbols-outlined text-sm opacity-50">expand_more</span>
                                                 </button>
+                                                {/* Dropdown */}
+                                                <div className="absolute top-full left-0 mt-2 w-44 bg-white dark:bg-[#1D1D1F] rounded-xl shadow-xl border border-gray-100 dark:border-gray-700 opacity-0 invisible group-hover/filter:opacity-100 group-hover/filter:visible transition-all z-50">
+                                                    <div className="p-2">
+                                                        {[
+                                                            { label: 'Travel (5-15ml)', value: '9ml' },
+                                                            { label: 'Standard (30-50ml)', value: '30ml' },
+                                                            { label: 'Large (100ml+)', value: '100ml' },
+                                                        ].map(size => (
+                                                            <button
+                                                                key={size.value}
+                                                                onClick={() => setSelectedSize(size.value)}
+                                                                className={`w-full text-left px-3 py-2 rounded-lg text-sm flex items-center justify-between hover:bg-gray-100 dark:hover:bg-white/10 text-[#1D1D1F] dark:text-white ${
+                                                                    selectedSize === size.value ? 'bg-[#C5A065]/10 text-[#C5A065]' : ''
+                                                                }`}
+                                                            >
+                                                                {size.label}
+                                                                {selectedSize === size.value && <span className="material-symbols-outlined text-sm">check</span>}
+                                                            </button>
+                                                        ))}
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
 
-                                        <button onClick={onCollectionClick} className="flex-shrink-0 w-12 h-12 bg-[#1D1D1F] text-white rounded-full flex items-center justify-center hover:bg-[#C5A065] transition-colors shadow-lg hover:scale-105 active:scale-95 duration-200">
+                                        {/* Search Button - navigates with all filters */}
+                                        <button 
+                                            onClick={navigateWithFilters} 
+                                            className={`flex-shrink-0 w-12 h-12 rounded-full flex items-center justify-center transition-colors shadow-lg hover:scale-105 active:scale-95 duration-200 ${
+                                                hasFilters 
+                                                    ? 'bg-[#C5A065] text-white hover:bg-[#B8956A]' 
+                                                    : 'bg-[#1D1D1F] text-white hover:bg-[#C5A065]'
+                                            }`}
+                                        >
                                             <span className="material-symbols-outlined">arrow_forward</span>
                                         </button>
                                     </div>

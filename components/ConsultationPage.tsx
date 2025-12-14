@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef, useMemo } from "react";
 import { ProjectDraft } from "../App";
+import { VisualizeModal } from "./VisualizeModal";
 
 // Import our 9ml roll-on product family data
 import rollOnData from "../data/roll-on-9ml-cylinder.json";
@@ -71,8 +72,11 @@ interface CapOption {
 
 interface ChatMessage {
     role: 'assistant' | 'user';
-    text: string;
+    text?: string;
+    content?: string; // alternate field for text
     options?: { label: string; value: string; icon?: string }[];
+    showCategories?: boolean;
+    showCartSummary?: { quantity: number; name: string; price: string };
 }
 
 // Type assertion for our JSON data
@@ -88,6 +92,29 @@ const productData = rollOnData as {
         basePrices: Record<string, Record<string, number>>;
         metalRollerUpcharge: number;
     };
+    labelSpecs: {
+        wrapLabel: {
+            name: string;
+            width: string;
+            height: string;
+            description: string;
+            bleed: string;
+            safeZone: string;
+        };
+        frontLabel: {
+            name: string;
+            width: string;
+            height: string;
+            description: string;
+            bleed: string;
+            safeZone: string;
+        };
+    };
+    labelPartners: {
+        name: string;
+        url: string;
+        description: string;
+    }[];
 };
 
 // --- Sub-Components ---
@@ -105,15 +132,15 @@ interface TopBarExtendedProps extends TopBarProps {
 
 const TopBar: React.FC<TopBarExtendedProps> = ({ assistantInput, setAssistantInput, onSubmit, showInput = true, onBack }) => (
     <div className="w-full bg-[#1D1D1F] dark:bg-[#111] text-white py-3 px-4 md:py-4 md:px-8 flex items-center gap-3 md:gap-4 shrink-0 shadow-md z-40 transition-all">
-        {/* Back Button */}
-        {onBack && (
-            <button 
-                onClick={onBack}
-                className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors"
-            >
-                <span className="material-symbols-outlined text-sm">arrow_back</span>
-            </button>
-        )}
+        {/* Logo / Home Link - Always visible */}
+        <button 
+            onClick={onBack}
+            className="flex items-center gap-2 hover:opacity-80 transition-opacity"
+            title="Back to Home"
+        >
+            <span className="text-lg md:text-xl font-serif font-bold tracking-tight">BB</span>
+            <span className="hidden md:block h-6 w-[1px] bg-white/20 mx-1"></span>
+        </button>
         
         <div className="flex items-center gap-3">
             <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-white/10 flex items-center justify-center border border-white/10">
@@ -146,6 +173,15 @@ const TopBar: React.FC<TopBarExtendedProps> = ({ assistantInput, setAssistantInp
                 </div>
             </form>
         )}
+        
+        {/* Exit Button - Clear and always visible */}
+        <button 
+            onClick={onBack}
+            className="flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 rounded-full bg-white/10 hover:bg-white/20 text-xs font-medium transition-colors"
+        >
+            <span className="hidden md:inline">Exit</span>
+            <i className="ph-thin ph-x text-sm md:text-base" />
+        </button>
     </div>
 );
 
@@ -153,16 +189,23 @@ export const ConsultationPage: React.FC<ConsultationPageProps> = ({ onBack, proj
     // Mode: 'brief' (intake chat) -> 'studio' (builder)
     const [mode, setMode] = useState<'brief' | 'studio'>('brief');
 
+    // Category Data with Images
+    // Note: Replace these placeholder URLs with actual hosted category images from bestbottles.com
+    const categories = [
+        { id: 'vintage', label: 'VINTAGE BOTTLES', image: 'https://images.unsplash.com/photo-1585386959984-a4155224a1ad?w=400&h=400&fit=crop&auto=format', available: false },
+        { id: 'oil-vials', label: 'OIL VIALS', image: 'https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?w=400&h=400&fit=crop&auto=format', available: false },
+        { id: 'essential', label: 'ESSENTIAL OILS', image: 'https://images.unsplash.com/photo-1600857544200-b2f666a9a2ec?w=400&h=400&fit=crop&auto=format', available: false },
+        { id: 'roll-on', label: 'ROLL-ONS', image: 'https://www.bestbottles.com/images/store/enlarged_pics/GBCyl9MtlRollBlkDot.gif', available: true },
+        { id: 'closures', label: 'CLOSURES', image: 'https://images.unsplash.com/photo-1586015555751-63c29b86dc52?w=400&h=400&fit=crop&auto=format', available: false },
+        { id: 'accessories', label: 'ACCESSORIES', image: 'https://images.unsplash.com/photo-1596461404969-9ae70f2830c1?w=400&h=400&fit=crop&auto=format', available: false },
+    ];
+
     // Chat State
     const [messages, setMessages] = useState<ChatMessage[]>([
         {
             role: 'assistant',
-            text: "Welcome! I'm your Bottle Specialist. Tap the microphone below to speak with me, or type your message. What are you looking for today?",
-            options: [
-                { label: 'Roll-On Bottles', value: 'roll-on', icon: 'ph-thin ph-flask' },
-                { label: 'Dropper Bottles', value: 'dropper', icon: 'ph-thin ph-drop' },
-                { label: 'Spray Bottles', value: 'spray', icon: 'ph-thin ph-spray-bottle' },
-            ]
+            text: "Welcome! I'm your Bottle Specialist. Which category are you interested in?",
+            showCategories: true
         }
     ]);
     const [chatInput, setChatInput] = useState("");
@@ -352,7 +395,7 @@ export const ConsultationPage: React.FC<ConsultationPageProps> = ({ onBack, proj
     };
 
     // Studio State
-    const [activeStep, setActiveStep] = useState<0 | 1 | 2>(0); // 0: Vessel, 1: Fitment, 2: Closure
+    const [activeStep, setActiveStep] = useState<0 | 1 | 2>(0); // 0: Bottle, 1: Fitment, 2: Cap
     const [selections, setSelections] = useState<{
         vessel: BaseBottle | null;
         fitment: RollerOption | null;
@@ -364,17 +407,52 @@ export const ConsultationPage: React.FC<ConsultationPageProps> = ({ onBack, proj
         closure: productData.capOptions[0], // Default to Black Dot cap
         quantity: 100
     });
+    
+    // Visualize Modal State
+    const [showVisualizeModal, setShowVisualizeModal] = useState(false);
 
     // Scroll chat to bottom
     useEffect(() => {
         chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
     }, [messages]);
 
-    // Initialize from draft - defer to avoid cascading render
+    // Initialize from draft - add welcome message and transition to studio
     useEffect(() => {
         if (projectDraft) {
-            const timer = requestAnimationFrame(() => setMode('studio'));
-            return () => cancelAnimationFrame(timer);
+            // Defer all state updates to avoid synchronous setState in effect
+            const timer = requestAnimationFrame(() => {
+                // Add a personalized welcome message based on what they asked for
+                const categoryName = projectDraft.category === 'roll-on' ? 'Roll-On Bottles' : 
+                                     projectDraft.category === 'dropper' ? 'Dropper Bottles' :
+                                     projectDraft.category === 'spray' ? 'Spray Bottles' : 'bottles';
+                
+                setMessages([{
+                    role: 'assistant',
+                    text: `Perfect! Based on our conversation, I've prepared our ${categoryName} collection for you.${projectDraft.color ? ` I noticed you're interested in ${projectDraft.color} glass.` : ''}\n\nLet me take you to the configurator where you can customize every detail.`
+                }]);
+                
+                // Pre-select color if specified
+                if (projectDraft.color) {
+                    const matchingBottle = productData.baseBottles.find(
+                        b => b.color.toLowerCase().includes(projectDraft.color?.toLowerCase() || '')
+                    );
+                    if (matchingBottle) {
+                        setSelections(prev => ({ ...prev, vessel: matchingBottle }));
+                    }
+                }
+                
+                // Pre-set quantity if specified
+                if (projectDraft.quantity) {
+                    setSelections(prev => ({ ...prev, quantity: projectDraft.quantity || 100 }));
+                }
+            });
+            
+            // Transition to studio after a brief moment
+            const studioTimer = setTimeout(() => setMode('studio'), 1500);
+            return () => {
+                cancelAnimationFrame(timer);
+                clearTimeout(studioTimer);
+            };
         }
     }, [projectDraft]);
 
@@ -436,6 +514,42 @@ export const ConsultationPage: React.FC<ConsultationPageProps> = ({ onBack, proj
                     text: "We're currently showcasing our Roll-On Bottle collection in this demo. Dropper and spray bottles will be available soon.\n\nWould you like to explore our roll-on options instead?",
                     options: [
                         { label: 'Show Roll-On Bottles', value: 'roll-on', icon: 'ph-thin ph-flask' }
+                    ]
+                }]);
+            } else if (lowerInput.includes('another-roll-on')) {
+                // User wants to configure another roll-on after adding to cart
+                setMessages(prev => [...prev, {
+                    role: 'assistant',
+                    text: "Great! Let's configure another roll-on bottle for you."
+                }]);
+                setTimeout(() => setMode('studio'), 800);
+            } else if (lowerInput.includes('browse-categories')) {
+                setMessages(prev => [...prev, {
+                    role: 'assistant',
+                    text: "Here are our product categories. For this demo, Roll-On Bottles are fully available. Other categories are coming soon!",
+                    options: [
+                        { label: 'Roll-On Bottles', value: 'roll-on', icon: 'ph-thin ph-drop' },
+                        { label: 'Oil Vials (Coming Soon)', value: 'coming-soon', icon: 'ph-thin ph-flask' },
+                        { label: 'Vintage Bottles (Coming Soon)', value: 'coming-soon', icon: 'ph-thin ph-sparkle' },
+                        { label: 'Accessories (Coming Soon)', value: 'coming-soon', icon: 'ph-thin ph-wrench' }
+                    ]
+                }]);
+            } else if (lowerInput.includes('done') || lowerInput.includes('all set') || lowerInput.includes('finished')) {
+                setMessages(prev => [...prev, {
+                    role: 'assistant',
+                    text: "Wonderful! Your items are in the cart. You can access your cart anytime from the cart icon in the header.\n\nThank you for using Bottle Specialist. Have a great day!",
+                    options: [
+                        { label: 'Back to Home', value: 'go-home', icon: 'ph-thin ph-house' }
+                    ]
+                }]);
+            } else if (lowerInput.includes('go-home')) {
+                onBack?.();
+            } else if (lowerInput.includes('coming-soon')) {
+                setMessages(prev => [...prev, {
+                    role: 'assistant',
+                    text: "This category is coming soon! For now, would you like to explore our Roll-On Bottles?",
+                    options: [
+                        { label: 'Show Roll-On Bottles', value: 'roll-on', icon: 'ph-thin ph-drop' }
                     ]
                 }]);
             } else {
@@ -523,8 +637,7 @@ export const ConsultationPage: React.FC<ConsultationPageProps> = ({ onBack, proj
         return `${selections.vessel.skuPrefix}${rollerCode}${selections.closure.skuCode}`;
     };
 
-    // --- Cart State ---
-    const [addedToCart, setAddedToCart] = useState(false);
+    // --- Cart State (modal removed - cart drawer handles confirmation) ---
 
     // --- Handle Add to Cart ---
     const handleFinishKit = () => {
@@ -542,9 +655,30 @@ export const ConsultationPage: React.FC<ConsultationPageProps> = ({ onBack, proj
 
         onAddToCart?.(customProduct, selections.quantity);
         
-        // Show success feedback
-        setAddedToCart(true);
-        setTimeout(() => setAddedToCart(false), 2500);
+        // Return to briefing mode (cart drawer opens automatically)
+        // Add a follow-up message to the chat with cart summary and categories
+        setMessages(prev => [...prev, {
+            role: 'assistant',
+            showCartSummary: {
+                quantity: selections.quantity,
+                name: `${selections.vessel?.name} Roll-On with ${selections.closure?.name} cap`,
+                price: `$${(calculateUnitPrice() * selections.quantity).toFixed(2)}`
+            },
+            text: "What else would you like to add to your order?",
+            showCategories: true
+        }]);
+        
+        // Reset selections for next time
+        setSelections({
+            vessel: productData.baseBottles[0],
+            fitment: productData.rollerOptions[0],
+            closure: productData.capOptions[0],
+            quantity: 100
+        });
+        setActiveStep(0);
+        
+        // Switch back to briefing mode
+        setMode('brief');
     };
 
     // --- Render: Briefing (Chat Interface) ---
@@ -563,11 +697,11 @@ export const ConsultationPage: React.FC<ConsultationPageProps> = ({ onBack, proj
                 {/* Scrollable Chat Area */}
                 <div className="flex-1 overflow-y-auto relative flex flex-col">
                     {/* Chat Messages - Centered vertically when few messages */}
-                    <div className="flex-1 flex flex-col justify-center px-4 md:px-8 py-4 max-w-3xl mx-auto w-full min-h-0">
+                    <div className="flex-1 flex flex-col justify-center px-4 md:px-12 lg:px-16 py-4 max-w-5xl mx-auto w-full min-h-0">
                         <div className="space-y-4">
                             {messages.map((msg, idx) => (
                                 <div key={idx} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-                                    <div className={`max-w-[85%] ${msg.role === 'user' ? 'order-1' : ''}`}>
+                                    <div className={`${msg.showCategories ? 'w-full' : 'max-w-[85%]'} ${msg.role === 'user' ? 'order-1' : ''}`}>
                                         {msg.role === 'assistant' && (
                                             <div className="flex items-center gap-2 mb-2">
                                                 <div className="w-6 h-6 rounded-full bg-[#1D1D1F] flex items-center justify-center">
@@ -576,13 +710,80 @@ export const ConsultationPage: React.FC<ConsultationPageProps> = ({ onBack, proj
                                                 <span className="text-[10px] font-bold uppercase tracking-widest text-gray-400">Bottle Specialist</span>
                                             </div>
                                         )}
-                                        <div className={`rounded-2xl px-4 py-3 ${
-                                            msg.role === 'user' 
-                                                ? 'bg-[#1D1D1F] text-white rounded-br-sm' 
-                                                : 'bg-gray-100 dark:bg-white/10 text-[#1D1D1F] dark:text-white rounded-bl-sm'
-                                        }`}>
-                                            <p className="text-sm leading-relaxed whitespace-pre-line">{msg.text}</p>
-                                        </div>
+                                        {/* Cart Summary (shown after adding to cart) */}
+                                        {msg.showCartSummary && (
+                                            <div className="mb-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-xl p-4 flex items-center gap-4">
+                                                <div className="w-10 h-10 rounded-full bg-green-100 dark:bg-green-900/50 flex items-center justify-center">
+                                                    <i className="ph-thin ph-check-circle text-green-600 text-xl" />
+                                                </div>
+                                                <div className="flex-1">
+                                                    <p className="text-sm font-medium text-green-800 dark:text-green-200">Added to Cart</p>
+                                                    <p className="text-xs text-green-600 dark:text-green-400">
+                                                        {msg.showCartSummary.quantity}x {msg.showCartSummary.name} - {msg.showCartSummary.price}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        )}
+
+                                        {/* Text Message */}
+                                        {(msg.text || msg.content) && (
+                                            <div className={`rounded-2xl px-4 py-3 ${
+                                                msg.role === 'user' 
+                                                    ? 'bg-[#1D1D1F] text-white rounded-br-sm' 
+                                                    : 'bg-gray-100 dark:bg-white/10 text-[#1D1D1F] dark:text-white rounded-bl-sm'
+                                            }`}>
+                                                <p className="text-sm leading-relaxed whitespace-pre-line">{msg.text || msg.content}</p>
+                                            </div>
+                                        )}
+
+                                        {/* Category Banner (Visual Selection) - Full Width */}
+                                        {msg.showCategories && msg.role === 'assistant' && (
+                                            <div className="mt-6 w-full">
+                                                <div className="grid grid-cols-3 md:grid-cols-6 gap-2 md:gap-4">
+                                                    {categories.map((cat) => (
+                                                        <button
+                                                            key={cat.id}
+                                                            onClick={() => cat.available && handleOptionClick(cat.id)}
+                                                            disabled={!cat.available}
+                                                            className={`group relative rounded-2xl overflow-hidden transition-all duration-300 ${
+                                                                cat.available 
+                                                                    ? 'hover:shadow-xl hover:-translate-y-1 cursor-pointer' 
+                                                                    : 'cursor-not-allowed'
+                                                            }`}
+                                                        >
+                                                            <div className="aspect-square bg-[#E8E8E8] relative">
+                                                                <img 
+                                                                    src={cat.image} 
+                                                                    alt={cat.label}
+                                                                    className={`w-full h-full object-cover transition-all duration-300 ${
+                                                                        cat.available 
+                                                                            ? 'grayscale-0 group-hover:scale-105' 
+                                                                            : 'grayscale opacity-70'
+                                                                    }`}
+                                                                />
+                                                                {cat.available && (
+                                                                    <div className="absolute inset-0 ring-2 ring-inset ring-gold rounded-2xl" />
+                                                                )}
+                                                            </div>
+                                                            <div className="mt-2 text-center">
+                                                                <span className={`block text-[9px] md:text-[11px] font-medium tracking-wider ${
+                                                                    cat.available 
+                                                                        ? 'text-[#1D1D1F] dark:text-white' 
+                                                                        : 'text-gray-400'
+                                                                }`}>
+                                                                    {cat.label}
+                                                                </span>
+                                                            </div>
+                                                            {cat.available && (
+                                                                <div className="absolute top-2 right-2 px-1.5 py-0.5 bg-gold rounded text-[8px] text-white font-bold">
+                                                                    NEW
+                                                                </div>
+                                                            )}
+                                                        </button>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        )}
 
                                         {/* Quick Reply Options */}
                                         {msg.options && msg.role === 'assistant' && (
@@ -611,7 +812,7 @@ export const ConsultationPage: React.FC<ConsultationPageProps> = ({ onBack, proj
 
                 {/* Fixed Input at Bottom */}
                 <div className="shrink-0 bg-white dark:bg-background-dark border-t border-gray-100 dark:border-gray-800 p-4 md:p-6">
-                        <div className="max-w-3xl mx-auto">
+                        <div className="max-w-5xl mx-auto px-0 md:px-4 lg:px-8">
                             
                             {/* Voice Interface - When Listening */}
                             {isListening && (
@@ -719,21 +920,12 @@ export const ConsultationPage: React.FC<ConsultationPageProps> = ({ onBack, proj
     // --- Render: Studio (Builder) ---
     return (
         <div className="h-screen bg-[#F5F5F7] dark:bg-background-dark flex flex-col overflow-hidden relative">
-            {/* Success Toast */}
-            {addedToCart && (
-                <div className="fixed top-4 left-1/2 -translate-x-1/2 z-50 animate-slide-up">
-                    <div className="bg-[#1D1D1F] text-white px-6 py-3 rounded-full shadow-xl flex items-center gap-3">
-                        <i className="ph-thin ph-check-circle text-green-400 text-xl" />
-                        <span className="text-sm font-medium">Added to cart</span>
-                    </div>
-                </div>
-            )}
-            
             <TopBar 
                 assistantInput="" 
                 setAssistantInput={() => {}} 
                 onSubmit={() => {}}
                 showInput={false}
+                onBack={onBack}
             />
 
             <div className="flex-1 flex flex-col md:flex-row overflow-hidden">
@@ -742,9 +934,10 @@ export const ConsultationPage: React.FC<ConsultationPageProps> = ({ onBack, proj
                 <div className="w-full md:w-1/2 h-[40vh] md:h-full bg-white dark:bg-[#151515] relative flex flex-col justify-center items-center p-6 md:p-12 shadow-xl z-20 border-r border-gray-100 dark:border-gray-800">
                     <button 
                         onClick={() => setMode('brief')} 
-                        className="absolute top-4 left-4 md:top-6 md:left-6 z-20 flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-gray-400 hover:text-primary transition-colors"
+                        className="absolute top-4 left-4 md:top-6 md:left-6 z-20 flex items-center gap-2 px-3 py-2 rounded-full bg-gray-100 dark:bg-white/10 text-xs font-bold uppercase tracking-widest text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-white/20 transition-colors"
                     >
-                        <span className="material-symbols-outlined text-sm">arrow_back</span> Back to Chat
+                        <i className="ph-thin ph-arrow-left text-sm" /> 
+                        <span className="hidden sm:inline">Back to Chat</span>
                     </button>
 
                     {/* Live Preview */}
@@ -780,9 +973,9 @@ export const ConsultationPage: React.FC<ConsultationPageProps> = ({ onBack, proj
                     {/* Kit Summary */}
                     <div className="absolute bottom-4 left-4 md:bottom-8 md:left-8 flex flex-col gap-1 text-xs">
                         <span className="text-[10px] font-bold uppercase tracking-widest text-gold mb-1">Your Configuration</span>
-                        <span className="text-gray-600 dark:text-gray-400">1. Vessel: <span className="text-[#1D1D1F] dark:text-white font-medium">{selections.vessel?.name}</span></span>
+                        <span className="text-gray-600 dark:text-gray-400">1. Bottle: <span className="text-[#1D1D1F] dark:text-white font-medium">{selections.vessel?.name}</span></span>
                         <span className="text-gray-600 dark:text-gray-400">2. Fitment: <span className="text-[#1D1D1F] dark:text-white font-medium">{selections.fitment?.name}</span></span>
-                        <span className="text-gray-600 dark:text-gray-400">3. Closure: <span className="text-[#1D1D1F] dark:text-white font-medium">{selections.closure?.name}</span></span>
+                        <span className="text-gray-600 dark:text-gray-400">3. Cap: <span className="text-[#1D1D1F] dark:text-white font-medium">{selections.closure?.name}</span></span>
                     </div>
 
                     {/* Price */}
@@ -801,7 +994,7 @@ export const ConsultationPage: React.FC<ConsultationPageProps> = ({ onBack, proj
                     {/* Steps Navigation */}
                     <div className="shrink-0 bg-[#F9F8F6]/95 dark:bg-background-dark/95 backdrop-blur border-b border-gray-200 dark:border-gray-800 px-4 md:px-8 py-4 flex justify-between items-center z-10">
                         <div className="flex gap-4 md:gap-6 overflow-x-auto no-scrollbar">
-                            {['1. Vessel', '2. Fitment', '3. Closure'].map((stepLabel, idx) => (
+                            {['1. Bottle', '2. Fitment', '3. Cap'].map((stepLabel, idx) => (
                                 <button
                                     key={idx}
                                     onClick={() => setActiveStep(idx as 0 | 1 | 2)}
@@ -816,12 +1009,21 @@ export const ConsultationPage: React.FC<ConsultationPageProps> = ({ onBack, proj
                             ))}
                         </div>
 
-                        <button
-                            onClick={handleFinishKit}
-                            className="bg-[#1D1D1F] dark:bg-white text-white dark:text-[#1D1D1F] px-4 md:px-6 py-2 rounded-full text-[10px] font-bold uppercase tracking-widest hover:opacity-90 transition-all"
-                        >
-                            Add to Cart
-                        </button>
+                        <div className="flex items-center gap-2">
+                            <button
+                                onClick={() => setShowVisualizeModal(true)}
+                                className="border border-gold text-gold px-3 md:px-4 py-2 rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-gold/10 transition-all flex items-center gap-1.5"
+                            >
+                                <i className="ph-thin ph-eye text-sm" />
+                                <span className="hidden md:inline">Visualize</span>
+                            </button>
+                            <button
+                                onClick={handleFinishKit}
+                                className="bg-[#1D1D1F] dark:bg-white text-white dark:text-[#1D1D1F] px-4 md:px-6 py-2 rounded-full text-[10px] font-bold uppercase tracking-widest hover:opacity-90 transition-all"
+                            >
+                                Add to Cart
+                            </button>
+                        </div>
                     </div>
 
                     {/* Options */}
@@ -879,7 +1081,7 @@ export const ConsultationPage: React.FC<ConsultationPageProps> = ({ onBack, proj
                             )}
                         </div>
 
-                        {/* Step 1: Vessel (Glass Colors) */}
+                        {/* Step 1: Bottle (Glass Colors) */}
                         {activeStep === 0 && (
                             <div className="animate-fade-in">
                                 <h2 className="text-lg md:text-xl font-serif text-[#1D1D1F] dark:text-white mb-4">Select Glass Color</h2>
@@ -887,10 +1089,7 @@ export const ConsultationPage: React.FC<ConsultationPageProps> = ({ onBack, proj
                                     {productData.baseBottles.map((bottle) => (
                                         <button
                                             key={bottle.id}
-                                            onClick={() => {
-                                                setSelections(prev => ({ ...prev, vessel: bottle }));
-                                                setTimeout(() => setActiveStep(1), 300);
-                                            }}
+                                            onClick={() => setSelections(prev => ({ ...prev, vessel: bottle }))}
                                             className={`group relative aspect-square bg-white dark:bg-white/5 rounded-xl border transition-all duration-300 p-3 flex flex-col items-center justify-center gap-2 hover:shadow-lg ${
                                                 selections.vessel?.id === bottle.id
                                                     ? 'border-gold ring-2 ring-gold shadow-md'
@@ -911,6 +1110,22 @@ export const ConsultationPage: React.FC<ConsultationPageProps> = ({ onBack, proj
                                         </button>
                                     ))}
                                 </div>
+                                
+                                {/* Next Button */}
+                                <div className="mt-6 flex justify-end">
+                                    <button
+                                        onClick={() => setActiveStep(1)}
+                                        disabled={!selections.vessel}
+                                        className={`flex items-center gap-2 px-6 py-3 rounded-full text-sm font-bold uppercase tracking-widest transition-all ${
+                                            selections.vessel
+                                                ? 'bg-[#1D1D1F] text-white hover:bg-[#2D2D2F]'
+                                                : 'bg-gray-200 text-gray-400 cursor-not-allowed'
+                                        }`}
+                                    >
+                                        Next: Fitment
+                                        <i className="ph-thin ph-arrow-right text-lg" />
+                                    </button>
+                                </div>
                             </div>
                         )}
 
@@ -922,10 +1137,7 @@ export const ConsultationPage: React.FC<ConsultationPageProps> = ({ onBack, proj
                                     {productData.rollerOptions.map((roller) => (
                                         <button
                                             key={roller.id}
-                                            onClick={() => {
-                                                setSelections(prev => ({ ...prev, fitment: roller }));
-                                                setTimeout(() => setActiveStep(2), 300);
-                                            }}
+                                            onClick={() => setSelections(prev => ({ ...prev, fitment: roller }))}
                                             className={`w-full p-4 md:p-5 rounded-xl border flex items-center justify-between transition-all group hover:shadow-md ${
                                                 selections.fitment?.id === roller.id
                                                     ? 'bg-white dark:bg-white/10 border-gold shadow-sm ring-2 ring-gold'
@@ -951,15 +1163,38 @@ export const ConsultationPage: React.FC<ConsultationPageProps> = ({ onBack, proj
                                         </button>
                                     ))}
                                 </div>
+                                
+                                {/* Navigation Buttons */}
+                                <div className="mt-6 flex justify-between">
+                                    <button
+                                        onClick={() => setActiveStep(0)}
+                                        className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-500 hover:text-[#1D1D1F] transition-colors"
+                                    >
+                                        <i className="ph-thin ph-arrow-left text-lg" />
+                                        Back
+                                    </button>
+                                    <button
+                                        onClick={() => setActiveStep(2)}
+                                        disabled={!selections.fitment}
+                                        className={`flex items-center gap-2 px-6 py-3 rounded-full text-sm font-bold uppercase tracking-widest transition-all ${
+                                            selections.fitment
+                                                ? 'bg-[#1D1D1F] text-white hover:bg-[#2D2D2F]'
+                                                : 'bg-gray-200 text-gray-400 cursor-not-allowed'
+                                        }`}
+                                    >
+                                        Next: Cap
+                                        <i className="ph-thin ph-arrow-right text-lg" />
+                                    </button>
+                                </div>
                             </div>
                         )}
 
-                        {/* Step 3: Closure (Caps) */}
+                        {/* Step 3: Cap */}
                         {activeStep === 2 && (
                             <div className="animate-fade-in">
                                 <h2 className="text-lg md:text-xl font-serif text-[#1D1D1F] dark:text-white mb-2">Select Cap Style</h2>
-                                <p className="text-[10px] text-gray-400 mb-4">
-                                    <span className="text-green-500">●</span> All caps update the live preview
+                                <p className="text-[10px] text-gray-400 mb-4 flex items-center gap-1">
+                                    <i className="ph-thin ph-circle-fill text-green-500" /> All caps update the live preview
                                 </p>
                                 <div className="grid grid-cols-3 md:grid-cols-4 gap-2 md:gap-3">
                                     {productData.capOptions.map((cap) => (
@@ -995,6 +1230,17 @@ export const ConsultationPage: React.FC<ConsultationPageProps> = ({ onBack, proj
                                         </button>
                                     ))}
                                 </div>
+                                
+                                {/* Back Button */}
+                                <div className="mt-6 flex justify-start">
+                                    <button
+                                        onClick={() => setActiveStep(1)}
+                                        className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-500 hover:text-[#1D1D1F] transition-colors"
+                                    >
+                                        <i className="ph-thin ph-arrow-left text-lg" />
+                                        Back
+                                    </button>
+                                </div>
                             </div>
                         )}
 
@@ -1006,15 +1252,37 @@ export const ConsultationPage: React.FC<ConsultationPageProps> = ({ onBack, proj
                             <span className="block text-[10px] text-gray-400 uppercase">Total</span>
                             <span className="block text-xl font-serif text-[#1D1D1F] dark:text-white">${calculateTotal()}</span>
                         </div>
-                        <button
-                            onClick={handleFinishKit}
-                            className="bg-[#1D1D1F] dark:bg-white text-white dark:text-[#1D1D1F] px-6 py-3 rounded-full text-xs font-bold uppercase tracking-widest"
-                        >
-                            Add to Cart
-                        </button>
+                        <div className="flex items-center gap-2">
+                            <button
+                                onClick={() => setShowVisualizeModal(true)}
+                                className="border border-gold text-gold p-3 rounded-full hover:bg-gold/10 transition-all"
+                            >
+                                <i className="ph-thin ph-eye text-lg" />
+                            </button>
+                            <button
+                                onClick={handleFinishKit}
+                                className="bg-[#1D1D1F] dark:bg-white text-white dark:text-[#1D1D1F] px-6 py-3 rounded-full text-xs font-bold uppercase tracking-widest"
+                            >
+                                Add to Cart
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
+            
+            {/* Visualize Modal */}
+            <VisualizeModal
+                isOpen={showVisualizeModal}
+                onClose={() => setShowVisualizeModal(false)}
+                productImage={getCompositeImageUrl()}
+                productName={`9ml ${selections.vessel?.name} Roll-On Bottle`}
+                labelSpecs={productData.labelSpecs}
+                labelPartners={productData.labelPartners}
+                onContinueToCart={() => {
+                    setShowVisualizeModal(false);
+                    handleFinishKit();
+                }}
+            />
         </div>
     );
 };

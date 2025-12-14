@@ -13,6 +13,43 @@
     "recommendedUse": ["perfume", "fragrance oil", "essential oils", "aromatic oils", "aromatherapy"]
   },
 
+  "labelSpecs": {
+    "wrapLabel": {
+      "name": "Wrap Label (Full Circumference)",
+      "width": "63 mm",
+      "height": "25 mm",
+      "description": "Wraps around the entire bottle body",
+      "bleed": "2 mm all sides",
+      "safeZone": "3 mm from edges"
+    },
+    "frontLabel": {
+      "name": "Front Label (Portrait)",
+      "width": "18 mm", 
+      "height": "35 mm",
+      "description": "Front-facing portrait label",
+      "bleed": "2 mm all sides",
+      "safeZone": "2 mm from edges"
+    }
+  },
+
+  "labelPartners": [
+    {
+      "name": "Sticker Giant",
+      "url": "https://www.stickergiant.com",
+      "description": "Custom labels & stickers"
+    },
+    {
+      "name": "Avery",
+      "url": "https://www.avery.com",
+      "description": "Print-at-home & custom labels"
+    },
+    {
+      "name": "Sticker Mule",
+      "url": "https://www.stickermule.com",
+      "description": "Premium custom stickers"
+    }
+  ],
+
   "baseBottles": [
     {
       "id": "cyl-9ml-clear",
