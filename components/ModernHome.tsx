@@ -394,14 +394,30 @@ Be concise, enthusiastic, and helpful. Keep responses under 3 sentences when pos
             {/* 1. Hero Section: Mobile-First with Product Focus */}
             <section className="relative w-full min-h-[100svh] md:h-[95vh] md:min-h-[700px] flex flex-col md:flex-row md:items-center overflow-hidden bg-[#8C867D]">
                 
-                {/* Mobile: Split Layout - Text Top, Image Bottom */}
-                <div className="md:hidden flex flex-col h-full min-h-[100svh]">
-                    {/* Mobile Top: Text Content */}
-                    <div className="flex-shrink-0 px-5 pt-20 pb-6 bg-gradient-to-b from-[#8C867D] to-[#8C867D]/90 relative z-10">
+                {/* Mobile: Full-Screen Image with Overlay Content */}
+                <div className="md:hidden relative w-full h-full min-h-[100svh]">
+                    {/* Full-screen background image */}
+                    <motion.div 
+                        className="absolute inset-0 w-full h-full"
+                        initial={{ opacity: 0, scale: 1.05 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.8 }}
+                    >
+                        <img
+                            src="https://cdn.shopify.com/s/files/1/1989/5889/files/madison-studio-5b205acb.jpg?v=1765600055"
+                            alt="Premium Glass Bottle"
+                            className="w-full h-full object-cover object-center"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/20 to-black/60"></div>
+                    </motion.div>
+                    
+                    {/* Content overlay */}
+                    <div className="relative z-10 flex flex-col justify-between h-full min-h-[100svh] px-5 pt-20 pb-8">
+                        {/* Top: Text Content */}
                         <motion.div
                             initial={{ opacity: 0, y: 15 }}
                             animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.6 }}
+                            transition={{ duration: 0.6, delay: 0.2 }}
                         >
                             <div className="flex items-center gap-3 mb-4">
                                 <div className="h-[1px] w-8 bg-[#C5A065]"></div>
@@ -417,25 +433,9 @@ Be concise, enthusiastic, and helpful. Keep responses under 3 sentences when pos
                                 Premium packaging solutions for brands ready to grow.
                             </p>
                         </motion.div>
-                    </div>
-                    
-                    {/* Mobile Bottom: Product Image - Takes Remaining Space */}
-                    <motion.div 
-                        className="flex-1 relative min-h-[45vh]"
-                        initial={{ opacity: 0, scale: 1.05 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 0.8, delay: 0.2 }}
-                    >
-                        <img
-                            src="https://cdn.shopify.com/s/files/1/1989/5889/files/madison-studio-5b205acb.jpg?v=1765600055"
-                            alt="Premium Glass Bottle"
-                            className="w-full h-full object-cover object-center"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-[#8C867D]/60"></div>
                         
-                        {/* Mobile CTAs - Overlaid at bottom of image */}
+                        {/* Bottom: CTAs */}
                         <motion.div 
-                            className="absolute bottom-0 left-0 right-0 p-5 pb-8"
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.6, delay: 0.4 }}
@@ -455,7 +455,7 @@ Be concise, enthusiastic, and helpful. Keep responses under 3 sentences when pos
                                 </button>
                             </div>
                         </motion.div>
-                    </motion.div>
+                    </div>
                 </div>
 
                 {/* Desktop: Original Parallax Layout */}
