@@ -743,20 +743,20 @@ Be concise, enthusiastic, and helpful. Keep responses under 3 sentences when pos
                                 </div>
 
                                 {/* Mobile: Horizontal Filter Scroll & Block Button */}
-                                <div className="md:hidden mt-4 space-y-4">
-                                    <div className="flex gap-2 overflow-x-auto pb-2 no-scrollbar px-1 -mx-1">
+                                <div className="md:hidden mt-3 space-y-3">
+                                    <div className="flex gap-2 overflow-x-auto pb-1 no-scrollbar">
                                         {['Bottle Type', 'Cap Style', 'Capacity', 'Material', 'Color'].map((filter) => (
-                                            <button key={filter} className="whitespace-nowrap px-4 py-2 bg-gray-100 dark:bg-[#2A2E35] rounded-full text-xs font-bold text-gray-600 dark:text-gray-300 border border-transparent active:scale-95 transition-transform flex items-center gap-1">
+                                            <button key={filter} className="whitespace-nowrap px-4 py-2.5 bg-gray-100 dark:bg-[#2A2E35] rounded-full text-xs font-bold text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700 active:scale-95 transition-transform flex items-center gap-1.5">
                                                 {filter}
-                                                <span className="material-symbols-outlined text-[10px] opacity-50">expand_more</span>
+                                                <span className="material-symbols-outlined text-xs opacity-50">expand_more</span>
                                             </button>
                                         ))}
                                     </div>
                                     <button
                                         onClick={onCollectionClick}
-                                        className="w-full bg-[#1D1D1F] dark:bg-white text-white dark:text-[#1D1D1F] py-4 rounded-xl font-bold uppercase tracking-widest shadow-lg flex items-center justify-center gap-2 active:scale-95 transition-transform"
+                                        className="w-full bg-[#1D1D1F] dark:bg-white text-white dark:text-[#1D1D1F] py-4 rounded-xl text-sm font-bold uppercase tracking-widest shadow-lg flex items-center justify-center gap-2 active:scale-[0.98] transition-transform"
                                     >
-                                        <span className="material-symbols-outlined">search</span> Search Catalog
+                                        <span className="material-symbols-outlined text-lg">search</span> Search Catalog
                                     </button>
                                 </div>
                             </div>
@@ -782,12 +782,12 @@ Be concise, enthusiastic, and helpful. Keep responses under 3 sentences when pos
                             }
 
                             return (
-                                <Reveal key={idx} delay={idx * 0.1} effect="scale" width="100%">
+                                <Reveal key={idx} delay={idx * 0.05} effect="scale" width="100%">
                                     <button
                                         onClick={onCollectionClick}
-                                        className="group flex flex-col items-center gap-2 md:gap-4 w-full"
+                                        className="group flex flex-col items-center gap-2.5 md:gap-4 w-full"
                                     >
-                                        <div className={`w-full aspect-square rounded-xl md:rounded-2xl flex items-center justify-center transition-all duration-500 shadow-sm group-hover:shadow-xl group-hover:-translate-y-1 overflow-hidden relative ${customImageUrl
+                                        <div className={`w-full aspect-square rounded-2xl md:rounded-2xl flex items-center justify-center transition-all duration-500 shadow-sm group-hover:shadow-xl group-active:scale-95 overflow-hidden relative ${customImageUrl
                                             ? "bg-white border border-gray-100 dark:border-gray-800"
                                             : "bg-gray-50 dark:bg-white/5 text-[#2D3A3F] dark:text-gray-300 group-hover:bg-[#1D1D1F] dark:group-hover:bg-white group-hover:text-white dark:group-hover:text-[#1D1D1F]"
                                             }`}>
@@ -808,7 +808,7 @@ Be concise, enthusiastic, and helpful. Keep responses under 3 sentences when pos
                                                 </span>
                                             )}
                                         </div>
-                                        <span className="text-[10px] md:text-sm font-bold tracking-[0.1em] uppercase text-center text-gray-500 group-hover:text-[#C5A065] transition-colors line-clamp-1">
+                                        <span className="text-[11px] md:text-sm font-bold tracking-[0.08em] uppercase text-center text-gray-600 dark:text-gray-400 group-hover:text-[#C5A065] transition-colors line-clamp-1">
                                             {cat.label}
                                         </span>
                                     </button>
@@ -820,18 +820,18 @@ Be concise, enthusiastic, and helpful. Keep responses under 3 sentences when pos
             </section>
 
             {/* 3. Intro/Sustainability Section: 2-Column Structure */}
-            <section className="py-20 md:py-32 px-6 md:px-10 lg:px-20 bg-[#F5F3EF] dark:bg-background-dark relative">
-                <div className="max-w-[1440px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-start border-t border-[#E5E0D8] dark:border-gray-800 pt-12 md:pt-16">
-                    <div className="max-w-md sticky top-32">
+            <section className="py-12 md:py-32 px-5 md:px-10 lg:px-20 bg-[#F5F3EF] dark:bg-background-dark relative">
+                <div className="max-w-[1440px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-24 items-start border-t border-[#E5E0D8] dark:border-gray-800 pt-8 md:pt-16">
+                    <div className="max-w-md lg:sticky lg:top-32">
                         <Reveal effect="slide-up">
-                            <h2 className="text-4xl md:text-6xl font-serif text-[#2D3A3F] dark:text-white leading-tight">
+                            <h2 className="text-3xl md:text-6xl font-serif text-[#2D3A3F] dark:text-white leading-tight">
                                 Sustainable <br /> Elegance
                             </h2>
                         </Reveal>
                     </div>
                     <div>
                         <Reveal delay={0.2}>
-                            <p className="text-[#637588] dark:text-gray-400 font-light leading-relaxed text-lg md:text-xl mb-10">
+                            <p className="text-[#637588] dark:text-gray-400 font-light leading-relaxed text-base md:text-xl mb-8 md:mb-10">
                                 We believe the vessel is as vital as the scent it holds. Our &quot;Muted Luxury&quot; line blends timeless artisanal craftsmanship with modern sustainable practices, creating bottles that are not merely containers, but objects of desire.
                             </p>
                         </Reveal>
@@ -847,11 +847,11 @@ Be concise, enthusiastic, and helpful. Keep responses under 3 sentences when pos
             </section>
 
             {/* 4. Curated Selections (Bento Grid) - Moved Up */}
-            <section id="collections" className="py-16 md:py-24 bg-[#F5F3EF] dark:bg-background-dark">
-                <div className="max-w-[1440px] mx-auto px-6 md:px-10 mb-10 md:mb-16 flex flex-col md:flex-row justify-between md:items-end gap-6">
+            <section id="collections" className="py-10 md:py-24 bg-[#F5F3EF] dark:bg-background-dark">
+                <div className="max-w-[1440px] mx-auto px-5 md:px-10 mb-6 md:mb-16 flex flex-col md:flex-row justify-between md:items-end gap-4">
                     <Reveal>
                         <div>
-                            <h2 className="text-3xl md:text-5xl font-serif text-[#2D3A3F] dark:text-white mb-3">
+                            <h2 className="text-2xl md:text-5xl font-serif text-[#2D3A3F] dark:text-white mb-2">
                                 Curated Selections
                             </h2>
                             <p className="text-[#637588] dark:text-gray-400 text-sm font-light">
@@ -880,20 +880,20 @@ Be concise, enthusiastic, and helpful. Keep responses under 3 sentences when pos
             </section>
 
             {/* 4.5 Packaging Inspiration Teaser (UPDATED WITH SLIDER) */}
-            <section className="bg-[#EBE7DD] dark:bg-[#2A2A2A] py-20 md:py-32 border-y border-[#D8C6B0] dark:border-gray-700 overflow-hidden">
-                <div className="max-w-[1440px] mx-auto px-6 md:px-10 flex flex-col md:flex-row items-center gap-12 md:gap-20">
+            <section className="bg-[#EBE7DD] dark:bg-[#2A2A2A] py-12 md:py-32 border-y border-[#D8C6B0] dark:border-gray-700 overflow-hidden">
+                <div className="max-w-[1440px] mx-auto px-5 md:px-10 flex flex-col md:flex-row items-center gap-8 md:gap-20">
                     <div className="flex-1 order-2 md:order-1">
                         <Reveal>
-                            <span className="text-[#C5A059] font-bold uppercase tracking-widest text-xs mb-4 block">Inspiration Gallery</span>
-                            <h2 className="text-3xl md:text-6xl font-serif font-bold text-[#1D1D1F] dark:text-white mb-6">
+                            <span className="text-[#C5A059] font-bold uppercase tracking-widest text-[10px] md:text-xs mb-3 block">Inspiration Gallery</span>
+                            <h2 className="text-2xl md:text-6xl font-serif font-bold text-[#1D1D1F] dark:text-white mb-4 md:mb-6">
                                 See what&apos;s possible.
                             </h2>
-                            <p className="text-[#637588] dark:text-gray-300 mb-8 md:mb-10 max-w-md leading-relaxed text-base md:text-lg">
+                            <p className="text-[#637588] dark:text-gray-300 mb-6 md:mb-10 max-w-md leading-relaxed text-sm md:text-lg">
                                 Explore our curated mood boards for specific fragrance profiles like &quot;Rose Eau De Parfum&quot;. Visualize your brand on our bottles before you buy.
                             </p>
                             <button
                                 onClick={onPackagingIdeasClick}
-                                className="bg-[#1D1D1F] dark:bg-white text-white dark:text-[#1D1D1F] px-10 py-4 rounded-full text-xs font-bold uppercase tracking-widest hover:bg-[#C5A065] dark:hover:bg-gray-200 transition-colors shadow-lg hover:scale-105 duration-300 w-full md:w-auto"
+                                className="bg-[#1D1D1F] dark:bg-white text-white dark:text-[#1D1D1F] px-8 md:px-10 py-4 rounded-full text-xs font-bold uppercase tracking-widest hover:bg-[#C5A065] dark:hover:bg-gray-200 transition-colors shadow-lg active:scale-[0.98] duration-300 w-full md:w-auto"
                             >
                                 View Packaging Ideas
                             </button>
@@ -903,7 +903,7 @@ Be concise, enthusiastic, and helpful. Keep responses under 3 sentences when pos
                     {/* Interactive Slider Showcase - Slight rotation and hover effect for interactivity */}
                     <div className="flex-1 w-full max-w-xl order-1 md:order-2">
                         <Reveal effect="scale" delay={0.2}>
-                            <div className="aspect-square bg-white dark:bg-black/20 rounded-xl shadow-2xl border border-white dark:border-gray-700 overflow-hidden transform md:rotate-2 hover:rotate-0 transition-all duration-700 hover:shadow-3xl hover:scale-[1.02]">
+                            <div className="aspect-square bg-white dark:bg-black/20 rounded-2xl shadow-2xl border border-white dark:border-gray-700 overflow-hidden transform md:rotate-2 hover:rotate-0 transition-all duration-700 hover:shadow-3xl hover:scale-[1.02]">
                                 <LuxuryPackageSlider scenes={HOME_SLIDER_SCENES} />
                             </div>
                         </Reveal>
@@ -989,22 +989,22 @@ Be concise, enthusiastic, and helpful. Keep responses under 3 sentences when pos
             </section>
 
             {/* 7. Journal Preview */}
-            <section className="py-20 md:py-32 max-w-[1440px] mx-auto px-6 bg-[#F5F3EF] dark:bg-background-dark">
+            <section className="py-12 md:py-32 max-w-[1440px] mx-auto px-5 md:px-6 bg-[#F5F3EF] dark:bg-background-dark">
                 <Reveal>
-                    <div className="flex justify-between items-baseline mb-12 md:mb-16">
-                        <h2 className="text-3xl md:text-4xl font-serif text-[#2D3A3F] dark:text-white">Journal</h2>
-                        <a href="#" className="text-xs font-bold tracking-widest uppercase text-[#637588] hover:text-[#C5A065] transition-colors relative group">
+                    <div className="flex justify-between items-baseline mb-8 md:mb-16">
+                        <h2 className="text-2xl md:text-4xl font-serif text-[#2D3A3F] dark:text-white">Journal</h2>
+                        <a href="#" className="text-[10px] md:text-xs font-bold tracking-widest uppercase text-[#637588] hover:text-[#C5A065] transition-colors relative group">
                             View Archive
                             <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#C5A065] group-hover:w-full transition-all duration-300"></span>
                         </a>
                     </div>
                 </Reveal>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10">
                     {JOURNAL_POSTS.map((post, idx) => (
-                        <Reveal key={idx} delay={idx * 0.2}>
+                        <Reveal key={idx} delay={idx * 0.15}>
                             <article className="group cursor-pointer">
-                                <div className="aspect-[3/2] overflow-hidden rounded-md mb-8 bg-gray-200 relative">
+                                <div className="aspect-[4/3] md:aspect-[3/2] overflow-hidden rounded-xl md:rounded-md mb-4 md:mb-8 bg-gray-200 relative">
                                     <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors z-10"></div>
                                     <img
                                         src={post.image}
@@ -1012,8 +1012,8 @@ Be concise, enthusiastic, and helpful. Keep responses under 3 sentences when pos
                                         className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105 filter grayscale group-hover:grayscale-0"
                                     />
                                 </div>
-                                <span className="text-[10px] text-[#C5A059] font-bold uppercase tracking-widest block mb-3">{post.date}</span>
-                                <h3 className="text-2xl font-serif font-medium text-[#2D3A3F] dark:text-white mb-4 leading-snug group-hover:text-[#C5A065] transition-colors">
+                                <span className="text-[10px] text-[#C5A059] font-bold uppercase tracking-widest block mb-2">{post.date}</span>
+                                <h3 className="text-xl md:text-2xl font-serif font-medium text-[#2D3A3F] dark:text-white mb-3 leading-snug group-hover:text-[#C5A065] transition-colors">
                                     {post.title}
                                 </h3>
                                 <p className="text-sm text-[#637588] line-clamp-2 leading-relaxed">{post.excerpt}</p>
