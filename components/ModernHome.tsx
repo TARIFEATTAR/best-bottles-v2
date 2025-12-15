@@ -427,7 +427,7 @@ Be concise, enthusiastic, and helpful. Keep responses under 3 sentences when pos
                         transition={{ duration: 0.8, delay: 0.2 }}
                     >
                         <img
-                            src="https://cdn.shopify.com/s/files/1/1989/5889/files/madison-23e11813.jpg?v=1765598795"
+                            src="https://cdn.shopify.com/s/files/1/1989/5889/files/madison-studio-5b205acb.jpg?v=1765600055"
                             alt="Premium Glass Bottle"
                             className="w-full h-full object-cover object-center"
                         />
