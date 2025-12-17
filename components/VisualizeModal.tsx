@@ -54,6 +54,38 @@ export const VisualizeModal: React.FC<VisualizeModalProps> = ({
     const [generatedImage, setGeneratedImage] = useState<string | null>(null);
     const [error, setError] = useState<string | null>(null);
     const [savedToNotes, setSavedToNotes] = useState(false);
+    const [logoFile, setLogoFile] = useState<File | null>(null);
+    const [logoPreview, setLogoPreview] = useState<string | null>(null);
+    const [isDragging, setIsDragging] = useState(false);
+    const fileInputRef = React.useRef<HTMLInputElement>(null);
+
+    const handleLogoDrop = (e: React.DragEvent<HTMLDivElement>) => {
+        e.preventDefault();
+        setIsDragging(false);
+        const file = e.dataTransfer.files[0];
+        if (file && file.type.startsWith('image/')) {
+            setLogoFile(file);
+            const reader = new FileReader();
+            reader.onload = () => setLogoPreview(reader.result as string);
+            reader.readAsDataURL(file);
+        }
+    };
+
+    const handleLogoSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (file && file.type.startsWith('image/')) {
+            setLogoFile(file);
+            const reader = new FileReader();
+            reader.onload = () => setLogoPreview(reader.result as string);
+            reader.readAsDataURL(file);
+        }
+    };
+
+    const removeLogo = () => {
+        setLogoFile(null);
+        setLogoPreview(null);
+        if (fileInputRef.current) fileInputRef.current.value = '';
+    };
 
     if (!isOpen) return null;
 
@@ -84,6 +116,7 @@ ${designStyle === 'artisanal' ? '- Hand-drawn botanical illustrations, kraft pap
 ${designStyle === 'minimalist' ? '- Clean sans-serif typography, lots of white space, single accent color, geometric shapes' : ''}
 - Label type: ${labelType === 'wrap' ? 'Full wrap label around the bottle body' : 'Small front-facing portrait label'}
 - Brand name "${brandName}" should be clearly visible and elegant
+${logoFile ? '- Include a small, elegant logo mark/icon on the label that complements the brand aesthetic' : ''}
 
 SCENE:
 - Professional studio lighting with soft shadows
@@ -95,10 +128,11 @@ SCENE:
 The bottle should look premium and ready for retail.`;
 
         try {
-            // Check if API key is available
-            const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
-            
-            if (!apiKey) {
+            // Check if Freepik API key is available
+            const freepikApiKey = import.meta.env.VITE_FREEPIK_API_KEY;
+            const geminiApiKey = import.meta.env.VITE_GOOGLE_GEMINI_API_KEY;
+
+            if (!freepikApiKey && !geminiApiKey) {
                 // Demo mode - show a placeholder with styling info
                 await new Promise(resolve => setTimeout(resolve, 2000));
                 setGeneratedImage('demo');
@@ -106,45 +140,86 @@ The bottle should look premium and ready for retail.`;
                 return;
             }
 
-            // Use Gemini's image generation
-            const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent?key=${apiKey}`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    contents: [{
-                        parts: [{
-                            text: prompt
-                        }]
-                    }],
-                    generationConfig: {
-                        responseModalities: ["image", "text"],
-                        responseMimeType: "image/png"
-                    }
-                })
-            });
+            // Try Freepik API first (better quality for product images)
+            if (freepikApiKey) {
+                try {
+                    const response = await fetch('https://api.freepik.com/v1/ai/text-to-image', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'x-freepik-api-key': freepikApiKey
+                        },
+                        body: JSON.stringify({
+                            prompt: prompt,
+                            aspect_ratio: 'square_1_1',
+                            num_images: 1,
+                            styling: {
+                                effects: {
+                                    lighting: 'studio',
+                                    framing: 'close_up'
+                                }
+                            },
+                            filter_nsfw: true
+                        })
+                    });
 
-            if (!response.ok) {
-                throw new Error('Failed to generate image');
+                    if (response.ok) {
+                        const data = await response.json();
+                        console.log('Freepik response:', data);
+
+                        // Extract image URL from response
+                        if (data.data?.[0]?.base64) {
+                            setGeneratedImage(`data:image/png;base64,${data.data[0].base64}`);
+                            setIsGenerating(false);
+                            return;
+                        } else if (data.data?.[0]?.url) {
+                            setGeneratedImage(data.data[0].url);
+                            setIsGenerating(false);
+                            return;
+                        }
+                    } else {
+                        console.error('Freepik API error:', await response.text());
+                    }
+                } catch (freepikErr) {
+                    console.error('Freepik API error:', freepikErr);
+                }
             }
 
-            const data = await response.json();
-            
-            // Extract image from response
-            if (data.candidates?.[0]?.content?.parts) {
-                for (const part of data.candidates[0].content.parts) {
-                    if (part.inlineData?.mimeType?.startsWith('image/')) {
-                        setGeneratedImage(`data:${part.inlineData.mimeType};base64,${part.inlineData.data}`);
-                        break;
+            // Fallback to Gemini if Freepik fails or unavailable
+            if (geminiApiKey) {
+                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent?key=${geminiApiKey}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        contents: [{
+                            parts: [{
+                                text: `Generate an image: ${prompt}`
+                            }]
+                        }],
+                        generationConfig: {
+                            responseModalities: ["image", "text"]
+                        }
+                    })
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    if (data.candidates?.[0]?.content?.parts) {
+                        for (const part of data.candidates[0].content.parts) {
+                            if (part.inlineData?.mimeType?.startsWith('image/')) {
+                                setGeneratedImage(`data:${part.inlineData.mimeType};base64,${part.inlineData.data}`);
+                                setIsGenerating(false);
+                                return;
+                            }
+                        }
                     }
                 }
             }
-            
-            if (!generatedImage) {
-                // Fallback to demo mode
-                setGeneratedImage('demo');
-            }
+
+            // Fallback to demo mode
+            setGeneratedImage('demo');
 
         } catch (err) {
             console.error('Image generation error:', err);
@@ -199,6 +274,62 @@ The bottle should look premium and ready for retail.`;
                                 {error && <p className="mt-2 text-sm text-red-500">{error}</p>}
                             </div>
 
+                            {/* Logo Upload Drop Zone */}
+                            <div>
+                                <label className="block text-sm font-bold uppercase tracking-widest text-gray-400 mb-2">
+                                    Your Logo (Optional)
+                                </label>
+                                <input
+                                    type="file"
+                                    ref={fileInputRef}
+                                    onChange={handleLogoSelect}
+                                    accept="image/*"
+                                    className="hidden"
+                                />
+                                {logoPreview ? (
+                                    <div className="relative p-4 rounded-xl border-2 border-gold bg-gold/5">
+                                        <div className="flex items-center gap-4">
+                                            <img
+                                                src={logoPreview}
+                                                alt="Logo preview"
+                                                className="w-16 h-16 object-contain rounded-lg bg-white"
+                                            />
+                                            <div className="flex-1">
+                                                <p className="text-sm font-medium text-[#1D1D1F] dark:text-white">
+                                                    {logoFile?.name}
+                                                </p>
+                                                <p className="text-xs text-gray-500">
+                                                    {logoFile && (logoFile.size / 1024).toFixed(1)} KB
+                                                </p>
+                                            </div>
+                                            <button
+                                                onClick={removeLogo}
+                                                className="p-2 rounded-full bg-red-100 text-red-600 hover:bg-red-200 transition-colors"
+                                            >
+                                                <i className="ph-thin ph-trash text-lg" />
+                                            </button>
+                                        </div>
+                                    </div>
+                                ) : (
+                                    <div
+                                        onDragOver={(e) => { e.preventDefault(); setIsDragging(true); }}
+                                        onDragLeave={() => setIsDragging(false)}
+                                        onDrop={handleLogoDrop}
+                                        onClick={() => fileInputRef.current?.click()}
+                                        className={`p-6 rounded-xl border-2 border-dashed cursor-pointer transition-all text-center ${isDragging
+                                            ? 'border-gold bg-gold/10'
+                                            : 'border-gray-300 dark:border-gray-600 hover:border-gold hover:bg-gold/5'
+                                            }`}
+                                    >
+                                        <i className={`ph-thin ph-upload-simple text-3xl mb-2 ${isDragging ? 'text-gold' : 'text-gray-400'}`} />
+                                        <p className="text-sm text-gray-500">
+                                            Drag & drop your logo here, or <span className="text-gold font-medium">click to browse</span>
+                                        </p>
+                                        <p className="text-xs text-gray-400 mt-1">PNG, JPG, SVG up to 5MB</p>
+                                    </div>
+                                )}
+                            </div>
+
                             {/* Design Style */}
                             <div>
                                 <label className="block text-sm font-bold uppercase tracking-widest text-gray-400 mb-3">
@@ -209,11 +340,10 @@ The bottle should look premium and ready for retail.`;
                                         <button
                                             key={style}
                                             onClick={() => setDesignStyle(style)}
-                                            className={`w-full p-4 rounded-xl border text-left transition-all ${
-                                                designStyle === style
-                                                    ? 'border-gold ring-2 ring-gold bg-gold/5'
-                                                    : 'border-gray-200 dark:border-gray-700 hover:border-gray-300'
-                                            }`}
+                                            className={`w-full p-4 rounded-xl border text-left transition-all ${designStyle === style
+                                                ? 'border-gold ring-2 ring-gold bg-gold/5'
+                                                : 'border-gray-200 dark:border-gray-700 hover:border-gray-300'
+                                                }`}
                                         >
                                             <span className="block text-sm font-bold text-[#1D1D1F] dark:text-white capitalize">
                                                 {style}
@@ -234,11 +364,10 @@ The bottle should look premium and ready for retail.`;
                                 <div className="grid grid-cols-2 gap-3">
                                     <button
                                         onClick={() => setLabelType('wrap')}
-                                        className={`p-4 rounded-xl border text-center transition-all ${
-                                            labelType === 'wrap'
-                                                ? 'border-gold ring-2 ring-gold bg-gold/5'
-                                                : 'border-gray-200 dark:border-gray-700 hover:border-gray-300'
-                                        }`}
+                                        className={`p-4 rounded-xl border text-center transition-all ${labelType === 'wrap'
+                                            ? 'border-gold ring-2 ring-gold bg-gold/5'
+                                            : 'border-gray-200 dark:border-gray-700 hover:border-gray-300'
+                                            }`}
                                     >
                                         <i className="ph-thin ph-arrows-horizontal text-2xl text-gray-600 dark:text-gray-300 mb-2" />
                                         <span className="block text-sm font-bold text-[#1D1D1F] dark:text-white">Wrap Label</span>
@@ -246,11 +375,10 @@ The bottle should look premium and ready for retail.`;
                                     </button>
                                     <button
                                         onClick={() => setLabelType('front')}
-                                        className={`p-4 rounded-xl border text-center transition-all ${
-                                            labelType === 'front'
-                                                ? 'border-gold ring-2 ring-gold bg-gold/5'
-                                                : 'border-gray-200 dark:border-gray-700 hover:border-gray-300'
-                                        }`}
+                                        className={`p-4 rounded-xl border text-center transition-all ${labelType === 'front'
+                                            ? 'border-gold ring-2 ring-gold bg-gold/5'
+                                            : 'border-gray-200 dark:border-gray-700 hover:border-gray-300'
+                                            }`}
                                     >
                                         <i className="ph-thin ph-rectangle-portrait text-2xl text-gray-600 dark:text-gray-300 mb-2" />
                                         <span className="block text-sm font-bold text-[#1D1D1F] dark:text-white">Front Label</span>
@@ -263,11 +391,10 @@ The bottle should look premium and ready for retail.`;
                             <button
                                 onClick={handleGenerate}
                                 disabled={isGenerating}
-                                className={`w-full py-4 rounded-full text-sm font-bold uppercase tracking-widest transition-all flex items-center justify-center gap-3 ${
-                                    isGenerating
-                                        ? 'bg-gray-200 text-gray-400 cursor-wait'
-                                        : 'bg-[#1D1D1F] text-white hover:bg-[#2D2D2F]'
-                                }`}
+                                className={`w-full py-4 rounded-full text-sm font-bold uppercase tracking-widest transition-all flex items-center justify-center gap-3 ${isGenerating
+                                    ? 'bg-gray-200 text-gray-400 cursor-wait'
+                                    : 'bg-[#1D1D1F] text-white hover:bg-[#2D2D2F]'
+                                    }`}
                             >
                                 {isGenerating ? (
                                     <>
@@ -304,15 +431,15 @@ The bottle should look premium and ready for retail.`;
                                         </p>
                                     </div>
                                 ) : generatedImage ? (
-                                    <img 
-                                        src={generatedImage} 
-                                        alt="Generated mockup" 
+                                    <img
+                                        src={generatedImage}
+                                        alt="Generated mockup"
                                         className="w-full h-full object-contain"
                                     />
                                 ) : (
                                     <div className="text-center p-8">
-                                        <img 
-                                            src={productImage} 
+                                        <img
+                                            src={productImage}
                                             alt={productName}
                                             className="h-40 mx-auto mb-4 object-contain opacity-50"
                                         />
@@ -374,13 +501,12 @@ The bottle should look premium and ready for retail.`;
                                         </a>
                                     ))}
                                 </div>
-                                <button 
+                                <button
                                     onClick={handleSaveToNotes}
-                                    className={`w-full mt-3 py-2 px-4 rounded-lg text-sm transition-all flex items-center justify-center gap-2 ${
-                                        savedToNotes
-                                            ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400'
-                                            : 'border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-white/10'
-                                    }`}
+                                    className={`w-full mt-3 py-2 px-4 rounded-lg text-sm transition-all flex items-center justify-center gap-2 ${savedToNotes
+                                        ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400'
+                                        : 'border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-white/10'
+                                        }`}
                                 >
                                     {savedToNotes ? (
                                         <>
@@ -425,4 +551,8 @@ The bottle should look premium and ready for retail.`;
         </div>
     );
 };
+
+
+
+
 

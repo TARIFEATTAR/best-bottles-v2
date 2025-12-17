@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useMemo } from "react";
 import { ProjectDraft } from "../App";
 import { VisualizeModal } from "./VisualizeModal";
+import { useConversation } from "@elevenlabs/react";
 
 // Import our 9ml roll-on product family data
 import rollOnData from "../data/roll-on-9ml-cylinder.json";
@@ -133,7 +134,7 @@ interface TopBarExtendedProps extends TopBarProps {
 const TopBar: React.FC<TopBarExtendedProps> = ({ assistantInput, setAssistantInput, onSubmit, showInput = true, onBack }) => (
     <div className="w-full bg-[#1D1D1F] dark:bg-[#111] text-white py-3 px-4 md:py-4 md:px-8 flex items-center gap-3 md:gap-4 shrink-0 shadow-md z-40 transition-all">
         {/* Logo / Home Link - Always visible */}
-        <button 
+        <button
             onClick={onBack}
             className="flex items-center gap-2 hover:opacity-80 transition-opacity"
             title="Back to Home"
@@ -141,7 +142,7 @@ const TopBar: React.FC<TopBarExtendedProps> = ({ assistantInput, setAssistantInp
             <span className="text-lg md:text-xl font-serif font-bold tracking-tight">BB</span>
             <span className="hidden md:block h-6 w-[1px] bg-white/20 mx-1"></span>
         </button>
-        
+
         <div className="flex items-center gap-3">
             <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-white/10 flex items-center justify-center border border-white/10">
                 <span className="material-symbols-outlined text-base md:text-lg">science</span>
@@ -154,7 +155,7 @@ const TopBar: React.FC<TopBarExtendedProps> = ({ assistantInput, setAssistantInp
                 </span>
             </div>
         </div>
-        
+
         <div className="flex-1" /> {/* Spacer */}
 
         {showInput && (
@@ -173,9 +174,9 @@ const TopBar: React.FC<TopBarExtendedProps> = ({ assistantInput, setAssistantInp
                 </div>
             </form>
         )}
-        
+
         {/* Exit Button - Clear and always visible */}
-        <button 
+        <button
             onClick={onBack}
             className="flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 rounded-full bg-white/10 hover:bg-white/20 text-xs font-medium transition-colors"
         >
@@ -211,184 +212,87 @@ export const ConsultationPage: React.FC<ConsultationPageProps> = ({ onBack, proj
     const [chatInput, setChatInput] = useState("");
     const chatEndRef = useRef<HTMLDivElement>(null);
 
-    // Voice State (Demo Mode - uses Web Speech API)
-    const [isListening, setIsListening] = useState(false);
+    // Voice State (ElevenLabs Grace)
     const [voiceStatus, setVoiceStatus] = useState<'idle' | 'connecting' | 'listening' | 'speaking' | 'error'>('idle');
     const [voiceTranscript, setVoiceTranscript] = useState('');
-    const recognitionRef = useRef<any>(null);
-    const synthRef = useRef<SpeechSynthesis | null>(null);
-    const conversationStageRef = useRef(0);
 
-    // Initialize speech synthesis
-    useEffect(() => {
-        synthRef.current = window.speechSynthesis;
-        return () => {
-            if (synthRef.current) {
-                synthRef.current.cancel();
-            }
-            if (recognitionRef.current) {
-                recognitionRef.current.stop();
-            }
-        };
-    }, []);
+    // ElevenLabs Agent ID
+    const elevenLabsAgentId = import.meta.env.VITE_ELEVENLABS_AGENT_ID as string;
 
-    // Speak text using Web Speech API
-    const speak = (text: string, onEnd?: () => void) => {
-        if (!synthRef.current) return;
-        
-        synthRef.current.cancel();
-        const utterance = new SpeechSynthesisUtterance(text);
-        utterance.rate = 1.0;
-        utterance.pitch = 1.0;
-        
-        // Try to get a nice voice
-        const voices = synthRef.current.getVoices();
-        const preferredVoice = voices.find(v => 
-            v.name.includes('Samantha') || 
-            v.name.includes('Karen') || 
-            v.name.includes('Google') ||
-            v.lang.startsWith('en')
-        );
-        if (preferredVoice) utterance.voice = preferredVoice;
-        
-        utterance.onstart = () => setVoiceStatus('speaking');
-        utterance.onend = () => {
+    // ElevenLabs Conversation Hook
+    const conversation = useConversation({
+        onConnect: () => {
+            console.log("✅ Connected to Grace in Consultation");
             setVoiceStatus('listening');
-            onEnd?.();
-        };
-        
-        synthRef.current.speak(utterance);
-    };
+            // Add welcome message
+            setMessages(prev => [...prev, {
+                role: 'assistant',
+                text: "Hello! I'm Grace, your bottle specialist. I'm here to help you find the perfect packaging. What are you looking for today?"
+            }]);
+        },
+        onDisconnect: () => {
+            console.log("❌ Disconnected from Grace");
+            setVoiceStatus('idle');
+        },
+        onMessage: (message) => {
+            console.log("📨 Grace says:", message);
+            if (message.message) {
+                // Add Grace's response to chat
+                setMessages(prev => [...prev, { role: 'assistant', text: message.message }]);
 
-    // Process voice input and respond
-    const processVoiceInput = (transcript: string) => {
-        const lower = transcript.toLowerCase();
-        let response = DEMO_VOICE_RESPONSES.find(r => r.trigger === 'default')!;
-        
-        // Determine response based on conversation stage and keywords
-        if (conversationStageRef.current === 0) {
-            response = DEMO_VOICE_RESPONSES.find(r => r.trigger === 'greeting')!;
-            conversationStageRef.current = 1;
-        } else if (lower.includes('roll') || lower.includes('perfume') || lower.includes('oil') || lower.includes('essential')) {
-            response = DEMO_VOICE_RESPONSES.find(r => r.trigger === 'roll-on')!;
-            conversationStageRef.current = 2;
-        } else if (lower.includes('yes') || lower.includes('sure') || lower.includes('okay') || lower.includes('show') || lower.includes('let') || lower.includes('configure') || lower.includes('customize')) {
-            response = DEMO_VOICE_RESPONSES.find(r => r.trigger === 'yes')!;
-        }
-        
-        // Add assistant message to chat
-        setMessages(prev => [...prev, { role: 'assistant', text: response.text }]);
-        
-        // Speak the response
-        speak(response.text, () => {
-            if (response.action === 'navigate') {
-                setTimeout(() => {
-                    stopVoice();
-                    setMode('studio');
-                }, 500);
+                // Check for navigation triggers
+                const lower = message.message.toLowerCase();
+                if (lower.includes('configurator') || lower.includes('studio') || lower.includes('customize')) {
+                    setTimeout(() => setMode('studio'), 2000);
+                }
             }
-        });
-    };
+        },
+        onError: (error) => {
+            console.error("❌ Grace error:", error);
+            setVoiceStatus('error');
+        },
+    });
+
+    const isListening = conversation.status === 'connected';
+    const isConnecting = conversation.status === 'connecting';
 
     // Stop voice session
-    const stopVoice = () => {
-        if (recognitionRef.current) {
-            recognitionRef.current.stop();
+    const stopVoice = async () => {
+        if (conversation.status === 'connected') {
+            await conversation.endSession();
         }
-        if (synthRef.current) {
-            synthRef.current.cancel();
-        }
-        setIsListening(false);
         setVoiceStatus('idle');
         setVoiceTranscript('');
     };
 
-    // Start voice session
+    // Start voice session with ElevenLabs Grace
     const startVoice = async () => {
         if (isListening) {
-            stopVoice();
+            await stopVoice();
             return;
         }
 
-        // Check for Web Speech API support
-        const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
-        
-        if (!SpeechRecognition) {
-            alert('Voice recognition is not supported in this browser. Please use Chrome or Edge.');
+        if (!elevenLabsAgentId) {
+            console.error("ElevenLabs Agent ID not configured");
+            setVoiceStatus('error');
+            alert('Please add VITE_ELEVENLABS_AGENT_ID to your .env file');
             return;
         }
 
         try {
-            setIsListening(true);
             setVoiceStatus('connecting');
-            conversationStageRef.current = 0;
 
             // Request microphone permission
             await navigator.mediaDevices.getUserMedia({ audio: true });
 
-            // Initialize speech recognition
-            const recognition = new SpeechRecognition();
-            recognition.continuous = true;
-            recognition.interimResults = true;
-            recognition.lang = 'en-US';
-
-            recognition.onstart = () => {
-                setVoiceStatus('listening');
-                // Greet the user after a short delay
-                setTimeout(() => {
-                    processVoiceInput('');
-                }, 1000);
-            };
-
-            recognition.onresult = (event: any) => {
-                let finalTranscript = '';
-                let interimTranscript = '';
-
-                for (let i = event.resultIndex; i < event.results.length; i++) {
-                    const transcript = event.results[i][0].transcript;
-                    if (event.results[i].isFinal) {
-                        finalTranscript += transcript;
-                    } else {
-                        interimTranscript = transcript;
-                    }
-                }
-
-                setVoiceTranscript(interimTranscript || finalTranscript);
-
-                if (finalTranscript && voiceStatus !== 'speaking') {
-                    // Add user message
-                    setMessages(prev => [...prev, { role: 'user', text: finalTranscript }]);
-                    setVoiceTranscript('');
-                    
-                    // Process and respond
-                    setTimeout(() => processVoiceInput(finalTranscript), 500);
-                }
-            };
-
-            recognition.onerror = (event: any) => {
-                console.error('Speech recognition error:', event.error);
-                if (event.error !== 'no-speech') {
-                    setVoiceStatus('error');
-                }
-            };
-
-            recognition.onend = () => {
-                // Restart if still listening and not speaking
-                if (isListening && voiceStatus !== 'speaking') {
-                    try {
-                        recognition.start();
-                    } catch (e) {
-                        // Ignore - might already be running
-                    }
-                }
-            };
-
-            recognitionRef.current = recognition;
-            recognition.start();
+            // Start ElevenLabs conversation
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            await conversation.startSession({
+                agentId: elevenLabsAgentId,
+            } as any);
 
         } catch (e) {
-            console.error("Failed to start voice:", e);
-            setIsListening(false);
+            console.error("Failed to start Grace:", e);
             setVoiceStatus('error');
             alert('Could not access microphone. Please allow microphone permissions.');
         }
@@ -407,7 +311,7 @@ export const ConsultationPage: React.FC<ConsultationPageProps> = ({ onBack, proj
         closure: productData.capOptions[0], // Default to Black Dot cap
         quantity: 100
     });
-    
+
     // Visualize Modal State
     const [showVisualizeModal, setShowVisualizeModal] = useState(false);
 
@@ -422,15 +326,15 @@ export const ConsultationPage: React.FC<ConsultationPageProps> = ({ onBack, proj
             // Defer all state updates to avoid synchronous setState in effect
             const timer = requestAnimationFrame(() => {
                 // Add a personalized welcome message based on what they asked for
-                const categoryName = projectDraft.category === 'roll-on' ? 'Roll-On Bottles' : 
-                                     projectDraft.category === 'dropper' ? 'Dropper Bottles' :
-                                     projectDraft.category === 'spray' ? 'Spray Bottles' : 'bottles';
-                
+                const categoryName = projectDraft.category === 'roll-on' ? 'Roll-On Bottles' :
+                    projectDraft.category === 'dropper' ? 'Dropper Bottles' :
+                        projectDraft.category === 'spray' ? 'Spray Bottles' : 'bottles';
+
                 setMessages([{
                     role: 'assistant',
                     text: `Perfect! Based on our conversation, I've prepared our ${categoryName} collection for you.${projectDraft.color ? ` I noticed you're interested in ${projectDraft.color} glass.` : ''}\n\nLet me take you to the configurator where you can customize every detail.`
                 }]);
-                
+
                 // Pre-select color if specified
                 if (projectDraft.color) {
                     const matchingBottle = productData.baseBottles.find(
@@ -440,13 +344,13 @@ export const ConsultationPage: React.FC<ConsultationPageProps> = ({ onBack, proj
                         setSelections(prev => ({ ...prev, vessel: matchingBottle }));
                     }
                 }
-                
+
                 // Pre-set quantity if specified
                 if (projectDraft.quantity) {
                     setSelections(prev => ({ ...prev, quantity: projectDraft.quantity || 100 }));
                 }
             });
-            
+
             // Transition to studio after a brief moment
             const studioTimer = setTimeout(() => setMode('studio'), 1500);
             return () => {
@@ -568,7 +472,7 @@ export const ConsultationPage: React.FC<ConsultationPageProps> = ({ onBack, proj
     // --- Pricing Calculation ---
     const pricingInfo = useMemo(() => {
         if (!selections.vessel) return { unitPrice: 0, total: 0, tierLabel: '', nextTier: null };
-        
+
         const basePrices = productData.pricingMatrix.basePrices[selections.vessel.id];
         if (!basePrices) return { unitPrice: 0, total: 0, tierLabel: '', nextTier: null };
 
@@ -580,7 +484,7 @@ export const ConsultationPage: React.FC<ConsultationPageProps> = ({ onBack, proj
         // Find current tier (highest tier where qty >= tier.qty)
         let currentTier = tiers[0];
         let nextTier: { qty: number; price: number } | null = null;
-        
+
         for (let i = 0; i < tiers.length; i++) {
             if (selections.quantity >= tiers[i].qty) {
                 currentTier = tiers[i];
@@ -588,13 +492,13 @@ export const ConsultationPage: React.FC<ConsultationPageProps> = ({ onBack, proj
             }
         }
 
-        const rollerUpcharge = selections.fitment?.type === 'metal' 
-            ? productData.pricingMatrix.metalRollerUpcharge 
+        const rollerUpcharge = selections.fitment?.type === 'metal'
+            ? productData.pricingMatrix.metalRollerUpcharge
             : 0;
 
         const unitPrice = currentTier.price + rollerUpcharge;
         const total = unitPrice * selections.quantity;
-        
+
         // Create tier label
         let tierLabel = '';
         if (currentTier.qty === 1) {
@@ -603,9 +507,9 @@ export const ConsultationPage: React.FC<ConsultationPageProps> = ({ onBack, proj
             tierLabel = `${currentTier.qty}+ tier`;
         }
 
-        return { 
-            unitPrice, 
-            total, 
+        return {
+            unitPrice,
+            total,
             tierLabel,
             nextTier: nextTier ? {
                 qty: nextTier.qty,
@@ -654,7 +558,7 @@ export const ConsultationPage: React.FC<ConsultationPageProps> = ({ onBack, proj
         };
 
         onAddToCart?.(customProduct, selections.quantity);
-        
+
         // Return to briefing mode (cart drawer opens automatically)
         // Add a follow-up message to the chat with cart summary and categories
         setMessages(prev => [...prev, {
@@ -667,7 +571,7 @@ export const ConsultationPage: React.FC<ConsultationPageProps> = ({ onBack, proj
             text: "What else would you like to add to your order?",
             showCategories: true
         }]);
-        
+
         // Reset selections for next time
         setSelections({
             vessel: productData.baseBottles[0],
@@ -676,7 +580,7 @@ export const ConsultationPage: React.FC<ConsultationPageProps> = ({ onBack, proj
             quantity: 100
         });
         setActiveStep(0);
-        
+
         // Switch back to briefing mode
         setMode('brief');
     };
@@ -686,9 +590,9 @@ export const ConsultationPage: React.FC<ConsultationPageProps> = ({ onBack, proj
         return (
             <div className="h-screen bg-white dark:bg-background-dark font-sans flex flex-col overflow-hidden">
                 {/* Fixed Header */}
-                <TopBar 
-                    assistantInput={chatInput} 
-                    setAssistantInput={setChatInput} 
+                <TopBar
+                    assistantInput={chatInput}
+                    setAssistantInput={setChatInput}
                     onSubmit={handleChatSubmit}
                     showInput={false}
                     onBack={onBack}
@@ -727,11 +631,10 @@ export const ConsultationPage: React.FC<ConsultationPageProps> = ({ onBack, proj
 
                                         {/* Text Message */}
                                         {(msg.text || msg.content) && (
-                                            <div className={`rounded-2xl px-4 py-3 ${
-                                                msg.role === 'user' 
-                                                    ? 'bg-[#1D1D1F] text-white rounded-br-sm' 
-                                                    : 'bg-gray-100 dark:bg-white/10 text-[#1D1D1F] dark:text-white rounded-bl-sm'
-                                            }`}>
+                                            <div className={`rounded-2xl px-4 py-3 ${msg.role === 'user'
+                                                ? 'bg-[#1D1D1F] text-white rounded-br-sm'
+                                                : 'bg-gray-100 dark:bg-white/10 text-[#1D1D1F] dark:text-white rounded-bl-sm'
+                                                }`}>
                                                 <p className="text-sm leading-relaxed whitespace-pre-line">{msg.text || msg.content}</p>
                                             </div>
                                         )}
@@ -745,32 +648,29 @@ export const ConsultationPage: React.FC<ConsultationPageProps> = ({ onBack, proj
                                                             key={cat.id}
                                                             onClick={() => cat.available && handleOptionClick(cat.id)}
                                                             disabled={!cat.available}
-                                                            className={`group relative rounded-2xl overflow-hidden transition-all duration-300 ${
-                                                                cat.available 
-                                                                    ? 'hover:shadow-xl hover:-translate-y-1 cursor-pointer' 
-                                                                    : 'cursor-not-allowed'
-                                                            }`}
+                                                            className={`group relative rounded-2xl overflow-hidden transition-all duration-300 ${cat.available
+                                                                ? 'hover:shadow-xl hover:-translate-y-1 cursor-pointer'
+                                                                : 'cursor-not-allowed'
+                                                                }`}
                                                         >
                                                             <div className="aspect-square bg-[#E8E8E8] relative">
-                                                                <img 
-                                                                    src={cat.image} 
+                                                                <img
+                                                                    src={cat.image}
                                                                     alt={cat.label}
-                                                                    className={`w-full h-full object-cover transition-all duration-300 ${
-                                                                        cat.available 
-                                                                            ? 'grayscale-0 group-hover:scale-105' 
-                                                                            : 'grayscale opacity-70'
-                                                                    }`}
+                                                                    className={`w-full h-full object-cover transition-all duration-300 ${cat.available
+                                                                        ? 'grayscale-0 group-hover:scale-105'
+                                                                        : 'grayscale opacity-70'
+                                                                        }`}
                                                                 />
                                                                 {cat.available && (
                                                                     <div className="absolute inset-0 ring-2 ring-inset ring-gold rounded-2xl" />
                                                                 )}
                                                             </div>
                                                             <div className="mt-2 text-center">
-                                                                <span className={`block text-[9px] md:text-[11px] font-medium tracking-wider ${
-                                                                    cat.available 
-                                                                        ? 'text-[#1D1D1F] dark:text-white' 
-                                                                        : 'text-gray-400'
-                                                                }`}>
+                                                                <span className={`block text-[9px] md:text-[11px] font-medium tracking-wider ${cat.available
+                                                                    ? 'text-[#1D1D1F] dark:text-white'
+                                                                    : 'text-gray-400'
+                                                                    }`}>
                                                                     {cat.label}
                                                                 </span>
                                                             </div>
@@ -812,107 +712,105 @@ export const ConsultationPage: React.FC<ConsultationPageProps> = ({ onBack, proj
 
                 {/* Fixed Input at Bottom */}
                 <div className="shrink-0 bg-white dark:bg-background-dark border-t border-gray-100 dark:border-gray-800 p-4 md:p-6">
-                        <div className="max-w-5xl mx-auto px-0 md:px-4 lg:px-8">
-                            
-                            {/* Voice Interface - When Listening */}
-                            {isListening && (
-                                <div className="mb-4 bg-[#1D1D1F] rounded-2xl p-4 animate-fade-in">
-                                    <div className="flex items-center justify-between">
-                                        <div className="flex items-center gap-4">
-                                            <div className="relative">
-                                                <div className={`w-12 h-12 rounded-full flex items-center justify-center ${
-                                                    voiceStatus === 'speaking' ? 'bg-gold' : 'bg-white/20'
+                    <div className="max-w-5xl mx-auto px-0 md:px-4 lg:px-8">
+
+                        {/* Voice Interface - When Listening */}
+                        {isListening && (
+                            <div className="mb-4 bg-[#1D1D1F] rounded-2xl p-4 animate-fade-in">
+                                <div className="flex items-center justify-between">
+                                    <div className="flex items-center gap-4">
+                                        <div className="relative">
+                                            <div className={`w-12 h-12 rounded-full flex items-center justify-center ${voiceStatus === 'speaking' ? 'bg-gold' : 'bg-white/20'
                                                 } transition-colors`}>
-                                                    <span className="material-symbols-outlined text-white text-xl">
-                                                        {voiceStatus === 'speaking' ? 'volume_up' : 'mic'}
-                                                    </span>
-                                                </div>
-                                                {voiceStatus === 'listening' && (
-                                                    <span className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full animate-pulse" />
-                                                )}
-                                            </div>
-                                            <div>
-                                                <span className="block text-white text-sm font-medium">
-                                                    {voiceStatus === 'connecting' && 'Starting...'}
-                                                    {voiceStatus === 'listening' && 'Listening... speak now'}
-                                                    {voiceStatus === 'speaking' && 'Specialist speaking...'}
-                                                    {voiceStatus === 'error' && 'Microphone error'}
-                                                </span>
-                                                <span className="block text-white/50 text-xs">
-                                                    {voiceStatus === 'listening' && 'Say "roll-on bottles" or "yes"'}
+                                                <span className="material-symbols-outlined text-white text-xl">
+                                                    {voiceStatus === 'speaking' ? 'volume_up' : 'mic'}
                                                 </span>
                                             </div>
+                                            {voiceStatus === 'listening' && (
+                                                <span className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full animate-pulse" />
+                                            )}
                                         </div>
-                                        
-                                        {/* Audio Visualizer */}
-                                        <div className="flex items-center gap-1">
-                                            <span className={`w-1 h-4 bg-gold rounded-full ${voiceStatus === 'speaking' ? 'animate-[pulse_0.5s_ease-in-out_infinite]' : voiceStatus === 'listening' ? 'animate-[pulse_1s_ease-in-out_infinite]' : ''}`} />
-                                            <span className={`w-1 h-6 bg-gold rounded-full ${voiceStatus === 'speaking' ? 'animate-[pulse_0.7s_ease-in-out_infinite]' : voiceStatus === 'listening' ? 'animate-[pulse_1.2s_ease-in-out_infinite]' : ''}`} />
-                                            <span className={`w-1 h-8 bg-gold rounded-full ${voiceStatus === 'speaking' ? 'animate-[pulse_0.4s_ease-in-out_infinite]' : voiceStatus === 'listening' ? 'animate-[pulse_0.9s_ease-in-out_infinite]' : ''}`} />
-                                            <span className={`w-1 h-5 bg-gold rounded-full ${voiceStatus === 'speaking' ? 'animate-[pulse_0.6s_ease-in-out_infinite]' : voiceStatus === 'listening' ? 'animate-[pulse_1.1s_ease-in-out_infinite]' : ''}`} />
-                                            <span className={`w-1 h-3 bg-gold rounded-full ${voiceStatus === 'speaking' ? 'animate-[pulse_0.8s_ease-in-out_infinite]' : voiceStatus === 'listening' ? 'animate-[pulse_1.3s_ease-in-out_infinite]' : ''}`} />
+                                        <div>
+                                            <span className="block text-white text-sm font-medium">
+                                                {voiceStatus === 'connecting' && 'Starting...'}
+                                                {voiceStatus === 'listening' && 'Listening... speak now'}
+                                                {voiceStatus === 'speaking' && 'Specialist speaking...'}
+                                                {voiceStatus === 'error' && 'Microphone error'}
+                                            </span>
+                                            <span className="block text-white/50 text-xs">
+                                                {voiceStatus === 'listening' && 'Say "roll-on bottles" or "yes"'}
+                                            </span>
                                         </div>
-
-                                        <button
-                                            onClick={stopVoice}
-                                            className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors"
-                                        >
-                                            <span className="material-symbols-outlined text-white text-sm">close</span>
-                                        </button>
                                     </div>
-                                    
-                                    {/* Live transcript */}
-                                    {voiceTranscript && (
-                                        <div className="mt-3 pt-3 border-t border-white/10">
-                                            <p className="text-white/70 text-sm italic">&ldquo;{voiceTranscript}&rdquo;</p>
-                                        </div>
-                                    )}
-                                </div>
-                            )}
 
-                            {/* Main Input Area */}
-                            <div className="flex items-center gap-3">
-                                {/* Voice Button */}
-                                <button
-                                    onClick={startVoice}
-                                    className={`shrink-0 w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center transition-all shadow-lg ${
-                                        isListening 
-                                            ? 'bg-red-500 hover:bg-red-600 animate-pulse' 
-                                            : 'bg-[#1D1D1F] hover:bg-[#2D2D2F] hover:scale-105'
-                                    }`}
-                                >
-                                    <span className="material-symbols-outlined text-white text-xl md:text-2xl">
-                                        {isListening ? 'mic_off' : 'mic'}
-                                    </span>
-                                </button>
+                                    {/* Audio Visualizer */}
+                                    <div className="flex items-center gap-1">
+                                        <span className={`w-1 h-4 bg-gold rounded-full ${voiceStatus === 'speaking' ? 'animate-[pulse_0.5s_ease-in-out_infinite]' : voiceStatus === 'listening' ? 'animate-[pulse_1s_ease-in-out_infinite]' : ''}`} />
+                                        <span className={`w-1 h-6 bg-gold rounded-full ${voiceStatus === 'speaking' ? 'animate-[pulse_0.7s_ease-in-out_infinite]' : voiceStatus === 'listening' ? 'animate-[pulse_1.2s_ease-in-out_infinite]' : ''}`} />
+                                        <span className={`w-1 h-8 bg-gold rounded-full ${voiceStatus === 'speaking' ? 'animate-[pulse_0.4s_ease-in-out_infinite]' : voiceStatus === 'listening' ? 'animate-[pulse_0.9s_ease-in-out_infinite]' : ''}`} />
+                                        <span className={`w-1 h-5 bg-gold rounded-full ${voiceStatus === 'speaking' ? 'animate-[pulse_0.6s_ease-in-out_infinite]' : voiceStatus === 'listening' ? 'animate-[pulse_1.1s_ease-in-out_infinite]' : ''}`} />
+                                        <span className={`w-1 h-3 bg-gold rounded-full ${voiceStatus === 'speaking' ? 'animate-[pulse_0.8s_ease-in-out_infinite]' : voiceStatus === 'listening' ? 'animate-[pulse_1.3s_ease-in-out_infinite]' : ''}`} />
+                                    </div>
 
-                                {/* Text Input */}
-                                <form onSubmit={handleChatSubmit} className="flex-1 relative">
-                                    <input
-                                        type="text"
-                                        value={chatInput}
-                                        onChange={(e) => setChatInput(e.target.value)}
-                                        placeholder={isListening ? "Or type while speaking..." : "Type or tap the mic to speak..."}
-                                        className="w-full bg-gray-100 dark:bg-white/10 border border-gray-200 dark:border-gray-700 rounded-full py-3 pl-5 pr-12 text-sm text-[#1D1D1F] dark:text-white placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-gold/50 focus:border-gold transition-all"
-                                    />
-                                    <button 
-                                        type="submit" 
-                                        className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-[#1D1D1F] dark:bg-white flex items-center justify-center hover:opacity-80 transition-opacity"
+                                    <button
+                                        onClick={stopVoice}
+                                        className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors"
                                     >
-                                        <span className="material-symbols-outlined text-white dark:text-[#1D1D1F] text-sm">arrow_upward</span>
+                                        <span className="material-symbols-outlined text-white text-sm">close</span>
                                     </button>
-                                </form>
-                            </div>
+                                </div>
 
-                            {/* Voice Hint */}
-                            {!isListening && (
-                                <p className="text-center text-[10px] text-gray-400 mt-3 flex items-center justify-center gap-1">
-                                    <i className="ph-thin ph-lightbulb text-sm" />
-                                    Tap the microphone for a hands-free conversation with the Bottle Specialist
-                                </p>
-                            )}
+                                {/* Live transcript */}
+                                {voiceTranscript && (
+                                    <div className="mt-3 pt-3 border-t border-white/10">
+                                        <p className="text-white/70 text-sm italic">&ldquo;{voiceTranscript}&rdquo;</p>
+                                    </div>
+                                )}
+                            </div>
+                        )}
+
+                        {/* Main Input Area */}
+                        <div className="flex items-center gap-3">
+                            {/* Voice Button */}
+                            <button
+                                onClick={startVoice}
+                                className={`shrink-0 w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center transition-all shadow-lg ${isListening
+                                    ? 'bg-red-500 hover:bg-red-600 animate-pulse'
+                                    : 'bg-[#1D1D1F] hover:bg-[#2D2D2F] hover:scale-105'
+                                    }`}
+                            >
+                                <span className="material-symbols-outlined text-white text-xl md:text-2xl">
+                                    {isListening ? 'mic_off' : 'mic'}
+                                </span>
+                            </button>
+
+                            {/* Text Input */}
+                            <form onSubmit={handleChatSubmit} className="flex-1 relative">
+                                <input
+                                    type="text"
+                                    value={chatInput}
+                                    onChange={(e) => setChatInput(e.target.value)}
+                                    placeholder={isListening ? "Or type while speaking..." : "Type or tap the mic to speak..."}
+                                    className="w-full bg-gray-100 dark:bg-white/10 border border-gray-200 dark:border-gray-700 rounded-full py-3 pl-5 pr-12 text-sm text-[#1D1D1F] dark:text-white placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-gold/50 focus:border-gold transition-all"
+                                />
+                                <button
+                                    type="submit"
+                                    className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-[#1D1D1F] dark:bg-white flex items-center justify-center hover:opacity-80 transition-opacity"
+                                >
+                                    <span className="material-symbols-outlined text-white dark:text-[#1D1D1F] text-sm">arrow_upward</span>
+                                </button>
+                            </form>
                         </div>
+
+                        {/* Voice Hint */}
+                        {!isListening && (
+                            <p className="text-center text-[10px] text-gray-400 mt-3 flex items-center justify-center gap-1">
+                                <i className="ph-thin ph-lightbulb text-sm" />
+                                Tap the microphone for a hands-free conversation with the Bottle Specialist
+                            </p>
+                        )}
                     </div>
+                </div>
             </div>
         );
     }
@@ -920,10 +818,10 @@ export const ConsultationPage: React.FC<ConsultationPageProps> = ({ onBack, proj
     // --- Render: Studio (Builder) ---
     return (
         <div className="h-screen bg-[#F5F5F7] dark:bg-background-dark flex flex-col overflow-hidden relative">
-            <TopBar 
-                assistantInput="" 
-                setAssistantInput={() => {}} 
-                onSubmit={() => {}}
+            <TopBar
+                assistantInput=""
+                setAssistantInput={() => { }}
+                onSubmit={() => { }}
                 showInput={false}
                 onBack={onBack}
             />
@@ -932,11 +830,11 @@ export const ConsultationPage: React.FC<ConsultationPageProps> = ({ onBack, proj
 
                 {/* Left: Preview Canvas */}
                 <div className="w-full md:w-1/2 h-[40vh] md:h-full bg-white dark:bg-[#151515] relative flex flex-col justify-center items-center p-6 md:p-12 shadow-xl z-20 border-r border-gray-100 dark:border-gray-800">
-                    <button 
-                        onClick={() => setMode('brief')} 
+                    <button
+                        onClick={() => setMode('brief')}
                         className="absolute top-4 left-4 md:top-6 md:left-6 z-20 flex items-center gap-2 px-3 py-2 rounded-full bg-gray-100 dark:bg-white/10 text-xs font-bold uppercase tracking-widest text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-white/20 transition-colors"
                     >
-                        <i className="ph-thin ph-arrow-left text-sm" /> 
+                        <i className="ph-thin ph-arrow-left text-sm" />
                         <span className="hidden sm:inline">Back to Chat</span>
                     </button>
 
@@ -958,7 +856,7 @@ export const ConsultationPage: React.FC<ConsultationPageProps> = ({ onBack, proj
                         </div>
 
                         <div className="absolute top-4 right-4 bg-white/90 dark:bg-black/60 backdrop-blur px-3 py-1.5 rounded-lg text-[10px] font-bold uppercase tracking-wide text-gray-600 dark:text-gray-300 flex items-center gap-1.5">
-                            <span 
+                            <span
                                 className="w-2.5 h-2.5 rounded-full border border-gray-400"
                                 style={{ backgroundColor: selections.closure?.color }}
                             />
@@ -998,11 +896,10 @@ export const ConsultationPage: React.FC<ConsultationPageProps> = ({ onBack, proj
                                 <button
                                     key={idx}
                                     onClick={() => setActiveStep(idx as 0 | 1 | 2)}
-                                    className={`text-[10px] md:text-xs font-bold uppercase tracking-widest pb-1 transition-all relative whitespace-nowrap ${
-                                        activeStep === idx
-                                            ? 'text-[#1D1D1F] dark:text-white border-b-2 border-gold'
-                                            : 'text-gray-400 hover:text-gray-600 border-b-2 border-transparent'
-                                    }`}
+                                    className={`text-[10px] md:text-xs font-bold uppercase tracking-widest pb-1 transition-all relative whitespace-nowrap ${activeStep === idx
+                                        ? 'text-[#1D1D1F] dark:text-white border-b-2 border-gold'
+                                        : 'text-gray-400 hover:text-gray-600 border-b-2 border-transparent'
+                                        }`}
                                 >
                                     {stepLabel}
                                 </button>
@@ -1054,24 +951,23 @@ export const ConsultationPage: React.FC<ConsultationPageProps> = ({ onBack, proj
                                     </button>
                                 </div>
                             </div>
-                            
+
                             {/* Quick quantity buttons */}
                             <div className="flex gap-2 flex-wrap">
                                 {[1, 12, 144, 576].map(qty => (
                                     <button
                                         key={qty}
                                         onClick={() => setSelections(prev => ({ ...prev, quantity: qty }))}
-                                        className={`px-3 py-1 rounded-full text-[10px] font-bold transition-all ${
-                                            selections.quantity === qty 
-                                                ? 'bg-gold text-white' 
-                                                : 'bg-gray-100 dark:bg-white/10 text-gray-600 dark:text-gray-400 hover:bg-gray-200'
-                                        }`}
+                                        className={`px-3 py-1 rounded-full text-[10px] font-bold transition-all ${selections.quantity === qty
+                                            ? 'bg-gold text-white'
+                                            : 'bg-gray-100 dark:bg-white/10 text-gray-600 dark:text-gray-400 hover:bg-gray-200'
+                                            }`}
                                     >
                                         {qty}
                                     </button>
                                 ))}
                             </div>
-                            
+
                             {/* Pricing tier info */}
                             {pricingInfo.nextTier && (
                                 <p className="text-[10px] text-gray-400 mt-2 flex items-center gap-1">
@@ -1090,11 +986,10 @@ export const ConsultationPage: React.FC<ConsultationPageProps> = ({ onBack, proj
                                         <button
                                             key={bottle.id}
                                             onClick={() => setSelections(prev => ({ ...prev, vessel: bottle }))}
-                                            className={`group relative aspect-square bg-white dark:bg-white/5 rounded-xl border transition-all duration-300 p-3 flex flex-col items-center justify-center gap-2 hover:shadow-lg ${
-                                                selections.vessel?.id === bottle.id
-                                                    ? 'border-gold ring-2 ring-gold shadow-md'
-                                                    : 'border-gray-200 dark:border-gray-700 hover:border-gray-300'
-                                            }`}
+                                            className={`group relative aspect-square bg-white dark:bg-white/5 rounded-xl border transition-all duration-300 p-3 flex flex-col items-center justify-center gap-2 hover:shadow-lg ${selections.vessel?.id === bottle.id
+                                                ? 'border-gold ring-2 ring-gold shadow-md'
+                                                : 'border-gray-200 dark:border-gray-700 hover:border-gray-300'
+                                                }`}
                                         >
                                             <img
                                                 src={bottle.imageUrl}
@@ -1110,17 +1005,16 @@ export const ConsultationPage: React.FC<ConsultationPageProps> = ({ onBack, proj
                                         </button>
                                     ))}
                                 </div>
-                                
+
                                 {/* Next Button */}
                                 <div className="mt-6 flex justify-end">
                                     <button
                                         onClick={() => setActiveStep(1)}
                                         disabled={!selections.vessel}
-                                        className={`flex items-center gap-2 px-6 py-3 rounded-full text-sm font-bold uppercase tracking-widest transition-all ${
-                                            selections.vessel
-                                                ? 'bg-[#1D1D1F] text-white hover:bg-[#2D2D2F]'
-                                                : 'bg-gray-200 text-gray-400 cursor-not-allowed'
-                                        }`}
+                                        className={`flex items-center gap-2 px-6 py-3 rounded-full text-sm font-bold uppercase tracking-widest transition-all ${selections.vessel
+                                            ? 'bg-[#1D1D1F] text-white hover:bg-[#2D2D2F]'
+                                            : 'bg-gray-200 text-gray-400 cursor-not-allowed'
+                                            }`}
                                     >
                                         Next: Fitment
                                         <i className="ph-thin ph-arrow-right text-lg" />
@@ -1138,16 +1032,14 @@ export const ConsultationPage: React.FC<ConsultationPageProps> = ({ onBack, proj
                                         <button
                                             key={roller.id}
                                             onClick={() => setSelections(prev => ({ ...prev, fitment: roller }))}
-                                            className={`w-full p-4 md:p-5 rounded-xl border flex items-center justify-between transition-all group hover:shadow-md ${
-                                                selections.fitment?.id === roller.id
-                                                    ? 'bg-white dark:bg-white/10 border-gold shadow-sm ring-2 ring-gold'
-                                                    : 'bg-white dark:bg-white/5 border-gray-200 dark:border-gray-700 hover:border-gray-300'
-                                            }`}
+                                            className={`w-full p-4 md:p-5 rounded-xl border flex items-center justify-between transition-all group hover:shadow-md ${selections.fitment?.id === roller.id
+                                                ? 'bg-white dark:bg-white/10 border-gold shadow-sm ring-2 ring-gold'
+                                                : 'bg-white dark:bg-white/5 border-gray-200 dark:border-gray-700 hover:border-gray-300'
+                                                }`}
                                         >
                                             <div className="flex items-center gap-4">
-                                                <div className={`w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center transition-colors ${
-                                                    selections.fitment?.id === roller.id ? 'bg-gold text-white' : 'bg-gray-100 dark:bg-white/5 text-gray-400'
-                                                }`}>
+                                                <div className={`w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center transition-colors ${selections.fitment?.id === roller.id ? 'bg-gold text-white' : 'bg-gray-100 dark:bg-white/5 text-gray-400'
+                                                    }`}>
                                                     <span className="material-symbols-outlined text-xl md:text-2xl">
                                                         {roller.type === 'metal' ? 'radio_button_checked' : 'radio_button_unchecked'}
                                                     </span>
@@ -1163,7 +1055,7 @@ export const ConsultationPage: React.FC<ConsultationPageProps> = ({ onBack, proj
                                         </button>
                                     ))}
                                 </div>
-                                
+
                                 {/* Navigation Buttons */}
                                 <div className="mt-6 flex justify-between">
                                     <button
@@ -1176,11 +1068,10 @@ export const ConsultationPage: React.FC<ConsultationPageProps> = ({ onBack, proj
                                     <button
                                         onClick={() => setActiveStep(2)}
                                         disabled={!selections.fitment}
-                                        className={`flex items-center gap-2 px-6 py-3 rounded-full text-sm font-bold uppercase tracking-widest transition-all ${
-                                            selections.fitment
-                                                ? 'bg-[#1D1D1F] text-white hover:bg-[#2D2D2F]'
-                                                : 'bg-gray-200 text-gray-400 cursor-not-allowed'
-                                        }`}
+                                        className={`flex items-center gap-2 px-6 py-3 rounded-full text-sm font-bold uppercase tracking-widest transition-all ${selections.fitment
+                                            ? 'bg-[#1D1D1F] text-white hover:bg-[#2D2D2F]'
+                                            : 'bg-gray-200 text-gray-400 cursor-not-allowed'
+                                            }`}
                                     >
                                         Next: Cap
                                         <i className="ph-thin ph-arrow-right text-lg" />
@@ -1201,11 +1092,10 @@ export const ConsultationPage: React.FC<ConsultationPageProps> = ({ onBack, proj
                                         <button
                                             key={cap.id}
                                             onClick={() => setSelections(prev => ({ ...prev, closure: cap }))}
-                                            className={`group relative aspect-square bg-white dark:bg-white/5 rounded-xl border transition-all p-2 flex flex-col items-center justify-center gap-1 hover:shadow-md ${
-                                                selections.closure?.id === cap.id
-                                                    ? 'border-gold ring-2 ring-gold'
-                                                    : 'border-gray-200 dark:border-gray-700 hover:border-gray-300'
-                                            }`}
+                                            className={`group relative aspect-square bg-white dark:bg-white/5 rounded-xl border transition-all p-2 flex flex-col items-center justify-center gap-1 hover:shadow-md ${selections.closure?.id === cap.id
+                                                ? 'border-gold ring-2 ring-gold'
+                                                : 'border-gray-200 dark:border-gray-700 hover:border-gray-300'
+                                                }`}
                                         >
                                             {cap.hasCompositeImage && (
                                                 <div className="absolute top-1 right-1 w-2 h-2 bg-green-500 rounded-full" />
@@ -1230,7 +1120,7 @@ export const ConsultationPage: React.FC<ConsultationPageProps> = ({ onBack, proj
                                         </button>
                                     ))}
                                 </div>
-                                
+
                                 {/* Back Button */}
                                 <div className="mt-6 flex justify-start">
                                     <button
@@ -1269,7 +1159,7 @@ export const ConsultationPage: React.FC<ConsultationPageProps> = ({ onBack, proj
                     </div>
                 </div>
             </div>
-            
+
             {/* Visualize Modal */}
             <VisualizeModal
                 isOpen={showVisualizeModal}
