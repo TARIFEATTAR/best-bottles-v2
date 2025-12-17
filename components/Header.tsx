@@ -155,26 +155,30 @@ export const Header: React.FC<HeaderProps> = ({
                         </a>
 
                         {/* 2. Large Search Bar with Grace Voice (Center) */}
-                        <div className="hidden md:flex flex-1 max-w-2xl relative mx-auto">
-                            <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-[20px]">search</span>
-                            <input
-                                type="text"
-                                placeholder={isGraceListening ? "Listening to Grace..." : "Search or ask Grace anything..."}
-                                className="w-full pl-12 pr-14 py-3 rounded-full bg-gray-100 dark:bg-white/5 border border-transparent focus:bg-white focus:border-[#C5A065] focus:ring-1 focus:ring-[#C5A065] outline-none transition-all text-sm text-text-light dark:text-white placeholder:text-gray-500 dark:placeholder:text-gray-500"
-                            />
-                            {/* Grace Voice Button */}
+                        <div className="hidden md:flex flex-1 max-w-2xl relative mx-auto items-center gap-4">
+                            <div className="relative flex-1">
+                                <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-[20px]">search</span>
+                                <input
+                                    type="text"
+                                    placeholder="Search catalog..."
+                                    className="w-full pl-12 pr-4 py-3 rounded-full bg-gray-100 dark:bg-white/5 border border-transparent focus:bg-white focus:border-[#C5A065] focus:ring-1 focus:ring-[#C5A065] outline-none transition-all text-sm text-text-light dark:text-white placeholder:text-gray-500 dark:placeholder:text-gray-500"
+                                />
+                            </div>
+
+                            {/* Grace Voice Button - Elegant Navbar Version */}
                             <button
                                 onClick={startGraceVoice}
-                                className={`absolute right-2 top-1/2 -translate-y-1/2 p-2 rounded-full transition-all duration-300 flex items-center justify-center ${isGraceListening
-                                        ? "bg-red-500 text-white animate-pulse"
-                                        : isGraceConnecting
-                                            ? "bg-amber-500 text-white"
-                                            : "bg-[#C5A065] text-white hover:bg-[#B59055]"
+                                className={`flex items-center gap-2 px-5 py-3 rounded-full transition-all duration-300 shadow-sm border ${isGraceListening
+                                        ? "bg-[#1D1D1F] text-white border-transparent"
+                                        : "bg-white dark:bg-[#1D1D1F] text-[#C5A065] border-[#C5A065]/30 hover:border-[#C5A065] hover:bg-[#fcfbf9] dark:hover:bg-[#252528]"
                                     }`}
                                 title={isGraceListening ? "End conversation with Grace" : "Talk to Grace"}
                             >
-                                <span className="material-symbols-outlined text-[18px]">
-                                    {isGraceListening ? 'mic_off' : isGraceConnecting ? 'hourglass_empty' : 'mic'}
+                                <span className={`material-symbols-outlined text-[20px] ${isGraceListening ? "animate-pulse text-red-500" : ""}`}>
+                                    {isGraceListening ? 'mic' : isGraceConnecting ? 'hourglass_empty' : 'mic'}
+                                </span>
+                                <span className="text-xs font-bold uppercase tracking-widest hidden lg:block">
+                                    {isGraceListening ? "Listening..." : "Talk With Grace"}
                                 </span>
                             </button>
                         </div>
