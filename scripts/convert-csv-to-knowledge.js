@@ -81,54 +81,76 @@ function generateKnowledgeBase(products) {
     });
 
     markdown += `\n---\n\n## Product Database\n\n`;
-    markdown += `This section contains detailed information about all ${products.length} products in our inventory.\n\n`;
+    markdown += `This section contains detailed information about products in our inventory. Products are grouped by family/type to help you understand available variants (Sizes, Colors, Caps).\n\n`;
 
-    // Generate product entries (sample first 100 for demo, full for production)
-    const sampleSize = 100; // Change to products.length for full export
-    const productsToExport = products.slice(0, sampleSize);
 
-    productsToExport.forEach((product, index) => {
-        markdown += `### ${index + 1}. ${product.Description || product.SKU}\n\n`;
-        markdown += `**SKU**: ${product.SKU}\n`;
+    // --- SMART GROUPING LOGIC ---
+    // We will group products that share similar descriptions or SKU roots
 
-        if (product.Item_Type) markdown += `**Type**: ${product.Item_Type}\n`;
-        if (product.Capacity) markdown += `**Capacity**: ${product.Capacity}\n`;
-        if (product.Material) markdown += `**Material**: ${product.Material}\n`;
-        if (product.Color) markdown += `**Color**: ${product.Color}\n`;
+    // 1. Helper to clean product names for grouping
+    // e.g. "9ml Roll On Blue" -> "Roll On Bottle"
+    const getGroupKey = (product) => {
+        const desc = (product.Description || "").toLowerCase();
 
-        // Pricing
-        if (product.Price_1pc) {
-            markdown += `\n**Pricing**:\n`;
-            markdown += `- Single unit: $${product.Price_1pc}\n`;
-            if (product.Price_12pc) markdown += `- 12 pack: $${product.Price_12pc} each\n`;
-            if (product.Price_144pc) markdown += `- 144 pack: $${product.Price_144pc} each\n`;
-            if (product.Best_Bulk_Price) markdown += `- Best bulk price: ${product.Best_Bulk_Price}\n`;
-        }
+        // Manual grouping rules based on common patterns
+        if (desc.includes('roll') && desc.includes('on')) return "Roll-On Bottles";
+        if (desc.includes('vial') || desc.includes('dram')) return "Sample Vials";
+        if (desc.includes('dropper')) return "Dropper Bottles";
+        if (desc.includes('spray') || desc.includes('atomizer')) return "Sprayers & Atomizers";
+        if (desc.includes('pump') || desc.includes('lotion')) return "Lotion Pumps & Bottles";
+        if (desc.includes('jar') || desc.includes('cream')) return "Cream Jars";
+        if (desc.includes('heart')) return "Decorative Heart Bottles";
+        if (desc.includes('octagonal') || desc.includes('tola')) return "Octagonal Tola Bottles";
 
-        // Dimensions
-        if (product.Height_With_Cap || product.Width) {
-            markdown += `\n**Dimensions**:\n`;
-            if (product.Height_With_Cap) markdown += `- Height (with cap): ${product.Height_With_Cap}\n`;
-            if (product.Height_Without_Cap) markdown += `- Height (without cap): ${product.Height_Without_Cap}\n`;
-            if (product.Width) markdown += `- Width: ${product.Width}\n`;
-            if (product.Depth) markdown += `- Depth: ${product.Depth}\n`;
-        }
+        return "Other Products"; // Fallback
+    };
 
-        // Use cases
-        if (product.Use_Cases) {
-            markdown += `\n**Use Cases**: ${product.Use_Cases}\n`;
-        }
+    // 2. Group products
+    const groupings = {};
+    products.forEach(product => {
+        const key = getGroupKey(product);
+        if (!groupings[key]) groupings[key] = [];
+        groupings[key].push(product);
+    });
 
-        // Categories
-        if (product.Main_Category) {
-            markdown += `\n**Category**: ${product.Main_Category}`;
-            if (product.Sub_Category) markdown += ` > ${product.Sub_Category}`;
-            markdown += `\n`;
-        }
+    // 3. Generate Knowledge Base by Group
+    Object.keys(groupings).sort().forEach((groupName) => {
+        const groupProducts = groupings[groupName];
 
-        if (product.Product_URL) {
-            markdown += `\n**Product URL**: ${product.Product_URL}\n`;
-        }
+        markdown += `### ${groupName}\n\n`;
+        markdown += `There are **${groupProducts.length}** variants available in this category.\n\n`;
+
+        // Consolidate attributes for the summary
+        const sizes = [...new Set(groupProducts.map(p => p.Capacity).filter(Boolean))];
+        const colors = [...new Set(groupProducts.map(p => p.Color).filter(Boolean))];
+        const materials = [...new Set(groupProducts.map(p => p.Material).filter(Boolean))];
+
+        markdown += `**Available Sizes**: ${sizes.join(', ') || 'N/A'}\n`;
+        markdown += `**Available Colors**: ${colors.join(', ') || 'N/A'}\n`;
+        markdown += `**Materials**: ${materials.join(', ') || 'N/A'}\n\n`;
+
+        markdown += `#### Product Variants:\n\n`;
+
+        // List individual items concisely
+        groupProducts.forEach((p) => {
+            let features = [];
+            if (p.Capacity) features.push(p.Capacity);
+            if (p.Color) features.push(p.Color);
+            if (p.Item_Type) features.push(p.Item_Type);
+
+            // Extract cap type from description if possible
+            let capInfo = "Standard Cap";
+            if (p.Description.toLowerCase().includes('black cap')) capInfo = "Black Cap";
+            if (p.Description.toLowerCase().includes('white cap')) capInfo = "White Cap";
+            if (p.Description.toLowerCase().includes('gold cap')) capInfo = "Gold Cap";
+            if (p.Description.toLowerCase().includes('silver cap')) capInfo = "Silver Cap";
+            if (p.Description.toLowerCase().includes('dropper')) capInfo = "Dropper";
+            if (p.Description.toLowerCase().includes('sprayer')) capInfo = "Sprayer";
+
+            markdown += `- **${p.Description}** (SKU: ${p.SKU})\n`;
+            markdown += `  - Details: ${features.join(', ')} with ${capInfo}\n`;
+            // Pricing removed to ensure focus on product specs
+        });
 
         markdown += `\n---\n\n`;
     });
@@ -148,13 +170,6 @@ function generateKnowledgeBase(products) {
     materials.forEach(mat => {
         const count = products.filter(p => p.Material === mat).length;
         markdown += `- **${mat}**: ${count} products\n`;
-    });
-
-    markdown += `\n### By Type\n`;
-    const types = [...new Set(products.map(p => p.Item_Type).filter(Boolean))];
-    types.slice(0, 15).forEach(type => {
-        const count = products.filter(p => p.Item_Type === type).length;
-        markdown += `- **${type}**: ${count} products\n`;
     });
 
     markdown += `\n---\n\n`;
