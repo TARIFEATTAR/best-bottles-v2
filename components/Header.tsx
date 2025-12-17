@@ -169,40 +169,34 @@ export const Header: React.FC<HeaderProps> = ({
                             <button
                                 onClick={startGraceVoice}
                                 className={`flex items-center gap-2 px-5 py-3 rounded-full transition-all duration-300 shadow-sm border ${isGraceListening
-                                        ? "bg-[#1D1D1F] text-white border-transparent"
-                                        : "bg-white dark:bg-[#1D1D1F] text-[#C5A065] border-[#C5A065]/30 hover:border-[#C5A065] hover:bg-[#fcfbf9] dark:hover:bg-[#252528]"
+                                    ? "bg-[#1D1D1F] text-white border-transparent"
+                                    : "bg-white dark:bg-[#1D1D1F] text-[#C5A065] border-[#C5A065]/30 hover:border-[#C5A065] hover:bg-[#fcfbf9] dark:hover:bg-[#252528]"
                                     }`}
                                 title={isGraceListening ? "End conversation with Grace" : "Talk to Grace"}
                             >
-                                <span className={`material-symbols-outlined text-[20px] ${isGraceListening ? "animate-pulse text-red-500" : ""}`}>
-                                    {isGraceListening ? 'mic' : isGraceConnecting ? 'hourglass_empty' : 'mic'}
-                                </span>
-                                <span className="text-xs font-bold uppercase tracking-widest hidden lg:block">
-                                    {isGraceListening ? "Listening..." : "Talk With Grace"}
-                                </span>
+                                {isGraceListening ? (
+                                    <>
+                                        <span className="w-2 h-2 bg-red-500 rounded-full animate-pulse mr-1"></span>
+                                        <span className="text-xs font-bold uppercase tracking-widest hidden lg:block">
+                                            Grace Is Listening...
+                                        </span>
+                                        <span className="material-symbols-outlined text-[16px] ml-2 text-gray-400 hover:text-white">close</span>
+                                    </>
+                                ) : (
+                                    <>
+                                        <span className="material-symbols-outlined text-[20px]">
+                                            {isGraceConnecting ? 'hourglass_empty' : 'mic'}
+                                        </span>
+                                        <span className="text-xs font-bold uppercase tracking-widest hidden lg:block">
+                                            Talk With Grace
+                                        </span>
+                                    </>
+                                )}
                             </button>
                         </div>
 
                         {/* Grace Listening Indicator */}
-                        <AnimatePresence>
-                            {isGraceListening && (
-                                <motion.div
-                                    initial={{ opacity: 0, scale: 0.9 }}
-                                    animate={{ opacity: 1, scale: 1 }}
-                                    exit={{ opacity: 0, scale: 0.9 }}
-                                    className="fixed top-20 left-1/2 -translate-x-1/2 z-50 bg-[#1D1D1F] text-white px-6 py-3 rounded-full shadow-2xl flex items-center gap-3"
-                                >
-                                    <span className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></span>
-                                    <span className="text-sm font-medium">Grace is listening...</span>
-                                    <button
-                                        onClick={() => conversation.endSession()}
-                                        className="ml-2 p-1 hover:bg-white/10 rounded-full"
-                                    >
-                                        <span className="material-symbols-outlined text-sm">close</span>
-                                    </button>
-                                </motion.div>
-                            )}
-                        </AnimatePresence>
+
 
                         {/* 3. Actions (Right) */}
                         <div className="flex items-center gap-2 md:gap-4 flex-shrink-0">
