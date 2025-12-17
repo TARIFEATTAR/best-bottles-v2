@@ -104,35 +104,39 @@ export const VisualizeModal: React.FC<VisualizeModalProps> = ({
         setIsGenerating(true);
         setError(null);
         setGeneratedImage(null);
+        const logoInstruction = logoFile
+            ? '- Include a small elegant logo icon on the label'
+            : '';
 
-        const prompt = `Create a stunning studio-quality product photography image of a 9ml glass roll-on perfume bottle with a custom label.
+        const prompt = `Professional product photography of a complete 9ml glass roll-on perfume bottle WITH the cap on.
 
-BOTTLE: Clear glass cylinder roll-on bottle, 83mm tall, 20mm diameter, with a metallic cap.
+BOTTLE:
+- 9ml clear glass roll-on bottle, standing upright
+- Metallic silver/chrome roller ball cap is ON the bottle (fully closed)
+- Elegant cylindrical shape, premium cosmetic quality
 
-LABEL DESIGN for "${brandName}":
-- Style: ${designStyle.toUpperCase()}
-${designStyle === 'luxury' ? '- Gold foil accents, embossed texture, elegant serif typography, rich dark colors (black, navy, deep burgundy)' : ''}
-${designStyle === 'artisanal' ? '- Hand-drawn botanical illustrations, kraft paper texture, warm earth tones, vintage-inspired script fonts' : ''}
-${designStyle === 'minimalist' ? '- Clean sans-serif typography, lots of white space, single accent color, geometric shapes' : ''}
-- Label type: ${labelType === 'wrap' ? 'Full wrap label around the bottle body' : 'Small front-facing portrait label'}
-- Brand name "${brandName}" should be clearly visible and elegant
-${logoFile ? '- Include a small, elegant logo mark/icon on the label that complements the brand aesthetic' : ''}
+LABEL:
+- Brand name "${brandName}" displayed prominently on a wrap-around label
+- Design style: ${designStyle.toUpperCase()}
+${designStyle === 'luxury' ? '- Luxury aesthetic: gold foil accents, dark rich colors, elegant serif font' : ''}
+${designStyle === 'artisanal' ? '- Artisanal aesthetic: kraft paper texture, botanical elements, vintage script' : ''}
+${designStyle === 'minimalist' ? '- Minimalist aesthetic: clean sans-serif font, white space, simple geometry' : ''}
+${logoInstruction}
 
 SCENE:
-- Professional studio lighting with soft shadows
-- Clean, neutral background (soft gray or white gradient)
-- Subtle reflection on surface
-- High-end cosmetic product photography style
-- Photorealistic, 8K quality
+- Studio product photography, professional lighting
+- Soft neutral background (white or light gray)
+- Subtle surface reflection
+- Sharp focus, high quality
 
-The bottle should look premium and ready for retail.`;
+Generate a photorealistic bottle mockup ready for retail.`;
 
         try {
-            // Check if Freepik API key is available
-            const freepikApiKey = import.meta.env.VITE_FREEPIK_API_KEY;
+            // Check API keys
             const geminiApiKey = import.meta.env.VITE_GOOGLE_GEMINI_API_KEY;
+            const freepikApiKey = import.meta.env.VITE_FREEPIK_API_KEY;
 
-            if (!freepikApiKey && !geminiApiKey) {
+            if (!geminiApiKey && !freepikApiKey) {
                 // Demo mode - show a placeholder with styling info
                 await new Promise(resolve => setTimeout(resolve, 2000));
                 setGeneratedImage('demo');
@@ -140,9 +144,52 @@ The bottle should look premium and ready for retail.`;
                 return;
             }
 
-            // Try Freepik API first (better quality for product images)
+            // Try Gemini first for image generation
+            if (geminiApiKey) {
+                try {
+                    console.log('Generating with Gemini...');
+                    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent?key=${geminiApiKey}`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            contents: [{
+                                parts: [{
+                                    text: `Generate an image:\n\n${prompt}`
+                                }]
+                            }],
+                            generationConfig: {
+                                responseModalities: ["image", "text"]
+                            }
+                        })
+                    });
+
+                    if (response.ok) {
+                        const data = await response.json();
+                        console.log('Gemini response:', data);
+
+                        if (data.candidates?.[0]?.content?.parts) {
+                            for (const part of data.candidates[0].content.parts) {
+                                if (part.inlineData?.mimeType?.startsWith('image/')) {
+                                    setGeneratedImage(`data:${part.inlineData.mimeType};base64,${part.inlineData.data}`);
+                                    setIsGenerating(false);
+                                    return;
+                                }
+                            }
+                        }
+                    } else {
+                        console.error('Gemini API error:', await response.text());
+                    }
+                } catch (geminiErr) {
+                    console.error('Gemini API error:', geminiErr);
+                }
+            }
+
+            // Fallback to Freepik if Gemini fails
             if (freepikApiKey) {
                 try {
+                    console.log('Generating with Freepik...');
                     const response = await fetch('https://api.freepik.com/v1/ai/text-to-image', {
                         method: 'POST',
                         headers: {
@@ -167,7 +214,6 @@ The bottle should look premium and ready for retail.`;
                         const data = await response.json();
                         console.log('Freepik response:', data);
 
-                        // Extract image URL from response
                         if (data.data?.[0]?.base64) {
                             setGeneratedImage(`data:image/png;base64,${data.data[0].base64}`);
                             setIsGenerating(false);
@@ -182,39 +228,6 @@ The bottle should look premium and ready for retail.`;
                     }
                 } catch (freepikErr) {
                     console.error('Freepik API error:', freepikErr);
-                }
-            }
-
-            // Fallback to Gemini if Freepik fails or unavailable
-            if (geminiApiKey) {
-                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent?key=${geminiApiKey}`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        contents: [{
-                            parts: [{
-                                text: `Generate an image: ${prompt}`
-                            }]
-                        }],
-                        generationConfig: {
-                            responseModalities: ["image", "text"]
-                        }
-                    })
-                });
-
-                if (response.ok) {
-                    const data = await response.json();
-                    if (data.candidates?.[0]?.content?.parts) {
-                        for (const part of data.candidates[0].content.parts) {
-                            if (part.inlineData?.mimeType?.startsWith('image/')) {
-                                setGeneratedImage(`data:${part.inlineData.mimeType};base64,${part.inlineData.data}`);
-                                setIsGenerating(false);
-                                return;
-                            }
-                        }
-                    }
                 }
             }
 
