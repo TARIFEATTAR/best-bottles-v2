@@ -10,7 +10,7 @@ import { CollectionDetailPage } from "./components/CollectionDetailPage";
 import { CustomPage } from "./components/CustomPage";
 import { JournalPage } from "./components/JournalPage";
 import { PackagingIdeasPage } from "./components/PackagingIdeasPage";
-import { HelpCenterPage } from "./components/HelpCenterPage";
+import { ConciergePage } from "./components/ConciergePage";
 import { ContactPage } from "./components/ContactPage";
 import { ContractPackagingPage } from "./components/ContractPackagingPage";
 import { CheckoutPage } from "./components/CheckoutPage";
@@ -53,7 +53,7 @@ export interface ProjectDraft {
 }
 
 const App: React.FC = () => {
-  const [view, setView] = useState<'home' | 'detail' | 'roll-on-detail' | 'consultation' | 'collections' | 'collection-detail' | 'custom' | 'journal' | 'packaging-ideas' | 'help-center' | 'contact' | 'signup' | 'contract-packaging' | 'checkout' | 'label-generator' | 'features'>('home');
+  const [view, setView] = useState<'home' | 'detail' | 'roll-on-detail' | 'consultation' | 'collections' | 'collection-detail' | 'custom' | 'journal' | 'packaging-ideas' | 'concierge' | 'contact' | 'signup' | 'contract-packaging' | 'checkout' | 'label-generator' | 'features'>('home');
   const [cartItems, setCartItems] = useState<{ product: any, quantity: number }[]>([]);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
@@ -159,7 +159,7 @@ const App: React.FC = () => {
   const navigateToCustom = () => setView('custom');
   const navigateToJournal = () => setView('journal');
   const navigateToPackagingIdeas = () => setView('packaging-ideas');
-  const navigateToHelpCenter = () => setView('help-center');
+  const navigateToConcierge = () => setView('concierge');
   const navigateToContact = () => setView('contact');
   const navigateToSignUp = () => setView('signup');
   const navigateToContractPackaging = () => setView('contract-packaging');
@@ -189,7 +189,7 @@ const App: React.FC = () => {
       case 'custom': return <CustomPage />;
       case 'journal': return <JournalPage />;
       case 'packaging-ideas': return <PackagingIdeasPage onBack={navigateToHome} onStartProject={navigateToCustom} />;
-      case 'help-center': return <HelpCenterPage onBack={navigateToHome} onContactClick={navigateToContact} />;
+      case 'concierge': return <ConciergePage onBack={navigateToHome} onContactClick={navigateToContact} />;
       case 'contact': return <ContactPage onBack={navigateToHome} />;
       case 'signup': return <SignUpPage onBack={navigateToHome} onLoginClick={() => { setView('home'); setIsAuthModalOpen(true); }} />;
       case 'contract-packaging': return <ContractPackagingPage onBack={navigateToHome} onContactClick={navigateToContact} />;
@@ -213,7 +213,7 @@ const App: React.FC = () => {
           onSignUpClick={navigateToSignUp}
           onCartClick={() => setIsCartOpen(true)}
           onContactClick={navigateToContact}
-          onHelpCenterClick={navigateToHelpCenter}
+          onHelpCenterClick={navigateToConcierge}
           onFeaturesClick={navigateToFeatures}
           cartCount={totalCartCount}
           language={language}
@@ -226,7 +226,7 @@ const App: React.FC = () => {
           {renderView()}
         </PageTransition>
       </main>
-      {view !== 'collection-detail' && view !== 'signup' && view !== 'consultation' && view !== 'features' && <Footer onHelpCenterClick={navigateToHelpCenter} onContactClick={navigateToContact} />}
+      {view !== 'collection-detail' && view !== 'signup' && view !== 'consultation' && view !== 'features' && <Footer onHelpCenterClick={navigateToConcierge} onContactClick={navigateToContact} />}
       {view !== 'consultation' && <ChatBot />}
       <AuthModal
         isOpen={isAuthModalOpen}

@@ -62,7 +62,7 @@ export const FAQ_DATA = [
     items: [
       {
         question: "Is there a minimum order requirement?",
-        answer: "We do not have a strict minimum order quantity (MOQ) for stock items. You can buy as little as one unit. However, orders under $50.00 are subject to a $10.00 small order handling fee to cover processing costs."
+        answer: "There is a minimum order requirement of $50.00."
       },
       {
         question: "What payment methods do you accept?",
@@ -139,6 +139,6 @@ export const DEMO_PRODUCTS: Product[] = (INVENTORY as Product[]).filter(p => {
   const isCylinder = p.sku?.includes('Cyl') && p.sku?.includes('9');
   const isRollOn = p.sku?.includes('Roll') || p.name?.toLowerCase().includes('roller');
   const is9ml = p.capacity?.includes('9 ml') || p.capacity?.includes('0.3 oz');
-  
+
   return isCylinder && isRollOn && is9ml;
 });

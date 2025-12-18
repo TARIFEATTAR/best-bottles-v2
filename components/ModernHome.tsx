@@ -129,7 +129,7 @@ export const ModernHome: React.FC<ModernHomeProps> = ({
         <div className="w-full bg-[#F5F3EF] dark:bg-background-dark overflow-x-hidden transition-colors duration-500">
 
             {/* 1. Hero Section: Cinematic Full-Bleed with Parallax */}
-            <section className="relative w-full h-[85vh] md:h-[95vh] min-h-[500px] md:min-h-[700px] flex items-center px-4 md:px-10 lg:px-20 overflow-hidden bg-[#8C867D]">
+            <section className="relative w-full h-[100dvh] md:h-[95vh] min-h-[600px] flex items-center px-6 md:px-10 lg:px-20 overflow-hidden bg-[#8C867D]">
                 {/* Parallax Background */}
                 <motion.div
                     className="absolute inset-0 z-0"
@@ -137,63 +137,77 @@ export const ModernHome: React.FC<ModernHomeProps> = ({
                     animate={{ opacity: 1 }}
                     transition={{ duration: 1.2 }}
                 >
+                    {/* Desktop Hero Image (Original) */}
                     <img
                         src="https://cdn.shopify.com/s/files/1/1989/5889/files/madison-23e11813.jpg?v=1765598795"
                         alt="Antique Perfume Bottle"
-                        className="w-full h-full object-cover brightness-[0.85]"
+                        className="hidden md:block w-full h-full object-cover brightness-[0.85] object-[center_30%]"
                     />
-                    <div className="absolute inset-0 bg-black/30"></div>
+                    {/* Mobile Hero Image (New) */}
+                    <img
+                        src="https://cdn.shopify.com/s/files/1/1989/5889/files/madison-studio-5b205acb.jpg?v=1765600055"
+                        alt="Vintage Perfume Collection"
+                        className="md:hidden w-full h-full object-cover brightness-[0.85] object-center"
+                    />
+                    {/* Sophisticated Gradients for Readability */}
+                    <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-[#1D1D1F]/60 md:hidden"></div>
+                    <div className="absolute inset-0 bg-black/40 hidden md:block"></div>
                 </motion.div>
 
                 {/* Content Overlay */}
-                <div className="relative z-10 w-full max-w-[1440px] mx-auto pl-0 md:pl-0 grid grid-cols-1 md:grid-cols-2">
-                    <div className="md:col-span-1 max-w-2xl pt-20 md:pt-0">
-                        <Reveal delay={0.2} effect="fade">
-                            <div className="flex items-center gap-4 mb-4 md:mb-8">
-                                <div className="h-[1px] w-8 md:w-12 bg-[#C5A065]"></div>
-                                <span className="text-white/90 text-xs md:text-sm font-bold tracking-[0.2em] uppercase">
-                                    {t.hero.sub}
-                                </span>
-                            </div>
-                        </Reveal>
+                <div className="relative z-10 w-full max-w-[1440px] mx-auto grid grid-cols-1 md:grid-cols-2 h-full">
+                    <div className="flex flex-col justify-between md:justify-center md:col-span-1 max-w-2xl h-full pt-20 pb-16 md:py-0">
+                        {/* Top Text Block */}
+                        <div className="space-y-4 md:space-y-8">
+                            <Reveal delay={0.2} effect="fade">
+                                <div className="flex items-center gap-4">
+                                    <div className="h-[1px] w-8 md:w-12 bg-[#C5A065]"></div>
+                                    <span className="text-white/90 text-[10px] md:text-sm font-bold tracking-[0.3em] uppercase">
+                                        {t.hero.sub}
+                                    </span>
+                                </div>
+                            </Reveal>
 
-                        <div className="mb-4 md:mb-8 overflow-hidden">
+                            <div className="overflow-hidden">
+                                <motion.div
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.8, delay: 0.2 }}
+                                >
+                                    <h1 className="text-5xl md:text-7xl lg:text-8xl font-serif font-semibold text-white leading-[1] md:leading-[0.95] tracking-tight drop-shadow-2xl">
+                                        {t.hero.title}
+                                    </h1>
+                                </motion.div>
+                            </div>
+
                             <motion.div
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.8, delay: 0.2 }}
+                                transition={{ duration: 0.8, delay: 0.4 }}
                             >
-                                <h1 className="text-5xl md:text-7xl lg:text-8xl font-serif font-semibold text-white leading-[0.95] tracking-tight drop-shadow-lg">
-                                    {t.hero.title}
-                                </h1>
+                                <p className="text-white/90 text-base md:text-2xl font-light leading-relaxed max-w-xl border-l border-[#C5A065]/50 pl-6 backdrop-blur-[2px] py-1">
+                                    {t.hero.desc}
+                                </p>
                             </motion.div>
                         </div>
 
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.8, delay: 0.4 }}
-                        >
-                            <p className="text-white/95 text-lg md:text-2xl font-light leading-relaxed max-w-xl mb-8 md:mb-12 border-l border-white/30 pl-6 backdrop-blur-sm bg-black/10 rounded-r-lg py-2">
-                                {t.hero.desc}
-                            </p>
-                        </motion.div>
-
+                        {/* Bottom Action Block */}
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.8, delay: 0.6 }}
+                            className="w-full pt-10"
                         >
                             <div className="flex flex-col sm:flex-row gap-4">
                                 <button
                                     onClick={onCollectionClick}
-                                    className="bg-white text-[#1D1D1F] px-10 py-5 rounded-full text-xs font-bold uppercase tracking-widest hover:bg-[#C5A065] hover:text-white transition-all shadow-lg min-w-[200px] hover:scale-105 duration-300"
+                                    className="bg-white text-[#1D1D1F] px-10 py-5 rounded-md text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-[#C5A065] hover:text-white transition-all shadow-xl min-w-[200px] hover:scale-[1.02] active:scale-95 duration-300"
                                 >
                                     {t.hero.explore}
                                 </button>
                                 <button
                                     onClick={onConsultationClick}
-                                    className="backdrop-blur-md bg-white/10 border border-white/30 text-white px-10 py-5 rounded-full text-xs font-bold uppercase tracking-widest hover:bg-white hover:text-[#1D1D1F] transition-all min-w-[200px] hover:scale-105 duration-300"
+                                    className="backdrop-blur-md bg-white/5 border border-white/20 text-white px-10 py-5 rounded-md text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-white hover:text-[#1D1D1F] transition-all min-w-[200px] hover:scale-[1.02] active:scale-95 duration-300"
                                 >
                                     {t.hero.start}
                                 </button>

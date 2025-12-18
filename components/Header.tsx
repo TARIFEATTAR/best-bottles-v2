@@ -324,6 +324,7 @@ export const Header: React.FC<HeaderProps> = ({
                                 Journal
                             </a>
 
+
                             {/* Features Link - Highlighted */}
                             <a
                                 className="h-full flex items-center text-[#C5A065] hover:text-[#1D1D1F] dark:hover:text-white transition-colors cursor-pointer border-b-2 border-[#C5A065] hover:border-transparent font-black"
