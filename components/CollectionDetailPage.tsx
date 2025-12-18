@@ -23,7 +23,8 @@ const PRODUCT_FAMILIES = [
         rollers: rollOnData.rollerOptions.map(r => ({ id: r.id, name: r.name })),
         swatchLabel: "Glass Color",
         tag: "Best Seller",
-        tagClass: "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400"
+        tagClass: "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400",
+        data: rollOnData
     },
     {
         id: "60ml-elegant-spray",
@@ -41,7 +42,8 @@ const PRODUCT_FAMILIES = [
         rollers: sprayData.rollerOptions.map(r => ({ id: r.id, name: r.name })),
         swatchLabel: "Finish",
         tag: "New Arrival",
-        tagClass: "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400"
+        tagClass: "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400",
+        data: sprayData
     },
     {
         id: "travel-atomizer",
@@ -58,8 +60,9 @@ const PRODUCT_FAMILIES = [
         caps: atomizerData.capOptions.map(c => ({ id: c.id, name: c.name, color: c.color, image: c.imageUrl })),
         rollers: atomizerData.rollerOptions.map(r => ({ id: r.id, name: r.name })),
         swatchLabel: "Body Color",
-        tag: "Travel Ready",
-        tagClass: "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400"
+        tag: "Premium Choice",
+        tagClass: "bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-400",
+        data: atomizerData
     }
 ];
 
@@ -71,7 +74,7 @@ interface CollectionDetailPageProps {
     onAddToCart?: (product: any, quantity: number) => void;
 }
 
-export const CollectionDetailPage: React.FC<CollectionDetailPageProps> = ({ onBack, onProductClick }) => {
+export const CollectionDetailPage: React.FC<CollectionDetailPageProps> = ({ onBack, onProductClick, onAddToCart }) => {
 
     // Auto-scroll to top
     useEffect(() => {
@@ -291,12 +294,41 @@ export const CollectionDetailPage: React.FC<CollectionDetailPageProps> = ({ onBa
                                         In Stock & Ready to Ship
                                     </div>
 
-                                    <button
-                                        onClick={() => onProductClick(product.id)}
-                                        className="bg-[#1e1e4b] dark:bg-white text-white dark:text-[#1e1e4b] px-8 py-3 rounded-full font-bold uppercase tracking-widest text-xs hover:opacity-90 hover:scale-105 transition-all shadow-lg flex items-center gap-2"
-                                    >
-                                        Configure & Buy <span className="material-symbols-outlined text-sm">arrow_forward</span>
-                                    </button>
+                                    <div className="flex items-center gap-3">
+                                        <button
+                                            onClick={() => {
+                                                const currentSelection = activeSelections[product.id];
+                                                const selectedBottle = product.bottles.find(b => b.id === currentSelection.bottleId);
+                                                const selectedCap = product.caps.find(c => c.id === currentSelection.capId);
+                                                const selectedRoller = (product as any).rollers?.find((r: any) => r.id === currentSelection.rollerId);
+
+                                                // Calculate Price
+                                                const data = (product as any).data;
+                                                const basePrice = data.pricingMatrix.basePrices[currentSelection.bottleId]?.["1"] || 0;
+                                                const upcharge = currentSelection.rollerId === 'metal-roller' ? data.pricingMatrix.metalRollerUpcharge : 0;
+                                                const totalPrice = basePrice + upcharge;
+
+                                                onAddToCart?.({
+                                                    sku: getCurrentSku(product.id, currentSelection),
+                                                    name: product.originalName,
+                                                    price: totalPrice,
+                                                    image: previewImages[product.id] || product.image,
+                                                    variant: `${selectedBottle?.color || ''} ${selectedCap?.name || ''} ${selectedRoller?.name || ''}`.trim(),
+                                                    specs: data.sharedSpecs
+                                                }, 1);
+                                            }}
+                                            className="border border-[#1e1e4b] dark:border-white text-[#1e1e4b] dark:text-white px-4 py-3 rounded-full font-bold uppercase tracking-widest text-[10px] hover:bg-[#1e1e4b] hover:text-white dark:hover:bg-white dark:hover:text-[#1e1e4b] transition-all flex items-center gap-2"
+                                        >
+                                            <span className="material-symbols-outlined text-sm">shopping_cart</span>
+                                            Add
+                                        </button>
+                                        <button
+                                            onClick={() => onProductClick(product.id)}
+                                            className="bg-[#1e1e4b] dark:bg-white text-white dark:text-[#1e1e4b] px-6 py-3 rounded-full font-bold uppercase tracking-widest text-[10px] hover:opacity-90 hover:scale-105 transition-all shadow-lg flex items-center gap-2"
+                                        >
+                                            Configure <span className="material-symbols-outlined text-sm">settings</span>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>

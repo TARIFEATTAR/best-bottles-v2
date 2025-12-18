@@ -173,7 +173,8 @@ export const ProductDetailConfigurable: React.FC<ProductDetailConfigurableProps>
       roller: selectedRoller,
       cap: selectedCap,
       specs: productData.sharedSpecs,
-      unitPrice: selectedTier?.price,
+      price: selectedTier?.price,
+      image: compositeImageUrl,
       quantity: selection.quantity,
       totalPrice: parseFloat(totalPrice)
     };
@@ -439,6 +440,20 @@ export const ProductDetailConfigurable: React.FC<ProductDetailConfigurableProps>
             </div>
           </div>
         </div>
+      </div>
+
+      {/* --- MOBILE STICKY ACTION BAR --- */}
+      <div className="fixed bottom-0 left-0 w-full bg-white dark:bg-[#1E1E1E] border-t border-gray-200 dark:border-gray-800 p-4 md:hidden z-50 flex items-center gap-4 shadow-[0_-4px_20px_rgba(0,0,0,0.1)]">
+        <div className="flex flex-col">
+          <span className="text-[10px] text-gray-400 font-bold uppercase">Total Estimate</span>
+          <span className="text-xl font-serif font-bold text-[#1e1e4b] dark:text-white">${totalPrice}</span>
+        </div>
+        <button
+          onClick={handleAddToCart}
+          className="flex-1 bg-[#1e1e4b] dark:bg-white text-white dark:text-[#1e1e4b] py-3 rounded-lg text-sm font-bold uppercase tracking-widest flex items-center justify-center gap-2 active:scale-95 transition-transform"
+        >
+          Add To Cart
+        </button>
       </div>
 
       {/* ===== DESKTOP LAYOUT (>= lg) ===== */}

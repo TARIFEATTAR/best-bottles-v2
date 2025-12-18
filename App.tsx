@@ -110,14 +110,22 @@ const App: React.FC = () => {
   }, []);
 
   const addToCart = (product: any, quantity: number) => {
+    if (!product) return;
     console.log("Adding to cart:", product, "Quantity:", quantity);
+
     setCartItems(prev => {
       // Normalize checking for duplicates
       const existingIndex = prev.findIndex(item => {
-        // Check standard SKU
+        if (!item?.product) return false;
+
+        // 1. Check standard SKU (best for inventory items)
         if (item.product.sku && product.sku && item.product.sku === product.sku) return true;
-        // Check name + variant (for custom objects from ProductDetail/Consultation)
-        if (item.product.name === product.name && item.product.variant === product.variant) return true;
+
+        // 2. Check name + variant (for custom/configurable objects)
+        const itemVariant = item.product.variant || "";
+        const prodVariant = product.variant || "";
+        if (item.product.name === product.name && itemVariant === prodVariant) return true;
+
         return false;
       });
 

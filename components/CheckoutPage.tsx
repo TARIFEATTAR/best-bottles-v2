@@ -17,7 +17,7 @@ export const CheckoutPage: React.FC<CheckoutPageProps> = ({ cartItems, onBack, o
     const [currentStep, setCurrentStep] = useState<CheckoutStep>('information');
     const [isProcessing, setIsProcessing] = useState(false);
     const [orderNumber] = useState(() => Math.random().toString(36).substring(2, 10).toUpperCase());
-    
+
     // Form State
     const [formData, setFormData] = useState({
         // Contact
@@ -49,12 +49,15 @@ export const CheckoutPage: React.FC<CheckoutPageProps> = ({ cartItems, onBack, o
     const subtotal = useMemo(() => {
         return cartItems.reduce((acc, item) => {
             let price = 0;
-            if (typeof item.product.price === 'number') {
-                price = item.product.price;
-            } else if (typeof item.product.price === 'string') {
-                price = parseFloat(item.product.price.replace('$', ''));
+            const product = item.product || {};
+            const rawPrice = product.price !== undefined ? product.price : (product.unitPrice !== undefined ? product.unitPrice : 0);
+
+            if (typeof rawPrice === 'number') {
+                price = rawPrice;
+            } else if (typeof rawPrice === 'string') {
+                price = parseFloat(rawPrice.replace('$', '')) || 0;
             }
-            return acc + (price * item.quantity);
+            return acc + (price * (item.quantity || 0));
         }, 0);
     }, [cartItems]);
 
@@ -149,7 +152,7 @@ export const CheckoutPage: React.FC<CheckoutPageProps> = ({ cartItems, onBack, o
                     <p className="text-gray-500 dark:text-gray-400 mb-6">
                         Thank you for your order. We&apos;ve sent a confirmation email to {formData.email}
                     </p>
-                    
+
                     <div className="bg-gray-50 dark:bg-white/5 rounded-xl p-4 mb-6 text-left">
                         <div className="flex justify-between items-center mb-2">
                             <span className="text-sm text-gray-500">Order Number</span>
@@ -164,8 +167,8 @@ export const CheckoutPage: React.FC<CheckoutPageProps> = ({ cartItems, onBack, o
                         <div className="flex justify-between items-center">
                             <span className="text-sm text-gray-500">Estimated Delivery</span>
                             <span className="text-sm font-bold text-[#1D1D1F] dark:text-white">
-                                {formData.shippingMethod === 'express' ? '2-3 business days' : 
-                                 formData.shippingMethod === 'priority' ? '3-5 business days' : '5-7 business days'}
+                                {formData.shippingMethod === 'express' ? '2-3 business days' :
+                                    formData.shippingMethod === 'priority' ? '3-5 business days' : '5-7 business days'}
                             </span>
                         </div>
                     </div>
@@ -191,18 +194,18 @@ export const CheckoutPage: React.FC<CheckoutPageProps> = ({ cartItems, onBack, o
             {/* Header */}
             <header className="bg-white dark:bg-[#1D1D1F] border-b border-gray-100 dark:border-gray-800 sticky top-0 z-50">
                 <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
-                    <button 
+                    <button
                         onClick={onBack}
                         className="flex items-center gap-2 text-sm text-gray-500 hover:text-[#1D1D1F] dark:hover:text-white transition-colors"
                     >
                         <i className="ph-thin ph-arrow-left text-lg" />
                         <span className="hidden sm:inline">Back to Cart</span>
                     </button>
-                    
+
                     <h1 className="text-lg md:text-xl font-serif font-bold text-[#1D1D1F] dark:text-white">
                         Best Bottles
                     </h1>
-                    
+
                     <div className="flex items-center gap-2 text-sm text-gray-500">
                         <i className="ph-thin ph-lock-simple text-lg text-green-500" />
                         <span className="hidden sm:inline">Secure Checkout</span>
@@ -217,19 +220,17 @@ export const CheckoutPage: React.FC<CheckoutPageProps> = ({ cartItems, onBack, o
                                 <button
                                     onClick={() => idx < stepIndex && setCurrentStep(step.id as CheckoutStep)}
                                     disabled={idx > stepIndex}
-                                    className={`flex items-center gap-2 ${
-                                        idx <= stepIndex 
-                                            ? 'text-[#1D1D1F] dark:text-white' 
+                                    className={`flex items-center gap-2 ${idx <= stepIndex
+                                            ? 'text-[#1D1D1F] dark:text-white'
                                             : 'text-gray-300 dark:text-gray-600'
-                                    } ${idx < stepIndex ? 'cursor-pointer hover:text-gold' : ''}`}
+                                        } ${idx < stepIndex ? 'cursor-pointer hover:text-gold' : ''}`}
                                 >
-                                    <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${
-                                        idx < stepIndex 
-                                            ? 'bg-green-500 text-white' 
-                                            : idx === stepIndex 
-                                                ? 'bg-[#1D1D1F] dark:bg-white text-white dark:text-[#1D1D1F]' 
+                                    <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${idx < stepIndex
+                                            ? 'bg-green-500 text-white'
+                                            : idx === stepIndex
+                                                ? 'bg-[#1D1D1F] dark:bg-white text-white dark:text-[#1D1D1F]'
                                                 : 'bg-gray-200 dark:bg-gray-700 text-gray-400'
-                                    }`}>
+                                        }`}>
                                         {idx < stepIndex ? (
                                             <i className="ph-thin ph-check" />
                                         ) : (
@@ -238,11 +239,10 @@ export const CheckoutPage: React.FC<CheckoutPageProps> = ({ cartItems, onBack, o
                                     </div>
                                     <span className="hidden md:inline text-sm font-medium">{step.label}</span>
                                 </button>
-                                
+
                                 {idx < steps.length - 1 && (
-                                    <div className={`flex-1 h-[2px] mx-2 md:mx-4 ${
-                                        idx < stepIndex ? 'bg-green-500' : 'bg-gray-200 dark:bg-gray-700'
-                                    }`} />
+                                    <div className={`flex-1 h-[2px] mx-2 md:mx-4 ${idx < stepIndex ? 'bg-green-500' : 'bg-gray-200 dark:bg-gray-700'
+                                        }`} />
                                 )}
                             </React.Fragment>
                         ))}
@@ -256,7 +256,7 @@ export const CheckoutPage: React.FC<CheckoutPageProps> = ({ cartItems, onBack, o
                     {/* Left: Form */}
                     <div className="lg:col-span-3">
                         <div className="bg-white dark:bg-[#1D1D1F] rounded-2xl shadow-sm p-6 md:p-8">
-                            
+
                             {/* Step 1: Information */}
                             {currentStep === 'information' && (
                                 <div className="space-y-6">
@@ -422,7 +422,7 @@ export const CheckoutPage: React.FC<CheckoutPageProps> = ({ cartItems, onBack, o
                                     <h2 className="text-lg font-serif font-bold text-[#1D1D1F] dark:text-white mb-4">
                                         Shipping Method
                                     </h2>
-                                    
+
                                     <div className="space-y-3">
                                         {[
                                             { id: 'standard', label: 'Standard Shipping', time: '5-7 business days', price: subtotal >= 200 ? 'FREE' : '$9.99' },
@@ -431,11 +431,10 @@ export const CheckoutPage: React.FC<CheckoutPageProps> = ({ cartItems, onBack, o
                                         ].map((method) => (
                                             <label
                                                 key={method.id}
-                                                className={`flex items-center justify-between p-4 rounded-xl border cursor-pointer transition-all ${
-                                                    formData.shippingMethod === method.id
+                                                className={`flex items-center justify-between p-4 rounded-xl border cursor-pointer transition-all ${formData.shippingMethod === method.id
                                                         ? 'border-gold ring-2 ring-gold bg-gold/5'
                                                         : 'border-gray-200 dark:border-gray-700 hover:border-gray-300'
-                                                }`}
+                                                    }`}
                                             >
                                                 <div className="flex items-center gap-4">
                                                     <input
@@ -629,34 +628,38 @@ export const CheckoutPage: React.FC<CheckoutPageProps> = ({ cartItems, onBack, o
 
                             {/* Cart Items */}
                             <div className="space-y-4 max-h-64 overflow-y-auto mb-6">
-                                {cartItems.map((item, idx) => (
-                                    <div key={idx} className="flex gap-4">
-                                        <div className="w-16 h-16 bg-gray-100 dark:bg-white/10 rounded-lg overflow-hidden flex-shrink-0 relative">
-                                            <img
-                                                src={item.product.imageUrl}
-                                                alt={item.product.name}
-                                                className="w-full h-full object-contain"
-                                            />
-                                            <span className="absolute -top-1 -right-1 w-5 h-5 bg-gray-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center">
-                                                {item.quantity}
-                                            </span>
+                                {cartItems.map((item, idx) => {
+                                    const product = item.product || {};
+                                    const rawPrice = product.price !== undefined ? product.price : (product.unitPrice !== undefined ? product.unitPrice : 0);
+                                    const price = typeof rawPrice === 'number' ? rawPrice : parseFloat(String(rawPrice).replace('$', '')) || 0;
+                                    const image = product.image || product.imageUrl;
+
+                                    return (
+                                        <div key={idx} className="flex gap-4">
+                                            <div className="w-16 h-16 bg-gray-100 dark:bg-white/10 rounded-lg overflow-hidden flex-shrink-0 relative">
+                                                <img
+                                                    src={image}
+                                                    alt={product.name || "Product"}
+                                                    className="w-full h-full object-contain"
+                                                />
+                                                <span className="absolute -top-1 -right-1 w-5 h-5 bg-gray-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center">
+                                                    {item.quantity}
+                                                </span>
+                                            </div>
+                                            <div className="flex-1 min-w-0">
+                                                <h4 className="text-sm font-medium text-[#1D1D1F] dark:text-white truncate">
+                                                    {product.name}
+                                                </h4>
+                                                {product.variant && (
+                                                    <p className="text-xs text-gray-500 truncate">{product.variant}</p>
+                                                )}
+                                                <p className="text-sm font-bold text-[#1D1D1F] dark:text-white mt-1">
+                                                    ${(price * item.quantity).toFixed(2)}
+                                                </p>
+                                            </div>
                                         </div>
-                                        <div className="flex-1 min-w-0">
-                                            <h4 className="text-sm font-medium text-[#1D1D1F] dark:text-white truncate">
-                                                {item.product.name}
-                                            </h4>
-                                            {item.product.variant && (
-                                                <p className="text-xs text-gray-500 truncate">{item.product.variant}</p>
-                                            )}
-                                            <p className="text-sm font-bold text-[#1D1D1F] dark:text-white mt-1">
-                                                ${(typeof item.product.price === 'number' 
-                                                    ? item.product.price * item.quantity 
-                                                    : parseFloat(item.product.price.replace('$', '')) * item.quantity
-                                                ).toFixed(2)}
-                                            </p>
-                                        </div>
-                                    </div>
-                                ))}
+                                    );
+                                })}
                             </div>
 
                             {/* Promo Code */}
