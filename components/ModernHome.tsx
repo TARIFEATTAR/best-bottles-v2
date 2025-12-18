@@ -7,6 +7,7 @@ import { Reveal } from "./Reveal";
 import { Product } from "../types";
 import { motion, AnimatePresence } from "framer-motion";
 import { useConversation } from "@elevenlabs/react";
+import { translations } from "../translations";
 
 interface ModernHomeProps {
     onProductClick?: () => void;
@@ -14,6 +15,7 @@ interface ModernHomeProps {
     onCollectionClick?: () => void;
     onPackagingIdeasClick?: () => void;
     onAddToCart?: (product: Product, quantity: number) => void;
+    language?: 'en' | 'fr';
 }
 
 const BRANDS = [
@@ -39,8 +41,11 @@ export const ModernHome: React.FC<ModernHomeProps> = ({
     onConsultationClick,
     onCollectionClick,
     onPackagingIdeasClick,
-    onAddToCart
+    onAddToCart,
+    language = 'en'
 }) => {
+    const t = translations[language];
+
     const [offsetY, setOffsetY] = useState(0);
     const [voiceText, setVoiceText] = useState("Speak with Grace");
 
@@ -147,7 +152,7 @@ export const ModernHome: React.FC<ModernHomeProps> = ({
                             <div className="flex items-center gap-4 mb-4 md:mb-8">
                                 <div className="h-[1px] w-8 md:w-12 bg-[#C5A065]"></div>
                                 <span className="text-white/90 text-xs md:text-sm font-bold tracking-[0.2em] uppercase">
-                                    Premium Packaging Solutions
+                                    {t.hero.sub}
                                 </span>
                             </div>
                         </Reveal>
@@ -159,8 +164,7 @@ export const ModernHome: React.FC<ModernHomeProps> = ({
                                 transition={{ duration: 0.8, delay: 0.2 }}
                             >
                                 <h1 className="text-5xl md:text-7xl lg:text-8xl font-serif font-semibold text-white leading-[0.95] tracking-tight drop-shadow-lg">
-                                    Beautifully <br />
-                                    <span className="text-[#e0ded6]">Contained</span>
+                                    {t.hero.title}
                                 </h1>
                             </motion.div>
                         </div>
@@ -171,7 +175,7 @@ export const ModernHome: React.FC<ModernHomeProps> = ({
                             transition={{ duration: 0.8, delay: 0.4 }}
                         >
                             <p className="text-white/95 text-lg md:text-2xl font-light leading-relaxed max-w-xl mb-8 md:mb-12 border-l border-white/30 pl-6 backdrop-blur-sm bg-black/10 rounded-r-lg py-2">
-                                Premium packaging solutions for brands ready to grow.
+                                {t.hero.desc}
                             </p>
                         </motion.div>
 
@@ -185,13 +189,13 @@ export const ModernHome: React.FC<ModernHomeProps> = ({
                                     onClick={onCollectionClick}
                                     className="bg-white text-[#1D1D1F] px-10 py-5 rounded-full text-xs font-bold uppercase tracking-widest hover:bg-[#C5A065] hover:text-white transition-all shadow-lg min-w-[200px] hover:scale-105 duration-300"
                                 >
-                                    Explore Collections
+                                    {t.hero.explore}
                                 </button>
                                 <button
                                     onClick={onConsultationClick}
                                     className="backdrop-blur-md bg-white/10 border border-white/30 text-white px-10 py-5 rounded-full text-xs font-bold uppercase tracking-widest hover:bg-white hover:text-[#1D1D1F] transition-all min-w-[200px] hover:scale-105 duration-300"
                                 >
-                                    Start Project
+                                    {t.hero.start}
                                 </button>
                             </div>
                         </motion.div>
@@ -276,7 +280,7 @@ export const ModernHome: React.FC<ModernHomeProps> = ({
                     <div className="max-w-md sticky top-32">
                         <Reveal effect="slide-up">
                             <h2 className="text-4xl md:text-6xl font-serif text-[#2D3A3F] dark:text-white leading-tight">
-                                Sustainable <br /> Elegance
+                                {t.sections.sustainability}
                             </h2>
                         </Reveal>
                     </div>
@@ -288,7 +292,7 @@ export const ModernHome: React.FC<ModernHomeProps> = ({
                         </Reveal>
                         <Reveal delay={0.4}>
                             <button onClick={onCollectionClick} className="group flex items-center gap-3 text-[#C5A065] text-xs font-bold uppercase tracking-widest hover:text-[#1D1D1F] dark:hover:text-white transition-colors">
-                                Read Our Philosophy
+                                {t.sections.philosophy}
                                 <span className="w-12 h-[1px] bg-[#C5A065] group-hover:w-20 transition-all duration-300"></span>
                                 <span className="material-symbols-outlined text-sm transition-transform group-hover:translate-x-1">arrow_forward</span>
                             </button>
@@ -303,10 +307,10 @@ export const ModernHome: React.FC<ModernHomeProps> = ({
                     <Reveal>
                         <div>
                             <h2 className="text-3xl md:text-5xl font-serif text-[#2D3A3F] dark:text-white mb-3">
-                                Curated Selections
+                                {t.sections.curated}
                             </h2>
                             <p className="text-[#637588] dark:text-gray-400 text-sm font-light">
-                                Defined aesthetic lines for the modern perfumer.
+                                {t.sections.moodBoards}
                             </p>
                         </div>
                     </Reveal>
@@ -315,7 +319,7 @@ export const ModernHome: React.FC<ModernHomeProps> = ({
                             onClick={onCollectionClick}
                             className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-[#2D3A3F] dark:text-white hover:text-[#C5A065] transition-colors"
                         >
-                            View Full Catalog
+                            {t.sections.viewCatalog}
                             <span className="material-symbols-outlined text-sm">arrow_forward</span>
                         </button>
                     </Reveal>
@@ -335,18 +339,18 @@ export const ModernHome: React.FC<ModernHomeProps> = ({
                 <div className="max-w-[1440px] mx-auto px-6 md:px-10 flex flex-col md:flex-row items-center gap-12 md:gap-20">
                     <div className="flex-1 order-2 md:order-1">
                         <Reveal>
-                            <span className="text-[#C5A059] font-bold uppercase tracking-widest text-xs mb-4 block">Inspiration Gallery</span>
+                            <span className="text-[#C5A059] font-bold uppercase tracking-widest text-xs mb-4 block">{t.sections.inspiration}</span>
                             <h2 className="text-3xl md:text-6xl font-serif font-bold text-[#1D1D1F] dark:text-white mb-6">
-                                See what&apos;s possible.
+                                {t.sections.seePossible}
                             </h2>
                             <p className="text-[#637588] dark:text-gray-300 mb-8 md:mb-10 max-w-md leading-relaxed text-base md:text-lg">
-                                Explore our curated mood boards for specific fragrance profiles like &quot;Rose Eau De Parfum&quot;. Visualize your brand on our bottles before you buy.
+                                {t.sections.visualize}
                             </p>
                             <button
                                 onClick={onPackagingIdeasClick}
                                 className="bg-[#1D1D1F] dark:bg-white text-white dark:text-[#1D1D1F] px-10 py-4 rounded-full text-xs font-bold uppercase tracking-widest hover:bg-[#C5A065] dark:hover:bg-gray-200 transition-colors shadow-lg hover:scale-105 duration-300 w-full md:w-auto"
                             >
-                                View Packaging Ideas
+                                {t.sections.viewIdeas}
                             </button>
                         </Reveal>
                     </div>
@@ -388,15 +392,15 @@ export const ModernHome: React.FC<ModernHomeProps> = ({
                     {/* Right Content */}
                     <div>
                         <Reveal>
-                            <span className="text-[#C5A059] text-xs font-bold tracking-[0.2em] uppercase mb-6 block">Custom Fabrication</span>
+                            <span className="text-[#C5A059] text-xs font-bold tracking-[0.2em] uppercase mb-6 block">{t.custom.label}</span>
                             <h2 className="text-4xl md:text-7xl font-serif font-medium mb-8 leading-[0.9]">
-                                Laser Engraved <br /> Atomizers
+                                {t.custom.title}
                             </h2>
                         </Reveal>
 
                         <Reveal delay={0.2}>
                             <p className="text-white/70 text-lg font-light leading-relaxed mb-12 max-w-lg">
-                                Laser engraving transforms our metal shell atomizers into distinct, personalized keepsakes. Perfect for fragrance promotions, wedding favors, or corporate gifting.
+                                {t.custom.desc}
                             </p>
                         </Reveal>
 
@@ -432,7 +436,7 @@ export const ModernHome: React.FC<ModernHomeProps> = ({
                                 onClick={onConsultationClick}
                                 className="bg-white text-[#1D1D1F] px-10 py-5 rounded-full text-xs font-bold uppercase tracking-widest hover:bg-[#C5A065] hover:text-white transition-all shadow-lg hover:shadow-[#C5A059]/30 w-full md:w-auto"
                             >
-                                Request Sample Kit
+                                {t.custom.request}
                             </button>
                         </Reveal>
                     </div>

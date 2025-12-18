@@ -14,7 +14,10 @@ interface HeaderProps {
     onCartClick?: () => void;
     onContactClick?: () => void;
     onHelpCenterClick?: () => void;
+    onFeaturesClick?: () => void;
     cartCount?: number;
+    language?: 'en' | 'fr';
+    onLanguageChange?: (lang: 'en' | 'fr') => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -28,7 +31,10 @@ export const Header: React.FC<HeaderProps> = ({
     onCartClick,
     onContactClick,
     onHelpCenterClick,
-    cartCount = 0
+    onFeaturesClick,
+    cartCount = 0,
+    language = 'en',
+    onLanguageChange
 }) => {
     // We use a string to track WHICH menu is open: 'shop', 'collections', or null
     const [activeMenu, setActiveMenu] = useState<'shop' | 'collections' | null>(null);
@@ -229,6 +235,22 @@ export const Header: React.FC<HeaderProps> = ({
                                 Bottle Specialist
                             </motion.button>
 
+                            {/* Language Switcher */}
+                            <div className="hidden lg:flex items-center gap-1 bg-gray-100 dark:bg-white/5 p-1 rounded-md border border-gray-200 dark:border-gray-800">
+                                <button
+                                    onClick={() => onLanguageChange?.('en')}
+                                    className={`px-2 py-1 text-[10px] font-bold rounded transition-all ${language === 'en' ? 'bg-white dark:bg-[#1D1D1F] text-[#C5A065] shadow-sm' : 'text-gray-500 hover:text-[#C5A065]'}`}
+                                >
+                                    EN
+                                </button>
+                                <button
+                                    onClick={() => onLanguageChange?.('fr')}
+                                    className={`px-2 py-1 text-[10px] font-bold rounded transition-all ${language === 'fr' ? 'bg-white dark:bg-[#1D1D1F] text-[#C5A065] shadow-sm' : 'text-gray-500 hover:text-[#C5A065]'}`}
+                                >
+                                    FR
+                                </button>
+                            </div>
+
                             {/* Cart */}
                             <button
                                 onClick={onCartClick}
@@ -301,6 +323,16 @@ export const Header: React.FC<HeaderProps> = ({
                             >
                                 Journal
                             </a>
+
+                            {/* Features Link - Highlighted */}
+                            <a
+                                className="h-full flex items-center text-[#C5A065] hover:text-[#1D1D1F] dark:hover:text-white transition-colors cursor-pointer border-b-2 border-[#C5A065] hover:border-transparent font-black"
+                                href="#features"
+                                onClick={(e) => { e.preventDefault(); onFeaturesClick?.(); }}
+                            >
+                                <span className="material-symbols-outlined text-sm mr-1">star</span> Features
+                            </a>
+
                         </nav>
 
                         {/* Contact Info (Right Aligned) */}
@@ -507,9 +539,25 @@ export const Header: React.FC<HeaderProps> = ({
                                 {/* Drawer Header */}
                                 <div className="p-6 flex justify-between items-center border-b border-gray-200 dark:border-gray-800 shrink-0">
                                     <span className="font-serif text-xl font-bold uppercase tracking-tight text-[#1D1D1F] dark:text-white">Best Bottles</span>
-                                    <button onClick={toggleMobileMenu} className="p-2 -mr-2 text-gray-500 hover:text-[#1D1D1F] dark:hover:text-white transition-colors">
-                                        <span className="material-symbols-outlined">close</span>
-                                    </button>
+                                    <div className="flex items-center gap-4">
+                                        <div className="flex items-center gap-1 bg-gray-100 dark:bg-white/5 p-1 rounded-md border border-gray-200 dark:border-gray-800 scale-90">
+                                            <button
+                                                onClick={() => onLanguageChange?.('en')}
+                                                className={`px-2 py-1 text-[10px] font-bold rounded transition-all ${language === 'en' ? 'bg-white dark:bg-[#1D1D1F] text-[#C5A065] shadow-sm' : 'text-gray-500 hover:text-[#C5A065]'}`}
+                                            >
+                                                EN
+                                            </button>
+                                            <button
+                                                onClick={() => onLanguageChange?.('fr')}
+                                                className={`px-2 py-1 text-[10px] font-bold rounded transition-all ${language === 'fr' ? 'bg-white dark:bg-[#1D1D1F] text-[#C5A065] shadow-sm' : 'text-gray-500 hover:text-[#C5A065]'}`}
+                                            >
+                                                FR
+                                            </button>
+                                        </div>
+                                        <button onClick={toggleMobileMenu} className="p-2 -mr-2 text-gray-500 hover:text-[#1D1D1F] dark:hover:text-white transition-colors">
+                                            <span className="material-symbols-outlined">close</span>
+                                        </button>
+                                    </div>
                                 </div>
 
                                 {/* Drawer Content */}
@@ -656,6 +704,17 @@ export const Header: React.FC<HeaderProps> = ({
                                             Journal
                                             <span className="material-symbols-outlined text-gray-300 group-hover:text-[#C5A065]">chevron_right</span>
                                         </a>
+
+                                        {/* Mobile Features Link */}
+                                        <a
+                                            href="#features"
+                                            onClick={(e) => { e.preventDefault(); toggleMobileMenu(); onFeaturesClick?.(); }}
+                                            className="text-lg font-bold text-[#C5A065] hover:text-[#191919] dark:hover:text-white py-2 transition-colors flex items-center justify-between group"
+                                        >
+                                            <span className="flex items-center gap-2"><span className="material-symbols-outlined">star</span> Features</span>
+                                            <span className="material-symbols-outlined text-gray-300 group-hover:text-[#C5A065]">chevron_right</span>
+                                        </a>
+
                                     </nav>
 
                                     <div className="h-px bg-gray-100 dark:bg-gray-800 shrink-0"></div>

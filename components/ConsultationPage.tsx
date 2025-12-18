@@ -3,30 +3,42 @@ import { ProjectDraft } from "../App";
 import { VisualizeModal } from "./VisualizeModal";
 import { useConversation } from "@elevenlabs/react";
 
-// Import our 9ml roll-on product family data
+// Import product family data
 import rollOnData from "../data/roll-on-9ml-cylinder.json";
+import sprayData from "../data/elegant-60ml-spray.json";
+import atomizerData from "../data/travel-atomizer-10ml.json";
 
 // --- Demo Voice Responses (simulated for demo without API) ---
 const DEMO_VOICE_RESPONSES = [
     {
         trigger: 'greeting',
-        text: "Hi there. I'm your Bottle Specialist. I'd love to help you find the perfect packaging. Are you looking for roll-on bottles today?",
+        text: "Hi there. I'm your Bottle Specialist. I'd love to help you find the perfect packaging. Are you looking for roll-ons, spray bottles, or travel atomizers today?",
         duration: 4000
     },
     {
         trigger: 'roll-on',
-        text: "Excellent choice. Our 9ml roll-on bottles are perfect for perfume oils and essential oils. They come in clear, amber, blue, frosted, and swirl glass. Would you like to customize one?",
+        text: "Excellent choice. Our 9ml roll-on bottles are perfect for perfume oils. They come in various glass colors like Amber and Cobalt Blue. Shall we customize one?",
+        duration: 5000
+    },
+    {
+        trigger: 'spray',
+        text: "Our 60ml Elegant Square Spray is a best-seller for fragrances. It features clear or frosted glass and premium metallic pumps. Ready to build yours?",
+        duration: 5000
+    },
+    {
+        trigger: 'atomizer',
+        text: "The 10ml Travel Atomizer is perfect for on-the-go. It's made of anodized aluminum in vibrant colors. Would you like to see the options?",
         duration: 5000
     },
     {
         trigger: 'yes',
-        text: "Perfect. Let me take you to the configurator where you can select your glass color, roller type, and cap style.",
+        text: "Perfect. Let me take you to the configurator where you can select your components.",
         duration: 3500,
         action: 'navigate'
     },
     {
         trigger: 'default',
-        text: "I'd be happy to help. For this demo, we're featuring our beautiful 9ml roll-on bottles. They're perfect for fragrance oils. Shall I show you the options?",
+        text: "I'd be happy to help. We have roll-ons, sprays, and travel atomizers available for customization. Which would you like to explore?",
         duration: 4500
     }
 ];
@@ -190,15 +202,14 @@ export const ConsultationPage: React.FC<ConsultationPageProps> = ({ onBack, proj
     // Mode: 'brief' (intake chat) -> 'studio' (builder)
     const [mode, setMode] = useState<'brief' | 'studio'>('brief');
 
-    // Category Data with Images
-    // Note: Replace these placeholder URLs with actual hosted category images from bestbottles.com
+    // Category Data with Images and Pricing
     const categories = [
-        { id: 'vintage', label: 'VINTAGE BOTTLES', image: 'https://images.unsplash.com/photo-1585386959984-a4155224a1ad?w=400&h=400&fit=crop&auto=format', available: false },
-        { id: 'oil-vials', label: 'OIL VIALS', image: 'https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?w=400&h=400&fit=crop&auto=format', available: false },
-        { id: 'essential', label: 'ESSENTIAL OILS', image: 'https://images.unsplash.com/photo-1600857544200-b2f666a9a2ec?w=400&h=400&fit=crop&auto=format', available: false },
-        { id: 'roll-on', label: 'ROLL-ONS', image: 'https://www.bestbottles.com/images/store/enlarged_pics/GBCyl9MtlRollBlkDot.gif', available: true },
-        { id: 'closures', label: 'CLOSURES', image: 'https://images.unsplash.com/photo-1586015555751-63c29b86dc52?w=400&h=400&fit=crop&auto=format', available: false },
-        { id: 'accessories', label: 'ACCESSORIES', image: 'https://images.unsplash.com/photo-1596461404969-9ae70f2830c1?w=400&h=400&fit=crop&auto=format', available: false },
+        { id: 'roll-on', label: 'ROLL-ONS', image: 'https://www.bestbottles.com/images/store/enlarged_pics/GBCyl9MtlRollBlkDot.gif', available: true, priceFrom: '$0.45' },
+        { id: 'spray', label: 'SPRAY BOTTLES', image: 'https://www.bestbottles.com/images/store/enlarged_pics/GBElg60SpryCu.gif', available: true, priceFrom: '$2.15' },
+        { id: 'atomizer', label: 'TRAVEL ATOMIZERS', image: 'https://www.bestbottles.com/images/store/enlarged_pics/GBAtom10Sl.gif', available: true, priceFrom: '$2.46' },
+        { id: 'vintage', label: 'VINTAGE', image: 'https://images.unsplash.com/photo-1585386959984-a4155224a1ad?w=400&h=400&fit=crop&auto=format', available: false, priceFrom: null },
+        { id: 'oil-vials', label: 'OIL VIALS', image: 'https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?w=400&h=400&fit=crop&auto=format', available: false, priceFrom: null },
+        { id: 'accessories', label: 'ACCESSORIES', image: 'https://images.unsplash.com/photo-1596461404969-9ae70f2830c1?w=400&h=400&fit=crop&auto=format', available: false, priceFrom: null },
     ];
 
     // Chat State
@@ -298,6 +309,18 @@ export const ConsultationPage: React.FC<ConsultationPageProps> = ({ onBack, proj
         }
     };
 
+    // Active Product Family
+    const [activeFamilyId, setActiveFamilyId] = useState<'roll-on' | 'spray' | 'atomizer'>('roll-on');
+
+    // Dynamic Data Access
+    const getCurrentData = () => {
+        if (activeFamilyId === 'roll-on') return rollOnData;
+        if (activeFamilyId === 'spray') return sprayData;
+        return atomizerData;
+    };
+
+    const productData = getCurrentData() as any;
+
     // Studio State
     const [activeStep, setActiveStep] = useState<0 | 1 | 2>(0); // 0: Bottle, 1: Fitment, 2: Cap
     const [selections, setSelections] = useState<{
@@ -306,9 +329,9 @@ export const ConsultationPage: React.FC<ConsultationPageProps> = ({ onBack, proj
         closure: CapOption | null;
         quantity: number;
     }>({
-        vessel: productData.baseBottles[0], // Default to first bottle (Clear)
-        fitment: productData.rollerOptions[0], // Default to Metal roller
-        closure: productData.capOptions[0], // Default to Black Dot cap
+        vessel: rollOnData.baseBottles[0],
+        fitment: rollOnData.rollerOptions[0],
+        closure: rollOnData.capOptions[0],
         quantity: 100
     });
 
@@ -380,44 +403,44 @@ export const ConsultationPage: React.FC<ConsultationPageProps> = ({ onBack, proj
 
         // Process based on keywords
         setTimeout(() => {
-            if (lowerInput.includes('roll-on') || lowerInput.includes('roll on') || lowerInput.includes('roller')) {
+            if (lowerInput.includes('start-studio')) {
+                const familyId = lowerInput.split('start-studio-')[1] as any || 'roll-on';
+                setActiveFamilyId(familyId);
+                const data = familyId === 'roll-on' ? rollOnData : familyId === 'spray' ? sprayData : atomizerData;
+                setSelections({
+                    vessel: data.baseBottles[0],
+                    fitment: data.rollerOptions[0],
+                    closure: data.capOptions[0],
+                    quantity: 100
+                });
+                setActiveStep(0);
                 setMessages(prev => [...prev, {
                     role: 'assistant',
-                    text: `Excellent choice! We have beautiful 9ml Cylinder Roll-On Bottles available.\n\nGlass Options: Clear, Amber, Cobalt Blue, Frosted, and Swirl patterns\n\nRoller Types: Metal (premium) or Plastic\n\nCap Styles: 10 different finishes including Black Dot, Gold, Silver, Pink, and more.\n\nWould you like to customize your roll-on bottle now?`,
+                    text: `Perfect! Opening the configurator for your ${familyId} selection now.`
+                }]);
+                setTimeout(() => setMode('studio'), 800);
+            } else if (lowerInput.includes('roll-on') || lowerInput.includes('roll on') || lowerInput.includes('roller')) {
+                setMessages(prev => [...prev, {
+                    role: 'assistant',
+                    text: `Excellent choice! Our **9ml Cylinder Roll-On Bottles** are perfect for perfume oils and aromatherapy.\n\n💰 **Starting at $0.45/unit** (bulk pricing available)\n\nWould you like to customize your roll-on bottle now?`,
                     options: [
-                        { label: 'Yes, let\'s build it', value: 'start-studio', icon: 'ph-thin ph-arrow-right' },
-                        { label: 'Tell me more', value: 'more-info', icon: 'ph-thin ph-info' }
+                        { label: 'Yes, let\'s build it', value: 'start-studio-roll-on', icon: 'ph-thin ph-arrow-right' }
                     ]
                 }]);
-            } else if (lowerInput.includes('start-studio') || lowerInput.includes('build') || lowerInput.includes('customize') || lowerInput.includes('yes')) {
+            } else if (lowerInput.includes('spray')) {
                 setMessages(prev => [...prev, {
                     role: 'assistant',
-                    text: "Perfect! Let me open the configurator for you. You'll be able to select your glass color, roller type, and cap style."
-                }]);
-                setTimeout(() => setMode('studio'), 1000);
-            } else if (lowerInput.includes('more-info') || lowerInput.includes('tell me more')) {
-                setMessages(prev => [...prev, {
-                    role: 'assistant',
-                    text: `Here's what makes our 9ml Roll-On bottles special:\n\nSpecifications:\nCapacity: 9ml (0.3 oz)\nHeight with cap: 83mm\nDiameter: 20mm\nNeck thread: 17-415\n\nPerfect for:\nPerfume oils\nEssential oil blends\nAromatherapy\nTravel-size fragrances\n\nPricing starts at $0.67 per piece with bulk discounts available.\n\nReady to start configuring?`,
+                    text: `Our **60ml Elegant Square Spray** is a best-seller for fragrances. It features premium glass and fine-mist sprayers.\n\n💰 **Starting at $2.15/unit** (bulk pricing available)\n\nReady to configure your spray bottle?`,
                     options: [
-                        { label: 'Start Configuring', value: 'start-studio', icon: 'ph-thin ph-sliders-horizontal' },
-                        { label: 'Show Pricing', value: 'pricing', icon: 'ph-thin ph-tag' }
+                        { label: 'Start Configuring', value: 'start-studio-spray', icon: 'ph-thin ph-sparkle' }
                     ]
                 }]);
-            } else if (lowerInput.includes('pricing') || lowerInput.includes('price') || lowerInput.includes('cost')) {
+            } else if (lowerInput.includes('atomizer') || lowerInput.includes('travel') || lowerInput.includes('auto')) {
                 setMessages(prev => [...prev, {
                     role: 'assistant',
-                    text: `Volume Pricing for Clear Glass with Plastic Roller:\n\n1 piece: $0.67 each\n12 pieces: $0.63 each\n144 pieces: $0.59 each\n576 pieces: $0.55 each\n2,880 pieces: $0.49 each\n\nMetal roller adds $0.09 per piece.\nColored glass may vary slightly.\n\nWould you like to configure your order?`,
+                    text: `Our **10ml Travel Atomizers** are highly durable with anodized aluminum bodies. Available in 7 vibrant colors.\n\n💰 **Starting at $2.46/unit** (bulk pricing available)\n\nShall we customize one?`,
                     options: [
-                        { label: 'Configure My Order', value: 'start-studio', icon: 'ph-thin ph-shopping-cart' }
-                    ]
-                }]);
-            } else if (lowerInput.includes('dropper') || lowerInput.includes('spray')) {
-                setMessages(prev => [...prev, {
-                    role: 'assistant',
-                    text: "We're currently showcasing our Roll-On Bottle collection in this demo. Dropper and spray bottles will be available soon.\n\nWould you like to explore our roll-on options instead?",
-                    options: [
-                        { label: 'Show Roll-On Bottles', value: 'roll-on', icon: 'ph-thin ph-flask' }
+                        { label: 'Build Atomizer', value: 'start-studio-atomizer', icon: 'ph-thin ph-airplane' }
                     ]
                 }]);
             } else if (lowerInput.includes('another-roll-on')) {
@@ -478,7 +501,7 @@ export const ConsultationPage: React.FC<ConsultationPageProps> = ({ onBack, proj
 
         // Get all tiers sorted ascending
         const tiers = Object.entries(basePrices)
-            .map(([qty, price]) => ({ qty: parseInt(qty), price }))
+            .map(([qty, price]) => ({ qty: parseInt(qty), price: price as number }))
             .sort((a, b) => a.qty - b.qty);
 
         // Find current tier (highest tier where qty >= tier.qty)
@@ -492,11 +515,11 @@ export const ConsultationPage: React.FC<ConsultationPageProps> = ({ onBack, proj
             }
         }
 
-        const rollerUpcharge = selections.fitment?.type === 'metal'
+        const rollerUpcharge = (selections.fitment as any)?.type === 'metal'
             ? productData.pricingMatrix.metalRollerUpcharge
             : 0;
 
-        const unitPrice = currentTier.price + rollerUpcharge;
+        const unitPrice = (currentTier.price as number) + rollerUpcharge;
         const total = unitPrice * selections.quantity;
 
         // Create tier label
@@ -513,7 +536,7 @@ export const ConsultationPage: React.FC<ConsultationPageProps> = ({ onBack, proj
             tierLabel,
             nextTier: nextTier ? {
                 qty: nextTier.qty,
-                savings: (currentTier.price - nextTier.price).toFixed(2)
+                savings: ((currentTier.price as number) - (nextTier.price as number)).toFixed(2)
             } : null
         };
     }, [selections.vessel, selections.fitment, selections.quantity]);
@@ -521,25 +544,49 @@ export const ConsultationPage: React.FC<ConsultationPageProps> = ({ onBack, proj
     const calculateUnitPrice = () => pricingInfo.unitPrice;
     const calculateTotal = () => pricingInfo.total.toFixed(2);
 
-    // --- Generate Composite Image URL ---
-    const getCompositeImageUrl = () => {
-        if (!selections.vessel || !selections.fitment || !selections.closure) {
-            return selections.vessel?.imageUrl || '';
+    // --- SKU & URL Logic (Unified with Collection Page) ---
+    const getSku = (familyId: string, vessel: any, fitment: any, closure: any) => {
+        if (!vessel || !closure) return "";
+
+        const data = familyId === 'roll-on' ? rollOnData : familyId === 'spray' ? sprayData : atomizerData;
+
+        // Check matrix
+        if ((data as any).skuMatrix) {
+            const entry = (data as any).skuMatrix.find((s: any) =>
+                s.bottle === vessel.id &&
+                s.cap === closure.id &&
+                (s.roller === fitment?.id || !s.roller)
+            );
+            if (entry) return entry.sku;
         }
 
+        // Construction
+        if (familyId === 'roll-on') {
+            const rollerCode = fitment?.skuCode || "";
+            const capCode = closure.imageCode || closure.skuCode || "";
+            return `${vessel.skuPrefix}${rollerCode}${capCode}`;
+        }
+
+        if (familyId === 'spray') {
+            const capCode = closure.imageCode || closure.skuCode || "";
+            return `${vessel.skuPrefix}${capCode}`;
+        }
+
+        if (familyId === 'atomizer') {
+            const capCode = closure.skuCode || "";
+            return `${vessel.skuPrefix}${capCode}`;
+        }
+
+        return vessel.skuPrefix || "";
+    };
+
+    const getCompositeImageUrl = () => {
+        const sku = getSku(activeFamilyId, selections.vessel, selections.fitment, selections.closure);
         const baseUrl = 'https://www.bestbottles.com/images/store/enlarged_pics/';
-        const rollerCode = selections.fitment.type === 'metal' ? 'MtlRoll' : 'Roll';
-        const capCode = selections.closure.imageCode;
-
-        return `${baseUrl}${selections.vessel.skuPrefix}${rollerCode}${capCode}.gif`;
+        return `${baseUrl}${sku}.gif`;
     };
 
-    // --- Generate SKU ---
-    const generateSku = () => {
-        if (!selections.vessel || !selections.fitment || !selections.closure) return 'N/A';
-        const rollerCode = selections.fitment.type === 'metal' ? 'MtlRoll' : 'Roll';
-        return `${selections.vessel.skuPrefix}${rollerCode}${selections.closure.skuCode}`;
-    };
+    const generateSku = () => getSku(activeFamilyId, selections.vessel, selections.fitment, selections.closure);
 
     // --- Cart State (modal removed - cart drawer handles confirmation) ---
 
@@ -548,11 +595,11 @@ export const ConsultationPage: React.FC<ConsultationPageProps> = ({ onBack, proj
         if (!selections.vessel || !selections.closure) return;
 
         const customProduct = {
-            name: `9ml ${selections.vessel.name} Roll-On Bottle`,
-            variant: `${selections.fitment?.name} + ${selections.closure.name} Cap`,
+            name: productData.categoryName,
+            variant: `${selections.fitment?.name} + ${selections.closure.name}`,
             price: calculateUnitPrice(),
             imageUrl: getCompositeImageUrl(),
-            category: 'Roll-On Bottles',
+            category: productData.categoryName,
             sku: generateSku(),
             specs: productData.sharedSpecs
         };
@@ -565,7 +612,7 @@ export const ConsultationPage: React.FC<ConsultationPageProps> = ({ onBack, proj
             role: 'assistant',
             showCartSummary: {
                 quantity: selections.quantity,
-                name: `${selections.vessel?.name} Roll-On with ${selections.closure?.name} cap`,
+                name: `${selections.vessel?.name} ${activeFamilyId === 'roll-on' ? 'Roll-On' : activeFamilyId === 'spray' ? 'Spray' : 'Atomizer'} with ${selections.closure?.name}`,
                 price: `$${(calculateUnitPrice() * selections.quantity).toFixed(2)}`
             },
             text: "What else would you like to add to your order?",
@@ -573,10 +620,12 @@ export const ConsultationPage: React.FC<ConsultationPageProps> = ({ onBack, proj
         }]);
 
         // Reset selections for next time
+        const data = rollOnData; // Default reset back to roll-on
+        setActiveFamilyId('roll-on');
         setSelections({
-            vessel: productData.baseBottles[0],
-            fitment: productData.rollerOptions[0],
-            closure: productData.capOptions[0],
+            vessel: data.baseBottles[0],
+            fitment: data.rollerOptions[0],
+            closure: data.capOptions[0],
             quantity: 100
         });
         setActiveStep(0);
@@ -673,6 +722,11 @@ export const ConsultationPage: React.FC<ConsultationPageProps> = ({ onBack, proj
                                                                     }`}>
                                                                     {cat.label}
                                                                 </span>
+                                                                {cat.available && cat.priceFrom && (
+                                                                    <span className="block text-[8px] md:text-[10px] text-gold font-bold mt-0.5">
+                                                                        From {cat.priceFrom}
+                                                                    </span>
+                                                                )}
                                                             </div>
                                                             {cat.available && (
                                                                 <div className="absolute top-2 right-2 px-1.5 py-0.5 bg-gold rounded text-[8px] text-white font-bold">
@@ -977,10 +1031,12 @@ export const ConsultationPage: React.FC<ConsultationPageProps> = ({ onBack, proj
                             )}
                         </div>
 
-                        {/* Step 1: Bottle (Glass Colors) */}
+                        {/* Step 1: Bottle (Glass Colors / Body Colors) */}
                         {activeStep === 0 && (
                             <div className="animate-fade-in">
-                                <h2 className="text-lg md:text-xl font-serif text-[#1D1D1F] dark:text-white mb-4">Select Glass Color</h2>
+                                <h2 className="text-lg md:text-xl font-serif text-[#1D1D1F] dark:text-white mb-4">
+                                    Select {activeFamilyId === 'atomizer' ? 'Body Color' : 'Glass Color'}
+                                </h2>
                                 <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
                                     {productData.baseBottles.map((bottle) => (
                                         <button
@@ -1023,34 +1079,36 @@ export const ConsultationPage: React.FC<ConsultationPageProps> = ({ onBack, proj
                             </div>
                         )}
 
-                        {/* Step 2: Fitment (Roller Type) */}
+                        {/* Step 2: Fitment (Roller/Sprayer Type) */}
                         {activeStep === 1 && (
                             <div className="animate-fade-in">
-                                <h2 className="text-lg md:text-xl font-serif text-[#1D1D1F] dark:text-white mb-4">Select Roller Type</h2>
+                                <h2 className="text-lg md:text-xl font-serif text-[#1D1D1F] dark:text-white mb-4">
+                                    Select {activeFamilyId === 'roll-on' ? 'Roller' : activeFamilyId === 'spray' ? 'Sprayer' : 'Atomizer'} Type
+                                </h2>
                                 <div className="space-y-3">
-                                    {productData.rollerOptions.map((roller) => (
+                                    {productData.rollerOptions.map((fitment: any) => (
                                         <button
-                                            key={roller.id}
-                                            onClick={() => setSelections(prev => ({ ...prev, fitment: roller }))}
-                                            className={`w-full p-4 md:p-5 rounded-xl border flex items-center justify-between transition-all group hover:shadow-md ${selections.fitment?.id === roller.id
+                                            key={fitment.id}
+                                            onClick={() => setSelections(prev => ({ ...prev, fitment: fitment }))}
+                                            className={`w-full p-4 md:p-5 rounded-xl border flex items-center justify-between transition-all group hover:shadow-md ${selections.fitment?.id === fitment.id
                                                 ? 'bg-white dark:bg-white/10 border-gold shadow-sm ring-2 ring-gold'
                                                 : 'bg-white dark:bg-white/5 border-gray-200 dark:border-gray-700 hover:border-gray-300'
                                                 }`}
                                         >
                                             <div className="flex items-center gap-4">
-                                                <div className={`w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center transition-colors ${selections.fitment?.id === roller.id ? 'bg-gold text-white' : 'bg-gray-100 dark:bg-white/5 text-gray-400'
+                                                <div className={`w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center transition-colors ${selections.fitment?.id === fitment.id ? 'bg-gold text-white' : 'bg-gray-100 dark:bg-white/5 text-gray-400'
                                                     }`}>
                                                     <span className="material-symbols-outlined text-xl md:text-2xl">
-                                                        {roller.type === 'metal' ? 'radio_button_checked' : 'radio_button_unchecked'}
+                                                        {activeFamilyId === 'roll-on' ? (fitment.type === 'metal' ? 'radio_button_checked' : 'radio_button_unchecked') : 'tune'}
                                                     </span>
                                                 </div>
                                                 <div className="text-left">
-                                                    <span className="block text-sm md:text-base font-bold text-[#1D1D1F] dark:text-white">{roller.name}</span>
-                                                    <span className="block text-[10px] md:text-xs text-gray-500 dark:text-gray-400">{roller.description}</span>
+                                                    <span className="block text-sm md:text-base font-bold text-[#1D1D1F] dark:text-white">{fitment.name}</span>
+                                                    <span className="block text-[10px] md:text-xs text-gray-500 dark:text-gray-400">{fitment.description}</span>
                                                 </div>
                                             </div>
                                             <div className="text-sm font-bold text-[#1D1D1F] dark:text-white">
-                                                {roller.priceModifier === 0 ? 'Standard' : `+$${roller.priceModifier.toFixed(2)}`}
+                                                {fitment.priceModifier === 0 ? 'Standard' : `+$${fitment.priceModifier.toFixed(2)}`}
                                             </div>
                                         </button>
                                     ))}
@@ -1165,7 +1223,7 @@ export const ConsultationPage: React.FC<ConsultationPageProps> = ({ onBack, proj
                 isOpen={showVisualizeModal}
                 onClose={() => setShowVisualizeModal(false)}
                 productImage={getCompositeImageUrl()}
-                productName={`9ml ${selections.vessel?.name} Roll-On Bottle`}
+                productName={productData.categoryName}
                 labelSpecs={productData.labelSpecs}
                 labelPartners={productData.labelPartners}
                 onContinueToCart={() => {

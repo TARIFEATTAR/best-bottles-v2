@@ -20,6 +20,7 @@ import { AuthModal } from "./components/AuthModal";
 import { SignUpPage } from "./components/SignUpPage";
 import { CartDrawer } from "./components/CartDrawer";
 import LabelGenerator from "./components/LabelGenerator";
+import { FeaturesPage } from "./components/FeaturesPage";
 
 // Simple Fade Transition Wrapper
 const PageTransition: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -52,10 +53,14 @@ export interface ProjectDraft {
 }
 
 const App: React.FC = () => {
-  const [view, setView] = useState<'home' | 'detail' | 'roll-on-detail' | 'consultation' | 'collections' | 'collection-detail' | 'custom' | 'journal' | 'packaging-ideas' | 'help-center' | 'contact' | 'signup' | 'contract-packaging' | 'checkout'>('home');
+  const [view, setView] = useState<'home' | 'detail' | 'roll-on-detail' | 'consultation' | 'collections' | 'collection-detail' | 'custom' | 'journal' | 'packaging-ideas' | 'help-center' | 'contact' | 'signup' | 'contract-packaging' | 'checkout' | 'label-generator' | 'features'>('home');
   const [cartItems, setCartItems] = useState<{ product: any, quantity: number }[]>([]);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [language, setLanguage] = useState<'en' | 'fr'>('en');
+
+  // Use "9ml-cylinder-roll-on" as default
+  const [selectedProductId, setSelectedProductId] = useState<string>("9ml-cylinder-roll-on");
 
   // State for passing data to builder from voice chat
   const [projectDraft, setProjectDraft] = useState<ProjectDraft | null>(null);
@@ -141,7 +146,13 @@ const App: React.FC = () => {
 
   const navigateToHome = () => setView('home');
   const navigateToDetail = () => setView('detail');
-  const navigateToRollOnDetail = () => setView('roll-on-detail');
+
+  // Update to accept productId
+  const navigateToRollOnDetail = (productId?: string) => {
+    if (productId) setSelectedProductId(productId);
+    setView('roll-on-detail');
+  };
+
   const navigateToConsultation = () => { setView('consultation'); };
   const navigateToCollections = () => setView('collections');
   const navigateToCollectionDetail = () => setView('collection-detail');
@@ -155,19 +166,23 @@ const App: React.FC = () => {
   const navigateToCheckout = () => { setIsCartOpen(false); setView('checkout'); };
   const navigateToLabelGenerator = () => setView('label-generator');
 
+  const navigateToFeatures = () => setView('features');
+
   const totalCartCount = cartItems.reduce((acc, item) => acc + item.quantity, 0);
 
   const renderView = () => {
     switch (view) {
       case 'home': return <ModernHome
-        onProductClick={navigateToRollOnDetail}
+        onProductClick={() => navigateToRollOnDetail("9ml-cylinder-roll-on")}
         onConsultationClick={navigateToConsultation}
         onCollectionClick={navigateToCollectionDetail}
         onPackagingIdeasClick={navigateToPackagingIdeas}
         onAddToCart={addToCart}
+        language={language}
       />;
       case 'detail': return <ProductDetail onBack={navigateToHome} onAddToCart={addToCart} />;
-      case 'roll-on-detail': return <ProductDetailConfigurable onBack={navigateToHome} onAddToCart={addToCart} />;
+      // Added key={selectedProductId} to ensure component remounts when ID changes, fixing state sync issues and eliminating the need for useEffect setStates
+      case 'roll-on-detail': return <ProductDetailConfigurable key={selectedProductId} productId={selectedProductId} onBack={navigateToHome} onAddToCart={addToCart} />;
       case 'consultation': return <ConsultationPage onBack={navigateToHome} projectDraft={projectDraft} onAddToCart={addToCart} />;
       case 'collections': return <CollectionsPage onCollectionClick={navigateToCollectionDetail} />;
       case 'collection-detail': return <CollectionDetailPage onBack={navigateToCollections} onProductClick={navigateToRollOnDetail} onAddToCart={addToCart} />;
@@ -180,6 +195,7 @@ const App: React.FC = () => {
       case 'contract-packaging': return <ContractPackagingPage onBack={navigateToHome} onContactClick={navigateToContact} />;
       case 'checkout': return <CheckoutPage cartItems={cartItems} onBack={() => { setView('home'); setIsCartOpen(true); }} onComplete={() => { setCartItems([]); setView('home'); }} />;
       case 'label-generator': return <LabelGenerator />;
+      case 'features': return <FeaturesPage onBack={navigateToHome} />;
       default: return <ModernHome />;
     }
   };
@@ -198,7 +214,10 @@ const App: React.FC = () => {
           onCartClick={() => setIsCartOpen(true)}
           onContactClick={navigateToContact}
           onHelpCenterClick={navigateToHelpCenter}
+          onFeaturesClick={navigateToFeatures}
           cartCount={totalCartCount}
+          language={language}
+          onLanguageChange={setLanguage}
         />
       )}
       <main className="flex-grow w-full flex flex-col">
@@ -207,7 +226,7 @@ const App: React.FC = () => {
           {renderView()}
         </PageTransition>
       </main>
-      {view !== 'collection-detail' && view !== 'signup' && view !== 'consultation' && <Footer onHelpCenterClick={navigateToHelpCenter} onContactClick={navigateToContact} />}
+      {view !== 'collection-detail' && view !== 'signup' && view !== 'consultation' && view !== 'features' && <Footer onHelpCenterClick={navigateToHelpCenter} onContactClick={navigateToContact} />}
       {view !== 'consultation' && <ChatBot />}
       <AuthModal
         isOpen={isAuthModalOpen}

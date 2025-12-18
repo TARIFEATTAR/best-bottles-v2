@@ -3,16 +3,24 @@
   "categoryName": "9ml Cylinder Roll-On Bottles",
   "categoryDescription": "Clear, frosted and colored glass roll-on bottles with steel roller-balls, capacity range about 1/3oz (from 8ml to 10ml)",
   "sourceUrl": "https://www.bestbottles.com/all-bottles/Perfume-vials-glass-bottles/roll-on-roller-bottles-frosted-black-silver-gold-white-caps.php?subcat=79",
-  
   "sharedSpecs": {
     "capacity": "9 ml (0.3 oz)",
     "neckThreadSize": "17-415",
     "heightWithCap": "83 ±1 mm",
     "heightWithoutCap": "70 ±1 mm",
     "diameter": "20 ±0.5 mm",
-    "recommendedUse": ["perfume", "fragrance oil", "essential oils", "aromatic oils", "aromatherapy"]
+    "recommendedUse": [
+      "perfume",
+      "fragrance oil",
+      "essential oils",
+      "aromatic oils",
+      "aromatherapy"
+    ]
   },
-
+  "labels": {
+    "roller": "Roller Type",
+    "cap": "Cap Style"
+  },
   "labelSpecs": {
     "wrapLabel": {
       "name": "Wrap Label (Full Circumference)",
@@ -24,14 +32,13 @@
     },
     "frontLabel": {
       "name": "Front Label (Portrait)",
-      "width": "18 mm", 
+      "width": "18 mm",
       "height": "35 mm",
       "description": "Front-facing portrait label",
       "bleed": "2 mm all sides",
       "safeZone": "2 mm from edges"
     }
   },
-
   "labelPartners": [
     {
       "name": "Sticker Giant",
@@ -49,7 +56,6 @@
       "description": "Premium custom stickers"
     }
   ],
-
   "baseBottles": [
     {
       "id": "cyl-9ml-clear",
@@ -102,7 +108,6 @@
       "skuPrefix": "GBCylSwrl9"
     }
   ],
-
   "rollerOptions": [
     {
       "id": "metal-roller",
@@ -114,14 +119,13 @@
     },
     {
       "id": "plastic-roller",
-      "name": "Plastic Roller Ball", 
+      "name": "Plastic Roller Ball",
       "type": "plastic",
       "skuCode": "Roll",
       "priceModifier": 0,
       "description": "Standard plastic roller ball"
     }
   ],
-
   "capOptions": [
     {
       "id": "black-dot",
@@ -234,35 +238,106 @@
       "available": true
     }
   ],
-
   "pricingMatrix": {
     "basePrices": {
-      "cyl-9ml-clear": { "1": 0.67, "12": 0.63, "144": 0.59, "576": 0.55, "2880": 0.49 },
-      "cyl-9ml-amber": { "1": 0.69, "12": 0.65, "144": 0.61, "600": 0.57, "3000": 0.51 },
-      "cyl-9ml-blue": { "1": 0.72, "12": 0.68, "144": 0.64, "576": 0.59, "2880": 0.53 },
-      "cyl-9ml-frosted": { "1": 0.77, "12": 0.73, "144": 0.68, "576": 0.63, "2880": 0.56 },
-      "cyl-9ml-swirl": { "1": 0.79, "12": 0.74, "144": 0.70, "684": 0.65, "3420": 0.58 }
+      "cyl-9ml-clear": {
+        "1": 0.67,
+        "12": 0.63,
+        "144": 0.59,
+        "576": 0.55,
+        "2880": 0.49
+      },
+      "cyl-9ml-amber": {
+        "1": 0.69,
+        "12": 0.65,
+        "144": 0.61,
+        "600": 0.57,
+        "3000": 0.51
+      },
+      "cyl-9ml-blue": {
+        "1": 0.72,
+        "12": 0.68,
+        "144": 0.64,
+        "576": 0.59,
+        "2880": 0.53
+      },
+      "cyl-9ml-frosted": {
+        "1": 0.77,
+        "12": 0.73,
+        "144": 0.68,
+        "576": 0.63,
+        "2880": 0.56
+      },
+      "cyl-9ml-swirl": {
+        "1": 0.79,
+        "12": 0.74,
+        "144": 0.70,
+        "684": 0.65,
+        "3420": 0.58
+      }
     },
     "metalRollerUpcharge": 0.09
   },
-
   "skuMatrix": [
-    { "bottle": "cyl-9ml-clear", "roller": "metal-roller", "cap": "black-dot", "sku": "GBCyl9MtlRollBlkDot" },
-    { "bottle": "cyl-9ml-clear", "roller": "plastic-roller", "cap": "black-dot", "sku": "GBCyl9RollBlkDot" },
-    { "bottle": "cyl-9ml-amber", "roller": "metal-roller", "cap": "black-dot", "sku": "GBCylAmb9MtlRollBlkDot" },
-    { "bottle": "cyl-9ml-amber", "roller": "plastic-roller", "cap": "black-dot", "sku": "GBCylAmb9RollBlkDot" },
-    { "bottle": "cyl-9ml-blue", "roller": "metal-roller", "cap": "black-dot", "sku": "GBCylBlu9MtlRollBlkDot" },
-    { "bottle": "cyl-9ml-blue", "roller": "plastic-roller", "cap": "black-dot", "sku": "GBCylBlu9RollBlkDot" },
-    { "bottle": "cyl-9ml-frosted", "roller": "metal-roller", "cap": "black-dot", "sku": "GBCylFrst9MtlRollBlkDot" },
-    { "bottle": "cyl-9ml-frosted", "roller": "plastic-roller", "cap": "black-dot", "sku": "GBCylFrst9RollBlkDot" },
-    { "bottle": "cyl-9ml-swirl", "roller": "metal-roller", "cap": "black-dot", "sku": "GBCylSwrl9MtlRollBlkDot" },
-    { "bottle": "cyl-9ml-swirl", "roller": "plastic-roller", "cap": "black-dot", "sku": "GBCylSwrl9RollBlkDot" }
+    {
+      "bottle": "cyl-9ml-clear",
+      "roller": "metal-roller",
+      "cap": "black-dot",
+      "sku": "GBCyl9MtlRollBlkDot"
+    },
+    {
+      "bottle": "cyl-9ml-clear",
+      "roller": "plastic-roller",
+      "cap": "black-dot",
+      "sku": "GBCyl9RollBlkDot"
+    },
+    {
+      "bottle": "cyl-9ml-amber",
+      "roller": "metal-roller",
+      "cap": "black-dot",
+      "sku": "GBCylAmb9MtlRollBlkDot"
+    },
+    {
+      "bottle": "cyl-9ml-amber",
+      "roller": "plastic-roller",
+      "cap": "black-dot",
+      "sku": "GBCylAmb9RollBlkDot"
+    },
+    {
+      "bottle": "cyl-9ml-blue",
+      "roller": "metal-roller",
+      "cap": "black-dot",
+      "sku": "GBCylBlu9MtlRollBlkDot"
+    },
+    {
+      "bottle": "cyl-9ml-blue",
+      "roller": "plastic-roller",
+      "cap": "black-dot",
+      "sku": "GBCylBlu9RollBlkDot"
+    },
+    {
+      "bottle": "cyl-9ml-frosted",
+      "roller": "metal-roller",
+      "cap": "black-dot",
+      "sku": "GBCylFrst9MtlRollBlkDot"
+    },
+    {
+      "bottle": "cyl-9ml-frosted",
+      "roller": "plastic-roller",
+      "cap": "black-dot",
+      "sku": "GBCylFrst9RollBlkDot"
+    },
+    {
+      "bottle": "cyl-9ml-swirl",
+      "roller": "metal-roller",
+      "cap": "black-dot",
+      "sku": "GBCylSwrl9MtlRollBlkDot"
+    },
+    {
+      "bottle": "cyl-9ml-swirl",
+      "roller": "plastic-roller",
+      "cap": "black-dot",
+      "sku": "GBCylSwrl9RollBlkDot"
+    }
   ]
 }
-
-
-
-
-
-
-
