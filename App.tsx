@@ -1,26 +1,36 @@
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense, lazy } from "react";
 import { Header } from "./components/Header";
 import { ModernHome } from "./components/ModernHome";
-import { ProductDetail } from "./components/ProductDetail";
-import { ProductDetailConfigurable } from "./components/ProductDetailConfigurable";
-import { ConsultationPage } from "./components/ConsultationPage";
-import { CollectionsPage } from "./components/CollectionsPage";
-import { CollectionDetailPage } from "./components/CollectionDetailPage";
-import { CustomPage } from "./components/CustomPage";
-import { JournalPage } from "./components/JournalPage";
-import { PackagingIdeasPage } from "./components/PackagingIdeasPage";
-import { ConciergePage } from "./components/ConciergePage";
-import { ContactPage } from "./components/ContactPage";
-import { ContractPackagingPage } from "./components/ContractPackagingPage";
-import { CheckoutPage } from "./components/CheckoutPage";
 import { Footer } from "./components/Footer";
 import { ChatBot } from "./components/ChatBot";
 import { AuthModal } from "./components/AuthModal";
-import { SignUpPage } from "./components/SignUpPage";
 import { CartDrawer } from "./components/CartDrawer";
-import LabelGenerator from "./components/LabelGenerator";
-import { FeaturesPage } from "./components/FeaturesPage";
+import { PageLoader } from "./components/PageLoader";
+
+// ============================================
+// LAZY LOADED COMPONENTS
+// These are code-split into separate chunks and
+// loaded on demand when the user navigates to them.
+// ============================================
+
+// Heavy pages (sorted by size)
+const ConsultationPage = lazy(() => import("./components/ConsultationPage").then(m => ({ default: m.ConsultationPage })));
+const CheckoutPage = lazy(() => import("./components/CheckoutPage").then(m => ({ default: m.CheckoutPage })));
+const ProductDetailConfigurable = lazy(() => import("./components/ProductDetailConfigurable").then(m => ({ default: m.ProductDetailConfigurable })));
+const CollectionDetailPage = lazy(() => import("./components/CollectionDetailPage").then(m => ({ default: m.CollectionDetailPage })));
+const ConciergePage = lazy(() => import("./components/ConciergePage").then(m => ({ default: m.ConciergePage })));
+const FeaturesPage = lazy(() => import("./components/FeaturesPage").then(m => ({ default: m.FeaturesPage })));
+const LabelGenerator = lazy(() => import("./components/LabelGenerator"));
+const ContactPage = lazy(() => import("./components/ContactPage").then(m => ({ default: m.ContactPage })));
+const JournalPage = lazy(() => import("./components/JournalPage").then(m => ({ default: m.JournalPage })));
+const CustomPage = lazy(() => import("./components/CustomPage").then(m => ({ default: m.CustomPage })));
+const SignUpPage = lazy(() => import("./components/SignUpPage").then(m => ({ default: m.SignUpPage })));
+const ContractPackagingPage = lazy(() => import("./components/ContractPackagingPage").then(m => ({ default: m.ContractPackagingPage })));
+const CollectionsPage = lazy(() => import("./components/CollectionsPage").then(m => ({ default: m.CollectionsPage })));
+const ProductDetail = lazy(() => import("./components/ProductDetail").then(m => ({ default: m.ProductDetail })));
+const PackagingIdeasPage = lazy(() => import("./components/PackagingIdeasPage").then(m => ({ default: m.PackagingIdeasPage })));
+
 
 // Simple Fade Transition Wrapper
 const PageTransition: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -229,10 +239,12 @@ const App: React.FC = () => {
         />
       )}
       <main className="flex-grow w-full flex flex-col">
-        {/* Wrap active view in transition container */}
-        <PageTransition key={view}>
-          {renderView()}
-        </PageTransition>
+        {/* Wrap active view in Suspense for lazy-loaded components */}
+        <Suspense fallback={<PageLoader message="Loading page..." />}>
+          <PageTransition key={view}>
+            {renderView()}
+          </PageTransition>
+        </Suspense>
       </main>
       {view !== 'collection-detail' && view !== 'signup' && view !== 'consultation' && view !== 'features' && <Footer onHelpCenterClick={navigateToConcierge} onContactClick={navigateToContact} />}
       {view !== 'consultation' && <ChatBot />}

@@ -125,10 +125,10 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({ onBack }) => {
                     </h2>
                     <div className="bg-white dark:bg-[#1E1E1E] p-10 rounded-3xl border border-gray-100 dark:border-gray-800 shadow-sm leading-relaxed text-gray-600 dark:text-gray-300">
                         <p className="mb-6 text-xl text-[#C5A065] font-serif italic">
-                            "The prototype you've just seen represents our vision for the ultimate Best Bottles experience."
+                            {`"The prototype you've just seen represents our vision for the ultimate Best Bottles experience."`}
                         </p>
                         <p className="mb-6 text-lg">
-                            We have completed the <strong>User Experience Prototype</strong> which includes the core visual logic, the AI specialist "Grace", and the B2B pricing engine. This proves that our custom design can work seamlessly with high-performance tech.
+                            We have completed the <strong>User Experience Prototype</strong> which includes the core visual logic, the AI specialist {`"Grace"`}, and the B2B pricing engine. This proves that our custom design can work seamlessly with high-performance tech.
                         </p>
                         <p className="text-lg">
                             To bring this live for your customers, the next steps involve <strong>Data Integration</strong>—connecting your full inventory from bestbottles.com—and setting up the <strong>Shopify Plus</strong> backend to handle real transactions, wholesale accounts, and global security.
