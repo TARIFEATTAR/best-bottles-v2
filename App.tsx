@@ -240,7 +240,7 @@ const App: React.FC = () => {
       case 'label-generator': return <LabelGenerator />;
       case 'features': return <FeaturesPage onBack={navigateToHome} />;
       case 'bottle-blueprint': return <BottleBlueprintDemo />;
-      case 'blueprint-builder-v2': return <BlueprintBuilderV2 />;
+      case 'blueprint-builder-v2': return <BlueprintBuilderV2 onAddToCart={addToCart} />;
       case 'test-shopify': return <ShopifyDebugger />;
 
       default: return <ModernHome />;

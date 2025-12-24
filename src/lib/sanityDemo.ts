@@ -17,6 +17,8 @@ export const demoClient = createClient({
   apiVersion: '2024-01-01',
 });
 
+console.log("[Sanity Demo] Initializing with Project ID:", import.meta.env.VITE_SANITY_PROJECT_ID, "Dataset:", 'production');
+
 const builder = imageUrlBuilder(demoClient);
 
 export function urlForDemo(source: any) {

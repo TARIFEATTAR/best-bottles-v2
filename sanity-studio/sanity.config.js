@@ -7,7 +7,7 @@ export default defineConfig({
   name: 'default',
   title: 'Bottle Demo',
 
-  projectId: 'gv4os6ef',
+  projectId: 'tei1nhk0',
   dataset: 'production',
 
   plugins: [structureTool(), visionTool()],

@@ -221,15 +221,15 @@ export const CheckoutPage: React.FC<CheckoutPageProps> = ({ cartItems, onBack, o
                                     onClick={() => idx < stepIndex && setCurrentStep(step.id as CheckoutStep)}
                                     disabled={idx > stepIndex}
                                     className={`flex items-center gap-2 ${idx <= stepIndex
-                                            ? 'text-[#1D1D1F] dark:text-white'
-                                            : 'text-gray-300 dark:text-gray-600'
+                                        ? 'text-[#1D1D1F] dark:text-white'
+                                        : 'text-gray-300 dark:text-gray-600'
                                         } ${idx < stepIndex ? 'cursor-pointer hover:text-gold' : ''}`}
                                 >
                                     <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${idx < stepIndex
-                                            ? 'bg-green-500 text-white'
-                                            : idx === stepIndex
-                                                ? 'bg-[#1D1D1F] dark:bg-white text-white dark:text-[#1D1D1F]'
-                                                : 'bg-gray-200 dark:bg-gray-700 text-gray-400'
+                                        ? 'bg-green-500 text-white'
+                                        : idx === stepIndex
+                                            ? 'bg-[#1D1D1F] dark:bg-white text-white dark:text-[#1D1D1F]'
+                                            : 'bg-gray-200 dark:bg-gray-700 text-gray-400'
                                         }`}>
                                         {idx < stepIndex ? (
                                             <i className="ph-thin ph-check" />
@@ -432,8 +432,8 @@ export const CheckoutPage: React.FC<CheckoutPageProps> = ({ cartItems, onBack, o
                                             <label
                                                 key={method.id}
                                                 className={`flex items-center justify-between p-4 rounded-xl border cursor-pointer transition-all ${formData.shippingMethod === method.id
-                                                        ? 'border-gold ring-2 ring-gold bg-gold/5'
-                                                        : 'border-gray-200 dark:border-gray-700 hover:border-gray-300'
+                                                    ? 'border-gold ring-2 ring-gold bg-gold/5'
+                                                    : 'border-gray-200 dark:border-gray-700 hover:border-gray-300'
                                                     }`}
                                             >
                                                 <div className="flex items-center gap-4">
@@ -706,7 +706,7 @@ export const CheckoutPage: React.FC<CheckoutPageProps> = ({ cartItems, onBack, o
                                     <i className="ph-thin ph-credit-card text-xl" />
                                 </div>
                                 <p className="text-center text-xs text-gray-400 mt-2">
-                                    Secure checkout powered by Stripe
+                                    Secure checkout powered by Shopify
                                 </p>
                             </div>
                         </div>

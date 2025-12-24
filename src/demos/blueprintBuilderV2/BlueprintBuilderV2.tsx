@@ -138,7 +138,11 @@ function SwatchSelector<T>({
 // MAIN DEMO COMPONENT
 // ============================================
 
-export const BlueprintBuilderV2: React.FC = () => {
+interface BlueprintBuilderProps {
+    onAddToCart?: (product: any, quantity: number) => void;
+}
+
+export const BlueprintBuilderV2: React.FC<BlueprintBuilderProps> = ({ onAddToCart }) => {
     // Data State
     const [bottleData, setBottleData] = useState<BottleModelData | null>(null);
     const [isLoading, setIsLoading] = useState(true);
@@ -203,6 +207,21 @@ export const BlueprintBuilderV2: React.FC = () => {
         setSelectedCap(null);
         setShowCap(true);
         setShowMeasurements(false);
+    };
+
+    const handleAddToCart = () => {
+        if (!selectedGlass || !selectedCap || !onAddToCart) return;
+
+        const customProduct = {
+            id: `custom-${Date.now()}`,
+            name: "Custom 9ml Roll-on Configuration",
+            price: 4.50, // Demo price
+            sku: `DEMO-9ML-${selectedGlass.name.toUpperCase().substring(0, 3)}-${selectedCap.name.toUpperCase().substring(0, 3)}`,
+            variant: `${selectedGlass.name} Glass / ${selectedCap.name} Cap`,
+            image: selectedGlass.swatchUrl || selectedGlass.overlayUrl
+        };
+
+        onAddToCart(customProduct, 100); // MOQ 100 for verified demo
     };
 
     // Transform Sanity Data references to Component Props
@@ -400,6 +419,13 @@ export const BlueprintBuilderV2: React.FC = () => {
                                         <div>Glass: {selectedGlass?.name}</div>
                                         <div>Cap: {selectedCap?.name}</div>
                                     </div>
+                                    <button
+                                        onClick={handleAddToCart}
+                                        className="w-full mt-3 bg-[#1a1a1a] text-white py-2.5 rounded textxs font-bold uppercase tracking-widest hover:bg-[#C5A065] transition-colors shadow-sm flex items-center justify-center gap-2"
+                                    >
+                                        <span className="material-symbols-outlined text-sm">shopping_bag</span>
+                                        Add to Order
+                                    </button>
                                 </motion.div>
                             ) : (
                                 <motion.div
