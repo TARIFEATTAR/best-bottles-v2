@@ -30,6 +30,10 @@ const ContractPackagingPage = lazy(() => import("./components/ContractPackagingP
 const CollectionsPage = lazy(() => import("./components/CollectionsPage").then(m => ({ default: m.CollectionsPage })));
 const ProductDetail = lazy(() => import("./components/ProductDetail").then(m => ({ default: m.ProductDetail })));
 const PackagingIdeasPage = lazy(() => import("./components/PackagingIdeasPage").then(m => ({ default: m.PackagingIdeasPage })));
+const BottleBlueprintDemo = lazy(() => import("./src/demos/bottleBlueprint/BottleBlueprintDemo"));
+const BlueprintBuilderV2 = lazy(() => import("./src/demos/blueprintBuilderV2"));
+const ShopifyDebugger = lazy(() => import("./src/components/ShopifyDebugger").then(m => ({ default: m.ShopifyDebugger })));
+
 
 
 // Simple Fade Transition Wrapper
@@ -63,7 +67,8 @@ export interface ProjectDraft {
 }
 
 const App: React.FC = () => {
-  const [view, setView] = useState<'home' | 'detail' | 'roll-on-detail' | 'consultation' | 'collections' | 'collection-detail' | 'custom' | 'journal' | 'packaging-ideas' | 'concierge' | 'contact' | 'signup' | 'contract-packaging' | 'checkout' | 'label-generator' | 'features'>('home');
+  const [view, setView] = useState<'home' | 'detail' | 'roll-on-detail' | 'consultation' | 'collections' | 'collection-detail' | 'custom' | 'journal' | 'packaging-ideas' | 'concierge' | 'contact' | 'signup' | 'contract-packaging' | 'checkout' | 'label-generator' | 'features' | 'bottle-blueprint' | 'blueprint-builder-v2' | 'test-shopify'>('home');
+
   const [cartItems, setCartItems] = useState<{ product: any, quantity: number }[]>([]);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
@@ -80,8 +85,22 @@ const App: React.FC = () => {
     window.scrollTo(0, 0);
   }, [view]);
 
-  // Listen for custom navigation events
+  // Listen for custom navigation events and URL checks
   useEffect(() => {
+    // 1. URL Check for Sandbox Demos
+    const path = window.location.pathname;
+    if (path.includes('/demo/bottle-blueprint')) {
+      setView('bottle-blueprint');
+    }
+    if (path.includes('/demo/blueprint-builder-v2') || path.includes('/demo/blueprint-v2')) {
+      setView('blueprint-builder-v2');
+    }
+    if (path.includes('/test-shopify')) {
+      setView('test-shopify');
+    }
+
+
+    // 2. Custom Events
     // Contract Packaging
     const handleContractNav = () => setView('contract-packaging');
 
@@ -111,6 +130,7 @@ const App: React.FC = () => {
     window.addEventListener('navigate-to-label', handleLabelNav);
 
     console.log("🎨 To open Label Generator, run: window.dispatchEvent(new Event('navigate-to-label'))");
+    console.log("🧪 To open Bottle Blueprint, visit: /demo/bottle-blueprint or run: window.history.pushState({}, '', '/demo/bottle-blueprint'); window.dispatchEvent(new Event('popstate'));");
 
     return () => {
       window.removeEventListener('navigate-to-contract', handleContractNav);
@@ -162,7 +182,10 @@ const App: React.FC = () => {
     }
   };
 
-  const navigateToHome = () => setView('home');
+  const navigateToHome = () => {
+    window.history.pushState({}, '', '/'); // Reset URL when going home from a demo
+    setView('home');
+  };
   const navigateToDetail = () => setView('detail');
 
   // Update to accept productId
@@ -185,6 +208,7 @@ const App: React.FC = () => {
   const navigateToLabelGenerator = () => setView('label-generator');
 
   const navigateToFeatures = () => setView('features');
+  const navigateToBlueprint = () => setView('blueprint-builder-v2');
 
   const totalCartCount = cartItems.reduce((acc, item) => acc + item.quantity, 0);
 
@@ -196,6 +220,7 @@ const App: React.FC = () => {
         onCollectionClick={navigateToCollectionDetail}
         onPackagingIdeasClick={navigateToPackagingIdeas}
         onAddToCart={addToCart}
+        onBlueprintClick={navigateToBlueprint}
         language={language}
       />;
       case 'detail': return <ProductDetail onBack={navigateToHome} onAddToCart={addToCart} />;
@@ -214,13 +239,17 @@ const App: React.FC = () => {
       case 'checkout': return <CheckoutPage cartItems={cartItems} onBack={() => { setView('home'); setIsCartOpen(true); }} onComplete={() => { setCartItems([]); setView('home'); }} />;
       case 'label-generator': return <LabelGenerator />;
       case 'features': return <FeaturesPage onBack={navigateToHome} />;
+      case 'bottle-blueprint': return <BottleBlueprintDemo />;
+      case 'blueprint-builder-v2': return <BlueprintBuilderV2 />;
+      case 'test-shopify': return <ShopifyDebugger />;
+
       default: return <ModernHome />;
     }
   };
 
   return (
     <div className="relative flex min-h-screen w-full flex-col font-sans bg-background-light dark:bg-background-dark">
-      {view !== 'consultation' && view !== 'checkout' && (
+      {view !== 'consultation' && view !== 'checkout' && view !== 'blueprint-builder-v2' && (
         <Header
           onHomeClick={navigateToHome}
           onConsultationClick={navigateToConsultation}
@@ -246,7 +275,7 @@ const App: React.FC = () => {
           </PageTransition>
         </Suspense>
       </main>
-      {view !== 'collection-detail' && view !== 'signup' && view !== 'consultation' && view !== 'features' && <Footer onHelpCenterClick={navigateToConcierge} onContactClick={navigateToContact} />}
+      {view !== 'collection-detail' && view !== 'signup' && view !== 'consultation' && view !== 'features' && view !== 'blueprint-builder-v2' && <Footer onHelpCenterClick={navigateToConcierge} onContactClick={navigateToContact} />}
       {view !== 'consultation' && <ChatBot />}
       <AuthModal
         isOpen={isAuthModalOpen}

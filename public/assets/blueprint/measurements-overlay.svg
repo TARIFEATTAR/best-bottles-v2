@@ -1,0 +1,79 @@
+<!--
+  Measurement Overlay SVG
+  Technical dimension callouts for Blueprint Mode
+  
+  Canonical Specs:
+  - Height with cap: 83mm
+  - Height without cap: 70mm
+  - Diameter: 20mm
+  - Neck thread: 17-415
+-->
+<svg 
+  viewBox="0 0 60 120" 
+  xmlns="http://www.w3.org/2000/svg" 
+  fill="none"
+>
+  <!-- Dimension line styling -->
+  <style>
+    .dim-line { stroke: #5a7a9a; stroke-width: 0.3; }
+    .dim-line-dashed { stroke: #5a7a9a; stroke-width: 0.2; stroke-dasharray: 1 0.5; }
+    .dim-text { 
+      font-family: 'SF Mono', 'Fira Code', monospace; 
+      font-size: 3px; 
+      fill: #5a7a9a;
+      font-weight: 500;
+    }
+    .dim-text-small { 
+      font-family: 'SF Mono', 'Fira Code', monospace; 
+      font-size: 2.5px; 
+      fill: #6a8a9a;
+    }
+    .arrow { fill: #5a7a9a; }
+  </style>
+  
+  <defs>
+    <!-- Arrowhead marker -->
+    <marker id="arrow-start" markerWidth="3" markerHeight="3" refX="0" refY="1.5" orient="auto">
+      <polygon points="3,0 0,1.5 3,3" class="arrow"/>
+    </marker>
+    <marker id="arrow-end" markerWidth="3" markerHeight="3" refX="3" refY="1.5" orient="auto">
+      <polygon points="0,0 3,1.5 0,3" class="arrow"/>
+    </marker>
+  </defs>
+  
+  <!-- ========== HEIGHT WITH CAP: 83mm ========== -->
+  <!-- Vertical dimension line (right side) -->
+  <line x1="48" y1="17.5" x2="48" y2="101.5" class="dim-line" marker-start="url(#arrow-start)" marker-end="url(#arrow-end)"/>
+  <!-- Extension lines -->
+  <line x1="40" y1="17.5" x2="50" y2="17.5" class="dim-line-dashed"/>
+  <line x1="40" y1="101.5" x2="50" y2="101.5" class="dim-line-dashed"/>
+  <!-- Label -->
+  <text x="50" y="62" class="dim-text" transform="rotate(90 50 62)">83 mm</text>
+  
+  <!-- ========== DIAMETER: 20mm ========== -->
+  <!-- Horizontal dimension line (bottom) -->
+  <line x1="20" y1="108" x2="40" y2="108" class="dim-line" marker-start="url(#arrow-start)" marker-end="url(#arrow-end)"/>
+  <!-- Extension lines -->
+  <line x1="20" y1="102" x2="20" y2="110" class="dim-line-dashed"/>
+  <line x1="40" y1="102" x2="40" y2="110" class="dim-line-dashed"/>
+  <!-- Label -->
+  <text x="26" y="113" class="dim-text">Ø 20 mm</text>
+  
+  <!-- ========== NECK THREAD: 17-415 ========== -->
+  <!-- Leader line to neck -->
+  <line x1="8" y1="31.5" x2="20" y2="31.5" class="dim-line-dashed"/>
+  <!-- Label -->
+  <text x="3" y="30" class="dim-text-small">17-415</text>
+  <text x="3" y="33" class="dim-text-small">THREAD</text>
+  
+  <!-- ========== CAP HEIGHT CALLOUT ========== -->
+  <!-- Small dimension for cap height -->
+  <line x1="13" y1="17.5" x2="13" y2="31" class="dim-line" marker-start="url(#arrow-start)" marker-end="url(#arrow-end)"/>
+  <text x="6" y="25" class="dim-text-small">13</text>
+  
+  <!-- ========== BODY HEIGHT: 70mm ========== -->
+  <!-- Alternative measurement (body only) -->
+  <line x1="55" y1="31.5" x2="55" y2="101.5" class="dim-line" opacity="0.5" marker-start="url(#arrow-start)" marker-end="url(#arrow-end)"/>
+  <text x="56" y="68" class="dim-text-small" transform="rotate(90 56 68)">70 mm</text>
+  
+</svg>

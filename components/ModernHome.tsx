@@ -8,6 +8,8 @@ import { Product } from "../types";
 import { motion, AnimatePresence } from "framer-motion";
 import { useConversation } from "@elevenlabs/react";
 import { translations } from "../translations";
+import { ShopifyProductGrid } from "./ShopifyProductGrid";
+
 
 interface ModernHomeProps {
     onProductClick?: () => void;
@@ -15,6 +17,7 @@ interface ModernHomeProps {
     onCollectionClick?: () => void;
     onPackagingIdeasClick?: () => void;
     onAddToCart?: (product: Product, quantity: number) => void;
+    onBlueprintClick?: () => void;
     language?: 'en' | 'fr';
 }
 
@@ -42,6 +45,7 @@ export const ModernHome: React.FC<ModernHomeProps> = ({
     onCollectionClick,
     onPackagingIdeasClick,
     onAddToCart,
+    onBlueprintClick,
     language = 'en'
 }) => {
     const t = translations[language];
@@ -211,6 +215,13 @@ export const ModernHome: React.FC<ModernHomeProps> = ({
                                 >
                                     {t.hero.start}
                                 </button>
+                                <button
+                                    onClick={onBlueprintClick}
+                                    className="backdrop-blur-md bg-white/10 border border-white/20 text-white px-8 py-5 rounded-md text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-white hover:text-[#1D1D1F] transition-all min-w-[200px] hover:scale-[1.02] active:scale-95 duration-300 flex items-center justify-center gap-2"
+                                >
+                                    <span className="material-symbols-outlined text-sm">architecture</span>
+                                    Blueprint Demo
+                                </button>
                             </div>
                         </motion.div>
                     </div>
@@ -347,6 +358,39 @@ export const ModernHome: React.FC<ModernHomeProps> = ({
                     />
                 </Reveal>
             </section>
+
+            {/* 4.25 Live Studio Inventory (Shopify Integration) */}
+            <section className="py-20 md:py-32 bg-white dark:bg-[#161616] relative overflow-hidden">
+                {/* Decorative Background Element */}
+                <div className="absolute top-0 right-0 w-1/3 h-full bg-[#F5F3EF]/50 dark:bg-white/5 skew-x-[-12deg] translate-x-1/2 pointer-events-none"></div>
+
+                <div className="max-w-[1440px] mx-auto px-6 md:px-10 relative z-10">
+                    <div className="flex flex-col md:flex-row justify-between items-end mb-12 md:mb-16 gap-6">
+                        <Reveal>
+                            <div className="max-w-xl">
+                                <span className="text-[#C5A059] font-bold uppercase tracking-widest text-xs mb-4 block">Storefront API Integration</span>
+                                <h2 className="text-4xl md:text-6xl font-serif font-bold text-[#1D1D1F] dark:text-white mb-6">Live Studio Collection</h2>
+                                <p className="text-zinc-500 dark:text-zinc-400 text-lg font-light leading-relaxed">
+                                    Direct real-time synchronization with our Shopify production catalog. High-performance, headless commerce in action.
+                                </p>
+                            </div>
+                        </Reveal>
+                        <Reveal delay={0.2}>
+                            <div className="flex items-center gap-4 bg-zinc-50 dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800 px-6 py-4 rounded-2xl shadow-sm">
+                                <div className="flex flex-col">
+                                    <span className="text-[10px] font-bold uppercase tracking-wider text-zinc-400">Connection Status</span>
+                                    <span className="text-xs font-bold text-green-600 flex items-center gap-1">
+                                        <span className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></span> Shopify API Active
+                                    </span>
+                                </div>
+                            </div>
+                        </Reveal>
+                    </div>
+
+                    <ShopifyProductGrid onAddToCart={onAddToCart} limit={4} />
+                </div>
+            </section>
+
 
             {/* 4.5 Packaging Inspiration Teaser (UPDATED WITH SLIDER) */}
             <section className="bg-[#EBE7DD] dark:bg-[#2A2A2A] py-20 md:py-32 border-y border-[#D8C6B0] dark:border-gray-700 overflow-hidden">

@@ -1,0 +1,55 @@
+<!--
+  Isolated Cap Outline
+  For the 9ml Roll-On Bottle
+  
+  Cap height: ~13mm (83mm - 70mm)
+  Cap diameter: matches bottle (~20mm outer)
+  
+  Coordinate system: 1 unit = 1mm
+  Positioned to align with bottle-outline-with-cap.svg
+-->
+<svg 
+  viewBox="0 0 60 120" 
+  xmlns="http://www.w3.org/2000/svg" 
+  fill="none"
+  stroke="#1a1a1a"
+  stroke-width="0.4"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <defs>
+    <!-- Clipping path for cap fill overlay -->
+    <clipPath id="cap-only-clip">
+      <path d="
+        M 20.5 18.5
+        L 20.5 31
+        L 39.5 31
+        L 39.5 18.5
+        Q 39.5 17.5 38.5 17.5
+        L 21.5 17.5
+        Q 20.5 17.5 20.5 18.5
+        Z
+      "/>
+    </clipPath>
+  </defs>
+  
+  <!-- ========== CAP OUTLINE ========== -->
+  <!-- Main cap shell -->
+  <rect 
+    x="20.5" y="17.5" 
+    width="19" height="13.5" 
+    rx="1" ry="1"
+    class="cap-outline"
+  />
+  
+  <!-- Cap top edge (subtle roundness) -->
+  <line x1="21.5" y1="17.5" x2="38.5" y2="17.5" class="cap-top"/>
+  
+  <!-- Cap bottom edge -->
+  <line x1="20.5" y1="31" x2="39.5" y2="31" class="cap-bottom"/>
+  
+  <!-- Inner grip detail (optional, very subtle) -->
+  <line x1="21" y1="20" x2="21" y2="29" stroke-width="0.2" opacity="0.3"/>
+  <line x1="39" y1="20" x2="39" y2="29" stroke-width="0.2" opacity="0.3"/>
+  
+</svg>

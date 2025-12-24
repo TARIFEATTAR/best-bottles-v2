@@ -32,9 +32,9 @@ Once project is ready:
 1. Go to **Project Settings** (gear icon, bottom left)
 2. Click **API** in the sidebar
 3. You'll see:
-   - **Project URL** (looks like: `https://xxxxx.supabase.co`)
-   - **anon public** key (starts with `eyJ...`)
-   - **service_role** key (starts with `eyJ...`)
+   - **Project URL** (looks like: `https://supabase.com/dashboard/project/wtpcreoetjounuatzaub`)
+   - **anon public** key (starts with `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Ind0cGNyZW9ldGpvdW51YXR6YXViIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjU2MDgwODcsImV4cCI6MjA4MTE4NDA4N30.dmRs2C168278Q_UB67XkthFb1lRDxui-FQ3fuHnhEpE)
+   - **service_role** key (starts with `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Ind0cGNyZW9ldGpvdW51YXR6YXViIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2NTYwODA4NywiZXhwIjoyMDgxMTg0MDg3fQ.KhZn6JrRt6Ri4AkT7i7QjKDbNNq6ItBvAAMFXXgPUoE`)
 
 **Copy these - you'll need them!**
 

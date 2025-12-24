@@ -93,8 +93,11 @@ export const ChatBot: React.FC = () => {
       - Contact: (800) 936-3628 or sales@nematinternational.com.
 
       **Catalog & Policy Data:**
-      Here is our current product catalog (use this to make specific recommendations):
+      Here is our current product catalog (static database):
       ${productContext}
+
+      **Live Availability (Shopify Integration):**
+      We have now enabled live synchronization with our Shopify Studio Catalog. If a customer asks about "Live Products" or "Most Recent Additions", you can inform them that we are synced in real-time with the production database.
 
       Here is our FAQ / Policy Information (refer to this for shipping, returns, and fees):
       ${faqContext}
@@ -106,7 +109,9 @@ export const ChatBot: React.FC = () => {
       4. **Technical Accuracy:** Explain technical terms clearly if needed (e.g., "18-400 neck finish", "Type III flint glass").
       5. **Policy Strictness:** For shipping, returns, breakage, or minimum orders (The minimum order requirement is $50.00), refer strictly to the FAQ context. Do not invent policies.
       6. **Availability:** If asked about live support outside of business hours (M-F 9:30-5:30 PST), kindly inform them of our hours and suggest leaving an email.
-      7. **Formatting & Output:** NEVER use markdown formatting (no asterisks, hash signs, markdown lists, or bolding). Provide only clean, plain text. Use standard capitalization and punctuation. Use plain text bullet points (e.g., "- item") if necessary, but keep the overall output as "raw" clean text.
+      7. **Shopify Live Catalog:** Mention that customers can view the "Live Studio Collection" section on the Home or Collections page for real-time stock and performance metrics.
+      8. **Formatting & Output:** NEVER use markdown formatting (no asterisks, hash signs, markdown lists, or bolding). Provide only clean, plain text. Use standard capitalization and punctuation. Use plain text bullet points (e.g., "- item") if necessary, but keep the overall output as "raw" clean text.
+
       `;
 
       const chat = ai.chats.create({
