@@ -80,7 +80,7 @@ function SwatchSelector<T>({
             </div>
 
             {/* Swatches */}
-            <div className="grid grid-cols-3 gap-2">
+            <div className="grid grid-cols-5 gap-2">
                 {options.map((option) => {
                     const id = getId(option);
                     const isActive = selectedId === id;
@@ -92,10 +92,10 @@ function SwatchSelector<T>({
                         <motion.button
                             key={id}
                             onClick={() => onSelect(option)}
-                            whileHover={{ scale: 1.02 }}
-                            whileTap={{ scale: 0.98 }}
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
                             className={`
-                relative flex flex-col items-center gap-1.5 p-2.5 rounded-lg border transition-all
+                relative flex flex-col items-center gap-1.5 p-1.5 rounded-lg border transition-all
                 ${isActive
                                     ? 'border-[#1a1a1a] bg-gray-50 ring-1 ring-[#1a1a1a]/20'
                                     : 'border-gray-200 hover:border-gray-300 bg-white'
@@ -105,7 +105,7 @@ function SwatchSelector<T>({
                             {/* Color swatch */}
                             <div
                                 className={`
-                  w-8 h-8 rounded-full border transition-all overflow-hidden relative
+                  w-10 h-10 rounded-full border transition-all overflow-hidden relative
                   ${isActive ? 'ring-2 ring-offset-1 ring-[#1a1a1a]/30' : ''}
                 `}
                                 style={{
@@ -123,7 +123,7 @@ function SwatchSelector<T>({
                             </div>
 
                             {/* Label */}
-                            <span className={`text-[10px] font-medium ${isActive ? 'text-[#1a1a1a]' : 'text-gray-500'}`}>
+                            <span className={`text-[8px] leading-tight text-center font-medium ${isActive ? 'text-[#1a1a1a]' : 'text-gray-500'}`}>
                                 {name}
                             </span>
                         </motion.button>
@@ -161,7 +161,7 @@ export const BlueprintBuilderV2: React.FC<BlueprintBuilderProps> = ({ onAddToCar
             try {
                 console.log("Fetching bottle model...");
                 const data = await fetchBottleModel();
-                console.log("Fetched data:", data);
+                console.log("Fetched data:", JSON.stringify(data, null, 2));
 
                 if (data) {
                     setBottleData(data);
@@ -212,13 +212,23 @@ export const BlueprintBuilderV2: React.FC<BlueprintBuilderProps> = ({ onAddToCar
     const handleAddToCart = () => {
         if (!selectedGlass || !selectedCap || !onAddToCart) return;
 
+        // Use the actual Shopify variant ID from our demo store
+        // If we have specific variant IDs in Sanity, we should use those here.
+        // For now, we use the base "DEMO BOTTLE" variant and pass the config as attributes.
+        const variantId = "gid://shopify/ProductVariant/51376824222016";
+
         const customProduct = {
-            id: `custom-${Date.now()}`,
-            name: "Custom 9ml Roll-on Configuration",
-            price: 4.50, // Demo price
-            sku: `DEMO-9ML-${selectedGlass.name.toUpperCase().substring(0, 3)}-${selectedCap.name.toUpperCase().substring(0, 3)}`,
-            variant: `${selectedGlass.name} Glass / ${selectedCap.name} Cap`,
-            image: selectedGlass.swatchUrl || selectedGlass.overlayUrl
+            id: variantId,
+            name: "9ml Custom Cylinder Roll-On",
+            price: 0.75, // Demo price per unit
+            sku: `BOTTLE-${selectedGlass.name.toUpperCase().replace(/\s+/g, '-')}-${selectedCap.name.toUpperCase().replace(/\s+/g, '-')}`,
+            variant: `${selectedGlass.name} / ${selectedCap.name}`,
+            image: selectedGlass.swatchUrl || selectedGlass.overlayUrl,
+            // Attributes for Shopify Line Item Properties
+            attributes: [
+                { key: "Glass Variant", value: selectedGlass.name },
+                { key: "Cap Choice", value: selectedCap.name }
+            ]
         };
 
         onAddToCart(customProduct, 100); // MOQ 100 for verified demo

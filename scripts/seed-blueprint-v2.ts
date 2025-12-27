@@ -12,8 +12,8 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 
 // --- CONFIG ---
-const PROJECT_ID = 'gv4os6ef'; // From .env
-const DATASET = 'demo';
+const PROJECT_ID = 'gv4os6ef'; // Main project ID
+const DATASET = 'demo'; // Target demo dataset as requested
 const TOKEN = process.env.SANITY_API_TOKEN;
 
 const ASSETS_DIR = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../public/assets/blueprint');
@@ -81,7 +81,7 @@ async function main() {
                 // Since our demo dynamically colors the SVG, we might not strictly need distinct overlays 
                 // for every color if we use the mask approach.
                 // However, let's link the basic outline as a placeholder if needed.
-                overlayImage: {
+                layerImage: {
                     _type: 'image',
                     asset: { _ref: bottleOutlineNoCapAsset._id }
                 }
@@ -130,7 +130,7 @@ async function main() {
                 name: opt.name,
                 finish: opt.finish,
                 demoOnly: true,
-                overlayImage: {
+                layerImage: {
                     _type: 'image',
                     asset: { _ref: capOutlineAsset._id }
                 }

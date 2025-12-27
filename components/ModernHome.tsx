@@ -9,6 +9,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useConversation } from "@elevenlabs/react";
 import { translations } from "../translations";
 import { ShopifyProductGrid } from "./ShopifyProductGrid";
+import { fetchHomepageData, urlForHome } from "../src/lib/sanityHome";
 
 
 interface ModernHomeProps {
@@ -52,6 +53,16 @@ export const ModernHome: React.FC<ModernHomeProps> = ({
 
     const [offsetY, setOffsetY] = useState(0);
     const [voiceText, setVoiceText] = useState("Speak with Grace");
+    const [sanityData, setSanityData] = useState<any>(null);
+
+    // Fetch Sanity Data
+    useEffect(() => {
+        const loadData = async () => {
+            const data = await fetchHomepageData();
+            if (data) setSanityData(data);
+        };
+        loadData();
+    }, []);
 
     // ElevenLabs Conversation Hook
     const conversation = useConversation({
@@ -141,15 +152,15 @@ export const ModernHome: React.FC<ModernHomeProps> = ({
                     animate={{ opacity: 1 }}
                     transition={{ duration: 1.2 }}
                 >
-                    {/* Desktop Hero Image (Original) */}
+                    {/* Desktop Hero Image */}
                     <img
-                        src="https://cdn.shopify.com/s/files/1/1989/5889/files/madison-23e11813.jpg?v=1765598795"
+                        src={sanityData?.hero?.desktopImageUrl || "https://cdn.shopify.com/s/files/1/1989/5889/files/madison-23e11813.jpg?v=1765598795"}
                         alt="Antique Perfume Bottle"
                         className="hidden md:block w-full h-full object-cover brightness-[0.85] object-[center_30%]"
                     />
-                    {/* Mobile Hero Image (New) */}
+                    {/* Mobile Hero Image */}
                     <img
-                        src="https://cdn.shopify.com/s/files/1/1989/5889/files/madison-studio-5b205acb.jpg?v=1765600055"
+                        src={sanityData?.hero?.mobileImageUrl || "https://cdn.shopify.com/s/files/1/1989/5889/files/madison-studio-5b205acb.jpg?v=1765600055"}
                         alt="Vintage Perfume Collection"
                         className="md:hidden w-full h-full object-cover brightness-[0.85] object-center"
                     />
@@ -179,7 +190,7 @@ export const ModernHome: React.FC<ModernHomeProps> = ({
                                     transition={{ duration: 0.8, delay: 0.2 }}
                                 >
                                     <h1 className="text-5xl md:text-7xl lg:text-8xl font-serif font-semibold text-white leading-[1] md:leading-[0.95] tracking-tight drop-shadow-2xl">
-                                        {t.hero.title}
+                                        {sanityData?.hero?.title || t.hero.title}
                                     </h1>
                                 </motion.div>
                             </div>
@@ -190,7 +201,7 @@ export const ModernHome: React.FC<ModernHomeProps> = ({
                                 transition={{ duration: 0.8, delay: 0.4 }}
                             >
                                 <p className="text-white/90 text-base md:text-2xl font-light leading-relaxed max-w-xl border-l border-[#C5A065]/50 pl-6 backdrop-blur-[2px] py-1">
-                                    {t.hero.desc}
+                                    {sanityData?.hero?.description || t.hero.desc}
                                 </p>
                             </motion.div>
                         </div>

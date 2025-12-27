@@ -818,3 +818,8 @@ export const ProductDetailConfigurable: React.FC<ProductDetailConfigurableProps>
     </main>
   );
 };
+
+
+
+
+

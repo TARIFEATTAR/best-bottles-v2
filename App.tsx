@@ -33,6 +33,7 @@ const PackagingIdeasPage = lazy(() => import("./components/PackagingIdeasPage").
 const BottleBlueprintDemo = lazy(() => import("./src/demos/bottleBlueprint/BottleBlueprintDemo"));
 const BlueprintBuilderV2 = lazy(() => import("./src/demos/blueprintBuilderV2"));
 const ShopifyDebugger = lazy(() => import("./src/components/ShopifyDebugger").then(m => ({ default: m.ShopifyDebugger })));
+const MVP_ProductBuilder = lazy(() => import("./src/demos/productBuilder/MVP_ProductBuilder").then(m => ({ default: m.MVP_ProductBuilder })));
 
 
 
@@ -67,7 +68,7 @@ export interface ProjectDraft {
 }
 
 const App: React.FC = () => {
-  const [view, setView] = useState<'home' | 'detail' | 'roll-on-detail' | 'consultation' | 'collections' | 'collection-detail' | 'custom' | 'journal' | 'packaging-ideas' | 'concierge' | 'contact' | 'signup' | 'contract-packaging' | 'checkout' | 'label-generator' | 'features' | 'bottle-blueprint' | 'blueprint-builder-v2' | 'test-shopify'>('home');
+  const [view, setView] = useState<'home' | 'detail' | 'roll-on-detail' | 'consultation' | 'collections' | 'collection-detail' | 'custom' | 'journal' | 'packaging-ideas' | 'concierge' | 'contact' | 'signup' | 'contract-packaging' | 'checkout' | 'label-generator' | 'features' | 'bottle-blueprint' | 'blueprint-builder-v2' | 'test-shopify' | 'mvp-builder'>('home');
 
   const [cartItems, setCartItems] = useState<{ product: any, quantity: number }[]>([]);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
@@ -97,6 +98,9 @@ const App: React.FC = () => {
     }
     if (path.includes('/test-shopify')) {
       setView('test-shopify');
+    }
+    if (path.includes('/demo/mvp')) {
+      setView('mvp-builder');
     }
 
 
@@ -242,6 +246,7 @@ const App: React.FC = () => {
       case 'bottle-blueprint': return <BottleBlueprintDemo />;
       case 'blueprint-builder-v2': return <BlueprintBuilderV2 onAddToCart={addToCart} />;
       case 'test-shopify': return <ShopifyDebugger />;
+      case 'mvp-builder': return <MVP_ProductBuilder productSlug="9ml-roll-on-bottle" />;
 
       default: return <ModernHome />;
     }

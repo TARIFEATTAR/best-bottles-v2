@@ -653,6 +653,11 @@ export const CheckoutPage: React.FC<CheckoutPageProps> = ({ cartItems, onBack, o
                                                 {product.variant && (
                                                     <p className="text-xs text-gray-500 truncate">{product.variant}</p>
                                                 )}
+                                                {product.attributes && product.attributes.map((attr: any, i: number) => (
+                                                    <p key={i} className="text-[10px] text-gray-400">
+                                                        <span className="font-semibold">{attr.key}:</span> {attr.value}
+                                                    </p>
+                                                ))}
                                                 <p className="text-sm font-bold text-[#1D1D1F] dark:text-white mt-1">
                                                     ${(price * item.quantity).toFixed(2)}
                                                 </p>
