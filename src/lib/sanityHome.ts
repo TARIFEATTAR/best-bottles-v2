@@ -3,17 +3,17 @@ import { createClient } from '@sanity/client';
 import { createImageUrlBuilder } from '@sanity/image-url';
 
 export const homeClient = createClient({
-    projectId: 'a0g3h467',
-    dataset: 'production',
-    useCdn: false,
-    apiVersion: '2024-01-01',
+  projectId: 'gv4os6ef',
+  dataset: 'production',
+  useCdn: false,
+  apiVersion: '2024-01-01',
 });
 
 const builder = createImageUrlBuilder(homeClient);
 
 export function urlForHome(source: any) {
-    if (!source) return '';
-    return builder.image(source).url();
+  if (!source) return '';
+  return builder.image(source).url();
 }
 
 export const HOMEPAGE_QUERY = `
@@ -43,11 +43,11 @@ export const HOMEPAGE_QUERY = `
 `;
 
 export async function fetchHomepageData() {
-    try {
-        const data = await homeClient.fetch(HOMEPAGE_QUERY);
-        return data;
-    } catch (error) {
-        console.warn('[Sanity Home] Failed to fetch homepage data:', error);
-        return null;
-    }
+  try {
+    const data = await homeClient.fetch(HOMEPAGE_QUERY);
+    return data;
+  } catch (error) {
+    console.warn('[Sanity Home] Failed to fetch homepage data:', error);
+    return null;
+  }
 }

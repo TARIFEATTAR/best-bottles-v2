@@ -1,6 +1,5 @@
 
 import React, { useState, useEffect, Suspense, lazy } from "react";
-import { VisualEditing } from "@sanity/visual-editing/react";
 import { Header } from "./components/Header";
 import { ModernHome } from "./components/ModernHome";
 import { Footer } from "./components/Footer";
@@ -297,9 +296,6 @@ const App: React.FC = () => {
         onAddToCart={addToCart}
         onCheckout={navigateToCheckout}
       />
-
-      {/* Sanity Visual Editing Overlays */}
-      <VisualEditing portal />
     </div>
   );
 };
