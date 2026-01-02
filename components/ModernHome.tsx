@@ -160,11 +160,12 @@ export const ModernHome: React.FC<ModernHomeProps> = ({
     const aspectRatio = sanityData?.hero?.aspectRatio || 'fullscreen';
 
     // Height/AspectRatio Classes
+    // For 'auto', we remove all height constraints to let the image define the container size naturally
     const containerClasses = {
         'fullscreen': 'h-[100dvh] md:h-[95vh] min-h-[600px]',
         'cinematic': 'h-auto aspect-[2.35/1] min-h-[400px]', // 21:9
         'widescreen': 'h-auto aspect-video min-h-[400px]',   // 16:9
-        'auto': 'h-auto min-h-[400px]'                        // Fit to image
+        'auto': 'h-auto w-full'                               // Pure fluid
     }[aspectRatio] || 'h-[100dvh] md:h-[95vh] min-h-[600px]';
 
     return (
@@ -179,18 +180,16 @@ export const ModernHome: React.FC<ModernHomeProps> = ({
                     animate={{ opacity: 1 }}
                     transition={{ duration: 1.2 }}
                 >
-                    {/* Desktop Hero Image */}
-                    <img
-                        src={heroImageDesktop}
-                        alt="Hero Banner"
-                        className={`hidden md:block w-full h-full ${hasSanityOverride ? 'object-contain object-center bg-black/50' : 'object-cover brightness-[0.85] object-[center_30%]'}`}
-                    />
-                    {/* Mobile Hero Image */}
-                    <img
-                        src={heroImageMobile}
-                        alt="Hero Banner Mobile"
-                        className={`md:hidden w-full h-full ${hasSanityOverride ? 'object-contain object-center bg-black/50' : 'object-cover brightness-[0.85] object-center'}`}
-                    />
+                    {/* Unified Picture Element for better fluidity */}
+                    <picture className="w-full h-full block">
+                        <source media="(min-width: 768px)" srcSet={heroImageDesktop} />
+                        <img
+                            src={heroImageMobile}
+                            alt="Hero Banner"
+                            className={`w-full h-full ${aspectRatio === 'auto' ? 'object-contain' : 'object-cover'} ${!hasSanityOverride ? 'brightness-[0.85] object-[center_30%]' : ''}`}
+                        />
+                    </picture>
+
                     {/* Sophisticated Gradients for Readability - Only show if there is text content */}
                     {(heroTitle || heroSubtitle || heroDesc) && (
                         <>
