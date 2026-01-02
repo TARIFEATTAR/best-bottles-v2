@@ -6,6 +6,7 @@ interface ViewerProps {
     fitmentImage?: string;
     capImage?: string;
     capOffsetY?: number;
+    capOffsetX?: number;
     isLoading?: boolean;
 }
 
@@ -14,6 +15,7 @@ export const ProductViewer: React.FC<ViewerProps> = ({
     fitmentImage,
     capImage,
     capOffsetY = 0,
+    capOffsetX = 0,
     isLoading
 }) => {
     return (
@@ -52,7 +54,7 @@ export const ProductViewer: React.FC<ViewerProps> = ({
                         alt="Cap"
                         className="absolute inset-0 w-full h-full object-contain z-30 pointer-events-none transition-transform duration-300 ease-out"
                         style={{
-                            transform: `translateY(${capOffsetY}px)`
+                            transform: `translate(${capOffsetX}px, ${capOffsetY}px)`
                         }}
                     />
                 )}

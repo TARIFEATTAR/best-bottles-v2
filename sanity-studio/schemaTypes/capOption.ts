@@ -39,6 +39,13 @@ export const capOption = defineType({
             description: 'Vertical pixel adjustment to align this cap with the bottle neck.',
             initialValue: 0,
         }),
+        defineField({
+            name: 'assemblyOffsetX',
+            title: 'Assembly Offset X (px)',
+            type: 'number',
+            description: 'Horizontal pixel adjustment to align this cap with the bottle neck.',
+            initialValue: 0,
+        }),
     ],
     preview: {
         select: {

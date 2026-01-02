@@ -22,7 +22,8 @@ export const homepageConfig = defineType({
                 defineField({ name: 'desktopImage', title: 'Desktop Image', type: 'image', options: { hotspot: true } }),
                 defineField({ name: 'mobileImage', title: 'Mobile Image', type: 'image', options: { hotspot: true } }),
                 defineField({ name: 'exploreButtonText', title: 'Explore Button Text', type: 'string' }),
-                defineField({ name: 'startButtonText', title: 'Start Button Text', type: 'string' }),
+                defineField({ name: 'startButtonText', title: 'Start Button Text (Blueprint V2)', type: 'string' }),
+                defineField({ name: 'highFiButtonText', title: 'High-Fi Demo Button Text', type: 'string' }),
             ]
         }),
         defineField({

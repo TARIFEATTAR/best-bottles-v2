@@ -9,6 +9,7 @@ export interface ProductConfig {
     _id: string;
     name: string;
     layerImageUrl: string;
+    previewSwatchUrl?: string;
     priceModifier: number;
     hexColor?: string;
   };
@@ -16,6 +17,7 @@ export interface ProductConfig {
     _id: string;
     name: string;
     layerImageUrl: string;
+    previewSwatchUrl?: string;
     priceModifier: number;
     hexColor?: string;
   }[];
@@ -25,25 +27,35 @@ export interface ProductConfig {
     type: string;
     details: string;
     layerImageUrl?: string;
+    previewSwatchUrl?: string;
   }[];
   capOptions: {
     _id: string;
     name: string;
     layerImageUrl: string;
+    previewSwatchUrl?: string;
     priceModifier: number;
     assemblyOffsetY: number;
+    assemblyOffsetX: number;
     finish: string;
   }[];
+  basePrice?: number;
+  shopifyProductId?: string;
+  sku?: string;
 }
 
 const PRODUCT_QUERY = `*[_type == "product" && slug.current == $slug][0] {
     _id,
     title,
+    basePrice,
+    shopifyProductId,
+    sku,
     
     defaultGlass->{
       _id,
       name,
       "layerImageUrl": layerImage.asset->url,
+      "previewSwatchUrl": previewSwatch.asset->url,
       priceModifier,
       hexColor
     },
@@ -52,6 +64,7 @@ const PRODUCT_QUERY = `*[_type == "product" && slug.current == $slug][0] {
       _id,
       name,
       "layerImageUrl": layerImage.asset->url,
+      "previewSwatchUrl": previewSwatch.asset->url,
       priceModifier,
       hexColor
     },
@@ -60,14 +73,17 @@ const PRODUCT_QUERY = `*[_type == "product" && slug.current == $slug][0] {
       _id,
       name,
       type,
-      "layerImageUrl": layerImage.asset->url
+      "layerImageUrl": layerImage.asset->url,
+      "previewSwatchUrl": previewSwatch.asset->url
     },
 
     capOptions[]->{
       _id,
       name,
       "layerImageUrl": layerImage.asset->url,
+      "previewSwatchUrl": previewSwatch.asset->url,
       assemblyOffsetY,
+      assemblyOffsetX,
       priceModifier,
       finish
     }

@@ -178,7 +178,7 @@ export const ModernHome: React.FC<ModernHomeProps> = ({
                                 <div className="flex items-center gap-4">
                                     <div className="h-[1px] w-8 md:w-12 bg-[#C5A065]"></div>
                                     <span className="text-white/90 text-[10px] md:text-sm font-bold tracking-[0.3em] uppercase">
-                                        {t.hero.sub}
+                                        {sanityData?.hero?.subtitle || t.hero.sub}
                                     </span>
                                 </div>
                             </Reveal>
@@ -218,20 +218,25 @@ export const ModernHome: React.FC<ModernHomeProps> = ({
                                     onClick={onCollectionClick}
                                     className="bg-white text-[#1D1D1F] px-10 py-5 rounded-md text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-[#C5A065] hover:text-white transition-all shadow-xl min-w-[200px] hover:scale-[1.02] active:scale-95 duration-300"
                                 >
-                                    {t.hero.explore}
-                                </button>
-                                <button
-                                    onClick={onConsultationClick}
-                                    className="backdrop-blur-md bg-white/5 border border-white/20 text-white px-10 py-5 rounded-md text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-white hover:text-[#1D1D1F] transition-all min-w-[200px] hover:scale-[1.02] active:scale-95 duration-300"
-                                >
-                                    {t.hero.start}
+                                    {sanityData?.hero?.exploreButtonText || t.hero.explore}
                                 </button>
                                 <button
                                     onClick={onBlueprintClick}
                                     className="backdrop-blur-md bg-white/10 border border-white/20 text-white px-8 py-5 rounded-md text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-white hover:text-[#1D1D1F] transition-all min-w-[200px] hover:scale-[1.02] active:scale-95 duration-300 flex items-center justify-center gap-2"
                                 >
                                     <span className="material-symbols-outlined text-sm">architecture</span>
-                                    Blueprint Demo
+                                    {sanityData?.hero?.startButtonText || "Blueprint V2"}
+                                </button>
+                                <button
+                                    onClick={() => {
+                                        // Trigger custom navigation to MVP builder (Paper Doll)
+                                        window.history.pushState({}, '', '/demo/mvp');
+                                        window.dispatchEvent(new Event('popstate'));
+                                    }}
+                                    className="bg-[#C5A065] text-white px-8 py-5 rounded-md text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-white hover:text-[#1D1D1F] transition-all min-w-[200px] hover:scale-[1.02] active:scale-95 duration-300 flex items-center justify-center gap-3 border border-[#C5A065]"
+                                >
+                                    <span className="material-symbols-outlined text-sm">view_in_ar</span>
+                                    {sanityData?.hero?.highFiButtonText || "High-Fi Paper Doll"}
                                 </button>
                             </div>
                         </motion.div>

@@ -89,22 +89,32 @@ const App: React.FC = () => {
   // Listen for custom navigation events and URL checks
   useEffect(() => {
     // 1. URL Check for Sandbox Demos
-    const path = window.location.pathname;
-    if (path.includes('/demo/bottle-blueprint')) {
-      setView('bottle-blueprint');
-    }
-    if (path.includes('/demo/blueprint-builder-v2') || path.includes('/demo/blueprint-v2')) {
-      setView('blueprint-builder-v2');
-    }
-    if (path.includes('/test-shopify')) {
-      setView('test-shopify');
-    }
-    if (path.includes('/demo/mvp')) {
-      setView('mvp-builder');
-    }
+    const checkUrlForView = () => {
+      const path = window.location.pathname;
+      if (path.includes('/demo/bottle-blueprint')) {
+        setView('bottle-blueprint');
+      } else if (path.includes('/demo/blueprint-builder-v2') || path.includes('/demo/blueprint-v2')) {
+        setView('blueprint-builder-v2');
+      } else if (path.includes('/test-shopify')) {
+        setView('test-shopify');
+      } else if (path.includes('/demo/mvp')) {
+        setView('mvp-builder');
+      } else if (path === '/' || path === '') {
+        setView('home');
+      }
+    };
 
+    // Initial check
+    checkUrlForView();
 
-    // 2. Custom Events
+    // 2. Listen for URL changes (back/forward)
+    const handlePopState = () => {
+      console.log("URL changed, updating view...");
+      checkUrlForView();
+    };
+    window.addEventListener('popstate', handlePopState);
+
+    // 3. Custom Events
     // Contract Packaging
     const handleContractNav = () => setView('contract-packaging');
 
@@ -137,6 +147,7 @@ const App: React.FC = () => {
     console.log("🧪 To open Bottle Blueprint, visit: /demo/bottle-blueprint or run: window.history.pushState({}, '', '/demo/bottle-blueprint'); window.dispatchEvent(new Event('popstate'));");
 
     return () => {
+      window.removeEventListener('popstate', handlePopState);
       window.removeEventListener('navigate-to-contract', handleContractNav);
       window.removeEventListener('navigate-to-builder', handleBuilderNav);
       window.removeEventListener('navigate-to-label', handleLabelNav);
@@ -246,7 +257,7 @@ const App: React.FC = () => {
       case 'bottle-blueprint': return <BottleBlueprintDemo />;
       case 'blueprint-builder-v2': return <BlueprintBuilderV2 onAddToCart={addToCart} />;
       case 'test-shopify': return <ShopifyDebugger />;
-      case 'mvp-builder': return <MVP_ProductBuilder productSlug="9ml-roll-on-bottle" />;
+      case 'mvp-builder': return <MVP_ProductBuilder productSlug="9ml-roll-on-bottle" onAddToCart={addToCart} />;
 
       default: return <ModernHome />;
     }

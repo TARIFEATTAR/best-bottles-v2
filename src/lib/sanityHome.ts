@@ -26,7 +26,8 @@ export const HOMEPAGE_QUERY = `
       "desktopImageUrl": desktopImage.asset->url,
       "mobileImageUrl": mobileImage.asset->url,
       exploreButtonText,
-      startButtonText
+      startButtonText,
+      highFiButtonText
     },
     categories[]{
       label,
