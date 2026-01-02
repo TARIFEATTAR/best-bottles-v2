@@ -131,6 +131,7 @@ export const Footer: React.FC<FooterProps> = ({ onHelpCenterClick, onContactClic
             <a href="#" className="hover:text-[#C5A065] transition-colors">Privacy Policy</a>
             <a href="#" className="hover:text-[#C5A065] transition-colors">Terms of Service</a>
             <a href="#" className="hover:text-[#C5A065] transition-colors">Sitemap</a>
+            <a href="/studio" className="hover:text-[#C5A065] transition-colors font-black">Studio</a>
           </div>
         </div>
       </div>
