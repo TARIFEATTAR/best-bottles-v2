@@ -140,6 +140,23 @@ export const ModernHome: React.FC<ModernHomeProps> = ({
         }
     };
 
+    // Strict Override Logic:
+    // If a Sanity image is uploaded, we assume the user might want to hide the default text (e.g., if the image has text burned in).
+    // So we ONLY use the hardcoded defaults if NO Sanity image is present.
+    const hasSanityOverride = !!sanityData?.hero?.desktopImageUrl;
+
+    const heroImageDesktop = hasSanityOverride ? sanityData.hero.desktopImageUrl : "https://cdn.shopify.com/s/files/1/1989/5889/files/madison-23e11813.jpg?v=1765598795";
+    const heroImageMobile = hasSanityOverride ? (sanityData.hero?.mobileImageUrl || sanityData.hero.desktopImageUrl) : "https://cdn.shopify.com/s/files/1/1989/5889/files/madison-studio-5b205acb.jpg?v=1765600055";
+
+    // Text values: If override is active, use Sanity value (or empty string/null). If not, use Default.
+    const heroTitle = hasSanityOverride ? sanityData.hero?.title : t.hero.title;
+    const heroSubtitle = hasSanityOverride ? sanityData.hero?.subtitle : t.hero.sub;
+    const heroDesc = hasSanityOverride ? sanityData.hero?.description : t.hero.desc;
+
+    const btnExplore = hasSanityOverride ? sanityData.hero?.exploreButtonText : t.hero.explore;
+    const btnBlueprint = hasSanityOverride ? sanityData.hero?.startButtonText : "Blueprint V2";
+    const btnDemo = hasSanityOverride ? sanityData.hero?.highFiButtonText : "High-Fi Paper Doll";
+
     return (
         <div className="w-full bg-[#F5F3EF] dark:bg-background-dark overflow-x-hidden transition-colors duration-500">
 
@@ -154,19 +171,23 @@ export const ModernHome: React.FC<ModernHomeProps> = ({
                 >
                     {/* Desktop Hero Image */}
                     <img
-                        src={sanityData?.hero?.desktopImageUrl || "https://cdn.shopify.com/s/files/1/1989/5889/files/madison-23e11813.jpg?v=1765598795"}
-                        alt="Antique Perfume Bottle"
+                        src={heroImageDesktop}
+                        alt="Hero Banner"
                         className="hidden md:block w-full h-full object-cover brightness-[0.85] object-[center_30%]"
                     />
                     {/* Mobile Hero Image */}
                     <img
-                        src={sanityData?.hero?.mobileImageUrl || "https://cdn.shopify.com/s/files/1/1989/5889/files/madison-studio-5b205acb.jpg?v=1765600055"}
-                        alt="Vintage Perfume Collection"
+                        src={heroImageMobile}
+                        alt="Hero Banner Mobile"
                         className="md:hidden w-full h-full object-cover brightness-[0.85] object-center"
                     />
-                    {/* Sophisticated Gradients for Readability */}
-                    <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-[#1D1D1F]/60 md:hidden"></div>
-                    <div className="absolute inset-0 bg-black/40 hidden md:block"></div>
+                    {/* Sophisticated Gradients for Readability - Only show if there is text content */}
+                    {(heroTitle || heroSubtitle || heroDesc) && (
+                        <>
+                            <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-[#1D1D1F]/60 md:hidden"></div>
+                            <div className="absolute inset-0 bg-black/40 hidden md:block"></div>
+                        </>
+                    )}
                 </motion.div>
 
                 {/* Content Overlay */}
@@ -174,39 +195,45 @@ export const ModernHome: React.FC<ModernHomeProps> = ({
                     <div className="flex flex-col justify-between md:justify-center md:col-span-1 max-w-2xl h-full pt-20 pb-16 md:py-0">
                         {/* Top Text Block */}
                         <div className="space-y-4 md:space-y-8">
-                            <Reveal delay={0.2} effect="fade">
-                                <div className="flex items-center gap-4">
-                                    <div className="h-[1px] w-8 md:w-12 bg-[#C5A065]"></div>
-                                    <span className="text-white/90 text-[10px] md:text-sm font-bold tracking-[0.3em] uppercase">
-                                        {sanityData?.hero?.subtitle || t.hero.sub}
-                                    </span>
-                                </div>
-                            </Reveal>
+                            {heroSubtitle && (
+                                <Reveal delay={0.2} effect="fade">
+                                    <div className="flex items-center gap-4">
+                                        <div className="h-[1px] w-8 md:w-12 bg-[#C5A065]"></div>
+                                        <span className="text-white/90 text-[10px] md:text-sm font-bold tracking-[0.3em] uppercase">
+                                            {heroSubtitle}
+                                        </span>
+                                    </div>
+                                </Reveal>
+                            )}
 
-                            <div className="overflow-hidden">
+                            {heroTitle && (
+                                <div className="overflow-hidden">
+                                    <motion.div
+                                        initial={{ opacity: 0, y: 20 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        transition={{ duration: 0.8, delay: 0.2 }}
+                                    >
+                                        <h1 className="text-5xl md:text-7xl lg:text-8xl font-serif font-semibold text-white leading-[1] md:leading-[0.95] tracking-tight drop-shadow-2xl">
+                                            {heroTitle}
+                                        </h1>
+                                    </motion.div>
+                                </div>
+                            )}
+
+                            {heroDesc && (
                                 <motion.div
                                     initial={{ opacity: 0, y: 20 }}
                                     animate={{ opacity: 1, y: 0 }}
-                                    transition={{ duration: 0.8, delay: 0.2 }}
+                                    transition={{ duration: 0.8, delay: 0.4 }}
                                 >
-                                    <h1 className="text-5xl md:text-7xl lg:text-8xl font-serif font-semibold text-white leading-[1] md:leading-[0.95] tracking-tight drop-shadow-2xl">
-                                        {sanityData?.hero?.title || t.hero.title}
-                                    </h1>
+                                    <p className="text-white/90 text-base md:text-2xl font-light leading-relaxed max-w-xl border-l border-[#C5A065]/50 pl-6 backdrop-blur-[2px] py-1">
+                                        {heroDesc}
+                                    </p>
                                 </motion.div>
-                            </div>
-
-                            <motion.div
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.8, delay: 0.4 }}
-                            >
-                                <p className="text-white/90 text-base md:text-2xl font-light leading-relaxed max-w-xl border-l border-[#C5A065]/50 pl-6 backdrop-blur-[2px] py-1">
-                                    {sanityData?.hero?.description || t.hero.desc}
-                                </p>
-                            </motion.div>
+                            )}
                         </div>
 
-                        {/* Bottom Action Block */}
+                        {/* Bottom Action Block - Only correct buttons if label exists */}
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
@@ -214,30 +241,36 @@ export const ModernHome: React.FC<ModernHomeProps> = ({
                             className="w-full pt-10"
                         >
                             <div className="flex flex-col sm:flex-row gap-4">
-                                <button
-                                    onClick={onCollectionClick}
-                                    className="bg-white text-[#1D1D1F] px-10 py-5 rounded-md text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-[#C5A065] hover:text-white transition-all shadow-xl min-w-[200px] hover:scale-[1.02] active:scale-95 duration-300"
-                                >
-                                    {sanityData?.hero?.exploreButtonText || t.hero.explore}
-                                </button>
-                                <button
-                                    onClick={onBlueprintClick}
-                                    className="backdrop-blur-md bg-white/10 border border-white/20 text-white px-8 py-5 rounded-md text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-white hover:text-[#1D1D1F] transition-all min-w-[200px] hover:scale-[1.02] active:scale-95 duration-300 flex items-center justify-center gap-2"
-                                >
-                                    <span className="material-symbols-outlined text-sm">architecture</span>
-                                    {sanityData?.hero?.startButtonText || "Blueprint V2"}
-                                </button>
-                                <button
-                                    onClick={() => {
-                                        // Trigger custom navigation to MVP builder (Paper Doll)
-                                        window.history.pushState({}, '', '/demo/mvp');
-                                        window.dispatchEvent(new Event('popstate'));
-                                    }}
-                                    className="bg-[#C5A065] text-white px-8 py-5 rounded-md text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-white hover:text-[#1D1D1F] transition-all min-w-[200px] hover:scale-[1.02] active:scale-95 duration-300 flex items-center justify-center gap-3 border border-[#C5A065]"
-                                >
-                                    <span className="material-symbols-outlined text-sm">view_in_ar</span>
-                                    {sanityData?.hero?.highFiButtonText || "High-Fi Paper Doll"}
-                                </button>
+                                {btnExplore && (
+                                    <button
+                                        onClick={onCollectionClick}
+                                        className="bg-white text-[#1D1D1F] px-10 py-5 rounded-md text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-[#C5A065] hover:text-white transition-all shadow-xl min-w-[200px] hover:scale-[1.02] active:scale-95 duration-300"
+                                    >
+                                        {btnExplore}
+                                    </button>
+                                )}
+                                {btnBlueprint && (
+                                    <button
+                                        onClick={onBlueprintClick}
+                                        className="backdrop-blur-md bg-white/10 border border-white/20 text-white px-8 py-5 rounded-md text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-white hover:text-[#1D1D1F] transition-all min-w-[200px] hover:scale-[1.02] active:scale-95 duration-300 flex items-center justify-center gap-2"
+                                    >
+                                        <span className="material-symbols-outlined text-sm">architecture</span>
+                                        {btnBlueprint}
+                                    </button>
+                                )}
+                                {btnDemo && (
+                                    <button
+                                        onClick={() => {
+                                            // Trigger custom navigation to MVP builder (Paper Doll)
+                                            window.history.pushState({}, '', '/demo/mvp');
+                                            window.dispatchEvent(new Event('popstate'));
+                                        }}
+                                        className="bg-[#C5A065] text-white px-8 py-5 rounded-md text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-white hover:text-[#1D1D1F] transition-all min-w-[200px] hover:scale-[1.02] active:scale-95 duration-300 flex items-center justify-center gap-3 border border-[#C5A065]"
+                                    >
+                                        <span className="material-symbols-outlined text-sm">view_in_ar</span>
+                                        {btnDemo}
+                                    </button>
+                                )}
                             </div>
                         </motion.div>
                     </div>
