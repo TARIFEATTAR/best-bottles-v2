@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-// @ts-ignore
+// SVG import handled by vite-env.d.ts
 import outlineSrc from './assets/bottle-outline.svg';
 
 interface BottleCanvasProps {

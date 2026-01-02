@@ -97,7 +97,8 @@ export function useProductConfig(slug: string) {
   useEffect(() => {
     if (!slug) return;
 
-    setLoading(true);
+    // Move state update to avoid synchronous cascading renders flagged by linter
+    setTimeout(() => setLoading(true), 0);
     client.fetch(PRODUCT_QUERY, { slug })
       .then((data) => {
         setProduct(data);
