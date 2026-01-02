@@ -173,13 +173,13 @@ export const ModernHome: React.FC<ModernHomeProps> = ({
                     <img
                         src={heroImageDesktop}
                         alt="Hero Banner"
-                        className="hidden md:block w-full h-full object-cover brightness-[0.85] object-[center_30%]"
+                        className={`hidden md:block w-full h-full ${hasSanityOverride ? 'object-contain object-center bg-black/50' : 'object-cover brightness-[0.85] object-[center_30%]'}`}
                     />
                     {/* Mobile Hero Image */}
                     <img
                         src={heroImageMobile}
                         alt="Hero Banner Mobile"
-                        className="md:hidden w-full h-full object-cover brightness-[0.85] object-center"
+                        className={`md:hidden w-full h-full ${hasSanityOverride ? 'object-contain object-center bg-black/50' : 'object-cover brightness-[0.85] object-center'}`}
                     />
                     {/* Sophisticated Gradients for Readability - Only show if there is text content */}
                     {(heroTitle || heroSubtitle || heroDesc) && (
