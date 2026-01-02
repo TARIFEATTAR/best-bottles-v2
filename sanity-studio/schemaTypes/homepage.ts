@@ -24,6 +24,21 @@ export const homepageConfig = defineType({
                 defineField({ name: 'exploreButtonText', title: 'Explore Button Text', type: 'string' }),
                 defineField({ name: 'startButtonText', title: 'Start Button Text (Blueprint V2)', type: 'string' }),
                 defineField({ name: 'highFiButtonText', title: 'High-Fi Demo Button Text', type: 'string' }),
+                defineField({
+                    name: 'aspectRatio',
+                    title: 'Hero Height / Aspect Ratio',
+                    type: 'string',
+                    options: {
+                        list: [
+                            { title: 'Full Screen (Default)', value: 'fullscreen' },
+                            { title: 'Cinematic (2.35:1)', value: 'cinematic' },
+                            { title: 'Widescreen (16:9)', value: 'widescreen' },
+                            { title: 'Auto (Fit Image Content)', value: 'auto' },
+                        ],
+                        layout: 'radio'
+                    },
+                    initialValue: 'fullscreen'
+                }),
             ]
         }),
         defineField({

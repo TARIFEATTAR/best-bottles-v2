@@ -157,11 +157,21 @@ export const ModernHome: React.FC<ModernHomeProps> = ({
     const btnBlueprint = hasSanityOverride ? sanityData.hero?.startButtonText : "Blueprint V2";
     const btnDemo = hasSanityOverride ? sanityData.hero?.highFiButtonText : "High-Fi Paper Doll";
 
+    const aspectRatio = sanityData?.hero?.aspectRatio || 'fullscreen';
+
+    // Height/AspectRatio Classes
+    const containerClasses = {
+        'fullscreen': 'h-[100dvh] md:h-[95vh] min-h-[600px]',
+        'cinematic': 'h-auto aspect-[2.35/1] min-h-[400px]', // 21:9
+        'widescreen': 'h-auto aspect-video min-h-[400px]',   // 16:9
+        'auto': 'h-auto min-h-[400px]'                        // Fit to image
+    }[aspectRatio] || 'h-[100dvh] md:h-[95vh] min-h-[600px]';
+
     return (
         <div className="w-full bg-[#F5F3EF] dark:bg-background-dark overflow-x-hidden transition-colors duration-500">
 
             {/* 1. Hero Section: Cinematic Full-Bleed with Parallax */}
-            <section className="relative w-full h-[100dvh] md:h-[95vh] min-h-[600px] flex items-center px-6 md:px-10 lg:px-20 overflow-hidden bg-[#8C867D]">
+            <section className={`relative w-full ${containerClasses} flex items-center px-6 md:px-10 lg:px-20 overflow-hidden bg-[#8C867D]`}>
                 {/* Parallax Background */}
                 <motion.div
                     className="absolute inset-0 z-0"
