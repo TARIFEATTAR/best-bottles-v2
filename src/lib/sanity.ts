@@ -8,7 +8,7 @@ const DATASET = import.meta.env.VITE_SANITY_DATASET || 'production';
 export const client = createClient({
   projectId: PROJECT_ID,
   dataset: DATASET,
-  useCdn: true, // set to `false` to bypass the edge cache
+  useCdn: false, // set to `false` to bypass the edge cache for real-time demo updates
   apiVersion: '2024-01-01',
   stega: {
     enabled: true,
