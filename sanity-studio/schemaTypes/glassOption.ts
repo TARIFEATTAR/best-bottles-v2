@@ -12,6 +12,12 @@ export const glassOption = defineType({
             validation: (Rule) => Rule.required(),
         }),
         defineField({
+            name: 'skuPart',
+            title: 'SKU Part',
+            type: 'string',
+            description: 'The unique SKU fragment for this glass color (e.g. "GBCylAmb"). Used to generate the final product SKU.',
+        }),
+        defineField({
             name: 'previewSwatch',
             title: 'Preview Swatch',
             type: 'image',

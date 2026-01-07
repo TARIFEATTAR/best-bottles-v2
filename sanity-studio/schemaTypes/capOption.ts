@@ -27,24 +27,16 @@ export const capOption = defineType({
             validation: (Rule) => Rule.required(),
         }),
         defineField({
+            name: 'skuPart',
+            title: 'SKU Part',
+            type: 'string',
+            description: 'The unique SKU fragment for this cap (e.g. "GlSh"). Used to generate the final product SKU.',
+        }),
+        defineField({
             name: 'finish',
             title: 'Finish (Legacy)',
             type: 'string',
             hidden: true,
-        }),
-        defineField({
-            name: 'assemblyOffsetY',
-            title: 'Assembly Offset Y (px)',
-            type: 'number',
-            description: 'Vertical pixel adjustment to align this cap with the bottle neck.',
-            initialValue: 0,
-        }),
-        defineField({
-            name: 'assemblyOffsetX',
-            title: 'Assembly Offset X (px)',
-            type: 'number',
-            description: 'Horizontal pixel adjustment to align this cap with the bottle neck.',
-            initialValue: 0,
         }),
     ],
     preview: {
