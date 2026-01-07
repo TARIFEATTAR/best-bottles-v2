@@ -146,202 +146,198 @@ export const Specialist_ProductBuilder: React.FC<Props> = ({
                 </div>
 
                 {/* RIGHT: PREMIUM CONTROLS PANEL */}
-                <div className="w-full lg:w-[45%] xl:w-[40%] flex flex-col bg-white">
-                    <div className="flex-1 p-8 lg:p-12 xl:p-16">
-                        <header className="mb-12 text-center lg:text-left">
-                            <div className="text-[10px] text-primary font-bold uppercase tracking-[0.3em] mb-4">The Bottle Specialist</div>
-                            <h1 className="text-4xl xl:text-5xl font-serif text-[#1D1D1F] leading-tight mb-4">5ML Cylinder Master</h1>
-                            <div className="h-px w-12 bg-primary/30 mb-6 mx-auto lg:mx-0"></div>
-                            <p className="text-gray-500 font-light leading-relaxed max-w-sm mx-auto lg:mx-0">
-                                Select between premium roll-on and fine mist spray delivery systems for your 5ml collection.
-                            </p>
-                        </header>
+                <div className="w-full lg:w-[45%] xl:w-[40%] flex flex-col bg-white h-screen overflow-hidden">
+                    <div className="overflow-y-auto custom-scrollbar">
+                        <div className="p-6 lg:p-8">
+                            <header className="mb-6 text-center lg:text-left">
+                                <div className="text-[9px] text-primary font-bold uppercase tracking-[0.3em] mb-2">The Bottle Specialist</div>
+                                <h1 className="text-3xl font-serif text-[#1D1D1F] leading-tight mb-2">5ML Cylinder Master</h1>
+                                <div className="h-px w-12 bg-primary/30 mb-3 mx-auto lg:mx-0"></div>
+                                <p className="text-xs text-gray-500 font-light leading-relaxed max-w-sm mx-auto lg:mx-0">
+                                    Select between premium roll-on and fine mist spray delivery systems.
+                                </p>
+                            </header>
 
-                        <div className="space-y-12">
+                            <div className="space-y-6">
 
-                            {/* STEP 1: GLASS */}
-                            <section>
-                                <div className="flex items-end justify-between mb-6 pb-2 border-b border-gray-100">
-                                    <h3 className="text-[11px] font-bold uppercase tracking-[0.2em] text-gray-900">
-                                        <span className="text-primary italic mr-2 text-xs">01</span>
-                                        Vessel Finish
-                                    </h3>
-                                    <span className="text-[10px] text-gray-400 font-medium tracking-wider">{selectedGlass?.name}</span>
-                                </div>
-                                <div className="grid grid-cols-4 sm:grid-cols-6 gap-3">
-                                    {product.glassOptions?.map((glass) => (
-                                        <button
-                                            key={glass._id}
-                                            className={`relative aspect-square rounded-lg transition-all p-1.5 border ${selectedGlassId === glass._id
-                                                ? 'border-primary shadow-md scale-105'
-                                                : 'border-transparent hover:border-gray-200 bg-gray-50'}`}
-                                            onClick={() => setSelectedGlassId(glass._id)}
-                                        >
-                                            <div className="w-full h-full rounded-md overflow-hidden shadow-inner">
-                                                {glass.previewSwatchUrl ? (
-                                                    <img src={glass.previewSwatchUrl} alt={glass.name} className="w-full h-full object-cover" />
-                                                ) : (
-                                                    <div className="w-full h-full" style={{ backgroundColor: glass.hexColor || '#eee' }} />
-                                                )}
-                                            </div>
-                                        </button>
-                                    ))}
-                                </div>
-                            </section>
-
-                            {/* STEP 2: MECHANISM (CONSOLIDATED) */}
-                            <section
-                                onMouseEnter={() => {
-                                    setIsPeeking(true);
-                                    if (isSprayFitment) setIsBrowsingFitments(true);
-                                }}
-                                onMouseLeave={() => {
-                                    setIsPeeking(false);
-                                    setIsBrowsingFitments(false);
-                                }}
-                            >
-                                <div className="flex items-end justify-between mb-6 pb-2 border-b border-gray-100">
-                                    <h3 className="text-[11px] font-bold uppercase tracking-[0.2em] text-gray-900">
-                                        <span className="text-primary italic mr-2 text-xs">02</span>
-                                        {isSprayFitment ? 'Spray Delivery' : 'Roll-On Mechanism'}
-                                    </h3>
-                                    <span className="text-[10px] text-amber-600 font-bold tracking-widest uppercase">Precision Fit</span>
-                                </div>
-
-                                {/* CATEGORY SELECTOR */}
-                                <div className="flex gap-2 mb-6">
-                                    <button
-                                        onClick={() => setSelectedFitmentId(categorizedFitments.rollers[0]?._id)}
-                                        className={`flex-1 py-3 px-4 rounded-xl text-[10px] font-bold uppercase tracking-widest transition-all border ${!isSprayFitment ? 'bg-[#1D1D1F] text-white border-transparent shadow-md' : 'bg-gray-50 text-gray-400 border-gray-100 hover:border-gray-300'}`}
-                                    >
-                                        Roll-On Options
-                                    </button>
-                                    <button
-                                        onClick={() => setSelectedFitmentId(categorizedFitments.sprayers[0]?._id)}
-                                        className={`flex-1 py-3 px-4 rounded-xl text-[10px] font-bold uppercase tracking-widest transition-all border ${isSprayFitment ? 'bg-[#1D1D1F] text-white border-transparent shadow-md' : 'bg-gray-50 text-gray-400 border-gray-100 hover:border-gray-300'}`}
-                                    >
-                                        Spray Options
-                                    </button>
-                                </div>
-
-                                {/* OPTIONS GRID */}
-                                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                                    {(isSprayFitment ? categorizedFitments.sprayers : categorizedFitments.rollers).map(fitment => (
-                                        <button
-                                            key={fitment._id}
-                                            onClick={() => setSelectedFitmentId(fitment._id)}
-                                            className={`relative p-3 rounded-xl border transition-all text-left flex flex-col gap-2 ${selectedFitmentId === fitment._id
-                                                ? 'border-primary bg-primary/[0.02] shadow-sm'
-                                                : 'border-gray-100 hover:border-gray-300 bg-white'
-                                                }`}
-                                        >
-                                            <div className="flex items-center justify-between">
-                                                <div className="w-8 h-8 rounded-full overflow-hidden bg-gray-50 border border-gray-100">
-                                                    {fitment.previewSwatchUrl ? (
-                                                        <img src={fitment.previewSwatchUrl} alt={fitment.name} className="w-full h-full object-cover" />
-                                                    ) : (
-                                                        <div className="w-full h-full flex items-center justify-center">
-                                                            <span className="material-symbols-outlined text-gray-300 text-xs">{isSprayFitment ? 'spray' : 'roll-on'}</span>
-                                                        </div>
-                                                    )}
-                                                </div>
-                                                {selectedFitmentId === fitment._id && <div className="w-1.5 h-1.5 rounded-full bg-primary"></div>}
-                                            </div>
-                                            <span className="text-[9px] font-bold uppercase tracking-widest text-gray-700 leading-tight">
-                                                {fitment.name.replace(' fitment', '').replace(' Sprayer', '').replace(' Mist', '')}
-                                            </span>
-                                        </button>
-                                    ))}
-                                </div>
-                            </section>
-
-                            {/* STEP 3: CAP / OVERCAP */}
-                            <section>
-                                <div className="flex items-end justify-between mb-6 pb-2 border-b border-gray-100">
-                                    <h3 className="text-[11px] font-bold uppercase tracking-[0.2em] text-gray-900">
-                                        <span className="text-primary italic mr-2 text-xs">03</span>
-                                        {isSprayFitment ? 'Included Overcap' : 'Enclosure Style'}
-                                    </h3>
-                                    <span className="text-[10px] text-gray-400 font-medium tracking-wider">
-                                        {isSprayFitment ? (selectedFitment?.name?.replace(' fitment', '').replace(' Sprayer', '').replace(' Mist', '') + ' Cap') : selectedCap?.name}
-                                    </span>
-                                </div>
-
-                                {isSprayFitment ? (
-                                    /* Special Overcap Preview for Sprayers */
-                                    <div className="flex items-center gap-6 p-6 rounded-2xl bg-gray-50 border border-gray-100">
-                                        <div className="relative w-16 h-16 rounded-xl overflow-hidden shadow-sm border border-white bg-white flex-shrink-0 group">
-                                            {selectedFitment?.overcapImageUrl ? (
-                                                <img
-                                                    src={selectedFitment.overcapImageUrl}
-                                                    alt="Overcap Preview"
-                                                    className="w-full h-full object-contain p-1 transition-transform group-hover:scale-110"
-                                                />
-                                            ) : (
-                                                <div className="w-full h-full bg-gray-200" />
-                                            )}
-                                        </div>
-                                        <div className="space-y-1">
-                                            <h4 className="text-[10px] font-bold uppercase tracking-widest text-gray-900">
-                                                Premium {selectedFitment?.name?.replace(' fitment', '')} Enclosure
-                                            </h4>
-                                            <p className="text-[11px] text-gray-500 leading-relaxed font-light">
-                                                Factory-matched design ensuring a perfect airtight seal and unified aesthetic.
-                                            </p>
-                                        </div>
+                                {/* STEP 1: GLASS */}
+                                <section>
+                                    <div className="flex items-end justify-between mb-3 pb-2 border-b border-gray-100">
+                                        <h3 className="text-[10px] font-bold uppercase tracking-[0.2em] text-gray-900">
+                                            <span className="text-primary italic mr-2 text-xs">01</span>
+                                            Vessel Finish
+                                        </h3>
+                                        <span className="text-[9px] text-gray-400 font-medium tracking-wider">{selectedGlass?.name}</span>
                                     </div>
-                                ) : (
-                                    /* Standard Cap Grid for Roll-Ons */
-                                    <div className="grid grid-cols-5 sm:grid-cols-8 gap-3">
-                                        {product.capOptions?.map(cap => (
+                                    <div className="grid grid-cols-5 sm:grid-cols-6 gap-2">
+                                        {product.glassOptions?.map((glass) => (
                                             <button
-                                                key={cap._id}
-                                                onClick={() => setSelectedCapId(cap._id)}
-                                                className={`relative aspect-square rounded-full transition-all p-1 border-2 ${selectedCapId === cap._id
-                                                    ? 'border-primary shadow-md scale-110'
+                                                key={glass._id}
+                                                className={`relative aspect-square rounded-lg transition-all p-1 border ${selectedGlassId === glass._id
+                                                    ? 'border-primary shadow-sm scale-105'
                                                     : 'border-transparent hover:border-gray-200 bg-gray-50'}`}
-                                                title={cap.name}
+                                                onClick={() => setSelectedGlassId(glass._id)}
                                             >
-                                                <div className="w-full h-full rounded-full overflow-hidden shadow-inner bg-white">
-                                                    {cap.previewSwatchUrl ? (
-                                                        <img src={cap.previewSwatchUrl} alt={cap.name} className="w-full h-full object-cover" />
+                                                <div className="w-full h-full rounded-md overflow-hidden shadow-inner">
+                                                    {glass.previewSwatchUrl ? (
+                                                        <img src={glass.previewSwatchUrl} alt={glass.name} className="w-full h-full object-cover" />
                                                     ) : (
-                                                        <div className="w-full h-full bg-gray-200" />
+                                                        <div className="w-full h-full" style={{ backgroundColor: glass.hexColor || '#eee' }} />
                                                     )}
                                                 </div>
                                             </button>
                                         ))}
                                     </div>
-                                )}
-                            </section>
+                                </section>
+
+                                {/* STEP 2: MECHANISM (CONSOLIDATED) */}
+                                <section
+                                    onMouseEnter={() => {
+                                        setIsPeeking(true);
+                                        if (isSprayFitment) setIsBrowsingFitments(true);
+                                    }}
+                                    onMouseLeave={() => {
+                                        setIsPeeking(false);
+                                        setIsBrowsingFitments(false);
+                                    }}
+                                >
+                                    <div className="flex items-end justify-between mb-3 pb-2 border-b border-gray-100">
+                                        <h3 className="text-[10px] font-bold uppercase tracking-[0.2em] text-gray-900">
+                                            <span className="text-primary italic mr-2 text-xs">02</span>
+                                            {isSprayFitment ? 'Spray Delivery' : 'Roll-On Mechanism'}
+                                        </h3>
+                                        <span className="text-[9px] text-amber-600 font-bold tracking-widest uppercase">Precision Fit</span>
+                                    </div>
+
+                                    {/* CATEGORY SELECTOR */}
+                                    <div className="flex gap-2 mb-3">
+                                        <button
+                                            onClick={() => setSelectedFitmentId(categorizedFitments.rollers[0]?._id)}
+                                            className={`flex-1 py-2 px-3 rounded-lg text-[9px] font-bold uppercase tracking-widest transition-all border ${!isSprayFitment ? 'bg-[#1D1D1F] text-white border-transparent shadow-sm' : 'bg-gray-50 text-gray-400 border-gray-100 hover:border-gray-300'}`}
+                                        >
+                                            Roll-On
+                                        </button>
+                                        <button
+                                            onClick={() => setSelectedFitmentId(categorizedFitments.sprayers[0]?._id)}
+                                            className={`flex-1 py-2 px-3 rounded-lg text-[9px] font-bold uppercase tracking-widest transition-all border ${isSprayFitment ? 'bg-[#1D1D1F] text-white border-transparent shadow-sm' : 'bg-gray-50 text-gray-400 border-gray-100 hover:border-gray-300'}`}
+                                        >
+                                            Sprayer
+                                        </button>
+                                    </div>
+
+                                    {/* OPTIONS GRID */}
+                                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                                        {(isSprayFitment ? categorizedFitments.sprayers : categorizedFitments.rollers).map(fitment => (
+                                            <button
+                                                key={fitment._id}
+                                                onClick={() => setSelectedFitmentId(fitment._id)}
+                                                className={`relative p-2 rounded-lg border transition-all text-left flex flex-col gap-1.5 ${selectedFitmentId === fitment._id
+                                                    ? 'border-primary bg-primary/[0.02] shadow-sm'
+                                                    : 'border-gray-100 hover:border-gray-300 bg-white'
+                                                    }`}
+                                            >
+                                                <div className="flex items-center justify-between">
+                                                    <div className="w-6 h-6 rounded-full overflow-hidden bg-gray-50 border border-gray-100">
+                                                        {fitment.previewSwatchUrl ? (
+                                                            <img src={fitment.previewSwatchUrl} alt={fitment.name} className="w-full h-full object-cover" />
+                                                        ) : (
+                                                            <div className="w-full h-full flex items-center justify-center">
+                                                                <span className="material-symbols-outlined text-gray-300 text-[10px]">{isSprayFitment ? 'spray' : 'roll-on'}</span>
+                                                            </div>
+                                                        )}
+                                                    </div>
+                                                    {selectedFitmentId === fitment._id && <div className="w-1.5 h-1.5 rounded-full bg-primary"></div>}
+                                                </div>
+                                                <span className="text-[9px] font-bold uppercase tracking-widest text-gray-700 leading-tight">
+                                                    {fitment.name.replace(' fitment', '').replace(' Sprayer', '').replace(' Mist', '')}
+                                                </span>
+                                            </button>
+                                        ))}
+                                    </div>
+                                </section>
+
+                                {/* STEP 3: CAP / OVERCAP */}
+                                <section>
+                                    <div className="flex items-end justify-between mb-3 pb-2 border-b border-gray-100">
+                                        <h3 className="text-[10px] font-bold uppercase tracking-[0.2em] text-gray-900">
+                                            <span className="text-primary italic mr-2 text-xs">03</span>
+                                            {isSprayFitment ? 'Included Overcap' : 'Enclosure Style'}
+                                        </h3>
+                                        <span className="text-[9px] text-gray-400 font-medium tracking-wider">
+                                            {isSprayFitment ? (selectedFitment?.name?.replace(' fitment', '').replace(' Sprayer', '').replace(' Mist', '') + ' Cap') : selectedCap?.name}
+                                        </span>
+                                    </div>
+
+                                    {isSprayFitment ? (
+                                        /* Special Overcap Preview for Sprayers */
+                                        <div className="flex items-center gap-4 p-4 rounded-xl bg-gray-50 border border-gray-100">
+                                            <div className="relative w-12 h-12 rounded-lg overflow-hidden shadow-sm border border-white bg-white flex-shrink-0 group">
+                                                {selectedFitment?.overcapImageUrl ? (
+                                                    <img
+                                                        src={selectedFitment.overcapImageUrl}
+                                                        alt="Overcap Preview"
+                                                        className="w-full h-full object-contain p-0.5 transition-transform group-hover:scale-110"
+                                                    />
+                                                ) : (
+                                                    <div className="w-full h-full bg-gray-200" />
+                                                )}
+                                            </div>
+                                            <div className="space-y-0.5">
+                                                <h4 className="text-[9px] font-bold uppercase tracking-widest text-gray-900">
+                                                    Premium {selectedFitment?.name?.replace(' fitment', '')} Enclosure
+                                                </h4>
+                                                <p className="text-[10px] text-gray-500 leading-relaxed font-light">
+                                                    Factory-matched for perfect seal.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    ) : (
+                                        /* Standard Cap Grid for Roll-Ons */
+                                        <div className="grid grid-cols-5 gap-2">
+                                            {product.capOptions?.map(cap => (
+                                                <button
+                                                    key={cap._id}
+                                                    onClick={() => setSelectedCapId(cap._id)}
+                                                    className={`relative aspect-square rounded-full transition-all p-0.5 border-2 ${selectedCapId === cap._id
+                                                        ? 'border-primary shadow-sm scale-105'
+                                                        : 'border-transparent hover:border-gray-200 bg-gray-50'}`}
+                                                    title={cap.name}
+                                                >
+                                                    <div className="w-full h-full rounded-full overflow-hidden shadow-inner bg-white">
+                                                        {cap.previewSwatchUrl ? (
+                                                            <img src={cap.previewSwatchUrl} alt={cap.name} className="w-full h-full object-cover" />
+                                                        ) : (
+                                                            <div className="w-full h-full bg-gray-200" />
+                                                        )}
+                                                    </div>
+                                                </button>
+                                            ))}
+                                        </div>
+                                    )}
+                                </section>
+                                {/* Bottom padding to clear sticky footer */}
+                                <div className="h-24"></div>
+                            </div>
                         </div>
                     </div>
 
-                    {/* STICKY CTA BAR */}
-                    <div className="sticky bottom-0 bg-white/95 backdrop-blur-md border-t border-gray-100 p-8 lg:p-10 shadow-[0_-10px_40px_rgba(0,0,0,0.03)] z-30">
-                        <div className="flex items-center justify-between gap-8 max-w-2xl mx-auto">
+                    {/* STICKY CTA BAR - COMPACT */}
+                    <div className="shrink-0 bg-white/95 backdrop-blur-md border-t border-gray-100 px-6 py-4 lg:px-8 shadow-[0_-10px_30px_rgba(0,0,0,0.02)] z-30 mt-auto">
+                        <div className="flex items-center justify-between gap-4 max-w-2xl mx-auto">
                             <div>
-                                <div className="text-[9px] text-gray-400 font-bold uppercase tracking-[0.3em] mb-2 text-center lg:text-left">Estimated Unit Price</div>
-                                <div className="text-4xl font-serif text-[#1D1D1F]">${totalPrice.toFixed(2)}</div>
+                                <div className="text-[8px] text-gray-400 font-bold uppercase tracking-[0.2em] mb-1">Unit Price</div>
+                                <div className="text-2xl font-serif text-[#1D1D1F]">${totalPrice.toFixed(2)}</div>
                             </div>
 
-                            <div className="hidden sm:block h-10 w-px bg-gray-100"></div>
-
-                            <div className="hidden sm:block">
-                                <div className="text-[9px] text-gray-400 font-bold uppercase tracking-[0.3em] mb-2">Inventory Access</div>
-                                <div className="text-xs font-bold text-gray-800 tracking-wider">6-8 WEEK LEAD TIME</div>
-                            </div>
+                            <div className="hidden sm:block h-8 w-px bg-gray-100"></div>
 
                             <button
                                 onClick={handleAddToCart}
-                                className="flex-1 lg:flex-none min-w-[200px] bg-[#1D1D1F] text-white px-10 py-5 rounded-xl hover:bg-primary transition-all shadow-xl shadow-black/10 font-bold uppercase tracking-[0.2em] text-[10px] flex items-center justify-center gap-3 active:scale-[0.98]"
+                                className="flex-1 lg:flex-none min-w-[180px] bg-[#1D1D1F] text-white px-6 py-3 rounded-lg hover:bg-primary transition-all shadow-lg shadow-black/5 font-bold uppercase tracking-[0.2em] text-[10px] flex items-center justify-center gap-2 active:scale-[0.98]"
                             >
-                                <span className="material-symbols-outlined text-[18px]">shopping_cart</span>
+                                <span className="material-symbols-outlined text-[16px]">shopping_cart</span>
                                 Add to Order
                             </button>
-                        </div>
-                        <div className="mt-4 text-[9px] text-gray-400 text-center uppercase tracking-widest font-light">
-                            Volume Tier Pricing tier applied at checkout
                         </div>
                     </div>
                 </div>
