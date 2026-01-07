@@ -7,6 +7,7 @@ import { useConversation } from "@elevenlabs/react";
 import rollOnData from "../data/roll-on-9ml-cylinder.json";
 import sprayData from "../data/elegant-60ml-spray.json";
 import atomizerData from "../data/travel-atomizer-10ml.json";
+import { Specialist_ProductBuilder } from "../src/demos/productBuilder/Specialist_ProductBuilder";
 
 // --- Demo Voice Responses (simulated for demo without API) ---
 const DEMO_VOICE_RESPONSES = [
@@ -869,370 +870,52 @@ export const ConsultationPage: React.FC<ConsultationPageProps> = ({ onBack, proj
         );
     }
 
-    // --- Render: Studio (Builder) ---
-    return (
-        <div className="h-screen bg-[#F5F5F7] dark:bg-background-dark flex flex-col overflow-hidden relative">
-            <TopBar
-                assistantInput=""
-                setAssistantInput={() => { }}
-                onSubmit={() => { }}
-                showInput={false}
-                onBack={onBack}
-            />
-
-            <div className="flex-1 flex flex-col md:flex-row overflow-hidden">
-
-                {/* Left: Preview Canvas */}
-                <div className="w-full md:w-1/2 h-[40vh] md:h-full bg-white dark:bg-[#151515] relative flex flex-col justify-center items-center p-6 md:p-12 shadow-xl z-20 border-r border-gray-100 dark:border-gray-800">
+    // --- Render: Studio (Builder Interface) ---
+    if (mode === 'studio') {
+        return (
+            <div className="h-screen bg-white flex flex-col overflow-hidden">
+                {/* Minimal Header for Specialist Mode */}
+                <div className="bg-[#1D1D1F] text-white py-3 px-8 flex items-center justify-between shrink-0 shadow-md z-40">
+                    <div className="flex items-center gap-3">
+                        <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center border border-white/10">
+                            <span className="material-symbols-outlined text-sm">science</span>
+                        </div>
+                        <span className="text-xs font-serif font-bold tracking-wide uppercase">Bottle Specialist <span className="text-primary italic ml-2">Studio</span></span>
+                    </div>
                     <button
                         onClick={() => setMode('brief')}
-                        className="absolute top-4 left-4 md:top-6 md:left-6 z-20 flex items-center gap-2 px-3 py-2 rounded-full bg-gray-100 dark:bg-white/10 text-xs font-bold uppercase tracking-widest text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-white/20 transition-colors"
+                        className="flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 hover:bg-white/20 text-[10px] font-bold uppercase tracking-widest transition-colors"
                     >
-                        <i className="ph-thin ph-arrow-left text-sm" />
-                        <span className="hidden sm:inline">Back to Chat</span>
+                        <span>Chat Support</span>
+                        <i className="ph-thin ph-chat-circle text-sm" />
                     </button>
-
-                    {/* Live Preview */}
-                    <div className="relative w-full max-w-sm aspect-square flex items-center justify-center">
-                        <img
-                            src={getCompositeImageUrl()}
-                            className="h-[80%] object-contain mix-blend-multiply dark:mix-blend-normal z-10 drop-shadow-2xl transition-all duration-500"
-                            alt="Product Preview"
-                            onError={(e) => {
-                                const target = e.target as HTMLImageElement;
-                                target.src = selections.vessel?.imageUrl || '';
-                            }}
-                        />
-
-                        {/* Selection Badges */}
-                        <div className="absolute top-4 left-4 bg-white/90 dark:bg-black/60 backdrop-blur px-3 py-1.5 rounded-lg text-[10px] font-bold uppercase tracking-wide text-gray-600 dark:text-gray-300">
-                            {selections.vessel?.name}
-                        </div>
-
-                        <div className="absolute top-4 right-4 bg-white/90 dark:bg-black/60 backdrop-blur px-3 py-1.5 rounded-lg text-[10px] font-bold uppercase tracking-wide text-gray-600 dark:text-gray-300 flex items-center gap-1.5">
-                            <span
-                                className="w-2.5 h-2.5 rounded-full border border-gray-400"
-                                style={{ backgroundColor: selections.closure?.color }}
-                            />
-                            {selections.closure?.name}
-                        </div>
-
-                        <div className="absolute bottom-4 left-4 bg-white/90 dark:bg-black/60 backdrop-blur px-3 py-1.5 rounded-lg text-[10px] font-bold uppercase tracking-wide text-gray-600 dark:text-gray-300">
-                            <i className={`ph-thin ${selections.fitment?.type === 'metal' ? 'ph-circle-fill' : 'ph-circle'} text-xs mr-1`} /> {selections.fitment?.name}
-                        </div>
-                    </div>
-
-                    {/* Kit Summary */}
-                    <div className="absolute bottom-4 left-4 md:bottom-8 md:left-8 flex flex-col gap-1 text-xs">
-                        <span className="text-[10px] font-bold uppercase tracking-widest text-gold mb-1">Your Configuration</span>
-                        <span className="text-gray-600 dark:text-gray-400">1. Bottle: <span className="text-[#1D1D1F] dark:text-white font-medium">{selections.vessel?.name}</span></span>
-                        <span className="text-gray-600 dark:text-gray-400">2. Fitment: <span className="text-[#1D1D1F] dark:text-white font-medium">{selections.fitment?.name}</span></span>
-                        <span className="text-gray-600 dark:text-gray-400">3. Cap: <span className="text-[#1D1D1F] dark:text-white font-medium">{selections.closure?.name}</span></span>
-                    </div>
-
-                    {/* Price */}
-                    <div className="absolute bottom-4 right-4 md:bottom-8 md:right-8 text-right">
-                        <span className="block text-[10px] text-gray-400 uppercase tracking-widest mb-1">Total Estimate</span>
-                        <span className="block text-2xl md:text-3xl font-serif text-[#1D1D1F] dark:text-white">${calculateTotal()}</span>
-                        <span className="block text-[10px] text-gray-400 mt-1">
-                            ${calculateUnitPrice().toFixed(2)} / unit × {selections.quantity}
-                        </span>
-                    </div>
                 </div>
 
-                {/* Right: Controls */}
-                <div className="w-full md:w-1/2 h-[60vh] md:h-full flex flex-col bg-[#F9F8F6] dark:bg-background-dark relative">
-
-                    {/* Steps Navigation */}
-                    <div className="shrink-0 bg-[#F9F8F6]/95 dark:bg-background-dark/95 backdrop-blur border-b border-gray-200 dark:border-gray-800 px-4 md:px-8 py-4 flex justify-between items-center z-10">
-                        <div className="flex gap-4 md:gap-6 overflow-x-auto no-scrollbar">
-                            {['1. Bottle', '2. Fitment', '3. Cap'].map((stepLabel, idx) => (
-                                <button
-                                    key={idx}
-                                    onClick={() => setActiveStep(idx as 0 | 1 | 2)}
-                                    className={`text-[10px] md:text-xs font-bold uppercase tracking-widest pb-1 transition-all relative whitespace-nowrap ${activeStep === idx
-                                        ? 'text-[#1D1D1F] dark:text-white border-b-2 border-gold'
-                                        : 'text-gray-400 hover:text-gray-600 border-b-2 border-transparent'
-                                        }`}
-                                >
-                                    {stepLabel}
-                                </button>
-                            ))}
-                        </div>
-
-                        <div className="flex items-center gap-2">
-                            <button
-                                onClick={() => setShowVisualizeModal(true)}
-                                className="border border-gold text-gold px-3 md:px-4 py-2 rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-gold/10 transition-all flex items-center gap-1.5"
-                            >
-                                <i className="ph-thin ph-eye text-sm" />
-                                <span className="hidden md:inline">Visualize</span>
-                            </button>
-                            <button
-                                onClick={handleFinishKit}
-                                className="bg-[#1D1D1F] dark:bg-white text-white dark:text-[#1D1D1F] px-4 md:px-6 py-2 rounded-full text-[10px] font-bold uppercase tracking-widest hover:opacity-90 transition-all"
-                            >
-                                Add to Cart
-                            </button>
-                        </div>
-                    </div>
-
-                    {/* Options */}
-                    <div className="flex-1 overflow-y-auto p-4 md:p-8 pb-24 no-scrollbar">
-
-                        {/* Quantity Control */}
-                        <div className="mb-6 p-3 md:p-4 bg-white dark:bg-white/5 rounded-xl border border-gray-200 dark:border-gray-700">
-                            <div className="flex items-center justify-between mb-3">
-                                <span className="text-[10px] md:text-xs font-bold uppercase tracking-widest text-gray-500">Quantity</span>
-                                <div className="flex items-center gap-2 md:gap-3">
-                                    <button
-                                        onClick={() => setSelections(prev => ({ ...prev, quantity: Math.max(1, prev.quantity - 1) }))}
-                                        className="w-7 h-7 md:w-8 md:h-8 rounded-full bg-gray-100 dark:bg-white/10 flex items-center justify-center hover:bg-gray-200 transition-colors"
-                                    >
-                                        <span className="material-symbols-outlined text-sm">remove</span>
-                                    </button>
-                                    <input
-                                        type="number"
-                                        value={selections.quantity}
-                                        onChange={(e) => setSelections(prev => ({ ...prev, quantity: Math.max(1, parseInt(e.target.value) || 1) }))}
-                                        className="w-20 text-center font-bold text-[#1D1D1F] dark:text-white bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-gray-600 rounded-lg py-1 text-sm"
-                                    />
-                                    <button
-                                        onClick={() => setSelections(prev => ({ ...prev, quantity: prev.quantity + 1 }))}
-                                        className="w-7 h-7 md:w-8 md:h-8 rounded-full bg-gray-100 dark:bg-white/10 flex items-center justify-center hover:bg-gray-200 transition-colors"
-                                    >
-                                        <span className="material-symbols-outlined text-sm">add</span>
-                                    </button>
-                                </div>
-                            </div>
-
-                            {/* Quick quantity buttons */}
-                            <div className="flex gap-2 flex-wrap">
-                                {[1, 12, 144, 576].map(qty => (
-                                    <button
-                                        key={qty}
-                                        onClick={() => setSelections(prev => ({ ...prev, quantity: qty }))}
-                                        className={`px-3 py-1 rounded-full text-[10px] font-bold transition-all ${selections.quantity === qty
-                                            ? 'bg-gold text-white'
-                                            : 'bg-gray-100 dark:bg-white/10 text-gray-600 dark:text-gray-400 hover:bg-gray-200'
-                                            }`}
-                                    >
-                                        {qty}
-                                    </button>
-                                ))}
-                            </div>
-
-                            {/* Pricing tier info */}
-                            {pricingInfo.nextTier && (
-                                <p className="text-[10px] text-gray-400 mt-2 flex items-center gap-1">
-                                    <i className="ph-thin ph-lightbulb text-sm text-gold" />
-                                    Order {pricingInfo.nextTier.qty}+ to save ${pricingInfo.nextTier.savings}/unit
-                                </p>
-                            )}
-                        </div>
-
-                        {/* Step 1: Bottle (Glass Colors / Body Colors) */}
-                        {activeStep === 0 && (
-                            <div className="animate-fade-in">
-                                <h2 className="text-lg md:text-xl font-serif text-[#1D1D1F] dark:text-white mb-4">
-                                    Select {activeFamilyId === 'atomizer' ? 'Body Color' : 'Glass Color'}
-                                </h2>
-                                <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-                                    {productData.baseBottles.map((bottle) => (
-                                        <button
-                                            key={bottle.id}
-                                            onClick={() => setSelections(prev => ({ ...prev, vessel: bottle }))}
-                                            className={`group relative aspect-square bg-white dark:bg-white/5 rounded-xl border transition-all duration-300 p-3 flex flex-col items-center justify-center gap-2 hover:shadow-lg ${selections.vessel?.id === bottle.id
-                                                ? 'border-gold ring-2 ring-gold shadow-md'
-                                                : 'border-gray-200 dark:border-gray-700 hover:border-gray-300'
-                                                }`}
-                                        >
-                                            <img
-                                                src={bottle.imageUrl}
-                                                className="h-16 md:h-20 object-contain mix-blend-multiply dark:mix-blend-normal group-hover:scale-105 transition-transform"
-                                                alt={bottle.name}
-                                            />
-                                            <span className="text-[10px] md:text-xs font-bold text-[#1D1D1F] dark:text-white text-center">{bottle.name}</span>
-                                            {selections.vessel?.id === bottle.id && (
-                                                <div className="absolute top-2 right-2 text-gold">
-                                                    <span className="material-symbols-outlined text-sm">check_circle</span>
-                                                </div>
-                                            )}
-                                        </button>
-                                    ))}
-                                </div>
-
-                                {/* Next Button */}
-                                <div className="mt-6 flex justify-end">
-                                    <button
-                                        onClick={() => setActiveStep(1)}
-                                        disabled={!selections.vessel}
-                                        className={`flex items-center gap-2 px-6 py-3 rounded-full text-sm font-bold uppercase tracking-widest transition-all ${selections.vessel
-                                            ? 'bg-[#1D1D1F] text-white hover:bg-[#2D2D2F]'
-                                            : 'bg-gray-200 text-gray-400 cursor-not-allowed'
-                                            }`}
-                                    >
-                                        Next: Fitment
-                                        <i className="ph-thin ph-arrow-right text-lg" />
-                                    </button>
-                                </div>
-                            </div>
-                        )}
-
-                        {/* Step 2: Fitment (Roller/Sprayer Type) */}
-                        {activeStep === 1 && (
-                            <div className="animate-fade-in">
-                                <h2 className="text-lg md:text-xl font-serif text-[#1D1D1F] dark:text-white mb-4">
-                                    Select {activeFamilyId === 'roll-on' ? 'Roller' : activeFamilyId === 'spray' ? 'Sprayer' : 'Atomizer'} Type
-                                </h2>
-                                <div className="space-y-3">
-                                    {productData.rollerOptions.map((fitment: any) => (
-                                        <button
-                                            key={fitment.id}
-                                            onClick={() => setSelections(prev => ({ ...prev, fitment: fitment }))}
-                                            className={`w-full p-4 md:p-5 rounded-xl border flex items-center justify-between transition-all group hover:shadow-md ${selections.fitment?.id === fitment.id
-                                                ? 'bg-white dark:bg-white/10 border-gold shadow-sm ring-2 ring-gold'
-                                                : 'bg-white dark:bg-white/5 border-gray-200 dark:border-gray-700 hover:border-gray-300'
-                                                }`}
-                                        >
-                                            <div className="flex items-center gap-4">
-                                                <div className={`w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center transition-colors ${selections.fitment?.id === fitment.id ? 'bg-gold text-white' : 'bg-gray-100 dark:bg-white/5 text-gray-400'
-                                                    }`}>
-                                                    <span className="material-symbols-outlined text-xl md:text-2xl">
-                                                        {activeFamilyId === 'roll-on' ? (fitment.type === 'metal' ? 'radio_button_checked' : 'radio_button_unchecked') : 'tune'}
-                                                    </span>
-                                                </div>
-                                                <div className="text-left">
-                                                    <span className="block text-sm md:text-base font-bold text-[#1D1D1F] dark:text-white">{fitment.name}</span>
-                                                    <span className="block text-[10px] md:text-xs text-gray-500 dark:text-gray-400">{fitment.description}</span>
-                                                </div>
-                                            </div>
-                                            <div className="text-sm font-bold text-[#1D1D1F] dark:text-white">
-                                                {fitment.priceModifier === 0 ? 'Standard' : `+$${fitment.priceModifier.toFixed(2)}`}
-                                            </div>
-                                        </button>
-                                    ))}
-                                </div>
-
-                                {/* Navigation Buttons */}
-                                <div className="mt-6 flex justify-between">
-                                    <button
-                                        onClick={() => setActiveStep(0)}
-                                        className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-500 hover:text-[#1D1D1F] transition-colors"
-                                    >
-                                        <i className="ph-thin ph-arrow-left text-lg" />
-                                        Back
-                                    </button>
-                                    <button
-                                        onClick={() => setActiveStep(2)}
-                                        disabled={!selections.fitment}
-                                        className={`flex items-center gap-2 px-6 py-3 rounded-full text-sm font-bold uppercase tracking-widest transition-all ${selections.fitment
-                                            ? 'bg-[#1D1D1F] text-white hover:bg-[#2D2D2F]'
-                                            : 'bg-gray-200 text-gray-400 cursor-not-allowed'
-                                            }`}
-                                    >
-                                        Next: Cap
-                                        <i className="ph-thin ph-arrow-right text-lg" />
-                                    </button>
-                                </div>
-                            </div>
-                        )}
-
-                        {/* Step 3: Cap */}
-                        {activeStep === 2 && (
-                            <div className="animate-fade-in">
-                                <h2 className="text-lg md:text-xl font-serif text-[#1D1D1F] dark:text-white mb-2">Select Cap Style</h2>
-                                <p className="text-[10px] text-gray-400 mb-4 flex items-center gap-1">
-                                    <i className="ph-thin ph-circle-fill text-green-500" /> All caps update the live preview
-                                </p>
-                                <div className="grid grid-cols-3 md:grid-cols-4 gap-2 md:gap-3">
-                                    {productData.capOptions.map((cap) => (
-                                        <button
-                                            key={cap.id}
-                                            onClick={() => setSelections(prev => ({ ...prev, closure: cap }))}
-                                            className={`group relative aspect-square bg-white dark:bg-white/5 rounded-xl border transition-all p-2 flex flex-col items-center justify-center gap-1 hover:shadow-md ${selections.closure?.id === cap.id
-                                                ? 'border-gold ring-2 ring-gold'
-                                                : 'border-gray-200 dark:border-gray-700 hover:border-gray-300'
-                                                }`}
-                                        >
-                                            {cap.hasCompositeImage && (
-                                                <div className="absolute top-1 right-1 w-2 h-2 bg-green-500 rounded-full" />
-                                            )}
-                                            <img
-                                                src={cap.imageUrl}
-                                                className="h-10 md:h-12 object-contain"
-                                                alt={cap.name}
-                                                onError={(e) => {
-                                                    const target = e.target as HTMLImageElement;
-                                                    target.style.display = 'none';
-                                                }}
-                                            />
-                                            <span className="text-[8px] md:text-[9px] font-medium text-gray-600 dark:text-gray-300 text-center leading-tight">
-                                                {cap.name}
-                                            </span>
-                                            {selections.closure?.id === cap.id && (
-                                                <div className="absolute top-1 left-1 text-gold">
-                                                    <span className="material-symbols-outlined text-xs">check_circle</span>
-                                                </div>
-                                            )}
-                                        </button>
-                                    ))}
-                                </div>
-
-                                {/* Back Button */}
-                                <div className="mt-6 flex justify-start">
-                                    <button
-                                        onClick={() => setActiveStep(1)}
-                                        className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-500 hover:text-[#1D1D1F] transition-colors"
-                                    >
-                                        <i className="ph-thin ph-arrow-left text-lg" />
-                                        Back
-                                    </button>
-                                </div>
-                            </div>
-                        )}
-
-                    </div>
-
-                    {/* Mobile Add to Cart */}
-                    <div className="md:hidden fixed bottom-0 left-0 right-0 bg-white dark:bg-[#1D1D1F] border-t border-gray-200 dark:border-gray-700 p-4 flex items-center justify-between z-30">
-                        <div>
-                            <span className="block text-[10px] text-gray-400 uppercase">Total</span>
-                            <span className="block text-xl font-serif text-[#1D1D1F] dark:text-white">${calculateTotal()}</span>
-                        </div>
-                        <div className="flex items-center gap-2">
-                            <button
-                                onClick={() => setShowVisualizeModal(true)}
-                                className="border border-gold text-gold p-3 rounded-full hover:bg-gold/10 transition-all"
-                            >
-                                <i className="ph-thin ph-eye text-lg" />
-                            </button>
-                            <button
-                                onClick={handleFinishKit}
-                                className="bg-[#1D1D1F] dark:bg-white text-white dark:text-[#1D1D1F] px-6 py-3 rounded-full text-xs font-bold uppercase tracking-widest"
-                            >
-                                Add to Cart
-                            </button>
-                        </div>
-                    </div>
+                <div className="flex-1 overflow-y-auto">
+                    <Specialist_ProductBuilder
+                        productSlug="5ml-cylinder-master"
+                        onAddToCart={(product, qty) => {
+                            onAddToCart?.(product, qty);
+                            // After adding, show confirmation in chat
+                            setMessages(prev => [...prev, {
+                                role: 'assistant',
+                                showCartSummary: {
+                                    quantity: qty,
+                                    name: product.name,
+                                    price: `$${(product.price * qty).toFixed(2)}`
+                                },
+                                text: "Excellent choice! I've added that to your order. What else would you like to explore?",
+                                showCategories: true
+                            }]);
+                            setMode('brief');
+                        }}
+                    />
                 </div>
             </div>
+        );
+    }
 
-            {/* Visualize Modal */}
-            <VisualizeModal
-                isOpen={showVisualizeModal}
-                onClose={() => setShowVisualizeModal(false)}
-                productImage={getCompositeImageUrl()}
-                productName={productData.categoryName}
-                labelSpecs={productData.labelSpecs}
-                labelPartners={productData.labelPartners}
-                onContinueToCart={() => {
-                    setShowVisualizeModal(false);
-                    handleFinishKit();
-                }}
-            />
-        </div>
-    );
+    return null;
 };
 
 export default ConsultationPage;

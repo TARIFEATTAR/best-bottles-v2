@@ -68,7 +68,7 @@ export interface ProjectDraft {
 }
 
 const App: React.FC = () => {
-  const [view, setView] = useState<'home' | 'detail' | 'roll-on-detail' | 'consultation' | 'collections' | 'collection-detail' | 'custom' | 'journal' | 'packaging-ideas' | 'concierge' | 'contact' | 'signup' | 'contract-packaging' | 'checkout' | 'label-generator' | 'features' | 'bottle-blueprint' | 'blueprint-builder-v2' | 'test-shopify' | 'mvp-builder'>('home');
+  const [view, setView] = useState<'home' | 'detail' | 'roll-on-detail' | 'consultation' | 'collections' | 'collection-detail' | 'custom' | 'journal' | 'packaging-ideas' | 'concierge' | 'contact' | 'signup' | 'contract-packaging' | 'checkout' | 'label-generator' | 'features' | 'bottle-blueprint' | 'blueprint-builder-v2' | 'test-shopify' | 'mvp-builder' | 'mvp-spray'>('home');
 
   const [cartItems, setCartItems] = useState<{ product: any, quantity: number }[]>([]);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
@@ -97,6 +97,8 @@ const App: React.FC = () => {
         setView('blueprint-builder-v2');
       } else if (path.includes('/test-shopify')) {
         setView('test-shopify');
+      } else if (path.includes('/demo/mvp-spray')) {
+        setView('mvp-spray');
       } else if (path.includes('/demo/mvp')) {
         setView('mvp-builder');
       } else if (path === '/' || path === '') {
@@ -257,7 +259,8 @@ const App: React.FC = () => {
       case 'bottle-blueprint': return <BottleBlueprintDemo />;
       case 'blueprint-builder-v2': return <BlueprintBuilderV2 onAddToCart={addToCart} />;
       case 'test-shopify': return <ShopifyDebugger />;
-      case 'mvp-builder': return <MVP_ProductBuilder productSlug="9ml-roll-on-bottle" onAddToCart={addToCart} />;
+      case 'mvp-builder': return <MVP_ProductBuilder productSlug="5ml-cylinder-collection" onAddToCart={addToCart} />;
+      case 'mvp-spray': return <MVP_ProductBuilder productSlug="5ml-spray-collection" onAddToCart={addToCart} />;
 
       default: return <ModernHome />;
     }

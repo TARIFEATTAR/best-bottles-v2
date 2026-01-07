@@ -8,6 +8,7 @@ export interface ProductConfig {
   defaultGlass: {
     _id: string;
     name: string;
+    skuPart?: string;
     layerImageUrl: string;
     previewSwatchUrl?: string;
     priceModifier: number;
@@ -16,6 +17,7 @@ export interface ProductConfig {
   glassOptions: {
     _id: string;
     name: string;
+    skuPart?: string;
     layerImageUrl: string;
     previewSwatchUrl?: string;
     priceModifier: number;
@@ -24,19 +26,20 @@ export interface ProductConfig {
   fitmentVariants: {
     _id: string;
     name: string;
+    skuPart?: string;
     type: string;
     details: string;
     layerImageUrl?: string;
+    overcapImageUrl?: string;
     previewSwatchUrl?: string;
   }[];
   capOptions: {
     _id: string;
     name: string;
+    skuPart?: string;
     layerImageUrl: string;
     previewSwatchUrl?: string;
     priceModifier: number;
-    assemblyOffsetY: number;
-    assemblyOffsetX: number;
     finish: string;
   }[];
   basePrice?: number;
@@ -54,6 +57,7 @@ const PRODUCT_QUERY = `*[_type == "product" && slug.current == $slug][0] {
     defaultGlass->{
       _id,
       name,
+      skuPart,
       "layerImageUrl": layerImage.asset->url,
       "previewSwatchUrl": previewSwatch.asset->url,
       priceModifier,
@@ -63,6 +67,7 @@ const PRODUCT_QUERY = `*[_type == "product" && slug.current == $slug][0] {
     glassOptions[]->{
       _id,
       name,
+      skuPart,
       "layerImageUrl": layerImage.asset->url,
       "previewSwatchUrl": previewSwatch.asset->url,
       priceModifier,
@@ -72,18 +77,19 @@ const PRODUCT_QUERY = `*[_type == "product" && slug.current == $slug][0] {
     fitmentVariants[]->{
       _id,
       name,
+      skuPart,
       type,
       "layerImageUrl": layerImage.asset->url,
+      "overcapImageUrl": overcapImage.asset->url,
       "previewSwatchUrl": previewSwatch.asset->url
     },
 
     capOptions[]->{
       _id,
       name,
+      skuPart,
       "layerImageUrl": layerImage.asset->url,
       "previewSwatchUrl": previewSwatch.asset->url,
-      assemblyOffsetY,
-      assemblyOffsetX,
       priceModifier,
       finish
     }
