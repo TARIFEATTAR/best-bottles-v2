@@ -71,16 +71,26 @@ async function syncAssets() {
     console.log(`📦 Found ${records?.length || 0} completed records in Supabase.`);
 
     for (const rec of records) {
-        const mapping = MAPPING[rec.sku];
-        if (!mapping) continue;
+        let mapping = MAPPING[rec.sku];
+        let docs = [];
 
-        console.log(`\n🔄 Syncing ${rec.sku} -> Sanity ${mapping.type}...`);
+        if (mapping) {
+            console.log(`\n🔄 Syncing ${rec.sku} -> Sanity ${mapping.type} (via MAPPING)...`);
+            const query = `*[_type == $type && (name in $names || title in $names || label in $names)]`;
+            docs = await sanity.fetch(query, { type: mapping.type, names: mapping.names });
+        } else {
+            // Try Dynamic SKU Match for Products
+            console.log(`\n🔍 Searching for Sanity product with SKU: ${rec.sku}...`);
+            const product = await sanity.fetch('*[_type == "product" && sku == $sku][0]', { sku: rec.sku });
+            if (product) {
+                console.log(`  ✅ Found Product: ${product.title}`);
+                mapping = { names: [product.title], type: 'product', field: 'heroImage' };
+                docs = [product];
+            }
+        }
 
-        const query = `*[_type == $type && (name in $names || title in $names || label in $names)]`;
-        const docs = await sanity.fetch(query, { type: mapping.type, names: mapping.names });
-
-        if (docs.length === 0) {
-            console.warn(`  ⚠️ No Sanity documents found for type ${mapping.type} and names: ${mapping.names.join(', ')}`);
+        if (!mapping || docs.length === 0) {
+            console.warn(`  ⚠️ No mapping or Sanity documents found for SKU: ${rec.sku}`);
             continue;
         }
 
@@ -102,7 +112,7 @@ async function syncAssets() {
             });
 
             for (const doc of docs) {
-                console.log(`  📝 Patching doc ${doc._id} [${doc.name || doc.title || doc.label}]...`);
+                console.log(`  📝 Patching doc ${doc._id} [${doc.name || doc.title || doc.sku}] field ${mapping.field}...`);
                 await sanity
                     .patch(doc._id)
                     .set({
@@ -114,7 +124,7 @@ async function syncAssets() {
                     .commit();
             }
             console.log(`  🎉 Success for ${rec.sku}`);
-        } catch (err) {
+        } catch (err: any) {
             console.error(`  ❌ Failed for ${rec.sku}:`, err.message);
         }
     }

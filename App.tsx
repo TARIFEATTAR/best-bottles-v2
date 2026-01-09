@@ -68,7 +68,7 @@ export interface ProjectDraft {
 }
 
 const App: React.FC = () => {
-  const [view, setView] = useState<'home' | 'detail' | 'roll-on-detail' | 'consultation' | 'collections' | 'collection-detail' | 'custom' | 'journal' | 'packaging-ideas' | 'concierge' | 'contact' | 'signup' | 'contract-packaging' | 'checkout' | 'label-generator' | 'features' | 'bottle-blueprint' | 'blueprint-builder-v2' | 'test-shopify' | 'mvp-builder' | 'mvp-spray'>('home');
+  const [view, setView] = useState<'home' | 'detail' | 'roll-on-detail' | 'consultation' | 'collections' | 'collection-detail' | 'custom' | 'journal' | 'packaging-ideas' | 'concierge' | 'contact' | 'signup' | 'contract-packaging' | 'checkout' | 'label-generator' | 'features' | 'bottle-blueprint' | 'blueprint-builder-v2' | 'test-shopify' | 'mvp-builder' | 'mvp-spray' | 'mvp-amber-collection' | 'clean-architecture'>('home');
 
   const [cartItems, setCartItems] = useState<{ product: any, quantity: number }[]>([]);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
@@ -99,6 +99,10 @@ const App: React.FC = () => {
         setView('test-shopify');
       } else if (path.includes('/demo/mvp-spray')) {
         setView('mvp-spray');
+      } else if (path.includes('/demo/5ml-amber-collection')) {
+        setView('mvp-amber-collection');
+      } else if (path.includes('/demo/clean-architecture')) {
+        setView('clean-architecture');
       } else if (path.includes('/demo/mvp')) {
         setView('mvp-builder');
       } else if (path === '/' || path === '') {
@@ -260,7 +264,9 @@ const App: React.FC = () => {
       case 'blueprint-builder-v2': return <BlueprintBuilderV2 onAddToCart={addToCart} />;
       case 'test-shopify': return <ShopifyDebugger />;
       case 'mvp-builder': return <MVP_ProductBuilder productSlug="5ml-cylinder-collection" onAddToCart={addToCart} />;
-      case 'mvp-spray': return <MVP_ProductBuilder productSlug="5ml-spray-collection" onAddToCart={addToCart} />;
+      case 'mvp-spray': return <MVP_ProductBuilder productSlug="5ml-cylinder-spray-collection" onAddToCart={addToCart} />;
+      case 'mvp-amber-collection': return <MVP_ProductBuilder productSlug="5ml-amber-collection" onAddToCart={addToCart} />;
+      case 'clean-architecture': return <MVP_ProductBuilder productSlug="5ml-cylinder-roller-collection" onAddToCart={addToCart} />;
 
       default: return <ModernHome />;
     }

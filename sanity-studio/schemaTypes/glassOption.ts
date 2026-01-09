@@ -1,4 +1,4 @@
-import { defineField, defineType } from 'sanity'
+import { defineType, defineField } from 'sanity'
 
 export const glassOption = defineType({
     name: 'glassOption',
@@ -6,7 +6,7 @@ export const glassOption = defineType({
     type: 'document',
     fields: [
         defineField({
-            name: 'name', // Using 'name' as per request, mapped to title in UI usually
+            name: 'name',
             title: 'Name',
             type: 'string',
             validation: (Rule) => Rule.required(),
@@ -15,39 +15,41 @@ export const glassOption = defineType({
             name: 'skuPart',
             title: 'SKU Part',
             type: 'string',
-            description: 'The unique SKU fragment for this glass color (e.g. "GBCylAmb"). Used to generate the final product SKU.',
+            description: 'The SKU component for this glass option',
         }),
         defineField({
-            name: 'previewSwatch',
-            title: 'Preview Swatch',
-            type: 'image',
-            options: { hotspot: true },
+            name: 'image_url',
+            title: 'Image URL',
+            type: 'url',
+            description: 'Direct URL to the image stored in Supabase',
+            validation: (Rule) =>
+                Rule.uri({
+                    scheme: ['http', 'https'],
+                }),
         }),
         defineField({
-            name: 'layerImage',
-            title: 'Layer Image (Base Bottle)',
-            type: 'image',
-            description: 'The base bottle image (2000x2000 transparent PNG).',
-            options: { hotspot: true },
-            validation: (Rule) => Rule.required(),
+            name: 'description',
+            title: 'Description',
+            type: 'text',
+            rows: 3,
         }),
         defineField({
-            name: 'price',
-            title: 'Price (Legacy)',
+            name: 'sortOrder',
+            title: 'Sort Order',
             type: 'number',
-            hidden: true,
-        }),
-        defineField({
-            name: 'priceModifier',
-            title: 'Price Modifier',
-            type: 'number',
-            initialValue: 0,
+            description: 'Used for ordering in lists',
         }),
     ],
     preview: {
         select: {
             title: 'name',
-            media: 'layerImage',
+            subtitle: 'skuPart',
+        },
+        prepare({ title, subtitle }) {
+            return {
+                title: title || 'Untitled Glass Option',
+                subtitle: subtitle,
+            }
         },
     },
 })

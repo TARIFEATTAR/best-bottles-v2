@@ -1,4 +1,4 @@
-import { defineField, defineType } from 'sanity'
+import { defineType, defineField } from 'sanity'
 
 export const fitmentVariant = defineType({
     name: 'fitmentVariant',
@@ -10,48 +10,93 @@ export const fitmentVariant = defineType({
             title: 'Name',
             type: 'string',
             validation: (Rule) => Rule.required(),
+            description: 'e.g., "18-415 Roll-On", "20-400 Dropper"',
         }),
         defineField({
             name: 'skuPart',
             title: 'SKU Part',
             type: 'string',
-            description: 'The unique SKU fragment for this mech (e.g. "MtlRoll"). Used to generate the final product SKU.',
+            description: 'The SKU component for this fitment',
         }),
         defineField({
-            name: 'type',
-            title: 'Type',
+            name: 'image_url',
+            title: 'Image URL',
+            type: 'url',
+            description: 'Direct URL to the image stored in Supabase',
+            validation: (Rule) =>
+                Rule.uri({
+                    scheme: ['http', 'https'],
+                }),
+        }),
+        defineField({
+            name: 'overcap_url',
+            title: 'Overcap URL',
+            type: 'url',
+            hidden: true
+        }),
+        defineField({
+            name: 'assembly_offset_x',
+            type: 'number',
+            hidden: true
+        }),
+        defineField({
+            name: 'assembly_offset_y',
+            type: 'number',
+            hidden: true
+        }),
+        defineField({
+            name: 'neckFinish',
+            title: 'Neck Finish',
+            type: 'string',
+            description: 'Standard neck finish size (e.g., 18-415, 20-400, 24-410)',
+        }),
+        defineField({
+            name: 'fitmentType',
+            title: 'Fitment Type',
             type: 'string',
             options: {
                 list: [
-                    { title: 'Roller', value: 'Roller' },
-                    { title: 'Spray', value: 'Spray' },
-                    { title: 'Pump', value: 'Pump' },
-                    { title: 'Dropper', value: 'Dropper' },
-                    { title: 'Reducer', value: 'Reducer' },
+                    { title: 'Roll-On Ball', value: 'roll-on' },
+                    { title: 'Dropper', value: 'dropper' },
+                    { title: 'Spray Pump', value: 'spray' },
+                    { title: 'Lotion Pump', value: 'lotion-pump' },
+                    { title: 'Screw Cap', value: 'screw-cap' },
+                    { title: 'Plug', value: 'plug' },
+                    { title: 'Stopper', value: 'stopper' },
                 ],
             },
-            validation: (Rule) => Rule.required(),
         }),
         defineField({
-            name: 'layerImage',
-            title: 'Layer Image (Mechanism)',
-            type: 'image',
-            description: 'OPTIONAL: Independent image for the mechanism (e.g., the roller ball itself). If undefined, assumes mechanism is part of the Glass layer.',
-            options: { hotspot: true },
+            name: 'material',
+            title: 'Material',
+            type: 'string',
+            description: 'e.g., Steel, Plastic, Glass',
         }),
         defineField({
-            name: 'overcapImage',
-            title: 'Overcap Image (Spray Only)',
-            type: 'image',
-            description: 'OPTIONAL: For spray mechanisms, the decorative overcap that covers the pump. When set, this replaces the user-selected cap.',
-            options: { hotspot: true },
+            name: 'compatibleGlassOptions',
+            title: 'Compatible Glass Options',
+            type: 'array',
+            of: [{ type: 'reference', to: [{ type: 'glassOption' }] }],
+            description: 'Glass bottles this fitment works with',
+        }),
+        defineField({
+            name: 'sortOrder',
+            title: 'Sort Order',
+            type: 'number',
+            description: 'Used for ordering in lists',
         }),
     ],
     preview: {
         select: {
             title: 'name',
-            subtitle: 'type',
-            media: 'layerImage',
+            subtitle: 'neckFinish',
+            fitmentType: 'fitmentType',
+        },
+        prepare({ title, subtitle, fitmentType }) {
+            return {
+                title: title || 'Untitled Fitment',
+                subtitle: [subtitle, fitmentType].filter(Boolean).join(' • '),
+            }
         },
     },
 })

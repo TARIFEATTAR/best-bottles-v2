@@ -225,6 +225,25 @@ export const Specialist_ProductBuilder: React.FC<Props> = ({
                                         </button>
                                     </div>
 
+                                    {/* USAGE PROFILE BADGE */}
+                                    <div className="mb-4 p-3 bg-blue-50/50 rounded-lg flex items-start gap-3 border border-blue-100/50">
+                                        <div className="mt-0.5 p-1 bg-white rounded-full shadow-sm">
+                                            <span className="material-symbols-outlined text-blue-600 text-[14px] block">
+                                                {isSprayFitment ? 'humidity_mid' : 'opacity'}
+                                            </span>
+                                        </div>
+                                        <div>
+                                            <h4 className="text-[9px] font-bold uppercase tracking-widest text-blue-900 mb-0.5">
+                                                {isSprayFitment ? 'Application Profile: Fine Mist' : 'Application Profile: Glide'}
+                                            </h4>
+                                            <p className="text-[9px] text-blue-700/80 leading-relaxed font-light">
+                                                {isSprayFitment
+                                                    ? 'Optimized for low-viscosity alcohol or water-based formulas. Creates a fine, consistent mist.'
+                                                    : 'Optimized for high-viscosity oil-based perfumes and serums. Delivers a controlled, silky application.'}
+                                            </p>
+                                        </div>
+                                    </div>
+
                                     {/* OPTIONS GRID */}
                                     <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                                         {(isSprayFitment ? categorizedFitments.sprayers : categorizedFitments.rollers).map(fitment => (

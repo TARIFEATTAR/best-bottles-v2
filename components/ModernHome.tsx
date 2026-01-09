@@ -154,8 +154,8 @@ export const ModernHome: React.FC<ModernHomeProps> = ({
     const heroDesc = hasSanityOverride ? sanityData.hero?.description : t.hero.desc;
 
     const btnExplore = hasSanityOverride ? sanityData.hero?.exploreButtonText : t.hero.explore;
-    const btnBlueprint = hasSanityOverride ? sanityData.hero?.startButtonText : "Blueprint V2";
-    const btnDemo = hasSanityOverride ? sanityData.hero?.highFiButtonText : "High-Fi Paper Doll";
+    const btnBlueprint = hasSanityOverride ? sanityData.hero?.startButtonText : "5ml Spray Collection";
+    const btnDemo = hasSanityOverride ? sanityData.hero?.highFiButtonText : "5ml Roller Collection";
 
     const aspectRatio = sanityData?.hero?.aspectRatio || 'fullscreen';
 
@@ -260,23 +260,26 @@ export const ModernHome: React.FC<ModernHomeProps> = ({
                                 )}
                                 {btnBlueprint && (
                                     <button
-                                        onClick={onBlueprintClick}
+                                        onClick={() => {
+                                            window.history.pushState({}, '', '/demo/mvp-spray');
+                                            window.dispatchEvent(new Event('popstate'));
+                                        }}
                                         className="backdrop-blur-md bg-white/10 border border-white/20 text-white px-8 py-5 rounded-md text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-white hover:text-[#1D1D1F] transition-all min-w-[200px] hover:scale-[1.02] active:scale-95 duration-300 flex items-center justify-center gap-2"
                                     >
-                                        <span className="material-symbols-outlined text-sm">architecture</span>
+                                        <span className="material-symbols-outlined text-sm">water_drop</span>
                                         {btnBlueprint}
                                     </button>
                                 )}
                                 {btnDemo && (
                                     <button
                                         onClick={() => {
-                                            // Trigger custom navigation to MVP builder (Paper Doll)
-                                            window.history.pushState({}, '', '/demo/mvp');
+                                            // Trigger custom navigation to 5ml Roller Demo
+                                            window.history.pushState({}, '', '/demo/clean-architecture');
                                             window.dispatchEvent(new Event('popstate'));
                                         }}
                                         className="bg-[#C5A065] text-white px-8 py-5 rounded-md text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-white hover:text-[#1D1D1F] transition-all min-w-[200px] hover:scale-[1.02] active:scale-95 duration-300 flex items-center justify-center gap-3 border border-[#C5A065]"
                                     >
-                                        <span className="material-symbols-outlined text-sm">view_in_ar</span>
+                                        <span className="material-symbols-outlined text-sm">commit</span>
                                         {btnDemo}
                                     </button>
                                 )}

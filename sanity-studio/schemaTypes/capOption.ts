@@ -1,4 +1,4 @@
-import { defineField, defineType } from 'sanity'
+import { defineType, defineField } from 'sanity'
 
 export const capOption = defineType({
     name: 'capOption',
@@ -12,37 +12,68 @@ export const capOption = defineType({
             validation: (Rule) => Rule.required(),
         }),
         defineField({
-            name: 'previewSwatch',
-            title: 'Preview Swatch',
-            type: 'image',
-            options: { hotspot: true },
-            description: 'Small texture pattern used for simple color buttons (optional).',
-        }),
-        defineField({
-            name: 'layerImage',
-            title: 'Layer Image (Cap)',
-            type: 'image',
-            description: 'The cap image (2000x2000 transparent PNG).',
-            options: { hotspot: true },
-            validation: (Rule) => Rule.required(),
-        }),
-        defineField({
             name: 'skuPart',
             title: 'SKU Part',
             type: 'string',
-            description: 'The unique SKU fragment for this cap (e.g. "GlSh"). Used to generate the final product SKU.',
+            description: 'The SKU component for this cap option',
         }),
         defineField({
-            name: 'finish',
-            title: 'Finish (Legacy)',
+            name: 'image_url',
+            title: 'Image URL',
+            type: 'url',
+            description: 'Direct URL to the image stored in Supabase',
+            validation: (Rule) =>
+                Rule.uri({
+                    scheme: ['http', 'https'],
+                }),
+        }),
+        defineField({
+            name: 'color',
+            title: 'Color',
             type: 'string',
-            hidden: true,
+            description: 'Cap color (e.g., Black, Gold, Silver)',
+        }),
+        defineField({
+            name: 'material',
+            title: 'Material',
+            type: 'string',
+            description: 'Cap material (e.g., Plastic, Metal, Aluminum)',
+        }),
+        defineField({
+            name: 'compatibleFitments',
+            title: 'Compatible Fitments',
+            type: 'array',
+            of: [{ type: 'reference', to: [{ type: 'fitmentVariant' }] }],
+            description: 'Fitment sizes this cap works with',
+        }),
+        defineField({
+            name: 'sortOrder',
+            title: 'Sort Order',
+            type: 'number',
+            description: 'Used for ordering in lists',
+        }),
+        defineField({
+            name: 'assembly_offset_x',
+            type: 'number',
+            hidden: true
+        }),
+        defineField({
+            name: 'assembly_offset_y',
+            type: 'number',
+            hidden: true
         }),
     ],
     preview: {
         select: {
             title: 'name',
-            media: 'layerImage',
+            subtitle: 'skuPart',
+            color: 'color',
+        },
+        prepare({ title, subtitle, color }) {
+            return {
+                title: title || 'Untitled Cap Option',
+                subtitle: [subtitle, color].filter(Boolean).join(' • '),
+            }
         },
     },
 })

@@ -32,6 +32,8 @@ export interface ProductConfig {
     layerImageUrl?: string;
     overcapImageUrl?: string;
     previewSwatchUrl?: string;
+    assembly_offset_x?: number;
+    assembly_offset_y?: number;
   }[];
   capOptions: {
     _id: string;
@@ -41,6 +43,8 @@ export interface ProductConfig {
     previewSwatchUrl?: string;
     priceModifier: number;
     finish: string;
+    assembly_offset_x?: number;
+    assembly_offset_y?: number;
   }[];
   basePrice?: number;
   shopifyProductId?: string;
@@ -58,7 +62,7 @@ const PRODUCT_QUERY = `*[_type == "product" && slug.current == $slug][0] {
       _id,
       name,
       skuPart,
-      "layerImageUrl": layerImage.asset->url,
+      "layerImageUrl": coalesce(layerImage.asset->url, image_url),
       "previewSwatchUrl": previewSwatch.asset->url,
       priceModifier,
       hexColor
@@ -68,8 +72,8 @@ const PRODUCT_QUERY = `*[_type == "product" && slug.current == $slug][0] {
       _id,
       name,
       skuPart,
-      "layerImageUrl": layerImage.asset->url,
-      "previewSwatchUrl": previewSwatch.asset->url,
+      "layerImageUrl": coalesce(layerImage.asset->url, image_url),
+      "previewSwatchUrl": coalesce(previewSwatch.asset->url, image_url),
       priceModifier,
       hexColor
     },
@@ -79,19 +83,23 @@ const PRODUCT_QUERY = `*[_type == "product" && slug.current == $slug][0] {
       name,
       skuPart,
       type,
-      "layerImageUrl": layerImage.asset->url,
-      "overcapImageUrl": overcapImage.asset->url,
-      "previewSwatchUrl": previewSwatch.asset->url
+      "layerImageUrl": coalesce(layerImage.asset->url, image_url),
+      "overcapImageUrl": coalesce(overcapImage.asset->url, overcap_url),
+      "previewSwatchUrl": coalesce(previewSwatch.asset->url, image_url),
+      assembly_offset_x,
+      assembly_offset_y
     },
 
     capOptions[]->{
       _id,
       name,
       skuPart,
-      "layerImageUrl": layerImage.asset->url,
-      "previewSwatchUrl": previewSwatch.asset->url,
+      "layerImageUrl": coalesce(layerImage.asset->url, image_url),
+      "previewSwatchUrl": coalesce(previewSwatch.asset->url, image_url),
       priceModifier,
-      finish
+      finish,
+      assembly_offset_x,
+      assembly_offset_y
     }
   }`;
 
