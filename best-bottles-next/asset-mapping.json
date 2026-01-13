@@ -1,0 +1,129 @@
+{
+  "generatedAt": "2025-12-25T08:10:43.272Z",
+  "projectId": "gv4os6ef",
+  "dataset": "production",
+  "bottles": [
+    {
+      "name": "Clear Glass",
+      "color": "clear",
+      "assetId": "image-8bbf8716285d6dde4ed44611a76f3400d530adbf-360x480-png",
+      "originalId": "cyl-9ml-clear"
+    },
+    {
+      "name": "Amber Glass",
+      "color": "amber",
+      "assetId": "image-5757e4a52553f61a3d77e432eed5c8820b9b8821-360x480-png",
+      "originalId": "cyl-9ml-amber"
+    },
+    {
+      "name": "Cobalt Blue Glass",
+      "color": "cobalt blue",
+      "assetId": "image-b55cef9691e0084435792611a3f9e822e0a137cc-360x480-png",
+      "originalId": "cyl-9ml-blue"
+    },
+    {
+      "name": "Frosted Glass",
+      "color": "frosted",
+      "assetId": "image-342c8422b2d42282bc87de6117f64f152535475a-360x480-png",
+      "originalId": "cyl-9ml-frosted"
+    },
+    {
+      "name": "Swirl Pattern Glass",
+      "color": "swirl",
+      "assetId": "image-108531d68d79515e964d65b87c418804ad0586ea-360x480-png",
+      "originalId": "cyl-9ml-swirl"
+    }
+  ],
+  "caps": [
+    {
+      "name": "Black Dot",
+      "color": "#1a1a1a",
+      "finish": "shiny with dots",
+      "assetId": "image-7bef77b78a75eedc76edd7181aa9dc1c0e0f9fb4-68x71-png",
+      "originalId": "black-dot"
+    },
+    {
+      "name": "Gold Matte",
+      "color": "#B8860B",
+      "finish": "matte",
+      "assetId": "image-8ddfca348004c394fbd15f773dd2331380eda416-68x71-png",
+      "originalId": "gold-matte"
+    },
+    {
+      "name": "Silver Matte",
+      "color": "#A8A8A8",
+      "finish": "matte",
+      "assetId": "image-746bf608610be23f0ee050b298b39f15f0e08ac1-68x71-png",
+      "originalId": "silver-matte"
+    },
+    {
+      "name": "White",
+      "color": "#ffffff",
+      "finish": "matte",
+      "assetId": "image-3502961b8337f73f490d94701ad95f07e2f797aa-68x71-png",
+      "originalId": "white"
+    },
+    {
+      "name": "Pink Dot",
+      "color": "#FFB6C1",
+      "finish": "shiny with dots",
+      "assetId": "image-5cb631ae42d345ca7038304bf0f134821c2464f6-68x71-png",
+      "originalId": "pink-dot"
+    },
+    {
+      "name": "Gold Shiny",
+      "color": "#D4AF37",
+      "finish": "shiny",
+      "assetId": "image-5bc8bd80d57f52da33c707eab10d40c457baa4c2-68x71-png",
+      "originalId": "gold-shiny"
+    },
+    {
+      "name": "Silver Dot",
+      "color": "#C0C0C0",
+      "finish": "shiny with dots",
+      "assetId": "image-ffc5dca4bc337639fc06cdaffa1abd46af498738-68x71-png",
+      "originalId": "silver-dot"
+    },
+    {
+      "name": "Silver Shiny",
+      "color": "#C0C0C0",
+      "finish": "shiny",
+      "assetId": "image-0db5a3fe097146df4d01bbe611fa4307155537fc-68x71-png",
+      "originalId": "silver-shiny"
+    }
+  ],
+  "fitments": [
+    {
+      "name": "Metal Roller Ball",
+      "type": "metal",
+      "assetId": "image-8bbf8716285d6dde4ed44611a76f3400d530adbf-360x480-png",
+      "originalId": "metal-roller"
+    },
+    {
+      "name": "Plastic Roller Ball",
+      "type": "plastic",
+      "assetId": "image-750e6d25252c17e19cc41ba64714e71eb0e73d51-360x480-png",
+      "originalId": "plastic-roller"
+    }
+  ],
+  "errors": [
+    {
+      "type": "cap",
+      "id": "black-shiny",
+      "name": "Black Shiny",
+      "color": "#1a1a1a",
+      "finish": "shiny",
+      "imageUrl": "https://www.bestbottles.com/images/store/caps/17-415CpRollShBlk.png",
+      "error": "HTTP 404: Not Found"
+    },
+    {
+      "type": "cap",
+      "id": "copper-matte",
+      "name": "Copper Matte",
+      "color": "#B87333",
+      "finish": "matte",
+      "imageUrl": "https://www.bestbottles.com/images/store/caps/17-415CpRollMattCu.png",
+      "error": "HTTP 404: Not Found"
+    }
+  ]
+}
