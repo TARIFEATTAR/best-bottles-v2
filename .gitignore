@@ -30,3 +30,10 @@ lint_*.txt
 .env
 .env.local
 .env.*.local
+
+# Nested duplicate clone (stale copy - ignore)
+best-bottles-v2/
+
+# Office temp files
+.~lock.*
+*.~lock.*
