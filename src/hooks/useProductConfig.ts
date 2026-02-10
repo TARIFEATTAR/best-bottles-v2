@@ -1,0 +1,129 @@
+
+import { useEffect, useState } from 'react';
+import { client } from '../lib/sanity';
+
+export interface ProductConfig {
+  _id: string;
+  title: string;
+  defaultGlass: {
+    _id: string;
+    name: string;
+    skuPart?: string;
+    layerImageUrl: string;
+    previewSwatchUrl?: string;
+    priceModifier: number;
+    hexColor?: string;
+  };
+  glassOptions: {
+    _id: string;
+    name: string;
+    skuPart?: string;
+    layerImageUrl: string;
+    previewSwatchUrl?: string;
+    priceModifier: number;
+    hexColor?: string;
+  }[];
+  fitmentVariants: {
+    _id: string;
+    name: string;
+    skuPart?: string;
+    type: string;
+    details: string;
+    layerImageUrl?: string;
+    overcapImageUrl?: string;
+    previewSwatchUrl?: string;
+    assembly_offset_x?: number;
+    assembly_offset_y?: number;
+  }[];
+  capOptions: {
+    _id: string;
+    name: string;
+    skuPart?: string;
+    layerImageUrl: string;
+    previewSwatchUrl?: string;
+    priceModifier: number;
+    finish: string;
+    assembly_offset_x?: number;
+    assembly_offset_y?: number;
+  }[];
+  basePrice?: number;
+  shopifyProductId?: string;
+  sku?: string;
+}
+
+const PRODUCT_QUERY = `*[_type == "product" && slug.current == $slug][0] {
+    _id,
+    title,
+    basePrice,
+    shopifyProductId,
+    sku,
+    
+    defaultGlass->{
+      _id,
+      name,
+      skuPart,
+      "layerImageUrl": coalesce(layerImage.asset->url, image_url),
+      "previewSwatchUrl": previewSwatch.asset->url,
+      priceModifier,
+      hexColor
+    },
+    
+    glassOptions[]->{
+      _id,
+      name,
+      skuPart,
+      "layerImageUrl": coalesce(layerImage.asset->url, image_url),
+      "previewSwatchUrl": coalesce(previewSwatch.asset->url, image_url),
+      priceModifier,
+      hexColor
+    },
+
+    fitmentVariants[]->{
+      _id,
+      name,
+      skuPart,
+      type,
+      "layerImageUrl": coalesce(layerImage.asset->url, image_url),
+      "overcapImageUrl": coalesce(overcapImage.asset->url, overcap_url),
+      "previewSwatchUrl": coalesce(previewSwatch.asset->url, image_url),
+      assembly_offset_x,
+      assembly_offset_y
+    },
+
+    capOptions[]->{
+      _id,
+      name,
+      skuPart,
+      "layerImageUrl": coalesce(layerImage.asset->url, image_url),
+      "previewSwatchUrl": coalesce(previewSwatch.asset->url, image_url),
+      priceModifier,
+      finish,
+      assembly_offset_x,
+      assembly_offset_y
+    }
+  }`;
+
+export function useProductConfig(slug: string) {
+  const [product, setProduct] = useState<ProductConfig | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<null | Error>(null);
+
+  useEffect(() => {
+    if (!slug) return;
+
+    // Move state update to avoid synchronous cascading renders flagged by linter
+    setTimeout(() => setLoading(true), 0);
+    client.fetch(PRODUCT_QUERY, { slug })
+      .then((data) => {
+        setProduct(data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error("Failed to fetch product config:", err);
+        setError(err);
+        setLoading(false);
+      });
+  }, [slug]);
+
+  return { product, loading, error };
+}

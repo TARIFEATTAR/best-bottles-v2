@@ -1,0 +1,21 @@
+sku,product_name,bottle_shape,original_color,capacity_ml,cap_type,original_image_url,variations_needed
+GBCyl9MtlRollBlkDot,9ml Cylinder Roll-On Clear Glass with Metal Ball,cylinder,clear,9,metal_roll,https://www.bestbottles.com/images/store/enlarged_pics/GBCyl9MtlRollBlkDot.gif,frosted;amber;cobalt
+GBCylBlu9SpryBlk,9ml Cylinder Cobalt Blue Spray,cylinder,cobalt,9,spray_black,https://www.bestbottles.com/images/store/enlarged_pics/GBCylBlu9SpryBlk.gif,clear;amber;frosted
+GBCylAmb9SpryBlk,9ml Cylinder Amber Spray,cylinder,amber,9,spray_black,https://www.bestbottles.com/images/store/enlarged_pics/GBCylAmb9SpryBlk.gif,clear;cobalt;frosted
+GBCylFrst9SpryBlk,9ml Cylinder Frosted Spray,cylinder,frosted,9,spray_black,https://www.bestbottles.com/images/store/enlarged_pics/GBCylFrst9SpryBlk.gif,clear;amber;cobalt
+GBSqr15MtlRollBlkDot,15ml Square Roll-On Clear Glass,square,clear,15,metal_roll,https://www.bestbottles.com/images/store/enlarged_pics/GBSqr15MtlRollBlkDot.gif,frosted;amber;cobalt
+GBSqr15SpryBlkSh,15ml Square Clear Glass Spray,square,clear,15,spray_black,https://www.bestbottles.com/images/store/enlarged_pics/GBSqr15SpryBlkSh.gif,frosted;amber;cobalt
+GBRoyal13MtlRollBlkDot,13ml Royal Roll-On Clear Glass,royal,clear,13,metal_roll,https://www.bestbottles.com/images/store/enlarged_pics/GBRoyal13MtlRollBlkDot.gif,frosted;amber
+GBRoyal13SpryBlkSh,13ml Royal Clear Glass Spray,royal,clear,13,spray_black,https://www.bestbottles.com/images/store/enlarged_pics/GBRoyal13SpryBlkSh.gif,frosted;amber
+GBTulip6MtlRollBlkDot,6ml Tulip Roll-On Clear Glass,tulip,clear,6,metal_roll,https://www.bestbottles.com/images/store/enlarged_pics/GBTulip6MtlRollBlkDot.gif,frosted;amber
+GBTulip6SpryBlkSh,6ml Tulip Clear Glass Spray,tulip,clear,6,spray_black,https://www.bestbottles.com/images/store/enlarged_pics/GBTulip6SpryBlkSh.gif,frosted;amber
+GBBstnBlu1ozBlkCapSht,30ml Boston Round Cobalt Blue,boston_round,cobalt,30,screw_black,https://www.bestbottles.com/images/store/enlarged_pics/GBBstnBlu1ozBlkCapSht.gif,clear;amber
+GBBstnAmb15mlBlkCapSht,15ml Boston Round Amber,boston_round,amber,15,screw_black,https://www.bestbottles.com/images/store/enlarged_pics/GBBstnAmb15mlBlkCapSht.gif,clear;cobalt
+GBSlm30SpryBlk,30ml Slim Clear Glass Spray,slim,clear,30,spray_black,https://www.bestbottles.com/images/store/enlarged_pics/GBSlm30SpryBlk.gif,frosted;amber
+GBSlm50AnSpBlk,50ml Slim Amber Glass Spray,slim,amber,50,spray_black,https://www.bestbottles.com/images/store/enlarged_pics/GBSlm50AnSpBlk.gif,clear;cobalt
+LBCylBlu9LtnBlk,9ml Cylinder Cobalt Blue Lotion Pump,cylinder,cobalt,9,pump_black,https://www.bestbottles.com/images/store/enlarged_pics/LBCylBlu9LtnBlk.gif,clear;amber;frosted
+LBCylAmb9LtnBlk,9ml Cylinder Amber Lotion Pump,cylinder,amber,9,pump_black,https://www.bestbottles.com/images/store/enlarged_pics/LBCylAmb9LtnBlk.gif,clear;cobalt;frosted
+GB1ozApthBlue,30ml Apothecary Blue Glass Stopper,apothecary,blue,30,glass_stopper,https://www.bestbottles.com/images/store/enlarged_pics/GB1ozApthBlue.gif,clear;green
+GB1ozApth,30ml Apothecary Clear Glass Stopper,apothecary,clear,30,glass_stopper,https://www.bestbottles.com/images/store/enlarged_pics/GB1ozApth.gif,blue;green
+GB1ozApthGreen,30ml Apothecary Green Glass Stopper,apothecary,green,30,glass_stopper,https://www.bestbottles.com/images/store/enlarged_pics/GB1ozApthGreen.gif,clear;blue
+GBAtom10Gl,10ml Gold Atomizer,atomizer,gold,10,spray_gold,https://www.bestbottles.com/images/store/enlarged_pics/GBAtom10Gl.gif,silver;rose_gold

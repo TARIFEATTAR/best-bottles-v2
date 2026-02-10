@@ -1,0 +1,99 @@
+<!--
+  Master Bottle Outline WITH Cap
+  9ml Roll-On Bottle - Canonical Dimensions
+  
+  Height with cap: 83mm
+  Height without cap: 70mm
+  Diameter: 20mm
+  Neck thread: 17-415
+  
+  Coordinate system: 1 unit = 1mm
+  ViewBox centered for 20mm diameter bottle
+  Total canvas: 60 x 120 (padding included)
+-->
+<svg 
+  viewBox="0 0 60 120" 
+  xmlns="http://www.w3.org/2000/svg" 
+  fill="none"
+  stroke="#1a1a1a"
+  stroke-width="0.4"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <!-- Center offset: (60-20)/2 = 20 -->
+  <!-- Y offset from top: 18.5 (to center 83mm in 120 viewbox) -->
+  
+  <defs>
+    <!-- Clipping paths for overlays -->
+    <clipPath id="bottle-body-clip">
+      <path d="
+        M 20 31.5
+        L 20 98.5
+        Q 20 101.5 23 101.5
+        L 37 101.5
+        Q 40 101.5 40 98.5
+        L 40 31.5
+        Z
+      "/>
+    </clipPath>
+    
+    <clipPath id="cap-clip">
+      <path d="
+        M 20.5 18.5
+        L 20.5 31
+        L 39.5 31
+        L 39.5 18.5
+        Q 39.5 17.5 38.5 17.5
+        L 21.5 17.5
+        Q 20.5 17.5 20.5 18.5
+        Z
+      "/>
+    </clipPath>
+    
+    <clipPath id="roller-clip">
+      <circle cx="30" cy="28" r="4"/>
+    </clipPath>
+  </defs>
+  
+  <!-- ========== CAP (13mm tall) ========== -->
+  <!-- Cap outer shell -->
+  <rect 
+    x="20.5" y="17.5" 
+    width="19" height="13.5" 
+    rx="1" ry="1"
+    class="cap-outline"
+  />
+  <!-- Cap bottom edge detail -->
+  <line x1="20.5" y1="31" x2="39.5" y2="31" class="cap-detail"/>
+  
+  <!-- ========== NECK / ROLLER SEAT (visible above body) ========== -->
+  <!-- Neck ring (17-415 thread indication) -->
+  <ellipse cx="30" cy="31.5" rx="8" ry="1.5" class="neck-outline"/>
+  
+  <!-- ========== BOTTLE BODY (70mm tall, 20mm diameter) ========== -->
+  <!-- Main cylindrical body -->
+  <path 
+    d="
+      M 20 31.5
+      L 20 98.5
+      Q 20 101.5 23 101.5
+      L 37 101.5
+      Q 40 101.5 40 98.5
+      L 40 31.5
+    "
+    class="body-outline"
+  />
+  
+  <!-- Bottom radius detail -->
+  <line x1="23" y1="101.5" x2="37" y2="101.5" class="body-detail"/>
+  
+  <!-- ========== CENTER AXIS (drafting convention) ========== -->
+  <line 
+    x1="30" y1="14" x2="30" y2="105" 
+    stroke-dasharray="1.5 1" 
+    stroke-width="0.15"
+    opacity="0.3"
+    class="axis-line"
+  />
+  
+</svg>

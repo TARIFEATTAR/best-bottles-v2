@@ -1,0 +1,31 @@
+{
+  "name": "bottle-image-pipeline",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Automated bottle image enhancement pipeline for Best Bottles",
+  "scripts": {
+    "import": "node src/import-data.js",
+    "import:9ml": "node src/import-9ml-matrix.js",
+    "process": "node src/process-images.js",
+    "process:test": "node src/process-images.js --test",
+    "backgrounds": "node src/process-backgrounds.js",
+    "status": "node src/check-status.js",
+    "setup-db": "node src/setup-database.js",
+    "extract": "node src/extract-layers.js",
+    "organize": "node src/organize-layers.js",
+    "consolidate": "node src/upload-and-map.js",
+    "sync": "node src/sync-to-sanity.js",
+    "export": "node src/export-results.js"
+  },
+  "dependencies": {
+    "@google/generative-ai": "^0.21.0",
+    "@sanity/client": "^7.14.0",
+    "@supabase/supabase-js": "^2.39.0",
+    "ag-psd": "^29.0.0",
+    "canvas": "^3.2.0",
+    "dotenv": "^16.3.0",
+    "papaparse": "^5.4.0",
+    "psd": "^3.4.0",
+    "sharp": "^0.33.5"
+  }
+}

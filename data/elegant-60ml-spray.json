@@ -1,0 +1,164 @@
+{
+    "categoryId": "60ml-elegant-spray",
+    "categoryName": "60ml Elegant Square Spray",
+    "categoryDescription": "Elegant rectangular design glass bottle with fine mist sprayer. Available in clear and frosted glass with various premium metallic sprayers of copper, silver and black.",
+    "sourceUrl": "https://www.bestbottles.com/glass-bottles/elegant-square-glass-bottles-wholesale",
+    "sharedSpecs": {
+        "capacity": "60 ml (2 oz)",
+        "neckThreadSize": "18-415",
+        "heightWithCap": "125mm",
+        "heightWithoutCap": "100mm",
+        "diameter": "40mm",
+        "recommendedUse": [
+            "Perfume",
+            "Cologne",
+            "Room Spray",
+            "Body Mist"
+        ]
+    },
+    "labels": {
+        "roller": "Spray Mechanism",
+        "cap": "Pump Finish"
+    },
+    "baseBottles": [
+        {
+            "id": "clear-glass",
+            "name": "Clear Glass",
+            "color": "Clear",
+            "material": "Clear Glass",
+            "imageUrl": "https://www.bestbottles.com/images/store/enlarged_pics/GBElg60SpryCu.gif",
+            "skuPrefix": "GBElg60"
+        },
+        {
+            "id": "frosted-glass",
+            "name": "Frosted Glass",
+            "color": "Frosted",
+            "material": "Frosted Glass",
+            "imageUrl": "https://www.bestbottles.com/images/store/enlarged_pics/GBElgFrst60SpryCu.gif",
+            "skuPrefix": "GBElgFrst60"
+        }
+    ],
+    "rollerOptions": [
+        {
+            "id": "fine-mist",
+            "name": "Fine Mist Output",
+            "type": "plastic",
+            "skuCode": "",
+            "priceModifier": 0.00,
+            "description": "Standard fine mist sprayer output"
+        }
+    ],
+    "capOptions": [
+        {
+            "id": "copper-pump",
+            "name": "Matte Copper Pump",
+            "color": "#B87333",
+            "finish": "Matte",
+            "skuCode": "SpryCu",
+            "imageUrl": "https://www.bestbottles.com/images/store/enlarged_pics/GBElg60SpryCu.gif",
+            "available": true,
+            "hasCompositeImage": true,
+            "imageCode": "SpryCu"
+        },
+        {
+            "id": "silver-pump",
+            "name": "Shiny Silver Pump",
+            "color": "#C0C0C0",
+            "finish": "Shiny",
+            "skuCode": "SprySl",
+            "imageUrl": "https://www.bestbottles.com/images/store/enlarged_pics/GBElg60SprySl.gif",
+            "available": true,
+            "hasCompositeImage": true,
+            "imageCode": "SprySl"
+        },
+        {
+            "id": "black-pump",
+            "name": "Matte Black Pump",
+            "color": "#202020",
+            "finish": "Matte",
+            "skuCode": "SpryBlk",
+            "imageUrl": "https://www.bestbottles.com/images/store/enlarged_pics/GBElg60SpryBlk.gif",
+            "available": true,
+            "hasCompositeImage": true,
+            "imageCode": "SpryBlk"
+        },
+        {
+            "id": "silver-collar-bulb",
+            "name": "Bulb Sprayer (Silver)",
+            "color": "#A0A0A0",
+            "finish": "Vintage",
+            "skuCode": "AnSpBlk",
+            "imageUrl": "https://www.bestbottles.com/images/store/enlarged_pics/GBElg60AnSpBlk.gif",
+            "available": true,
+            "hasCompositeImage": true,
+            "imageCode": "AnSpBlk"
+        }
+    ],
+    "pricingMatrix": {
+        "basePrices": {
+            "clear-glass": {
+                "1": 2.61,
+                "12": 2.45,
+                "140": 2.30,
+                "1120": 2.15
+            },
+            "frosted-glass": {
+                "1": 3.09,
+                "12": 2.85,
+                "140": 2.70,
+                "1120": 2.54
+            }
+        },
+        "metalRollerUpcharge": 0.00
+    },
+    "skuMatrix": [
+        {
+            "bottle": "clear-glass",
+            "roller": "fine-mist",
+            "cap": "copper-pump",
+            "sku": "GBElg60SpryCu"
+        },
+        {
+            "bottle": "clear-glass",
+            "roller": "fine-mist",
+            "cap": "silver-pump",
+            "sku": "GBElg60SprySl"
+        },
+        {
+            "bottle": "clear-glass",
+            "roller": "fine-mist",
+            "cap": "black-pump",
+            "sku": "GBElg60SpryBlk"
+        },
+        {
+            "bottle": "clear-glass",
+            "roller": "fine-mist",
+            "cap": "silver-collar-bulb",
+            "sku": "GBElg60AnSpBlk"
+        },
+        {
+            "bottle": "frosted-glass",
+            "roller": "fine-mist",
+            "cap": "copper-pump",
+            "sku": "GBElgFrst60SpryCu"
+        },
+        {
+            "bottle": "frosted-glass",
+            "roller": "fine-mist",
+            "cap": "silver-pump",
+            "sku": "GBElgFrst60SprySl"
+        },
+        {
+            "bottle": "frosted-glass",
+            "roller": "fine-mist",
+            "cap": "black-pump",
+            "sku": "GBElgFrst60SpryBlk"
+        },
+        {
+            "bottle": "frosted-glass",
+            "roller": "fine-mist",
+            "cap": "silver-collar-bulb",
+            "sku": "GBElgFrst60AnSpBlk"
+        }
+    ]
+}

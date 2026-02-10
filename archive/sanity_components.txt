@@ -1,0 +1,84 @@
+--- Listing Sanity Components ---
+Group: Glass | Name: Frosted-Plastic | ID: 1a5b731b-9124-40a9-9f9b-1cc16734301a
+Group: Glass | Name: Clear | ID: 2779b4f6-f3ef-48ee-b50b-f05dd982d76c
+Group: Glass | Name: Amber Glass (Plastic Roller) | ID: 334sSgiLA3lXfAfRyI43VC
+Group: Glass | Name: Frosted Glass (Plastic Roller) | ID: 334sSgiLA3lXfAfRyI45cI
+Group: Glass | Name: Clear Glass | ID: 334sSgiLA3lXfAfRyorV6Q
+Group: Glass | Name: Frosted Glass | ID: 334sSgiLA3lXfAfRyorWow
+Group: Glass | Name: Colbalt | ID: 68dcb366-eda3-4da2-8c21-b98cabf0fcdd
+Group: Glass | Name: Amber-Plastic | ID: 73a8d938-a539-46e5-a4f3-3274a9356864
+Group: Glass | Name: Swirl-Plastic | ID: 7f31925b-9166-424f-b681-fcf8eb5ad4dc
+Group: Glass | Name: Amber Glass (Metal Roller) | ID: LLJX6GvEQ64MSrJ9ET2A9T
+Group: Glass | Name: Frosted Glass (Metal Roller) | ID: LLJX6GvEQ64MSrJ9ET2Aa3
+Group: Glass | Name: Cobalt Glass (Plastic Roller) | ID: LLJX6GvEQ64MSrJ9ET2Fo0
+Group: Glass | Name: Swirl Glass (Metal Roller) | ID: LLJX6GvEQ64MSrJ9ET2G9b
+Group: Glass | Name: Amber Glass | ID: LLJX6GvEQ64MSrJ9EfzqZX
+Group: Glass | Name: Cobalt Glass | ID: LLJX6GvEQ64MSrJ9Efzr1m
+Group: Glass | Name: Swirl Glass | ID: LLJX6GvEQ64MSrJ9EfzrDP
+Group: Glass | Name: Clear Glass (Metal Roller) | ID: WQR2zF44xY0MyeoxpYdfdo
+Group: Glass | Name: Clear Glass (Plastic Roller) | ID: WQR2zF44xY0MyeoxpYdgaM
+Group: Glass | Name: Cobalt Glass (Metal Roller) | ID: WQR2zF44xY0MyeoxpYeCmK
+Group: Glass | Name: Swirl Glass (Plastic Roller) | ID: WQR2zF44xY0MyeoxpYeI10
+Group: Glass | Name: Cobalt-Plastic | ID: bf954ea6-0c95-437c-bf68-34fe97dbd93a
+Group: Glass | Name: Cobalt Cylinder Design  | ID: db39fe6d-20d4-4661-8634-e3fc91348be2
+Group: Glass | Name: Swirl | ID: dfc67106-284e-42b8-9c44-6d4dfbd392fd
+Group: Glass | Name: Amber Glass (Plastic Roller) | ID: drafts.334sSgiLA3lXfAfRyI43VC
+Group: Glass | Name: Frosted Glass (Plastic Roller) | ID: drafts.334sSgiLA3lXfAfRyI45cI
+Group: Glass | Name: Colbalt | ID: drafts.68dcb366-eda3-4da2-8c21-b98cabf0fcdd
+Group: Glass | Name: Amber Glass (Metal Roller) | ID: drafts.LLJX6GvEQ64MSrJ9ET2A9T
+Group: Glass | Name: Frosted Glass (Metal Roller) | ID: drafts.LLJX6GvEQ64MSrJ9ET2Aa3
+Group: Glass | Name: Cobalt Glass (Plastic Roller) | ID: drafts.LLJX6GvEQ64MSrJ9ET2Fo0
+Group: Glass | Name: Swirl Glass (Metal Roller) | ID: drafts.LLJX6GvEQ64MSrJ9ET2G9b
+Group: Glass | Name: Clear Glass (Metal Roller) | ID: drafts.WQR2zF44xY0MyeoxpYdfdo
+Group: Glass | Name: Clear Glass (Plastic Roller) | ID: drafts.WQR2zF44xY0MyeoxpYdgaM
+Group: Glass | Name: Cobalt Glass (Metal Roller) | ID: drafts.WQR2zF44xY0MyeoxpYeCmK
+Group: Glass | Name: Swirl Glass (Plastic Roller) | ID: drafts.WQR2zF44xY0MyeoxpYeI10
+Group: Glass | Name: Swirl | ID: drafts.dfc67106-284e-42b8-9c44-6d4dfbd392fd
+Group: Glass | Name: Clear-Plastic | ID: f6630d17-62ee-455f-aa51-2301e1a9ae5f
+Group: Glass | Name: Cylinder design 5ml (Glass) | ID: glass-gbcylblu5spryblksh
+Group: Glass | Name: Royal design 13ml (Glass) | ID: glass-gbroyal13spryblksh
+Group: Glass | Name: Square design 15ml (Glass) | ID: glass-gbsqr15spryblksh
+
+--- Cap Options ---
+Group: Cap | Name: Silver Dot | ID: 092c8794-b955-4548-a0ae-1c3876d9aefa
+Group: Cap | Name: Cap-Default | ID: 12d3c7f4-b16f-4a1f-87c2-9bcb915b297b
+Group: Cap | Name: null | ID: 14f5e5f2-9970-4cec-87a2-bdbc9d7b9bff
+Group: Cap | Name: Matte Gold  | ID: 1b8b7250-90f6-4f95-9247-47a19e87edad
+Group: Cap | Name: Shiny Gold Cap | ID: 334sSgiLA3lXfAfRyI3al6
+Group: Cap | Name: Matte Gold Cap | ID: 334sSgiLA3lXfAfRyI3bLy
+Group: Cap | Name: Black Dot Cap | ID: 334sSgiLA3lXfAfRyI3e3w
+Group: Cap | Name: Shiny Black Cap | ID: 334sSgiLA3lXfAfRyI3feG
+Group: Cap | Name: Black-Dots | ID: 7e30b400-d63f-486f-917b-b0d218e64f2c
+Group: Cap | Name: White Cap | ID: 893b431b-1667-4e50-a1b9-c3c2387cd2c5
+Group: Cap | Name: Shiny Silver Cap | ID: LLJX6GvEQ64MSrJ9ET26pT
+Group: Cap | Name: Silver Dot Cap | ID: LLJX6GvEQ64MSrJ9ET28yN
+Group: Cap | Name: Matte Silver Cap | ID: WQR2zF44xY0MyeoxpYdEQY
+Group: Cap | Name: White Cap | ID: WQR2zF44xY0MyeoxpYdGkG
+Group: Cap | Name: Pink Dot Cap | ID: WQR2zF44xY0MyeoxpYdSg6
+Group: Cap | Name: Copper Matte Cap | ID: WQR2zF44xY0MyeoxpYdVFm
+Group: Cap | Name: Shiney Gold | ID: ad537f5a-c8ef-454b-a27d-b22a392b52b9
+Group: Cap | Name: Pink Dots  | ID: aeef325a-a630-4459-b3a9-087d3b0ccac7
+Group: Cap | Name: White-Cap | ID: b96a4767-41c9-4461-84ca-d9d5a71c47dc
+Group: Cap | Name: Black Cap | ID: b9978fc8-c5d4-44ac-87a0-49d6ee962b2e
+Group: Cap | Name: shiny black spray. Fine mist spray | ID: cap-gbcylblu5spryblksh
+Group: Cap | Name: shiny black spray. Fine mist spray | ID: cap-gbroyal13spryblksh
+Group: Cap | Name: shiny black spray. Fine mist spray | ID: cap-gbsqr15spryblksh
+Group: Cap | Name: Matte Gold | ID: df241685-0e6d-4855-ab61-3a5a04a54f5d
+Group: Cap | Name: null | ID: drafts.14f5e5f2-9970-4cec-87a2-bdbc9d7b9bff
+Group: Cap | Name: Shiny Black Cap | ID: drafts.334sSgiLA3lXfAfRyI3feG
+Group: Cap | Name: Silver Dot Cap | ID: drafts.LLJX6GvEQ64MSrJ9ET28yN
+Group: Cap | Name: Pink Dot Cap | ID: drafts.WQR2zF44xY0MyeoxpYdSg6
+Group: Cap | Name: Copper Matte Cap | ID: drafts.WQR2zF44xY0MyeoxpYdVFm
+Group: Cap | Name: Black Dots | ID: e32ef4f1-24ba-4595-ae7e-e37427da4812
+
+--- Fitment Variants ---
+Group: Fitment | Name: Plastic Fitment | ID: 2a63d81d-5920-4afe-a70e-f5b757d4c948
+Group: Fitment | Name: Metal Roller | ID: 334sSgiLA3lXfAfRyorYTM
+Group: Fitment | Name: Metal Roller | ID: 7600a22a-5cb2-48d8-93f4-03d7d12bfbd3
+Group: Fitment | Name: Plastic Roller | ID: LLJX6GvEQ64MSrJ9EfzrVg
+Group: Fitment | Name: Metal Roller | ID: drafts.334sSgiLA3lXfAfRyorYTM
+Group: Fitment | Name: Plastic Roller | ID: drafts.LLJX6GvEQ64MSrJ9EfzrVg
+Group: Fitment | Name: Metal-fitment | ID: drafts.e1f158f2-4e4f-458b-926b-5c014d3da8ee
+Group: Fitment | Name: shiny black spray. Fine mist spray | ID: fitment-gbcylblu5spryblksh
+Group: Fitment | Name: shiny black spray. Fine mist spray | ID: fitment-gbroyal13spryblksh
+Group: Fitment | Name: shiny black spray. Fine mist spray | ID: fitment-gbsqr15spryblksh

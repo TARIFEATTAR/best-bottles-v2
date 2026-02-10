@@ -1,0 +1,12 @@
+{
+  "../../../node_modules/.pnpm/@sanity+visual-editing@1.2.2_next@15.5.9_@babel+core@7.28.5_react-dom@18.3.1_react@18.3.1__react@18.3.1_/node_modules/@sanity/visual-editing/dist/_chunks/index-CCPqf31P.js -> ./Overlays-bQSRS-P9.js": {
+    "id": "../../../node_modules/.pnpm/@sanity+visual-editing@1.2.2_next@15.5.9_@babel+core@7.28.5_react-dom@18.3.1_react@18.3.1__react@18.3.1_/node_modules/@sanity/visual-editing/dist/_chunks/index-CCPqf31P.js -> ./Overlays-bQSRS-P9.js",
+    "files": [
+      "static/chunks/_app-pages-browser_node_modules_pnpm_sanity_visual-editing_1_2_2_next_15_5_9__babel_core_7_28-743d68.js"
+    ]
+  },
+  "../../../node_modules/.pnpm/@sanity+visual-editing@1.2.2_next@15.5.9_@babel+core@7.28.5_react-dom@18.3.1_react@18.3.1__react@18.3.1_/node_modules/@sanity/visual-editing/dist/_chunks/index-CCPqf31P.js -> react-dom/client": {
+    "id": "../../../node_modules/.pnpm/@sanity+visual-editing@1.2.2_next@15.5.9_@babel+core@7.28.5_react-dom@18.3.1_react@18.3.1__react@18.3.1_/node_modules/@sanity/visual-editing/dist/_chunks/index-CCPqf31P.js -> react-dom/client",
+    "files": []
+  }
+}

@@ -1,0 +1,15 @@
+{
+    "redirects": [
+        {
+            "source": "/studio",
+            "destination": "https://best-bottles-demo.sanity.studio",
+            "permanent": true
+        }
+    ],
+    "rewrites": [
+        {
+            "source": "/(.*)",
+            "destination": "/index.html"
+        }
+    ]
+}

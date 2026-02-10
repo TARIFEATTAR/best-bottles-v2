@@ -1,0 +1,209 @@
+{
+    "categoryId": "travel-atomizer",
+    "categoryName": "Travel Atomizer (10ml)",
+    "categoryDescription": "Compact and refillable travel atomizer made of durable anodized aluminum. Perfect for on-the-go fragrance application. Available in a vibrant range of colors.",
+    "sourceUrl": "https://www.bestbottles.com/glass-bottles/metal-atomizers-wholesale",
+    "sharedSpecs": {
+        "capacity": "10 ml (0.34 oz)",
+        "neckThreadSize": "N/A (Crimp)",
+        "heightWithCap": "95mm",
+        "heightWithoutCap": "95mm",
+        "diameter": "23mm",
+        "recommendedUse": [
+            "Travel Perfume",
+            "Purse Spray",
+            "Samples",
+            "Gifts"
+        ]
+    },
+    "labels": {
+        "roller": "Atomizer Type",
+        "cap": "Cap Style"
+    },
+    "baseBottles": [
+        {
+            "id": "black-body",
+            "name": "Black",
+            "color": "Black",
+            "material": "Aluminum",
+            "imageUrl": "https://www.bestbottles.com/images/store/enlarged_pics/GBAtom10Blk.gif",
+            "skuPrefix": "GBAtom10Blk"
+        },
+        {
+            "id": "silver-body",
+            "name": "Silver",
+            "color": "Silver",
+            "material": "Aluminum",
+            "imageUrl": "https://www.bestbottles.com/images/store/enlarged_pics/GBAtom10Sl.gif",
+            "skuPrefix": "GBAtom10Sl"
+        },
+        {
+            "id": "gold-body",
+            "name": "Gold",
+            "color": "Gold",
+            "material": "Aluminum",
+            "imageUrl": "https://www.bestbottles.com/images/store/enlarged_pics/GBAtom10Gl.gif",
+            "skuPrefix": "GBAtom10Gl"
+        },
+        {
+            "id": "blue-body",
+            "name": "Blue",
+            "color": "Blue",
+            "material": "Aluminum",
+            "imageUrl": "https://www.bestbottles.com/images/store/enlarged_pics/GBAtom10Blu.gif",
+            "skuPrefix": "GBAtom10Blu"
+        },
+        {
+            "id": "pink-body",
+            "name": "Pink",
+            "color": "Pink",
+            "material": "Aluminum",
+            "imageUrl": "https://www.bestbottles.com/images/store/enlarged_pics/GBAtom10Pnk.gif",
+            "skuPrefix": "GBAtom10Pnk"
+        },
+        {
+            "id": "red-body",
+            "name": "Red",
+            "color": "Red",
+            "material": "Aluminum",
+            "imageUrl": "https://www.bestbottles.com/images/store/enlarged_pics/GBAtom10Red.gif",
+            "skuPrefix": "GBAtom10Red"
+        },
+        {
+            "id": "green-body",
+            "name": "Green",
+            "color": "Green",
+            "material": "Aluminum",
+            "imageUrl": "https://www.bestbottles.com/images/store/enlarged_pics/GBAtom10Gr.gif",
+            "skuPrefix": "GBAtom10Gr"
+        }
+    ],
+    "rollerOptions": [
+        {
+            "id": "spray-insert",
+            "name": "Fine Mist Atomizer",
+            "type": "plastic",
+            "skuCode": "",
+            "priceModifier": 0.00,
+            "description": "Integrated fine mist sprayer"
+        }
+    ],
+    "capOptions": [
+        {
+            "id": "standard-cap",
+            "name": "Matching Cap",
+            "color": "#888888",
+            "finish": "Anodized",
+            "skuCode": "",
+            "imageUrl": "https://www.bestbottles.com/images/store/enlarged_pics/GBAtom10Sl.gif",
+            "available": true,
+            "hasCompositeImage": false
+        },
+        {
+            "id": "dot-cap",
+            "name": "Dotted Cap",
+            "color": "#888888",
+            "finish": "Patterned",
+            "skuCode": "Dot",
+            "imageUrl": "https://www.bestbottles.com/images/store/enlarged_pics/GBAtom10SlDot.gif",
+            "available": true,
+            "hasCompositeImage": false
+        }
+    ],
+    "pricingMatrix": {
+        "basePrices": {
+            "black-body": {
+                "1": 2.99,
+                "60": 2.65,
+                "1500": 2.46
+            },
+            "silver-body": {
+                "1": 2.99,
+                "60": 2.65,
+                "1500": 2.46
+            },
+            "gold-body": {
+                "1": 2.99,
+                "60": 2.65,
+                "1500": 2.46
+            },
+            "blue-body": {
+                "1": 2.99,
+                "60": 2.65,
+                "1500": 2.46
+            },
+            "pink-body": {
+                "1": 2.99,
+                "60": 2.65,
+                "1500": 2.46
+            },
+            "red-body": {
+                "1": 2.99,
+                "60": 2.65,
+                "1500": 2.46
+            },
+            "green-body": {
+                "1": 2.99,
+                "60": 2.65,
+                "1500": 2.46
+            }
+        },
+        "metalRollerUpcharge": 0.00
+    },
+    "skuMatrix": [
+        {
+            "bottle": "black-body",
+            "roller": "spray-insert",
+            "cap": "standard-cap",
+            "sku": "GBAtom10Blk"
+        },
+        {
+            "bottle": "black-body",
+            "roller": "spray-insert",
+            "cap": "dot-cap",
+            "sku": "GBAtom10BlkDot"
+        },
+        {
+            "bottle": "silver-body",
+            "roller": "spray-insert",
+            "cap": "standard-cap",
+            "sku": "GBAtom10Sl"
+        },
+        {
+            "bottle": "silver-body",
+            "roller": "spray-insert",
+            "cap": "dot-cap",
+            "sku": "GBAtom10SlDot"
+        },
+        {
+            "bottle": "gold-body",
+            "roller": "spray-insert",
+            "cap": "standard-cap",
+            "sku": "GBAtom10Gl"
+        },
+        {
+            "bottle": "blue-body",
+            "roller": "spray-insert",
+            "cap": "standard-cap",
+            "sku": "GBAtom10Blu"
+        },
+        {
+            "bottle": "pink-body",
+            "roller": "spray-insert",
+            "cap": "standard-cap",
+            "sku": "GBAtom10Pnk"
+        },
+        {
+            "bottle": "red-body",
+            "roller": "spray-insert",
+            "cap": "standard-cap",
+            "sku": "GBAtom10Red"
+        },
+        {
+            "bottle": "green-body",
+            "roller": "spray-insert",
+            "cap": "standard-cap",
+            "sku": "GBAtom10Gr"
+        }
+    ]
+}

@@ -1,0 +1,715 @@
+{
+  "stats": {
+    "totalProducts": 1396,
+    "uniqueBottles": 60,
+    "uniqueCaps": 2,
+    "uniqueFitments": 7
+  },
+  "bottles": [
+    {
+      "_id": "glass-clear-round-60ml",
+      "type": "bottle",
+      "name": "Clear Round Glass Bottle (60ml)",
+      "material": "Glass",
+      "color": "Clear",
+      "capacity": "60ml",
+      "shape": "Round"
+    },
+    {
+      "_id": "glass-clear-round-ml",
+      "type": "bottle",
+      "name": "Clear Round Glass Bottle (ml)",
+      "material": "Glass",
+      "color": "Clear",
+      "capacity": "ml",
+      "shape": "Round"
+    },
+    {
+      "_id": "metal-black-slim-atomizer-5-ml",
+      "type": "bottle",
+      "name": "Black slim atomizer Metal Bottle (5 ml)",
+      "material": "Metal",
+      "color": "Black",
+      "capacity": "5 ml",
+      "shape": "slim atomizer"
+    },
+    {
+      "_id": "metal-silver-slim-atomizer-5-ml",
+      "type": "bottle",
+      "name": "Silver slim atomizer Metal Bottle (5 ml)",
+      "material": "Metal",
+      "color": "Silver",
+      "capacity": "5 ml",
+      "shape": "slim atomizer"
+    },
+    {
+      "_id": "metal-gold-slim-atomizer-5-ml",
+      "type": "bottle",
+      "name": "Gold slim atomizer Metal Bottle (5 ml)",
+      "material": "Metal",
+      "color": "Gold",
+      "capacity": "5 ml",
+      "shape": "slim atomizer"
+    },
+    {
+      "_id": "metal-black-atomizer-5-ml",
+      "type": "bottle",
+      "name": "Black atomizer Metal Bottle (5 ml)",
+      "material": "Metal",
+      "color": "Black",
+      "capacity": "5 ml",
+      "shape": "atomizer"
+    },
+    {
+      "_id": "metal-gold-atomizer-5-ml",
+      "type": "bottle",
+      "name": "Gold atomizer Metal Bottle (5 ml)",
+      "material": "Metal",
+      "color": "Gold",
+      "capacity": "5 ml",
+      "shape": "atomizer"
+    },
+    {
+      "_id": "metal-blue-atomizer-5-ml",
+      "type": "bottle",
+      "name": "Blue atomizer Metal Bottle (5 ml)",
+      "material": "Metal",
+      "color": "Blue",
+      "capacity": "5 ml",
+      "shape": "atomizer"
+    },
+    {
+      "_id": "metal-pink-atomizer-5-ml",
+      "type": "bottle",
+      "name": "Pink atomizer Metal Bottle (5 ml)",
+      "material": "Metal",
+      "color": "Pink",
+      "capacity": "5 ml",
+      "shape": "atomizer"
+    },
+    {
+      "_id": "metal-red-atomizer-5-ml",
+      "type": "bottle",
+      "name": "Red atomizer Metal Bottle (5 ml)",
+      "material": "Metal",
+      "color": "Red",
+      "capacity": "5 ml",
+      "shape": "atomizer"
+    },
+    {
+      "_id": "metal-silver-atomizer-5-ml",
+      "type": "bottle",
+      "name": "Silver atomizer Metal Bottle (5 ml)",
+      "material": "Metal",
+      "color": "Silver",
+      "capacity": "5 ml",
+      "shape": "atomizer"
+    },
+    {
+      "_id": "metal-black-atomizer-10-ml",
+      "type": "bottle",
+      "name": "Black atomizer Metal Bottle (10 ml)",
+      "material": "Metal",
+      "color": "Black",
+      "capacity": "10 ml",
+      "shape": "atomizer"
+    },
+    {
+      "_id": "metal-silver-atomizer-10-ml",
+      "type": "bottle",
+      "name": "Silver atomizer Metal Bottle (10 ml)",
+      "material": "Metal",
+      "color": "Silver",
+      "capacity": "10 ml",
+      "shape": "atomizer"
+    },
+    {
+      "_id": "metal-gold-atomizer-10-ml",
+      "type": "bottle",
+      "name": "Gold atomizer Metal Bottle (10 ml)",
+      "material": "Metal",
+      "color": "Gold",
+      "capacity": "10 ml",
+      "shape": "atomizer"
+    },
+    {
+      "_id": "metal-blue-atomizer-10-ml",
+      "type": "bottle",
+      "name": "Blue atomizer Metal Bottle (10 ml)",
+      "material": "Metal",
+      "color": "Blue",
+      "capacity": "10 ml",
+      "shape": "atomizer"
+    },
+    {
+      "_id": "metal-pink-atomizer-10-ml",
+      "type": "bottle",
+      "name": "Pink atomizer Metal Bottle (10 ml)",
+      "material": "Metal",
+      "color": "Pink",
+      "capacity": "10 ml",
+      "shape": "atomizer"
+    },
+    {
+      "_id": "metal-red-atomizer-10-ml",
+      "type": "bottle",
+      "name": "Red atomizer Metal Bottle (10 ml)",
+      "material": "Metal",
+      "color": "Red",
+      "capacity": "10 ml",
+      "shape": "atomizer"
+    },
+    {
+      "_id": "metal-lavender-atomizer-10-ml",
+      "type": "bottle",
+      "name": "Lavender atomizer Metal Bottle (10 ml)",
+      "material": "Metal",
+      "color": "Lavender",
+      "capacity": "10 ml",
+      "shape": "atomizer"
+    },
+    {
+      "_id": "metal-green-atomizer-10-ml",
+      "type": "bottle",
+      "name": "Green atomizer Metal Bottle (10 ml)",
+      "material": "Metal",
+      "color": "Green",
+      "capacity": "10 ml",
+      "shape": "atomizer"
+    },
+    {
+      "_id": "glass-clear-round-unknown",
+      "type": "bottle",
+      "name": "Clear Round Glass Bottle (Unknown)",
+      "material": "Glass",
+      "color": "Clear",
+      "capacity": "Unknown",
+      "shape": "Round"
+    },
+    {
+      "_id": "glass-blue-heart-4-ml",
+      "type": "bottle",
+      "name": "blue Heart Glass Bottle (4 ml,)",
+      "material": "Glass",
+      "color": "blue",
+      "capacity": "4 ml,",
+      "shape": "Heart"
+    },
+    {
+      "_id": "glass-gold-heart-4-ml",
+      "type": "bottle",
+      "name": "gold Heart Glass Bottle (4 ml,)",
+      "material": "Glass",
+      "color": "gold",
+      "capacity": "4 ml,",
+      "shape": "Heart"
+    },
+    {
+      "_id": "glass-silver-heart-4-ml",
+      "type": "bottle",
+      "name": "silver Heart Glass Bottle (4 ml,)",
+      "material": "Glass",
+      "color": "silver",
+      "capacity": "4 ml,",
+      "shape": "Heart"
+    },
+    {
+      "_id": "glass-red-heart-4-ml",
+      "type": "bottle",
+      "name": "red Heart Glass Bottle (4 ml,)",
+      "material": "Glass",
+      "color": "red",
+      "capacity": "4 ml,",
+      "shape": "Heart"
+    },
+    {
+      "_id": "glass-blue-heart-10-ml",
+      "type": "bottle",
+      "name": "blue Heart Glass Bottle (10 ml,)",
+      "material": "Glass",
+      "color": "blue",
+      "capacity": "10 ml,",
+      "shape": "Heart"
+    },
+    {
+      "_id": "glass-gold-heart-10-ml",
+      "type": "bottle",
+      "name": "gold Heart Glass Bottle (10 ml,)",
+      "material": "Glass",
+      "color": "gold",
+      "capacity": "10 ml,",
+      "shape": "Heart"
+    },
+    {
+      "_id": "glass-silver-heart-10-ml",
+      "type": "bottle",
+      "name": "silver Heart Glass Bottle (10 ml,)",
+      "material": "Glass",
+      "color": "silver",
+      "capacity": "10 ml,",
+      "shape": "Heart"
+    },
+    {
+      "_id": "glass-red-heart-10-ml",
+      "type": "bottle",
+      "name": "red Heart Glass Bottle (10 ml,)",
+      "material": "Glass",
+      "color": "red",
+      "capacity": "10 ml,",
+      "shape": "Heart"
+    },
+    {
+      "_id": "glass-amber-vial-2",
+      "type": "bottle",
+      "name": "Amber Vial Glass Bottle (2)",
+      "material": "Glass",
+      "color": "Amber",
+      "capacity": "2",
+      "shape": "Vial"
+    },
+    {
+      "_id": "glass-clear-vial-2ml",
+      "type": "bottle",
+      "name": "Clear Vial Glass Bottle (2ml)",
+      "material": "Glass",
+      "color": "Clear",
+      "capacity": "2ml",
+      "shape": "Vial"
+    },
+    {
+      "_id": "glass-black-round-250-ml",
+      "type": "bottle",
+      "name": "Black Round Glass Bottle (250 ml)",
+      "material": "Glass",
+      "color": "Black",
+      "capacity": "250 ml",
+      "shape": "Round"
+    },
+    {
+      "_id": "glass-white-round-125-ml",
+      "type": "bottle",
+      "name": "White Round Glass Bottle (125 ml)",
+      "material": "Glass",
+      "color": "White",
+      "capacity": "125 ml",
+      "shape": "Round"
+    },
+    {
+      "_id": "glass-black-round-125-ml",
+      "type": "bottle",
+      "name": "Black Round Glass Bottle (125 ml)",
+      "material": "Glass",
+      "color": "Black",
+      "capacity": "125 ml",
+      "shape": "Round"
+    },
+    {
+      "_id": "glass-black-round-100-ml",
+      "type": "bottle",
+      "name": "Black Round Glass Bottle (100 ml)",
+      "material": "Glass",
+      "color": "Black",
+      "capacity": "100 ml",
+      "shape": "Round"
+    },
+    {
+      "_id": "glass-white-round-65-ml",
+      "type": "bottle",
+      "name": "White Round Glass Bottle (65 ml)",
+      "material": "Glass",
+      "color": "White",
+      "capacity": "65 ml",
+      "shape": "Round"
+    },
+    {
+      "_id": "glass-black-round-65-ml",
+      "type": "bottle",
+      "name": "Black Round Glass Bottle (65 ml)",
+      "material": "Glass",
+      "color": "Black",
+      "capacity": "65 ml",
+      "shape": "Round"
+    },
+    {
+      "_id": "glass-blue-apothecary-15-ml",
+      "type": "bottle",
+      "name": "blue Apothecary Glass Bottle (15 ml)",
+      "material": "Glass",
+      "color": "blue",
+      "capacity": "15 ml",
+      "shape": "Apothecary"
+    },
+    {
+      "_id": "glass-clear-apothecary-15-ml",
+      "type": "bottle",
+      "name": "Clear Apothecary Glass Bottle (15 ml)",
+      "material": "Glass",
+      "color": "Clear",
+      "capacity": "15 ml",
+      "shape": "Apothecary"
+    },
+    {
+      "_id": "glass-green-apothecary-15-ml",
+      "type": "bottle",
+      "name": "green Apothecary Glass Bottle (15 ml)",
+      "material": "Glass",
+      "color": "green",
+      "capacity": "15 ml",
+      "shape": "Apothecary"
+    },
+    {
+      "_id": "glass-blue-apothecary-30ml",
+      "type": "bottle",
+      "name": "blue Apothecary Glass Bottle (30ml)",
+      "material": "Glass",
+      "color": "blue",
+      "capacity": "30ml",
+      "shape": "Apothecary"
+    },
+    {
+      "_id": "glass-clear-apothecary-30ml",
+      "type": "bottle",
+      "name": "Clear Apothecary Glass Bottle (30ml)",
+      "material": "Glass",
+      "color": "Clear",
+      "capacity": "30ml",
+      "shape": "Apothecary"
+    },
+    {
+      "_id": "glass-green-apothecary-30ml",
+      "type": "bottle",
+      "name": "green Apothecary Glass Bottle (30ml)",
+      "material": "Glass",
+      "color": "green",
+      "capacity": "30ml",
+      "shape": "Apothecary"
+    },
+    {
+      "_id": "glass-blue-apothecary-120ml",
+      "type": "bottle",
+      "name": "blue Apothecary Glass Bottle (120ml)",
+      "material": "Glass",
+      "color": "blue",
+      "capacity": "120ml",
+      "shape": "Apothecary"
+    },
+    {
+      "_id": "glass-clear-apothecary-120ml",
+      "type": "bottle",
+      "name": "Clear Apothecary Glass Bottle (120ml)",
+      "material": "Glass",
+      "color": "Clear",
+      "capacity": "120ml",
+      "shape": "Apothecary"
+    },
+    {
+      "_id": "glass-green-apothecary-120ml",
+      "type": "bottle",
+      "name": "green Apothecary Glass Bottle (120ml)",
+      "material": "Glass",
+      "color": "green",
+      "capacity": "120ml",
+      "shape": "Apothecary"
+    },
+    {
+      "_id": "glass-blue-apothecary-280ml",
+      "type": "bottle",
+      "name": "blue Apothecary Glass Bottle (280ml)",
+      "material": "Glass",
+      "color": "blue",
+      "capacity": "280ml",
+      "shape": "Apothecary"
+    },
+    {
+      "_id": "glass-clear-apothecary-280ml",
+      "type": "bottle",
+      "name": "Clear Apothecary Glass Bottle (280ml)",
+      "material": "Glass",
+      "color": "Clear",
+      "capacity": "280ml",
+      "shape": "Apothecary"
+    },
+    {
+      "_id": "glass-green-apothecary-280ml",
+      "type": "bottle",
+      "name": "green Apothecary Glass Bottle (280ml)",
+      "material": "Glass",
+      "color": "green",
+      "capacity": "280ml",
+      "shape": "Apothecary"
+    },
+    {
+      "_id": "glass-blue-apothecary-60ml",
+      "type": "bottle",
+      "name": "blue Apothecary Glass Bottle (60ml)",
+      "material": "Glass",
+      "color": "blue",
+      "capacity": "60ml",
+      "shape": "Apothecary"
+    },
+    {
+      "_id": "glass-clear-apothecary-60ml",
+      "type": "bottle",
+      "name": "Clear Apothecary Glass Bottle (60ml)",
+      "material": "Glass",
+      "color": "Clear",
+      "capacity": "60ml",
+      "shape": "Apothecary"
+    },
+    {
+      "_id": "glass-green-apothecary-60ml",
+      "type": "bottle",
+      "name": "green Apothecary Glass Bottle (60ml)",
+      "material": "Glass",
+      "color": "green",
+      "capacity": "60ml",
+      "shape": "Apothecary"
+    },
+    {
+      "_id": "glass-clear-round-3",
+      "type": "bottle",
+      "name": "Clear Round Glass Bottle (3)",
+      "material": "Glass",
+      "color": "Clear",
+      "capacity": "3",
+      "shape": "Round"
+    },
+    {
+      "_id": "glass-clear-round-3ml",
+      "type": "bottle",
+      "name": "Clear Round Glass Bottle (3ml)",
+      "material": "Glass",
+      "color": "Clear",
+      "capacity": "3ml",
+      "shape": "Round"
+    },
+    {
+      "_id": "glass-clear-round-4",
+      "type": "bottle",
+      "name": "Clear Round Glass Bottle (4)",
+      "material": "Glass",
+      "color": "Clear",
+      "capacity": "4",
+      "shape": "Round"
+    },
+    {
+      "_id": "glass-clear-round-20",
+      "type": "bottle",
+      "name": "Clear Round Glass Bottle (20)",
+      "material": "Glass",
+      "color": "Clear",
+      "capacity": "20",
+      "shape": "Round"
+    },
+    {
+      "_id": "glass-clear-round-5ml",
+      "type": "bottle",
+      "name": "Clear Round Glass Bottle (5ml)",
+      "material": "Glass",
+      "color": "Clear",
+      "capacity": "5ml",
+      "shape": "Round"
+    },
+    {
+      "_id": "glass-clear-round-15",
+      "type": "bottle",
+      "name": "Clear Round Glass Bottle (15)",
+      "material": "Glass",
+      "color": "Clear",
+      "capacity": "15",
+      "shape": "Round"
+    },
+    {
+      "_id": "glass-clear-round-30",
+      "type": "bottle",
+      "name": "Clear Round Glass Bottle (30)",
+      "material": "Glass",
+      "color": "Clear",
+      "capacity": "30",
+      "shape": "Round"
+    },
+    {
+      "_id": "glass-clear-round-40",
+      "type": "bottle",
+      "name": "Clear Round Glass Bottle (40)",
+      "material": "Glass",
+      "color": "Clear",
+      "capacity": "40",
+      "shape": "Round"
+    },
+    {
+      "_id": "glass-clear-round-1ml",
+      "type": "bottle",
+      "name": "Clear Round Glass Bottle (1ml)",
+      "material": "Glass",
+      "color": "Clear",
+      "capacity": "1ml",
+      "shape": "Round"
+    }
+  ],
+  "caps": [
+    {
+      "_id": "white-cap",
+      "type": "cap",
+      "name": "White Cap",
+      "color": "White",
+      "style": "Cap"
+    },
+    {
+      "_id": "silver-cap",
+      "type": "cap",
+      "name": "Silver Cap",
+      "color": "Silver",
+      "style": "Cap"
+    }
+  ],
+  "fitments": [
+    {
+      "_id": "spray-atomizer",
+      "type": "fitment",
+      "name": "Spray / Atomizer"
+    },
+    {
+      "_id": "dab-on",
+      "type": "fitment",
+      "name": "Dab on"
+    },
+    {
+      "_id": "short-black-cap",
+      "type": "fitment",
+      "name": "short black cap"
+    },
+    {
+      "_id": "short-white-cap",
+      "type": "fitment",
+      "name": "short white cap"
+    },
+    {
+      "_id": "spray",
+      "type": "fitment",
+      "name": "Spray"
+    },
+    {
+      "_id": "lotionpump",
+      "type": "fitment",
+      "name": "LotionPump"
+    },
+    {
+      "_id": "glass-stopper",
+      "type": "fitment",
+      "name": "Glass Stopper"
+    }
+  ],
+  "productsSample": [
+    {
+      "_type": "product",
+      "title": "Product GBBstnAmb2ozMtlRollonMattSl",
+      "sku": "GBBstnAmb2ozMtlRollonMattSl",
+      "references": {
+        "bottle": "glass-clear-round-60ml",
+        "cap": "white-cap",
+        "fitment": null
+      },
+      "sourceFile": "01-BB_ 20-400 Collection - 20-400.csv"
+    },
+    {
+      "_type": "product",
+      "title": "design   bottle ml with  and  cap.",
+      "sku": "glass",
+      "references": {
+        "bottle": "glass-clear-round-ml",
+        "cap": "white-cap",
+        "fitment": null
+      },
+      "sourceFile": "01-BB_ 20-400 Collection - 20-400.csv"
+    },
+    {
+      "_type": "product",
+      "title": "Product 1594",
+      "sku": "1594",
+      "references": {
+        "bottle": "metal-black-slim-atomizer-5-ml",
+        "cap": "white-cap",
+        "fitment": "spray-atomizer"
+      },
+      "sourceFile": "13-415 ATOMIZER ITEMCODES - Sheet1.csv"
+    },
+    {
+      "_type": "product",
+      "title": "Product 1599",
+      "sku": "1599",
+      "references": {
+        "bottle": "metal-silver-slim-atomizer-5-ml",
+        "cap": "white-cap",
+        "fitment": "spray-atomizer"
+      },
+      "sourceFile": "13-415 ATOMIZER ITEMCODES - Sheet1.csv"
+    },
+    {
+      "_type": "product",
+      "title": "Product 1597",
+      "sku": "1597",
+      "references": {
+        "bottle": "metal-gold-slim-atomizer-5-ml",
+        "cap": "white-cap",
+        "fitment": "spray-atomizer"
+      },
+      "sourceFile": "13-415 ATOMIZER ITEMCODES - Sheet1.csv"
+    },
+    {
+      "_type": "product",
+      "title": "Product 37",
+      "sku": "37",
+      "references": {
+        "bottle": "metal-black-atomizer-5-ml",
+        "cap": "white-cap",
+        "fitment": "spray-atomizer"
+      },
+      "sourceFile": "13-415 ATOMIZER ITEMCODES - Sheet1.csv"
+    },
+    {
+      "_type": "product",
+      "title": "Product 38",
+      "sku": "38",
+      "references": {
+        "bottle": "metal-gold-atomizer-5-ml",
+        "cap": "white-cap",
+        "fitment": "spray-atomizer"
+      },
+      "sourceFile": "13-415 ATOMIZER ITEMCODES - Sheet1.csv"
+    },
+    {
+      "_type": "product",
+      "title": "Product 422",
+      "sku": "422",
+      "references": {
+        "bottle": "metal-blue-atomizer-5-ml",
+        "cap": "white-cap",
+        "fitment": "spray-atomizer"
+      },
+      "sourceFile": "13-415 ATOMIZER ITEMCODES - Sheet1.csv"
+    },
+    {
+      "_type": "product",
+      "title": "Product 423",
+      "sku": "423",
+      "references": {
+        "bottle": "metal-pink-atomizer-5-ml",
+        "cap": "white-cap",
+        "fitment": "spray-atomizer"
+      },
+      "sourceFile": "13-415 ATOMIZER ITEMCODES - Sheet1.csv"
+    },
+    {
+      "_type": "product",
+      "title": "Product 136",
+      "sku": "136",
+      "references": {
+        "bottle": "metal-red-atomizer-5-ml",
+        "cap": "white-cap",
+        "fitment": "spray-atomizer"
+      },
+      "sourceFile": "13-415 ATOMIZER ITEMCODES - Sheet1.csv"
+    }
+  ]
+}

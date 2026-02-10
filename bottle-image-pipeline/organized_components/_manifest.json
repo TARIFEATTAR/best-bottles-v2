@@ -1,0 +1,3668 @@
+[
+  {
+    "sku": "1. CP13-415RollGlSh",
+    "bottle": "bottle.png",
+    "cap": null,
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "1. GBBell12BlkSht",
+    "bottle": "bottle.png",
+    "cap": "cap-black-shiny.png",
+    "fitment": null
+  },
+  {
+    "sku": "1. GBCrcl15BlkSht",
+    "bottle": "bottle.png",
+    "cap": "cap-black-shiny.png",
+    "fitment": null
+  },
+  {
+    "sku": "1. GBCrcl30BlkSht",
+    "bottle": "bottle.png",
+    "cap": "cap-black-shiny.png",
+    "fitment": null
+  },
+  {
+    "sku": "1. GBCyl5BlkSht",
+    "bottle": "bottle.png",
+    "cap": "cap-black-shiny.png",
+    "fitment": null
+  },
+  {
+    "sku": "1. GBCylAmb5BlkSht",
+    "bottle": "bottle.png",
+    "cap": "cap-black-shiny.png",
+    "fitment": null
+  },
+  {
+    "sku": "1. GBCylBlu5BlkSht",
+    "bottle": "bottle.png",
+    "cap": "cap-black-shiny.png",
+    "fitment": null
+  },
+  {
+    "sku": "1. GBDaisy10BlkSht",
+    "bottle": "bottle.png",
+    "cap": "cap-black-shiny.png",
+    "fitment": null
+  },
+  {
+    "sku": "1. GBElg15BlkSht",
+    "bottle": "bottle.png",
+    "cap": "cap-black-shiny.png",
+    "fitment": null
+  },
+  {
+    "sku": "1. GBFlair15BlkSht",
+    "bottle": "bottle.png",
+    "cap": "cap-black-shiny.png",
+    "fitment": null
+  },
+  {
+    "sku": "1. GBQueen10BlkSht",
+    "bottle": "bottle.png",
+    "cap": "cap-black-shiny.png",
+    "fitment": null
+  },
+  {
+    "sku": "1. GBRect10BlkSht",
+    "bottle": "bottle.png",
+    "cap": "cap-black-shiny.png",
+    "fitment": null
+  },
+  {
+    "sku": "1. GBRect15BlkSht",
+    "bottle": "bottle.png",
+    "cap": "cap-black-shiny.png",
+    "fitment": null
+  },
+  {
+    "sku": "1. GBRoyal13BlkSht",
+    "bottle": "bottle.png",
+    "cap": "cap-black-shiny.png",
+    "fitment": null
+  },
+  {
+    "sku": "1. GBSleek5BlkSht",
+    "bottle": "bottle.png",
+    "cap": "cap-black-shiny.png",
+    "fitment": null
+  },
+  {
+    "sku": "1. GBSleek8BlkSht",
+    "bottle": "bottle.png",
+    "cap": "cap-black-shiny.png",
+    "fitment": null
+  },
+  {
+    "sku": "1. GBSqr15BlkSht",
+    "bottle": "bottle.png",
+    "cap": "cap-black-shiny.png",
+    "fitment": null
+  },
+  {
+    "sku": "1. GBTallCyl9BlkSht",
+    "bottle": "bottle.png",
+    "cap": "cap-black-shiny.png",
+    "fitment": null
+  },
+  {
+    "sku": "1. GBTallRect10BlkSht",
+    "bottle": "bottle.png",
+    "cap": "cap-black-shiny.png",
+    "fitment": null
+  },
+  {
+    "sku": "1. GBTulip5BlkSht",
+    "bottle": "bottle.png",
+    "cap": "cap-black-shiny.png",
+    "fitment": null
+  },
+  {
+    "sku": "1. GBTulipAmb5BlkSht",
+    "bottle": "bottle.png",
+    "cap": "cap-black-shiny.png",
+    "fitment": null
+  },
+  {
+    "sku": "10. CP13-415SpryBlkMt",
+    "bottle": "bottle.png",
+    "cap": null,
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "10. GBBell12RollMtlSlDot",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "10. GBCrcl15RollMtlSlDot",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "10. GBCrcl30RollMtlSlDot",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "10. GBCyl5RollMtlSlDot",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "10. GBCylAmb5RollMtlSlDot",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "10. GBCylBlu5RollMtlSlDot",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "10. GBDaisy10RollMtlSlDot",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "10. GBElg15RollMtlSlDot",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "10. GBFlair15RollMtlSlDot",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "10. GBQueen10RollMtlSlDot",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "10. GBRect10RollMtlSlDot",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "10. GBRect15RollMtlSlDot",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "10. GBRoyal13RollMtlSlDot",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "10. GBSleek5RollMtlSlDot",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "10. GBSleek8RollMtlSlDot",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "10. GBSqr15RollMtlSlDot",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "10. GBTallCyl9RollMtlSlDot",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "10. GBTallRect10RollMtlSlDot",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "10. GBTulip5RollMtlSlDot",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "10. GBTulipAmb5RollMtlSlDot",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "11. CP13-415SpryBlkSh",
+    "bottle": "bottle.png",
+    "cap": null,
+    "fitment": null
+  },
+  {
+    "sku": "11. GBBell12RollSlDot",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "11. GBCrcl15RollSlDot",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "11. GBCyl5RollSlDot",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "11. GBCylAmb5RollSlDot",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "11. GBCylBlu5RollSlDot",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "11. GBDaisy10RollSlDot",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "11. GBElg15RollSlDot",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "11. GBFlair15RollSlDot",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "11. GBQueen10RollSlDot",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "11. GBRect10RollSlDot",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "11. GBRect15RollSlDot",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "11. GBRoyal13RollSlDot",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "11. GBSleek5RollSlDot",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "11. GBSleek8RollSlDot",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "11. GBSqr15RollSlDot",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "11. GBTallCyl9RollSlDot",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "11. GBTallRect10RollSlDot",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "11. GBTulip5RollSlDot",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "11. GBTulipAmb5RollSlDot",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "12. CP13-415SpryBluMt",
+    "bottle": "bottle.png",
+    "cap": null,
+    "fitment": null
+  },
+  {
+    "sku": "12. GBBell12RollMtlPinkDot",
+    "bottle": "bottle.png",
+    "cap": "cap-pink-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "12. GBCrcl15RollMtlPinkDot",
+    "bottle": "bottle.png",
+    "cap": "cap-pink-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "12. GBCrcl30RollMtlPinkDot",
+    "bottle": "bottle.png",
+    "cap": "cap-pink-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "12. GBCyl5RollMtlPinkDot",
+    "bottle": "bottle.png",
+    "cap": "cap-pink-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "12. GBCylAmb5RollMtlPinkDot",
+    "bottle": "bottle.png",
+    "cap": "cap-pink-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "12. GBCylBlu5RollMtlPinkDot",
+    "bottle": "bottle.png",
+    "cap": "cap-pink-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "12. GBDaisy10RollMtlPinkDot",
+    "bottle": "bottle.png",
+    "cap": "cap-pink-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "12. GBElg15RollMtlPinkDot",
+    "bottle": "bottle.png",
+    "cap": "cap-pink-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "12. GBFlair15RollMtlPinkDot",
+    "bottle": "bottle.png",
+    "cap": "cap-pink-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "12. GBQueen10RollMtlPinkDot",
+    "bottle": "bottle.png",
+    "cap": "cap-pink-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "12. GBRect10RollMtlPinkDot",
+    "bottle": "bottle.png",
+    "cap": "cap-pink-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "12. GBRect15RollMtlPinkDot",
+    "bottle": "bottle.png",
+    "cap": "cap-pink-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "12. GBRoyal13RollMtlPinkDot",
+    "bottle": "bottle.png",
+    "cap": "cap-pink-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "12. GBSleek5RollMtlPinkDot",
+    "bottle": "bottle.png",
+    "cap": "cap-pink-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "12. GBSleek8RollMtlPinkDot",
+    "bottle": "bottle.png",
+    "cap": "cap-pink-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "12. GBSqr15RollMtlPinkDot",
+    "bottle": "bottle.png",
+    "cap": "cap-pink-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "12. GBTallCyl9RollMtlPinkDot",
+    "bottle": "bottle.png",
+    "cap": "cap-pink-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "12. GBTallRect10RollMtlPinkDot",
+    "bottle": "bottle.png",
+    "cap": "cap-pink-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "12. GBTulip5RollMtlPinkDot",
+    "bottle": "bottle.png",
+    "cap": "cap-pink-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "12. GBTulipAmb5RollMtlPinkDot",
+    "bottle": "bottle.png",
+    "cap": "cap-pink-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "13. CP13-415SpryGlSh",
+    "bottle": "bottle.png",
+    "cap": null,
+    "fitment": null
+  },
+  {
+    "sku": "13. GBBell12RollPinkDot",
+    "bottle": "bottle.png",
+    "cap": "cap-pink-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "13. GBCrcl15RollPinkDot",
+    "bottle": "bottle.png",
+    "cap": "cap-pink-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "13. GBCrcl30RollPinkDot",
+    "bottle": "bottle.png",
+    "cap": "cap-pink-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "13. GBCyl5RollPinkDot",
+    "bottle": "bottle.png",
+    "cap": "cap-pink-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "13. GBCylAmb5RollPinkDot",
+    "bottle": "bottle.png",
+    "cap": "cap-pink-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "13. GBCylBlu5RollPinkDot",
+    "bottle": "bottle.png",
+    "cap": "cap-pink-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "13. GBDaisy10RollPinkDot",
+    "bottle": "bottle.png",
+    "cap": "cap-pink-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "13. GBElg15RollPinkDot",
+    "bottle": "bottle.png",
+    "cap": "cap-pink-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "13. GBFlair15RollPinkDot",
+    "bottle": "bottle.png",
+    "cap": "cap-pink-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "13. GBQueen10RollPinkDot",
+    "bottle": "bottle.png",
+    "cap": "cap-pink-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "13. GBRect10RollPinkDot",
+    "bottle": "bottle.png",
+    "cap": "cap-pink-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "13. GBRect15RollPinkDot",
+    "bottle": "bottle.png",
+    "cap": "cap-pink-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "13. GBRoyal13RollPinkDot",
+    "bottle": "bottle.png",
+    "cap": "cap-pink-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "13. GBSleek5RollPinkDot",
+    "bottle": "bottle.png",
+    "cap": "cap-pink-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "13. GBSleek8RollPinkDot",
+    "bottle": "bottle.png",
+    "cap": "cap-pink-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "13. GBSqr15RollPinkDot",
+    "bottle": "bottle.png",
+    "cap": "cap-pink-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "13. GBTallCyl9RollPinkDot",
+    "bottle": "bottle.png",
+    "cap": "cap-pink-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "13. GBTallRect10RollPinkDot",
+    "bottle": "bottle.png",
+    "cap": "cap-pink-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "13. GBTulip5RollPinkDot",
+    "bottle": "bottle.png",
+    "cap": "cap-pink-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "13. GBTulipAmb5RollPinkDot",
+    "bottle": "bottle.png",
+    "cap": "cap-pink-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "14. CP13-415SpryGlMt",
+    "bottle": "bottle.png",
+    "cap": null,
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "14. GBBell12RollMtlSlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "14. GBCrcl15RollMtlSlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "14. GBCrcl30RollMtlSlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "14. GBCyl5RollMtlSlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "14. GBCylAmb5RollMtlSlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "14. GBCylBlu5RollMtlSlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "14. GBDaisy10RollMtlSlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "14. GBElg15RollMtlSlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "14. GBFlair15RollMtlSlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "14. GBQueen10RollMtlSlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "14. GBRect10RollMtlSlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "14. GBRect15RollMtlSlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "14. GBRoyal13RollMtlSlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "14. GBSleek5RollMtlSlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "14. GBSleek8RollMtlSlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "14. GBSqr15RollMtlSlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "14. GBTallCyl9RollMtlSlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "14. GBTallRect10RollMtlSlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "14. GBTulip5RollMtlSlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "14. GBTulipAmb5RollMtlSlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "15. CP13-415SprySlMt",
+    "bottle": "bottle.png",
+    "cap": null,
+    "fitment": null
+  },
+  {
+    "sku": "15. GBBell12RollSlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "15. GBCrcl15RollSlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "15. GBCrcl30RollSlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "15. GBCyl5RollSlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "15. GBCylAmb5RollSlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "15. GBCylBlu5RollSlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "15. GBDaisy10RollSlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "15. GBElg15RollSlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "15. GBFlair15RollSlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "15. GBQueen10RollSlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "15. GBRect10RollSlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "15. GBRect15RollSlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "15. GBRoyal13RollSlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "15. GBSleek5RollSlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "15. GBSleek8RollSlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "15. GBSqr15RollSlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "15. GBTallCyl9RollSlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "15. GBTallRect10RollSlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "15. GBTulip5RollSlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "15. GBTulipAmb5RollSlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "16. CP13-415SprySlSh",
+    "bottle": "bottle.png",
+    "cap": null,
+    "fitment": null
+  },
+  {
+    "sku": "16. GBBell12RollMtlGlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "16. GBCrcl15RollMtlGlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "16. GBCyl5RollMtlGlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "16. GBCylAmb5RollMtlGlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "16. GBCylBlu5RollMtlGlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "16. GBDaisy10RollMtlGlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "16. GBElg15RollMtlGlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "16. GBFlair15RollMtlGlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "16. GBQueen10RollMtlGlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "16. GBRect10RollMtlGlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "16. GBRect15RollMtlGlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "16. GBRoyal13RollMtlGlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "16. GBSleek5RollMtlGlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "16. GBSleek8RollMtlGlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "16. GBSqr15RollMtlGlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "16. GBTallCyl9RollMtlGlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "16. GBTallRect10RollMtlGlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "16. GBTulip5RollMtlGlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "16. GBTulipAmb5RollMtlGlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "17. CP13-415BlkSht",
+    "bottle": "bottle.png",
+    "cap": null,
+    "fitment": null
+  },
+  {
+    "sku": "17. GBBell12RollGlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "17. GBCrcl15RollGlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "17. GBCrcl30RollGl",
+    "bottle": "bottle.png",
+    "cap": "cap-unknown.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "17. GBCrcl30RollGlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "17. GBCyl5RollGlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "17. GBCylAmb5RollGlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "17. GBCylBlu5RollGlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "17. GBDaisy10RollGlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "17. GBElg15RollGlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "17. GBFlair15RollGlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "17. GBQueen10RollGlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "17. GBRect10RollGlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "17. GBRect15RollGlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "17. GBRoyal13RollGlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "17. GBSleek5RollGlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "17. GBSleek8RollGlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "17. GBSqr15RollGlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "17. GBTallCyl9RollGlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "17. GBTallRect10RollGlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "17. GBTulip5RollGlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "17. GBTulipAmb5RollGlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "18. CP13-415WhtSht",
+    "bottle": "bottle.png",
+    "cap": null,
+    "fitment": null
+  },
+  {
+    "sku": "18. GBBell12RollMtlGlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "18. GBCrcl15RollMtlGlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "18. GBCrcl30RollMtlGlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "18. GBCyl5RollMtlGlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "18. GBCylAmb5RollMtlGlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "18. GBCylBlu5RollMtlGlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "18. GBDaisy10RollMtlGlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "18. GBElg15RollMtlGlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "18. GBFlair15RollMtlGlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "18. GBQueen10RollMtlGlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "18. GBRect10RollMtlGlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "18. GBRect15RollMtlGlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "18. GBRoyal13RollMtlGlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "18. GBSleek5RollMtlGlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "18. GBSleek8RollMtlGlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "18. GBSqr15RollMtlGlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "18. GBTallCyl9RollMtlGlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "18. GBTallRect10RollMtlGlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "18. GBTulip5RollMtlGlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "18. GBTulipAmb5RollMtlGlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "19. GBBell12RollGlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "19. GBCrcl15RollGlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "19. GBCrcl30RollGlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "19. GBCyl5RollGlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "19. GBCylAmb5RollGlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "19. GBCylBlu5RollGlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "19. GBDaisy10RollGlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "19. GBElg15RollGlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "19. GBFlair15RollGlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "19. GBQueen10RollGlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "19. GBRect10RollGlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "19. GBRect15RollGlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "19. GBRoyal13RollGlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "19. GBSleek5RollGlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "19. GBSleek8RollGlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "19. GBSqr15RollGlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "19. GBTallCyl9RollGlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "19. GBTallRect10RollGlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "19. GBTulip5RollGlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "19. GBTulipAmb5RollGlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "2. CP13-415RollCu",
+    "bottle": "bottle.png",
+    "cap": null,
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "2. GBBell12WhtSht",
+    "bottle": "bottle.png",
+    "cap": "cap-white-shiny.png",
+    "fitment": null
+  },
+  {
+    "sku": "2. GBCrcl15WhtSht",
+    "bottle": "bottle.png",
+    "cap": "cap-white-shiny.png",
+    "fitment": null
+  },
+  {
+    "sku": "2. GBCrcl30WhtSht",
+    "bottle": "bottle.png",
+    "cap": "cap-white-shiny.png",
+    "fitment": null
+  },
+  {
+    "sku": "2. GBCyl5WhtSht",
+    "bottle": "bottle.png",
+    "cap": "cap-white-shiny.png",
+    "fitment": null
+  },
+  {
+    "sku": "2. GBCylAmb5WhtSht",
+    "bottle": "bottle.png",
+    "cap": "cap-white-shiny.png",
+    "fitment": null
+  },
+  {
+    "sku": "2. GBCylBlu5WhtSht",
+    "bottle": "bottle.png",
+    "cap": "cap-white-shiny.png",
+    "fitment": null
+  },
+  {
+    "sku": "2. GBDaisy10WhtSht",
+    "bottle": "bottle.png",
+    "cap": "cap-white-shiny.png",
+    "fitment": null
+  },
+  {
+    "sku": "2. GBElg15WhtSht",
+    "bottle": "bottle.png",
+    "cap": "cap-white-shiny.png",
+    "fitment": null
+  },
+  {
+    "sku": "2. GBFlair15WhtSht",
+    "bottle": "bottle.png",
+    "cap": "cap-white-shiny.png",
+    "fitment": null
+  },
+  {
+    "sku": "2. GBQueen10WhtSht",
+    "bottle": "bottle.png",
+    "cap": "cap-white-shiny.png",
+    "fitment": null
+  },
+  {
+    "sku": "2. GBRect10WhtSht",
+    "bottle": "bottle.png",
+    "cap": "cap-white-shiny.png",
+    "fitment": null
+  },
+  {
+    "sku": "2. GBRect15WhtSht",
+    "bottle": "bottle.png",
+    "cap": "cap-white-shiny.png",
+    "fitment": null
+  },
+  {
+    "sku": "2. GBRoyal13WhtSht",
+    "bottle": "bottle.png",
+    "cap": "cap-white-shiny.png",
+    "fitment": null
+  },
+  {
+    "sku": "2. GBSleek5WhtSht",
+    "bottle": "bottle.png",
+    "cap": "cap-white-shiny.png",
+    "fitment": null
+  },
+  {
+    "sku": "2. GBSleek8WhtSht",
+    "bottle": "bottle.png",
+    "cap": "cap-white-shiny.png",
+    "fitment": null
+  },
+  {
+    "sku": "2. GBSqr15WhtSht",
+    "bottle": "bottle.png",
+    "cap": "cap-white-shiny.png",
+    "fitment": null
+  },
+  {
+    "sku": "2. GBTallCyl9WhtSht",
+    "bottle": "bottle.png",
+    "cap": "cap-white-shiny.png",
+    "fitment": null
+  },
+  {
+    "sku": "2. GBTallRect10WhtSht",
+    "bottle": "bottle.png",
+    "cap": "cap-white-shiny.png",
+    "fitment": null
+  },
+  {
+    "sku": "2. GBTulip5WhtSht",
+    "bottle": "bottle.png",
+    "cap": "cap-white-shiny.png",
+    "fitment": null
+  },
+  {
+    "sku": "2. GBTulipAmb5WhtSht",
+    "bottle": "bottle.png",
+    "cap": "cap-white-shiny.png",
+    "fitment": null
+  },
+  {
+    "sku": "20. GBBell12RollMtlSlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "20. GBCrcl15RollMtlSlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "20. GBCrcl30RollMtlSlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "20. GBCyl5RollMtlSlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "20. GBCylAmb5MtlRollSlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "20. GBCylBlu5RollMtlSlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "20. GBDaisy10RollMtlSlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "20. GBElg15RollMtlSlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "20. GBFlair15RollMtlSlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "20. GBQueen10RollMtlSlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "20. GBRect10RollMtlSlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "20. GBRect15RollMtlSlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "20. GBRoyal13RollMtlSlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "20. GBSleek5RollMtlSlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "20. GBSleek8RollMtlSlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "20. GBSqr15RollMtlSlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "20. GBTallCyl9RollMtlSlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "20. GBTallRect10RollMtlSlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "20. GBTulip5RollMtlSlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "20. GBTulipAmb5RollMtlSlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "21. GBBell12RollSlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "21. GBCrcl15RollSlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "21. GBCrcl15RollSlshn",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "21. GBCyl5RollSlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "21. GBCylAmb5RollSlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "21. GBCylBlu5RollSlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "21. GBDaisy10RollSlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "21. GBElg15RollSlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "21. GBFlair15RollSlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "21. GBQueen10RollSlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "21. GBRect10RollSlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "21. GBRect15RollSlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "21. GBRoyal13RollSlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "21. GBSleek5RollSlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "21. GBSleek8RollSlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "21. GBSqr15RollSlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "21. GBTallCyl9RollSlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "21. GBTallRect10RollSlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "21. GBTulip5RollSlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "21. GBTulipAmb5RollSlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "22. GBBell12RollMtlCuMt",
+    "bottle": "bottle.png",
+    "cap": "cap-copper-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "22. GBCrcl15RollMtlCuMt",
+    "bottle": "bottle.png",
+    "cap": "cap-copper-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "22. GBCrcl30RollMtlCuMt",
+    "bottle": "bottle.png",
+    "cap": "cap-copper-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "22. GBCyl5RollMtlCuMt",
+    "bottle": "bottle.png",
+    "cap": "cap-copper-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "22. GBCylAmb5RollMtlCuMt",
+    "bottle": "bottle.png",
+    "cap": "cap-copper-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "22. GBCylBlu5RollMtlCuMt",
+    "bottle": "bottle.png",
+    "cap": "cap-copper-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "22. GBDaisy10RollMtlCuMt",
+    "bottle": "bottle.png",
+    "cap": "cap-copper-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "22. GBElg15RollMtlCuMt",
+    "bottle": "bottle.png",
+    "cap": "cap-copper-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "22. GBFlair15RollMtlCuMt",
+    "bottle": "bottle.png",
+    "cap": "cap-copper-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "22. GBQueen10RollMtlCuMt",
+    "bottle": "bottle.png",
+    "cap": "cap-copper-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "22. GBRect10RollMtlCuMt",
+    "bottle": "bottle.png",
+    "cap": "cap-copper-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "22. GBRect15RollMtlCuMt",
+    "bottle": "bottle.png",
+    "cap": "cap-copper-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "22. GBRoyal13RollMtlCuMt",
+    "bottle": "bottle.png",
+    "cap": "cap-copper-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "22. GBSleek5RollMtlCuMt",
+    "bottle": "bottle.png",
+    "cap": "cap-copper-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "22. GBSleek8RollMtlCuMt",
+    "bottle": "bottle.png",
+    "cap": "cap-copper-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "22. GBSqr15RollMtlCuMt",
+    "bottle": "bottle.png",
+    "cap": "cap-copper-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "22. GBTallCyl9RollMtlCuMt",
+    "bottle": "bottle.png",
+    "cap": "cap-copper-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "22. GBTallRect10RollMtlCuMt",
+    "bottle": "bottle.png",
+    "cap": "cap-copper-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "22. GBTulip5RollMtlCuMt",
+    "bottle": "bottle.png",
+    "cap": "cap-copper-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "22. GBTulipAmb5RollMtlCuMt",
+    "bottle": "bottle.png",
+    "cap": "cap-copper-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "23. GBBell12RollCuMt",
+    "bottle": "bottle.png",
+    "cap": "cap-copper-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "23. GBCrcl15RollCuMt",
+    "bottle": "bottle.png",
+    "cap": "cap-copper-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "23. GBCrcl30RollCuMt",
+    "bottle": "bottle.png",
+    "cap": "cap-copper-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "23. GBCyl5RollCuMt",
+    "bottle": "bottle.png",
+    "cap": "cap-copper-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "23. GBCylAmb5RollCuMt",
+    "bottle": "bottle.png",
+    "cap": "cap-copper-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "23. GBCylBlu5RollCuMt",
+    "bottle": "bottle.png",
+    "cap": "cap-copper-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "23. GBDaisy10RollCuMt",
+    "bottle": "bottle.png",
+    "cap": "cap-copper-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "23. GBElg15RollCuMt",
+    "bottle": "bottle.png",
+    "cap": "cap-copper-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "23. GBFlair15RollCuMt",
+    "bottle": "bottle.png",
+    "cap": "cap-copper-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "23. GBQueen10RollCuMt",
+    "bottle": "bottle.png",
+    "cap": "cap-copper-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "23. GBRect10RollCuMt",
+    "bottle": "bottle.png",
+    "cap": "cap-copper-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "23. GBRect15RollCuMt",
+    "bottle": "bottle.png",
+    "cap": "cap-copper-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "23. GBRoyal13RollCuMt",
+    "bottle": "bottle.png",
+    "cap": "cap-copper-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "23. GBSleek5RollCuMt",
+    "bottle": "bottle.png",
+    "cap": "cap-copper-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "23. GBSleek8RollCuMt",
+    "bottle": "bottle.png",
+    "cap": "cap-copper-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "23. GBSqr15RollCuMt",
+    "bottle": "bottle.png",
+    "cap": "cap-copper-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "23. GBTallCyl9RollCuMt",
+    "bottle": "bottle.png",
+    "cap": "cap-copper-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "23. GBTallRect10RollCuMt",
+    "bottle": "bottle.png",
+    "cap": "cap-copper-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "23. GBTulip5RollCuMt",
+    "bottle": "bottle.png",
+    "cap": "cap-copper-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "23. GBTulipAmb5RollCuMt",
+    "bottle": "bottle.png",
+    "cap": "cap-copper-matte.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "24",
+    "bottle": "bottle.png",
+    "cap": "cap-unknown.png",
+    "fitment": null
+  },
+  {
+    "sku": "24 copy",
+    "bottle": "bottle.png",
+    "cap": "cap-unknown.png",
+    "fitment": null
+  },
+  {
+    "sku": "24. GBBell12RollMtlBlkSh",
+    "bottle": "bottle.png",
+    "cap": "cap-black-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "24. GBCrcl15RollMtlBlkSh",
+    "bottle": "bottle.png",
+    "cap": "cap-black-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "24. GBCrcl30RollMtlBlkSh",
+    "bottle": "bottle.png",
+    "cap": "cap-black-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "24. GBCyl5RollMtlBlkSh",
+    "bottle": "bottle.png",
+    "cap": "cap-black-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "24. GBCylAmb5RollMtlBlkSh",
+    "bottle": "bottle.png",
+    "cap": "cap-black-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "24. GBCylBlu5RollMtlBlkSh",
+    "bottle": "bottle.png",
+    "cap": "cap-black-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "24. GBDaisy10RollMtlBlkSh",
+    "bottle": "bottle.png",
+    "cap": "cap-black-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "24. GBElg15RollMtlBlkSh",
+    "bottle": "bottle.png",
+    "cap": "cap-black-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "24. GBFlair15RollMtlBlkSh",
+    "bottle": "bottle.png",
+    "cap": "cap-black-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "24. GBQueen10RollMtlBlkSh",
+    "bottle": "bottle.png",
+    "cap": "cap-black-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "24. GBRect10RollMtlBlkSh",
+    "bottle": "bottle.png",
+    "cap": "cap-black-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "24. GBRect15RollMtlBlkSh",
+    "bottle": "bottle.png",
+    "cap": "cap-black-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "24. GBRoyal13RollMtlBlkSh",
+    "bottle": "bottle.png",
+    "cap": "cap-black-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "24. GBSleek5RollMtlBlkSh",
+    "bottle": "bottle.png",
+    "cap": "cap-black-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "24. GBSleek8RollMtlBlkSh",
+    "bottle": "bottle.png",
+    "cap": "cap-black-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "24. GBSqr15RollMtlBlkSh",
+    "bottle": "bottle.png",
+    "cap": "cap-black-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "24. GBTallCyl9RollMtlBlkSh",
+    "bottle": "bottle.png",
+    "cap": "cap-black-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "24. GBTallRect10RollMtlBlkSh",
+    "bottle": "bottle.png",
+    "cap": "cap-black-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "24. GBTulip5RollMtlBlkSh",
+    "bottle": "bottle.png",
+    "cap": "cap-black-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "24. GBTulipAmb5RollMtlBlkSh",
+    "bottle": "bottle.png",
+    "cap": "cap-black-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "25",
+    "bottle": "bottle.png",
+    "cap": "cap-unknown.png",
+    "fitment": null
+  },
+  {
+    "sku": "25. GBBell12RollBlkSh",
+    "bottle": "bottle.png",
+    "cap": "cap-black-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "25. GBCrcl15RollBlkSh",
+    "bottle": "bottle.png",
+    "cap": "cap-black-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "25. GBCrcl30RollBlkSh",
+    "bottle": "bottle.png",
+    "cap": "cap-black-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "25. GBCyl5RollBlkSh",
+    "bottle": "bottle.png",
+    "cap": "cap-black-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "25. GBCylAmb5RollBlkSh",
+    "bottle": "bottle.png",
+    "cap": "cap-black-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "25. GBCylBlu5RollBlkSh",
+    "bottle": "bottle.png",
+    "cap": "cap-black-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "25. GBDaisy10RollBlkSh",
+    "bottle": "bottle.png",
+    "cap": "cap-black-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "25. GBElg15RollBlkSh",
+    "bottle": "bottle.png",
+    "cap": "cap-black-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "25. GBFlair15RollBlkSh",
+    "bottle": "bottle.png",
+    "cap": "cap-black-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "25. GBQueen10RollBlkSh",
+    "bottle": "bottle.png",
+    "cap": "cap-black-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "25. GBRect10RollBlkSh",
+    "bottle": "bottle.png",
+    "cap": "cap-black-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "25. GBRect15RollBlkSh",
+    "bottle": "bottle.png",
+    "cap": "cap-black-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "25. GBRoyal13RollBlkSh",
+    "bottle": "bottle.png",
+    "cap": "cap-black-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "25. GBSleek5RollBlkSh",
+    "bottle": "bottle.png",
+    "cap": "cap-black-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "25. GBSleek8RollBlkSh",
+    "bottle": "bottle.png",
+    "cap": "cap-black-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "25. GBSqr15RollBlkSh",
+    "bottle": "bottle.png",
+    "cap": "cap-black-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "25. GBTallCyl9RollBlkSh",
+    "bottle": "bottle.png",
+    "cap": "cap-black-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "25. GBTallRect10RollBlkSh",
+    "bottle": "bottle.png",
+    "cap": "cap-black-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "25. GBTulip5RollBlkSh",
+    "bottle": "bottle.png",
+    "cap": "cap-black-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "25. GBTulipAmb5RollBlkSh",
+    "bottle": "bottle.png",
+    "cap": "cap-black-shiny.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "26. GBBell12RollMtlBlkDot",
+    "bottle": "bottle.png",
+    "cap": "cap-black-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "26. GBCrcl15RollMtlBlkDot",
+    "bottle": "bottle.png",
+    "cap": "cap-black-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "26. GBCrcl30RollMtlBlkDot",
+    "bottle": "bottle.png",
+    "cap": "cap-black-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "26. GBCyl5RollMtlBlkDot",
+    "bottle": "bottle.png",
+    "cap": "cap-black-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "26. GBCylAmb5RollMtlBlkDot",
+    "bottle": "bottle.png",
+    "cap": "cap-black-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "26. GBCylBlu5RollMtlBlkDot",
+    "bottle": "bottle.png",
+    "cap": "cap-black-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "26. GBDaisy10RollMtlBlkDot",
+    "bottle": "bottle.png",
+    "cap": "cap-black-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "26. GBElg15RollMtlBlkDot",
+    "bottle": "bottle.png",
+    "cap": "cap-black-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "26. GBFlair15RollMtlBlkDot",
+    "bottle": "bottle.png",
+    "cap": "cap-black-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "26. GBQueen10RollMtlBlkDot",
+    "bottle": "bottle.png",
+    "cap": "cap-black-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "26. GBRect10RollMtlBlkDot",
+    "bottle": "bottle.png",
+    "cap": "cap-black-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "26. GBRect15RollMtlBlkDot",
+    "bottle": "bottle.png",
+    "cap": "cap-black-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "26. GBRoyal13RollBlkDot",
+    "bottle": "bottle.png",
+    "cap": "cap-black-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "26. GBRoyal13RollMtlBlkDot",
+    "bottle": "bottle.png",
+    "cap": "cap-black-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "26. GBSleek5RollMtlBlkDot",
+    "bottle": "bottle.png",
+    "cap": "cap-black-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "26. GBSleek8RollMtlBlkDot",
+    "bottle": "bottle.png",
+    "cap": "cap-black-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "26. GBSqr15RollMtlBlkDot",
+    "bottle": "bottle.png",
+    "cap": "cap-black-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "26. GBTallCyl9RollMtlBlkDot",
+    "bottle": "bottle.png",
+    "cap": "cap-black-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "26. GBTallRect10RollMtlBlkDot",
+    "bottle": "bottle.png",
+    "cap": "cap-black-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "26. GBTulip6RollMtlBlkDot",
+    "bottle": "bottle.png",
+    "cap": "cap-black-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "27",
+    "bottle": "bottle.png",
+    "cap": null,
+    "fitment": null
+  },
+  {
+    "sku": "27. GBBell12RollBlkDot",
+    "bottle": "bottle.png",
+    "cap": "cap-black-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "27. GBCrcl15RollBlkDot",
+    "bottle": "bottle.png",
+    "cap": "cap-black-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "27. GBCrcl30RollBlkDot",
+    "bottle": "bottle.png",
+    "cap": "cap-black-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "27. GBCyl5RollBlkDot",
+    "bottle": "bottle.png",
+    "cap": "cap-black-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "27. GBCylAmb5RollBlkDot",
+    "bottle": "bottle.png",
+    "cap": "cap-black-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "27. GBCylBlu5RollBlkDot",
+    "bottle": "bottle.png",
+    "cap": "cap-black-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "27. GBDaisy10RollMtlBlkDot",
+    "bottle": "bottle.png",
+    "cap": "cap-black-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "27. GBElg15RollBlkDot",
+    "bottle": "bottle.png",
+    "cap": "cap-black-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "27. GBFlair15RollBlkDot",
+    "bottle": "bottle.png",
+    "cap": "cap-black-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "27. GBQueen10RollBlkDot",
+    "bottle": "bottle.png",
+    "cap": "cap-black-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "27. GBRect10RollBlkDot",
+    "bottle": "bottle.png",
+    "cap": "cap-black-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "27. GBRect15RollBlkDot",
+    "bottle": "bottle.png",
+    "cap": "cap-black-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "27. GBSleek5RollBlkDot",
+    "bottle": "bottle.png",
+    "cap": "cap-black-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "27. GBSleek8RollBlkDot",
+    "bottle": "bottle.png",
+    "cap": "cap-black-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "27. GBSqr15RollBlkDot",
+    "bottle": "bottle.png",
+    "cap": "cap-black-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "27. GBTallCyl9RollBlkDot",
+    "bottle": "bottle.png",
+    "cap": "cap-black-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "27. GBTallRect10RollBlkDot",
+    "bottle": "bottle.png",
+    "cap": "cap-black-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "27. GBTulip6RollBlkDot",
+    "bottle": "bottle.png",
+    "cap": "cap-black-dot.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "28",
+    "bottle": "bottle.png",
+    "cap": null,
+    "fitment": null
+  },
+  {
+    "sku": "29",
+    "bottle": "bottle.png",
+    "cap": null,
+    "fitment": null
+  },
+  {
+    "sku": "3. CP13-415RollSlDot",
+    "bottle": "bottle.png",
+    "cap": null,
+    "fitment": null
+  },
+  {
+    "sku": "3. GBBell12SpryBlkMt",
+    "bottle": "bottle.png",
+    "cap": "cap-black-matte.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "3. GBCrcl15SpryBlkMt",
+    "bottle": "bottle.png",
+    "cap": "cap-black-matte.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "3. GBCrcl30SpryBlkMt",
+    "bottle": "bottle.png",
+    "cap": "cap-black-matte.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "3. GBCyl5SpryBlkMt",
+    "bottle": "bottle.png",
+    "cap": "cap-black-matte.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "3. GBCylAmb5SpryBlkMt",
+    "bottle": "bottle.png",
+    "cap": "cap-black-matte.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "3. GBCylBlu5SpryBlkMt",
+    "bottle": "bottle.png",
+    "cap": "cap-black-matte.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "3. GBDaisy10SpryBlkMt",
+    "bottle": "bottle.png",
+    "cap": "cap-black-matte.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "3. GBElg15SpryBlkMt",
+    "bottle": "bottle.png",
+    "cap": "cap-black-matte.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "3. GBFlair15SpryBlkMt",
+    "bottle": "bottle.png",
+    "cap": "cap-black-matte.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "3. GBQueen10SpryBlkMt",
+    "bottle": "bottle.png",
+    "cap": "cap-black-matte.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "3. GBRect10SpryBlkMt",
+    "bottle": "bottle.png",
+    "cap": "cap-black-matte.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "3. GBRect15SpryBlkMt",
+    "bottle": "bottle.png",
+    "cap": "cap-black-matte.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "3. GBRoyal13SpryBlkMt",
+    "bottle": "bottle.png",
+    "cap": "cap-black-matte.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "3. GBSleek5SpryBlkMt",
+    "bottle": "bottle.png",
+    "cap": "cap-black-matte.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "3. GBSleek8SpryBlkMt",
+    "bottle": "bottle.png",
+    "cap": "cap-black-matte.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "3. GBSqr15SpryBlkMt",
+    "bottle": "bottle.png",
+    "cap": "cap-black-matte.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "3. GBTallCyl9SpryBlkMt",
+    "bottle": "bottle.png",
+    "cap": "cap-black-matte.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "3. GBTallRect10SpryBlkMt",
+    "bottle": "bottle.png",
+    "cap": "cap-black-matte.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "3. GBTulip5SpryBlkMt",
+    "bottle": "bottle.png",
+    "cap": "cap-black-matte.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "3. GBTulipAmb5SpryBlkMt",
+    "bottle": "bottle.png",
+    "cap": "cap-black-matte.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "4. GBBell12SpryBlkSh",
+    "bottle": "bottle.png",
+    "cap": "cap-black-shiny.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "4. GBCrcl15SpryBlkSh",
+    "bottle": "bottle.png",
+    "cap": "cap-black-shiny.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "4. GBCrcl30SpryBlkSh",
+    "bottle": "bottle.png",
+    "cap": "cap-black-shiny.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "4. GBCyl5SpryBlkSh",
+    "bottle": "bottle.png",
+    "cap": "cap-black-shiny.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "4. GBCylAmb5SpryBlkSh",
+    "bottle": "bottle.png",
+    "cap": "cap-black-shiny.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "4. GBCylBlu5SpryBlkSh",
+    "bottle": "bottle.png",
+    "cap": "cap-black-shiny.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "4. GBDaisy10SpryBlkSh",
+    "bottle": "bottle.png",
+    "cap": "cap-black-shiny.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "4. GBElg15SpryBlkSh",
+    "bottle": "bottle.png",
+    "cap": "cap-black-shiny.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "4. GBFlair15SpryBlkSh",
+    "bottle": "bottle.png",
+    "cap": "cap-black-shiny.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "4. GBQueen10SpryBlkSh",
+    "bottle": "bottle.png",
+    "cap": "cap-black-shiny.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "4. GBRect10SpryBlkSh",
+    "bottle": "bottle.png",
+    "cap": "cap-black-shiny.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "4. GBRect15SpryBlkSh",
+    "bottle": "bottle.png",
+    "cap": "cap-black-shiny.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "4. GBRoyal13SpryBlkSh",
+    "bottle": "bottle.png",
+    "cap": "cap-black-shiny.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "4. GBSleek5SpryBlkSh",
+    "bottle": "bottle.png",
+    "cap": "cap-black-shiny.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "4. GBSleek8SpryBlkSh",
+    "bottle": "bottle.png",
+    "cap": "cap-black-shiny.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "4. GBSqr15SpryBlkSh",
+    "bottle": "bottle.png",
+    "cap": "cap-black-shiny.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "4. GBTallCyl9SpryBlkSh",
+    "bottle": "bottle.png",
+    "cap": "cap-black-shiny.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "4. GBTallRect10SpryBlkSh",
+    "bottle": "bottle.png",
+    "cap": "cap-black-shiny.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "4. GBTulip5SpryBlkSh",
+    "bottle": "bottle.png",
+    "cap": "cap-black-shiny.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "4. GBTulipAmb5SpryBlkSh",
+    "bottle": "bottle.png",
+    "cap": "cap-black-shiny.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "5. CP13-415RollPinkDot",
+    "bottle": "bottle.png",
+    "cap": null,
+    "fitment": null
+  },
+  {
+    "sku": "5. GBBell12SpryBluMt",
+    "bottle": "bottle.png",
+    "cap": "cap-blue-matte.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "5. GBCrcl15SpryBluMt",
+    "bottle": "bottle.png",
+    "cap": "cap-blue-matte.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "5. GBCyl5SpryBluMt",
+    "bottle": "bottle.png",
+    "cap": "cap-blue-matte.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "5. GBCylAmb5SpryBluMt",
+    "bottle": "bottle.png",
+    "cap": "cap-blue-matte.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "5. GBCylBlu5SpryBluMt",
+    "bottle": "bottle.png",
+    "cap": "cap-blue-matte.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "5. GBDaisy10SpryBluMt",
+    "bottle": "bottle.png",
+    "cap": "cap-blue-matte.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "5. GBElg15SpryBluMt",
+    "bottle": "bottle.png",
+    "cap": "cap-blue-matte.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "5. GBFlair15SpryBluMt",
+    "bottle": "bottle.png",
+    "cap": "cap-blue-matte.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "5. GBQueen10SpryBluMt",
+    "bottle": "bottle.png",
+    "cap": "cap-blue-matte.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "5. GBRect10SpryBluMt",
+    "bottle": "bottle.png",
+    "cap": "cap-blue-matte.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "5. GBRect15SpryBluMt",
+    "bottle": "bottle.png",
+    "cap": "cap-blue-matte.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "5. GBRoyal13SpryBluMt",
+    "bottle": "bottle.png",
+    "cap": "cap-blue-matte.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "5. GBSleek5SpryBluMt",
+    "bottle": "bottle.png",
+    "cap": "cap-blue-matte.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "5. GBSleek8SpryBluMt",
+    "bottle": "bottle.png",
+    "cap": "cap-blue-matte.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "5. GBSqr15SpryBluMt",
+    "bottle": "bottle.png",
+    "cap": "cap-blue-matte.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "5. GBTallCyl9SpryBluMt",
+    "bottle": "bottle.png",
+    "cap": "cap-blue-matte.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "5. GBTallRect10SpryBluMt",
+    "bottle": "bottle.png",
+    "cap": "cap-blue-matte.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "5. GBTulip5SpryBluMt",
+    "bottle": "bottle.png",
+    "cap": "cap-blue-matte.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "5. GBTulipAmb5SpryBluMt",
+    "bottle": "bottle.png",
+    "cap": "cap-blue-matte.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "6. CP13-415RollSlMt",
+    "bottle": "bottle.png",
+    "cap": null,
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "6. GBBell12SpryGlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-shiny.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "6. GBCrcl15SpryGlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-shiny.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "6. GBCyl5SpryGlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-shiny.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "6. GBCylAmb5SpryGlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-shiny.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "6. GBCylBlu5SpryGlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-shiny.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "6. GBDaisy10SpryGlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-shiny.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "6. GBElg15SpryGlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-shiny.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "6. GBFlair15SpryGlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-shiny.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "6. GBQueen10SpryGlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-shiny.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "6. GBRect10SpryGlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-shiny.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "6. GBRect15SpryGlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-shiny.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "6. GBRoyal13SpryGlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-shiny.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "6. GBSleek5SpryGlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-shiny.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "6. GBSleek8SpryGlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-shiny.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "6. GBSqr15SpryGlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-shiny.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "6. GBTallCyl9SpryGlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-shiny.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "6. GBTallRect10SpryGlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-shiny.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "6. GBTulip5SpryGlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-shiny.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "6. GBTulipAmb5SpryGlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-shiny.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "7. CP13-415RollGlMt",
+    "bottle": "bottle.png",
+    "cap": null,
+    "fitment": null
+  },
+  {
+    "sku": "7. GBBell12SpryGlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-matte.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "7. GBCrcl15SpryGlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-matte.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "7. GBCrcl30SpryGlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-matte.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "7. GBCyl5SpryGlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-matte.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "7. GBCylAmb5SpryGlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-matte.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "7. GBCylBlu5SpryGlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-matte.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "7. GBDaisy10SpryGlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-matte.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "7. GBElg15SpryGlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-matte.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "7. GBFlair15SpryGlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-matte.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "7. GBQueen10SpryGlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-matte.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "7. GBRect10SpryGlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-matte.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "7. GBRect15SpryGlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-matte.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "7. GBRoyal13SpryGlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-matte.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "7. GBSleek5SpryGlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-matte.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "7. GBSleek8SpryGlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-matte.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "7. GBSqr15SpryGlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-matte.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "7. GBTallCyl9SpryGlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-matte.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "7. GBTallRect10SpryGlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-matte.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "7. GBTulip5SpryGlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-matte.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "7. GBTulipAmb5SpryGlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-gold-matte.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "8. CP13-415RollSlSh",
+    "bottle": "bottle.png",
+    "cap": null,
+    "fitment": null
+  },
+  {
+    "sku": "8. GBBell12SprySlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-matte.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "8. GBCrcl15SprySlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-matte.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "8. GBCyl5SprySlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-matte.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "8. GBCylAmb5SprySlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-matte.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "8. GBCylBlu5SprySlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-matte.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "8. GBDaisy10SprySlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-matte.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "8. GBElg15SprySlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-matte.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "8. GBFlair15SprySlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-matte.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "8. GBQueen10SprySlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-matte.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "8. GBRect10SprySlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-matte.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "8. GBRect15SprySlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-matte.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "8. GBRoyal13SprySlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-matte.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "8. GBSleek5SprySlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-matte.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "8. GBSleek8SprySlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-matte.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "8. GBSqr15SprySlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-matte.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "8. GBTallCyl9SprySlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-matte.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "8. GBTallRect10SprySlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-matte.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "8. GBTulip5SprySlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-matte.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "8. GBTulipAmb5SprySlMt",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-matte.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "9. CP13-415RollBlkSh",
+    "bottle": "bottle.png",
+    "cap": null,
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "9. GBBell12SprySlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-shiny.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "9. GBCrcl15SprySlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-shiny.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "9. GBCrcl30SprySlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-shiny.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "9. GBCyl5SprySlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-shiny.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "9. GBCylAmb5SprySlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-shiny.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "9. GBCylBlu5SprySlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-shiny.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "9. GBDaisy10SprySlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-shiny.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "9. GBElg15SprySlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-shiny.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "9. GBFlair15SprySlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-shiny.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "9. GBQueen10SprySlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-shiny.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "9. GBRect10SprySlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-shiny.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "9. GBRect15SprySlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-shiny.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "9. GBRoyal13SprySlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-shiny.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "9. GBSleek5SprySlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-shiny.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "9. GBSleek8SprySlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-shiny.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "9. GBSqr15SprySlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-shiny.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "9. GBTallCyl9SprySlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-shiny.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "9. GBTallRect10SprySlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-shiny.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "9. GBTulip5SprySlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-shiny.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "9. GBTulipAmb5SprySlSh",
+    "bottle": "bottle.png",
+    "cap": "cap-silver-shiny.png",
+    "fitment": "sprayer.png"
+  },
+  {
+    "sku": "Bell",
+    "bottle": "bottle.png",
+    "cap": "cap-unknown.png",
+    "fitment": null
+  },
+  {
+    "sku": "Bell in blue",
+    "bottle": "bottle.png",
+    "cap": "cap-unknown.png",
+    "fitment": null
+  },
+  {
+    "sku": "Bell with gold spray cap",
+    "bottle": "bottle.png",
+    "cap": "cap-unknown.png",
+    "fitment": null
+  },
+  {
+    "sku": "Bell with plastic",
+    "bottle": "bottle.png",
+    "cap": "cap-unknown.png",
+    "fitment": null
+  },
+  {
+    "sku": "Bell with plastic no roller bottle",
+    "bottle": "bottle.png",
+    "cap": "cap-unknown.png",
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "DSC02333 (2)",
+    "bottle": "bottle.png",
+    "cap": "cap-unknown.png",
+    "fitment": null
+  },
+  {
+    "sku": "DSC02475",
+    "bottle": "bottle.png",
+    "cap": "cap-unknown.png",
+    "fitment": null
+  },
+  {
+    "sku": "DSC03605",
+    "bottle": "bottle.png",
+    "cap": "cap-unknown.png",
+    "fitment": null
+  },
+  {
+    "sku": "DSC03629",
+    "bottle": "bottle.png",
+    "cap": "cap-unknown.png",
+    "fitment": null
+  },
+  {
+    "sku": "DSC03867",
+    "bottle": "bottle.png",
+    "cap": null,
+    "fitment": null
+  },
+  {
+    "sku": "DSC03908",
+    "bottle": "bottle.png",
+    "cap": null,
+    "fitment": null
+  },
+  {
+    "sku": "DSC03909.",
+    "bottle": "bottle.png",
+    "cap": null,
+    "fitment": null
+  },
+  {
+    "sku": "DSC03921.",
+    "bottle": "bottle.png",
+    "cap": null,
+    "fitment": null
+  },
+  {
+    "sku": "DSC03927.",
+    "bottle": "bottle.png",
+    "cap": "cap-unknown.png",
+    "fitment": null
+  },
+  {
+    "sku": "DSC03930.",
+    "bottle": "bottle.png",
+    "cap": "cap-unknown.png",
+    "fitment": null
+  },
+  {
+    "sku": "DSC03940.",
+    "bottle": "bottle.png",
+    "cap": null,
+    "fitment": null
+  },
+  {
+    "sku": "DSC03940..",
+    "bottle": "bottle.png",
+    "cap": null,
+    "fitment": null
+  },
+  {
+    "sku": "DSC03947.",
+    "bottle": "bottle.png",
+    "cap": null,
+    "fitment": null
+  },
+  {
+    "sku": "DSC03947..",
+    "bottle": "bottle.png",
+    "cap": null,
+    "fitment": null
+  },
+  {
+    "sku": "DSC03954.",
+    "bottle": "bottle.png",
+    "cap": null,
+    "fitment": null
+  },
+  {
+    "sku": "DSC03954..",
+    "bottle": "bottle.png",
+    "cap": null,
+    "fitment": null
+  },
+  {
+    "sku": "DSC03957.",
+    "bottle": "bottle.png",
+    "cap": null,
+    "fitment": null
+  },
+  {
+    "sku": "DSC03963.",
+    "bottle": "bottle.png",
+    "cap": null,
+    "fitment": null
+  },
+  {
+    "sku": "Daisy",
+    "bottle": "bottle.png",
+    "cap": null,
+    "fitment": null
+  },
+  {
+    "sku": "Elegant Clear",
+    "bottle": "bottle.png",
+    "cap": "cap-unknown.png",
+    "fitment": null
+  },
+  {
+    "sku": "Elegant Clear Side",
+    "bottle": "bottle.png",
+    "cap": null,
+    "fitment": null
+  },
+  {
+    "sku": "Elegant Side",
+    "bottle": "bottle.png",
+    "cap": null,
+    "fitment": null
+  },
+  {
+    "sku": "Metal Roller Ball",
+    "bottle": "bottle.png",
+    "cap": null,
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "Plastic Roller Ball",
+    "bottle": "bottle.png",
+    "cap": null,
+    "fitment": "roller-plastic.png"
+  },
+  {
+    "sku": "Royal",
+    "bottle": "bottle.png",
+    "cap": "cap-unknown.png",
+    "fitment": null
+  },
+  {
+    "sku": "Royal Side",
+    "bottle": "bottle.png",
+    "cap": null,
+    "fitment": null
+  },
+  {
+    "sku": "Side view",
+    "bottle": "bottle.png",
+    "cap": null,
+    "fitment": null
+  },
+  {
+    "sku": "Square",
+    "bottle": "bottle.png",
+    "cap": null,
+    "fitment": null
+  },
+  {
+    "sku": "Type 5ml Clear Cylinder",
+    "bottle": "bottle.png",
+    "cap": "cap-unknown.png",
+    "fitment": null
+  },
+  {
+    "sku": "Type 5ml Cylinder",
+    "bottle": "bottle.png",
+    "cap": "cap-unknown.png",
+    "fitment": null
+  },
+  {
+    "sku": "Type Amber Cylinder",
+    "bottle": "bottle.png",
+    "cap": "cap-unknown.png",
+    "fitment": null
+  },
+  {
+    "sku": "Type Sleek 5ml",
+    "bottle": "bottle.png",
+    "cap": "cap-unknown.png",
+    "fitment": null
+  },
+  {
+    "sku": "Type Sleek 8ml Font View",
+    "bottle": "bottle.png",
+    "cap": "cap-unknown.png",
+    "fitment": null
+  },
+  {
+    "sku": "Type Sleek 8ml Side view",
+    "bottle": "bottle.png",
+    "cap": null,
+    "fitment": null
+  },
+  {
+    "sku": "a",
+    "bottle": "bottle.png",
+    "cap": "cap-unknown.png",
+    "fitment": null
+  },
+  {
+    "sku": "b",
+    "bottle": "bottle.png",
+    "cap": "cap-unknown.png",
+    "fitment": null
+  },
+  {
+    "sku": "c",
+    "bottle": "bottle.png",
+    "cap": "cap-unknown.png",
+    "fitment": null
+  },
+  {
+    "sku": "d",
+    "bottle": "bottle.png",
+    "cap": "cap-unknown.png",
+    "fitment": null
+  },
+  {
+    "sku": "e",
+    "bottle": "bottle.png",
+    "cap": "cap-unknown.png",
+    "fitment": null
+  },
+  {
+    "sku": "f",
+    "bottle": "bottle.png",
+    "cap": "cap-unknown.png",
+    "fitment": null
+  },
+  {
+    "sku": "front view",
+    "bottle": "bottle.png",
+    "cap": "cap-unknown.png",
+    "fitment": null
+  },
+  {
+    "sku": "g",
+    "bottle": "bottle.png",
+    "cap": "cap-unknown.png",
+    "fitment": null
+  },
+  {
+    "sku": "h",
+    "bottle": "bottle.png",
+    "cap": "cap-unknown.png",
+    "fitment": null
+  },
+  {
+    "sku": "i",
+    "bottle": "bottle.png",
+    "cap": "cap-unknown.png",
+    "fitment": null
+  },
+  {
+    "sku": "j",
+    "bottle": "bottle.png",
+    "cap": "cap-unknown.png",
+    "fitment": null
+  },
+  {
+    "sku": "k",
+    "bottle": "bottle.png",
+    "cap": "cap-unknown.png",
+    "fitment": null
+  },
+  {
+    "sku": "pink and dots",
+    "bottle": "bottle.png",
+    "cap": null,
+    "fitment": null
+  },
+  {
+    "sku": "side view 2",
+    "bottle": "bottle.png",
+    "cap": null,
+    "fitment": null
+  },
+  {
+    "sku": "side view 3",
+    "bottle": "bottle.png",
+    "cap": null,
+    "fitment": null
+  }
+]

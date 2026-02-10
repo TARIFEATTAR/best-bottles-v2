@@ -1,0 +1,646 @@
+{
+  "generatedAt": "2025-12-05T18:01:26.741Z",
+  "categories": [
+    {
+      "id": "43d8bc7508861700842a58e99d959e6cad20b595",
+      "slug": "aluminum-bottles-and-cans",
+      "name": "Aluminum Bottles and Cans",
+      "url": "https://www.bestbottles.com/all-bottles/Perfume-atomizer-aluminum-bottle-cans/bestbottles-brushed-aluminum-bottles-sprayers-and-cans.php?subcat=75",
+      "section": "ul",
+      "keywords": [
+        "aluminum",
+        "bottles",
+        "and",
+        "cans"
+      ]
+    },
+    {
+      "id": "3e8ee8324f89a30ca0ff1323442e6d4203d3445b",
+      "slug": "aluminum-bottles-with-fine-mist-sprayers",
+      "name": "Aluminum Bottles With Fine Mist Sprayers",
+      "url": "https://www.bestbottles.com/all-bottles/Perfume-atomizer-aluminum-bottle-cans/bestbottles-brushed-aluminum-bottles-sprayers-and-cans.php?subcat=76",
+      "section": "ul",
+      "keywords": [
+        "aluminum",
+        "bottles",
+        "with",
+        "fine",
+        "mist",
+        "sprayers"
+      ]
+    },
+    {
+      "id": "7ea31b1ea18935556b380aa237135540eb16077c",
+      "slug": "antique-style-bulb-spray-bottles",
+      "name": "Antique Style Bulb Spray Bottles",
+      "url": "https://www.bestbottles.com/all-bottles/Perfume-atomizer-aluminum-bottle-cans/bestbottles-antique-style-bulb-spray-bottles.php",
+      "section": "ul",
+      "keywords": [
+        "antique",
+        "style",
+        "bulb",
+        "spray",
+        "bottles"
+      ]
+    },
+    {
+      "id": "ad59ead672372edbdba7fee570190f1036f77582",
+      "slug": "apothecary-style-bottles",
+      "name": "Apothecary Style Bottles",
+      "url": "https://www.bestbottles.com/all-bottles/Perfume-vials-glass-bottles/apothecary-style-bottles.php",
+      "section": "body",
+      "keywords": [
+        "apothecary",
+        "style",
+        "bottles"
+      ]
+    },
+    {
+      "id": "9770006dc6a7b49526ebde48da0e6e9cc4f24a1a",
+      "slug": "boston-round-glass-bottles-with-caps-and-droppers",
+      "name": "Boston Round Glass Bottles With Caps & Droppers",
+      "url": "https://www.bestbottles.com/all-bottles/Perfume-vials-glass-bottles/perfume-vials-glass-bottles-cobalt-blue-amber-essential-oils-aromatherapy.php?subcat=66",
+      "section": "ul",
+      "keywords": [
+        "boston",
+        "round",
+        "glass",
+        "bottles",
+        "with",
+        "caps",
+        "and",
+        "droppers"
+      ]
+    },
+    {
+      "id": "4e660b080af6642eb33566093a5ced46cc14c421",
+      "slug": "brushed-aluminum-bottles-sprayers-and-cans",
+      "name": "Brushed Aluminum Bottles, Sprayers And Cans",
+      "url": "https://www.bestbottles.com/all-bottles/Perfume-atomizer-aluminum-bottle-cans/bestbottles-brushed-aluminum-bottles-sprayers-and-cans.php",
+      "section": "ul",
+      "keywords": [
+        "brushed",
+        "aluminum",
+        "bottles",
+        "sprayers",
+        "and",
+        "cans"
+      ]
+    },
+    {
+      "id": "97131b74d22a3f83f676ccdd63374934cffa3593",
+      "slug": "caps-plugs-and-sprayers-for-bottles",
+      "name": "Caps, plugs and sprayers for Bottles",
+      "url": "https://www.bestbottles.com/all-bottles/accessories/caps-plugs-sprayers.php",
+      "section": "ul",
+      "keywords": [
+        "caps",
+        "plugs",
+        "and",
+        "sprayers",
+        "for",
+        "bottles"
+      ]
+    },
+    {
+      "id": "d217a9c0593e2799ca10a3279526dba07dcd39c4",
+      "slug": "classic-glass-bottles-with-attractive-caps",
+      "name": "Classic Glass Bottles With Attractive Caps",
+      "url": "https://www.bestbottles.com/all-bottles/Perfume-vials-glass-bottles/perfume-vials-glass-bottles-cobalt-blue-amber-essential-oils-aromatherapy.php?subcat=65",
+      "section": "ul",
+      "keywords": [
+        "classic",
+        "glass",
+        "bottles",
+        "with",
+        "attractive",
+        "caps"
+      ]
+    },
+    {
+      "id": "08bc7ffd43e525d9c712e058a88ed53139b07f28",
+      "slug": "classic-perfume-spray-bottles",
+      "name": "Classic Perfume Spray Bottles",
+      "url": "https://www.bestbottles.com/all-bottles/Perfume-atomizer-aluminum-bottle-cans/bestbottles-classic-perfume-spray-bottles.php",
+      "section": "ul",
+      "keywords": [
+        "classic",
+        "perfume",
+        "spray",
+        "bottles"
+      ]
+    },
+    {
+      "id": "40bebc0842774a1f9f05030d31e9eccfc51ecab8",
+      "slug": "clear-and-colored-glass-roll-on-bottles-of-capacity-range-about-1-6oz-from-4ml-to-6ml",
+      "name": "Clear and colored glass roll on bottles of capacity range about 1/6oz (from 4ml to 6ml)",
+      "url": "https://www.bestbottles.com/all-bottles/Perfume-vials-glass-bottles/roll-on-roller-bottles-frosted-black-silver-gold-white-caps.php?subcat=67",
+      "section": "ul",
+      "keywords": [
+        "clear",
+        "and",
+        "colored",
+        "glass",
+        "roll",
+        "on",
+        "bottles",
+        "of",
+        "capacity",
+        "range",
+        "about",
+        "1",
+        "6oz",
+        "from",
+        "4ml",
+        "to",
+        "6ml"
+      ]
+    },
+    {
+      "id": "b96be3b714c3f232d5dc3643df439378fcc2eb3d",
+      "slug": "clear-glass-roll-on-bottles-capacity-range-1oz-and-more",
+      "name": "Clear glass roll on bottles. Capacity range 1oz and more",
+      "url": "https://www.bestbottles.com/all-bottles/Perfume-vials-glass-bottles/roll-on-roller-bottles-frosted-black-silver-gold-white-caps.php?subcat=70",
+      "section": "ul",
+      "keywords": [
+        "clear",
+        "glass",
+        "roll",
+        "on",
+        "bottles",
+        "capacity",
+        "range",
+        "1oz",
+        "and",
+        "more"
+      ]
+    },
+    {
+      "id": "354fc573b9c9b06e66f1afa3683c914536b42209",
+      "slug": "clear-glass-roll-on-bottles-capacity-range-about-1-2oz-from-12ml-to-15ml",
+      "name": "Clear glass roll on bottles. Capacity range about 1/2oz ( from 12ml to 15ml)",
+      "url": "https://www.bestbottles.com/all-bottles/Perfume-vials-glass-bottles/roll-on-roller-bottles-frosted-black-silver-gold-white-caps.php?subcat=69",
+      "section": "ul",
+      "keywords": [
+        "clear",
+        "glass",
+        "roll",
+        "on",
+        "bottles",
+        "capacity",
+        "range",
+        "about",
+        "1",
+        "2oz",
+        "from",
+        "12ml",
+        "to",
+        "15ml"
+      ]
+    },
+    {
+      "id": "25a470ad41904d0dcfee66786c1b5473c6636738",
+      "slug": "clear-frosted-and-colored-glass-roll-on-bottles-of-capacity-range-about-1-3oz-from-8ml-to-10ml",
+      "name": "Clear, frosted and colored glass roll on bottles of capacity range about 1/3oz (from 8ml to 10ml)",
+      "url": "https://www.bestbottles.com/all-bottles/Perfume-vials-glass-bottles/roll-on-roller-bottles-frosted-black-silver-gold-white-caps.php?subcat=68",
+      "section": "ul",
+      "keywords": [
+        "clear",
+        "frosted",
+        "and",
+        "colored",
+        "glass",
+        "roll",
+        "on",
+        "bottles",
+        "of",
+        "capacity",
+        "range",
+        "about",
+        "1",
+        "3oz",
+        "from",
+        "8ml",
+        "to",
+        "10ml"
+      ]
+    },
+    {
+      "id": "3b83d518d6ba2dc52cf37a434e2acbf5b69441b8",
+      "slug": "cream-jars",
+      "name": "Cream Jars",
+      "url": "https://www.bestbottles.com/all-bottles/lotion-pump-cream-jars/cream-jars-gold-silver-caps.php",
+      "section": "ul",
+      "keywords": [
+        "cream",
+        "jars"
+      ]
+    },
+    {
+      "id": "177ddd78e79b92e19538cd4e3059e716fa285f91",
+      "slug": "cream-jars-and-lotion-bottles",
+      "name": "Cream Jars and Lotion Bottles",
+      "url": "https://www.bestbottles.com/all-bottles/lotion-pump-cream-jars/lotion-pumps-bottles-cream-jars-purchase.php",
+      "section": "body",
+      "keywords": [
+        "cream",
+        "jars",
+        "and",
+        "lotion",
+        "bottles"
+      ]
+    },
+    {
+      "id": "7270395b5731760d7e5d345d64ab061c03cd3120",
+      "slug": "cream-jars-treatment-pumps-and-lotion-bottles",
+      "name": "Cream Jars, Treatment Pumps, and Lotion Bottles",
+      "url": "https://www.bestbottles.com/all-bottles/lotion-pump-cream-jars/lotion-pumps-bottles-cream-jars-information.php",
+      "section": "ul",
+      "keywords": [
+        "cream",
+        "jars",
+        "treatment",
+        "pumps",
+        "and",
+        "lotion",
+        "bottles"
+      ]
+    },
+    {
+      "id": "20cb6b2eb60057d6b68cb207730b96612b7d2478",
+      "slug": "decorative-perfume-bottles-with-keychain-caps",
+      "name": "Decorative perfume bottles with Keychain Caps",
+      "url": "https://www.bestbottles.com/all-bottles/Perfume-vials-glass-bottles/small-decorative-gift-perfume-bottles-heart-shape-sun-moon-genie.php?subcat=15",
+      "section": "ul",
+      "keywords": [
+        "decorative",
+        "perfume",
+        "bottles",
+        "with",
+        "keychain",
+        "caps"
+      ]
+    },
+    {
+      "id": "1b1d335f6d0bd9110b8f92d066518b70bc8cf789",
+      "slug": "decorative-perfume-bottles-with-tassel-caps",
+      "name": "Decorative perfume bottles with tassel Caps",
+      "url": "https://www.bestbottles.com/all-bottles/Perfume-vials-glass-bottles/small-decorative-gift-perfume-bottles-heart-shape-sun-moon-genie.php?subcat=16",
+      "section": "ul",
+      "keywords": [
+        "decorative",
+        "perfume",
+        "bottles",
+        "with",
+        "tassel",
+        "caps"
+      ]
+    },
+    {
+      "id": "5e09ab0a4334fbc3e5a510b89b838f7fa9f40c09",
+      "slug": "funnels-and-droppers",
+      "name": "Funnels and Droppers",
+      "url": "https://www.bestbottles.com/all-bottles/accessories/bestbottles-funnels-and-dropers.php",
+      "section": "ul",
+      "keywords": [
+        "funnels",
+        "and",
+        "droppers"
+      ]
+    },
+    {
+      "id": "ce2f1275bef3ae5323090998fd1b4ebe6743ad5f",
+      "slug": "gift-boxes",
+      "name": "Gift Boxes",
+      "url": "https://www.bestbottles.com/all-bottles/accessories/bestbottles-gift-boxes.php",
+      "section": "ul",
+      "keywords": [
+        "gift",
+        "boxes"
+      ]
+    },
+    {
+      "id": "e488339f1f5c3a7a105fd907b2c8097e7fb4a40b",
+      "slug": "glass-bottles-with-fine-mist-sprayers",
+      "name": "Glass Bottles with Fine Mist Sprayers",
+      "url": "https://www.bestbottles.com/all-bottles/Perfume-atomizer-aluminum-bottle-cans/bestbottles-glass-bottles-with-fine-mist-sprayers.php",
+      "section": "ul",
+      "keywords": [
+        "glass",
+        "bottles",
+        "with",
+        "fine",
+        "mist",
+        "sprayers"
+      ]
+    },
+    {
+      "id": "035babed80bc87200ad995506c2cc1c40141aeea",
+      "slug": "glass-stopper-perfume-bottles",
+      "name": "Glass Stopper perfume bottles",
+      "url": "https://www.bestbottles.com/all-bottles/Perfume-vials-glass-bottles/small-decorative-gift-perfume-bottles-heart-shape-sun-moon-genie.php?subcat=72",
+      "section": "ul",
+      "keywords": [
+        "glass",
+        "stopper",
+        "perfume",
+        "bottles"
+      ]
+    },
+    {
+      "id": "7054e9639894d2be49499c3b1ceaf896091395da",
+      "slug": "large-decorative-perfume-bottles",
+      "name": "Large Decorative Perfume Bottles",
+      "url": "https://www.bestbottles.com/all-bottles/Perfume-vials-glass-bottles/large-perfume-bottles-decorative.php",
+      "section": "ul",
+      "keywords": [
+        "large",
+        "decorative",
+        "perfume",
+        "bottles"
+      ]
+    },
+    {
+      "id": "6544ee7d83b56a745ec0813c0e674e2ada12898b",
+      "slug": "large-decorative-perfume-bottles-and-apothecary-style-bottles",
+      "name": "Large Decorative Perfume Bottles and Apothecary Style Bottles",
+      "url": "https://www.bestbottles.com/all-bottles/Perfume-vials-glass-bottles/large-perfume-bottles-decorative-apothecary-style-bottles.php",
+      "section": "ul",
+      "keywords": [
+        "large",
+        "decorative",
+        "perfume",
+        "bottles",
+        "and",
+        "apothecary",
+        "style",
+        "bottles"
+      ]
+    },
+    {
+      "id": "352bd0eb7bba4afd2597b3a3626ecac1afd56c3d",
+      "slug": "lotion-bottles",
+      "name": "Lotion Bottles",
+      "url": "https://www.bestbottles.com/all-bottles/lotion-pump-cream-jars/lotion-pumps-bottles.php",
+      "section": "ul",
+      "keywords": [
+        "lotion",
+        "bottles"
+      ]
+    },
+    {
+      "id": "cd91e8f8b889a767602f001d2ab0acbe557ecef5",
+      "slug": "metal-shell-perfume-automizers",
+      "name": "Metal Shell Perfume Automizers",
+      "url": "https://www.bestbottles.com/all-bottles/Perfume-atomizer-aluminum-bottle-cans/bestbottles-metal-shell-perfume-atomizers.php",
+      "section": "ul",
+      "keywords": [
+        "metal",
+        "shell",
+        "perfume",
+        "automizers"
+      ]
+    },
+    {
+      "id": "0d1365bf9904322c32862103d0b8675741cb6484",
+      "slug": "perfume-accessories-and-packaging",
+      "name": "Perfume Accessories & Packaging",
+      "url": "https://www.bestbottles.com/all-bottles/accessories/velvet-bags-organza-gusseted-bags-gift-box-purchase.php",
+      "section": "ul",
+      "keywords": [
+        "perfume",
+        "accessories",
+        "and",
+        "packaging"
+      ]
+    },
+    {
+      "id": "c6d4aa154c0291d3525836930167ce78fecbb311",
+      "slug": "perfume-accessories-and-packaging",
+      "name": "Perfume Accessories & Packaging",
+      "url": "https://www.bestbottles.com/all-bottles/accessories/velvet-bags-organza-gusseted-bags-gift-box-information.php",
+      "section": "ul",
+      "keywords": [
+        "perfume",
+        "accessories",
+        "and",
+        "packaging"
+      ]
+    },
+    {
+      "id": "d94f83be44b7d1dfbb798c5afd3033b651a527dc",
+      "slug": "perfume-atomizers-sprayers-aluminum-bottles-and-cans",
+      "name": "Perfume Atomizers, Sprayers, Aluminum Bottles & Cans",
+      "url": "https://www.bestbottles.com/all-bottles/Perfume-atomizer-aluminum-bottle-cans/Perfume-atomizer-Aluminum-bottle-cans-purchase.php",
+      "section": "body",
+      "keywords": [
+        "perfume",
+        "atomizers",
+        "sprayers",
+        "aluminum",
+        "bottles",
+        "and",
+        "cans"
+      ]
+    },
+    {
+      "id": "2728762b4053f7dacb13caa79cf59f0d63b700f8",
+      "slug": "perfume-atomizers-sprayers-aluminum-bottles-and-cans",
+      "name": "Perfume Atomizers, Sprayers, Aluminum Bottles & Cans",
+      "url": "https://www.bestbottles.com/all-bottles/Perfume-atomizer-aluminum-bottle-cans/Perfume-atomizer-Aluminum-bottle-cans-information.php",
+      "section": "ul",
+      "keywords": [
+        "perfume",
+        "atomizers",
+        "sprayers",
+        "aluminum",
+        "bottles",
+        "and",
+        "cans"
+      ]
+    },
+    {
+      "id": "62376eba0f9c9fc644e4afc48ccfaa59f1d1146e",
+      "slug": "perfume-bottles-with-metal-and-beads-decoration",
+      "name": "Perfume Bottles with Metal and Beads Decoration",
+      "url": "https://www.bestbottles.com/all-bottles/Perfume-vials-glass-bottles/perfume-bottles-with-metal-and-beads.php",
+      "section": "body",
+      "keywords": [
+        "perfume",
+        "bottles",
+        "with",
+        "metal",
+        "and",
+        "beads",
+        "decoration"
+      ]
+    },
+    {
+      "id": "f9a89cfaa949451cc64f28e632cce0aec9a9db3a",
+      "slug": "perfume-vials-and-perfume-bottles",
+      "name": "Perfume Vials and Perfume Bottles",
+      "url": "https://www.bestbottles.com/all-bottles/Perfume-vials-glass-bottles/perfume-vials-glass-bottles-cobalt-blue-amber-essential-oils-aromatherapy.php",
+      "section": "body",
+      "keywords": [
+        "perfume",
+        "vials",
+        "and",
+        "perfume",
+        "bottles"
+      ]
+    },
+    {
+      "id": "53752936e8b57e23a44bc39db9b9272ce1501bc6",
+      "slug": "perfume-vials-and-tubes-with-caps-and-droppers",
+      "name": "Perfume vials and tubes With Caps & Droppers",
+      "url": "https://www.bestbottles.com/all-bottles/Perfume-vials-glass-bottles/perfume-vials-glass-bottles-cobalt-blue-amber-essential-oils-aromatherapy.php?subcat=64",
+      "section": "ul",
+      "keywords": [
+        "perfume",
+        "vials",
+        "and",
+        "tubes",
+        "with",
+        "caps",
+        "and",
+        "droppers"
+      ]
+    },
+    {
+      "id": "369cfe19a0e0d8b15806ca23985f23f7addd037d",
+      "slug": "perfume-vials-bottles-roll-on-bottles-and-decorative-glass-bottles",
+      "name": "Perfume vials, Bottles, Roll on bottles and Decorative glass Bottles",
+      "url": "https://www.bestbottles.com/all-bottles/Perfume-vials-glass-bottles/Perfume-glas-bottle-vials-purchase.php",
+      "section": "body",
+      "keywords": [
+        "perfume",
+        "vials",
+        "bottles",
+        "roll",
+        "on",
+        "bottles",
+        "and",
+        "decorative",
+        "glass",
+        "bottles"
+      ]
+    },
+    {
+      "id": "bf70f43ea230736bda763e5756bb4f7abba9ff99",
+      "slug": "perfume-vials-glass-bottles-roll-on-bottles-and-decorative-glass-bottles",
+      "name": "Perfume vials, Glass Bottles, Roll on bottles and Decorative Glass Bottles",
+      "url": "https://www.bestbottles.com/all-bottles/Perfume-vials-glass-bottles/Perfume-glass-bottles-vials-information.php",
+      "section": "ul",
+      "keywords": [
+        "perfume",
+        "vials",
+        "glass",
+        "bottles",
+        "roll",
+        "on",
+        "bottles",
+        "and",
+        "decorative",
+        "glass",
+        "bottles"
+      ]
+    },
+    {
+      "id": "180fac5f089eb5fff01d103888fdb4ade1711b8c",
+      "slug": "plastic-bottles-with-fine-mist-sprayers",
+      "name": "Plastic Bottles With Fine Mist Sprayers",
+      "url": "https://www.bestbottles.com/all-bottles/Perfume-atomizer-aluminum-bottle-cans/bestbottles-plastic-bottles-with-fine-mist-sprayers.php",
+      "section": "ul",
+      "keywords": [
+        "plastic",
+        "bottles",
+        "with",
+        "fine",
+        "mist",
+        "sprayers"
+      ]
+    },
+    {
+      "id": "d6f508e78a3207cd69a406b72f3da6610d686604",
+      "slug": "product-packaging-ideas",
+      "name": "Product Packaging Ideas",
+      "url": "https://www.bestbottles.com/product-packaging-ideas.php",
+      "section": "ul",
+      "keywords": [
+        "product",
+        "packaging",
+        "ideas"
+      ]
+    },
+    {
+      "id": "4a0663697bdb2f815c185d4670d0114aba81cc89",
+      "slug": "reclosable-plastic-bags-and-shipping-boxes",
+      "name": "Reclosable Plastic Bags and Shipping Boxes",
+      "url": "https://www.bestbottles.com/all-bottles/accessories/bestbottles-re-closable-plastic-bags.php",
+      "section": "ul",
+      "keywords": [
+        "reclosable",
+        "plastic",
+        "bags",
+        "and",
+        "shipping",
+        "boxes"
+      ]
+    },
+    {
+      "id": "a53e55767b2aab1e2600af6ff2dfd6ea815290fa",
+      "slug": "roll-on-bottles",
+      "name": "Roll on Bottles",
+      "url": "https://www.bestbottles.com/all-bottles/Perfume-vials-glass-bottles/roll-on-roller-bottles-frosted-black-silver-gold-white-caps.php",
+      "section": "body",
+      "keywords": [
+        "roll",
+        "on",
+        "bottles"
+      ]
+    },
+    {
+      "id": "6311821688b9fb9a7d4b9728ed6106df8572e821",
+      "slug": "small-decorative-perfume-bottles",
+      "name": "Small Decorative Perfume Bottles",
+      "url": "https://www.bestbottles.com/all-bottles/Perfume-vials-glass-bottles/small-decorative-gift-perfume-bottles-heart-shape-sun-moon-genie.php",
+      "section": "body",
+      "keywords": [
+        "small",
+        "decorative",
+        "perfume",
+        "bottles"
+      ]
+    },
+    {
+      "id": "67683b5b96897196c536aa19e672241b1db4e16e",
+      "slug": "traditional-octagonal-shaped-bottles-plain-and-printed",
+      "name": "Traditional octagonal shaped bottles, plain and printed",
+      "url": "https://www.bestbottles.com/all-bottles/Perfume-vials-glass-bottles/small-decorative-gift-perfume-bottles-heart-shape-sun-moon-genie.php?subcat=71",
+      "section": "ul",
+      "keywords": [
+        "traditional",
+        "octagonal",
+        "shaped",
+        "bottles",
+        "plain",
+        "and",
+        "printed"
+      ]
+    },
+    {
+      "id": "f43ed5fd8767605cfa2d56feb04912813dcc8d3e",
+      "slug": "velvet-pouches-and-organza-bags",
+      "name": "Velvet Pouches and Organza Bags",
+      "url": "https://www.bestbottles.com/all-bottles/accessories/velvet-bags-organza-gusseted-bags-wedding-favor.php",
+      "section": "ul",
+      "keywords": [
+        "velvet",
+        "pouches",
+        "and",
+        "organza",
+        "bags"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,87 @@
+<svg viewBox="0 0 300 500" xmlns="http://www.w3.org/2000/svg" fill="none">
+  <!-- Technical Blueprint Outline for 9ml Cylinder Roll-On -->
+  
+  <!-- Cap Outline -->
+  <path 
+    d="M120 60 L180 60 L180 155 L120 155 Z" 
+    stroke="#2563EB" 
+    stroke-width="0.75" 
+    stroke-dasharray="4 2"
+    opacity="0.6"
+  />
+  <!-- Cap inner detail -->
+  <path 
+    d="M125 65 L175 65" 
+    stroke="#2563EB" 
+    stroke-width="0.5" 
+    stroke-dasharray="2 2"
+    opacity="0.4"
+  />
+  <path 
+    d="M125 150 L175 150" 
+    stroke="#2563EB" 
+    stroke-width="0.5" 
+    stroke-dasharray="2 2"
+    opacity="0.4"
+  />
+  
+  <!-- Roller Housing Outline -->
+  <rect 
+    x="125" y="156" 
+    width="50" height="12" 
+    stroke="#2563EB" 
+    stroke-width="0.75" 
+    stroke-dasharray="4 2"
+    rx="2"
+    opacity="0.6"
+  />
+  <!-- Roller Ball (circle) -->
+  <circle 
+    cx="150" cy="155" 
+    r="12" 
+    stroke="#2563EB" 
+    stroke-width="0.75" 
+    stroke-dasharray="4 2"
+    opacity="0.6"
+  />
+  
+  <!-- Bottle Body Outline -->
+  <path 
+    d="M115 170 
+       L115 410 
+       Q115 430 130 432 
+       L170 432 
+       Q185 430 185 410 
+       L185 170 
+       Z" 
+    stroke="#2563EB" 
+    stroke-width="0.75" 
+    stroke-dasharray="4 2"
+    opacity="0.6"
+  />
+  
+  <!-- Bottle Neck Detail -->
+  <path 
+    d="M120 170 L180 170" 
+    stroke="#2563EB" 
+    stroke-width="0.5" 
+    stroke-dasharray="2 2"
+    opacity="0.4"
+  />
+  
+  <!-- Center Line (axis) -->
+  <line 
+    x1="150" y1="50" 
+    x2="150" y2="445" 
+    stroke="#2563EB" 
+    stroke-width="0.25" 
+    stroke-dasharray="8 4"
+    opacity="0.2"
+  />
+  
+  <!-- Cross-section markers -->
+  <line x1="100" y1="200" x2="200" y2="200" stroke="#2563EB" stroke-width="0.25" stroke-dasharray="2 4" opacity="0.15"/>
+  <line x1="100" y1="300" x2="200" y2="300" stroke="#2563EB" stroke-width="0.25" stroke-dasharray="2 4" opacity="0.15"/>
+  <line x1="100" y1="400" x2="200" y2="400" stroke="#2563EB" stroke-width="0.25" stroke-dasharray="2 4" opacity="0.15"/>
+  
+</svg>
