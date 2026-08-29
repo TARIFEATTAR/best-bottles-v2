@@ -165,6 +165,13 @@ export type ExternalSystem =
   | 'shopify_variant'
   | 'sanity_document'
   | 'supabase_product_image'
+  // The live storefront's Convex catalog (precise-raccoon-123). Its ids are
+  // mappings like any other channel's - see docs/05-CONVEX.md.
+  | 'convex_product'
+  | 'convex_product_group'
+  // The storefront's canonical hyphenated SKU, e.g. GB-EMP-CLR-50ML-AST-RED.
+  // A second business key, not identity.
+  | 'grace_sku'
   | 'supplier_part'
   | 'gtin'
   | 'website_url'

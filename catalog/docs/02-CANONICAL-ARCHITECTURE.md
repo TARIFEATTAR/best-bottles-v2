@@ -2,6 +2,15 @@
 
 Deliverables **C** (proposed canonical architecture) and **G** (risks).
 
+> **Correction.** The first version of this document argued the catalog could
+> become canonical cheaply because "Shopify is a destination, not a source" and
+> nothing else claimed the role. There is a claimant: the live storefront's
+> Convex catalog (`precise-raccoon-123`, ~2,325 products), in a separate
+> repository. The Shopify argument still stands; it does not transfer to
+> Convex. The resulting decision — catalog canonical for knowledge, Convex as
+> the serving layer — and the alternative that was rejected are in
+> [`05-CONVEX-STOREFRONT.md`](05-CONVEX-STOREFRONT.md).
+
 ---
 
 ## C.1 Current state
@@ -77,25 +86,36 @@ five times or it regresses.
    (SPA)      (sync)                (Grace)                 Merchant  wholesale
 ```
 
-The move that matters: **Shopify becomes a consumer, not the source of truth.**
-The audit found this is free to do — the Shopify store is close to empty and
-the UI ships a demo fallback for it. Adopting Shopify as canonical now would be
-choosing, deliberately, to put the business's product knowledge into a system
-that cannot express compatibility, provenance, verification state or
-completeness.
+The move that matters: **the systems that serve product data become consumers,
+not sources of truth.**
+
+For Shopify this is free: the store is close to empty and the UI ships a demo
+fallback for it. For the live storefront's Convex catalog it is not free — that
+catalog is populated, curated and serving customers today — so it is a real
+decision rather than a default, taken in
+[`05-CONVEX-STOREFRONT.md`](05-CONVEX-STOREFRONT.md).
+
+The reasoning is the same in both cases. A system that cannot express "this fit
+is likely, not verified", or "this height came from a 2024 scrape and a person
+has never checked it", should not be the place those facts live. It should be
+where they are published.
 
 ## C.3 Source-of-truth boundaries
 
 | Data | Canonical owner | Everything else |
 |---|---|---|
 | Item identity, specifications, compatibility, media approval, product knowledge | **Catalog** | consumes |
+| Live storefront reads; storefront-only fields (`paperDollFamilyKey`, prompt-assembly inputs) | **Convex** (`precise-raccoon-123`) | catalog maps and reconciles, see doc 05 |
 | Cart, checkout, payment, orders, fulfilment | **Shopify** | catalog does not model these |
 | Editorial copy, journal, brand assets, Paper Doll layer artwork | **Sanity** | catalog references assets by URL/id, does not copy them |
 | User accounts, favourites, chat history | **Supabase (existing app tables)** | untouched by this work |
 | Live inventory counts | **Shopify / ERP** | catalog stores the last-synced snapshot and says when it was taken |
 
-The rule: the catalog owns *what a thing is*. Shopify owns *the transaction*.
-Sanity owns *how we talk about it*.
+The rule: the catalog owns *what a thing is*. Convex owns *what the site
+serves*. Shopify owns *the transaction*. Sanity owns *how we talk about it*.
+
+Two Sanity projects exist — `gv4os6ef` (this repo) and `gh97irjh` (the
+storefront). Any statement about "the Sanity data" must say which.
 
 ## C.4 The two decisions that shape everything else
 
@@ -173,17 +193,38 @@ Following the brief's instruction not to overbuild:
 
 ### G.1 Duplicate source of truth (highest risk)
 
-**The risk.** The catalog becomes a sixth store rather than replacing five.
-`inventory.json` keeps being edited, scripts keep writing Sanity directly, and
-in six months there are six disagreeing sources instead of five.
+**The risk.** The catalog becomes yet another store rather than replacing any.
+`inventory.json` keeps being edited, scripts keep writing Sanity directly, the
+storefront keeps authoring specifications in Convex, and in six months there
+are more disagreeing sources than before.
 
-**Why it is real here.** 85 scripts currently write to Sanity and Supabase with
-no batch record. Nothing stops them.
+**Why it is real here, and worse than first assessed.** 85 scripts currently
+write to Sanity and Supabase with no batch record, and nothing stops them.
+Counting the Convex storefront catalog and `Nemat_Product_Catalog.csv`, the
+catalog would be the *eighth* store, not the sixth — and one of the existing
+seven is live, curated and serving customers. This is now the risk that most
+needs an explicit decision rather than a mitigation: see doc 05.
 
 **Mitigation.** The migration plan (doc 04) makes source retirement an explicit,
 sequenced deliverable with a defined "read path cut over" step, not a hope. Until
 a source is retired it must be registered in `catalog_source` and ingested
 through the pipeline, so at minimum its disagreements are visible.
+
+### G.1b Convex divergence
+
+**The risk.** Both the catalog and Convex hold specifications, both get edited,
+and they drift. This is the concrete form G.1 takes on day one.
+
+**Mitigation.** Convex is registered as a ranked ingestion source
+(`bb-convex-production`, rank 60), so its data competes on the normal conflict
+rules rather than being trusted or ignored. `catalog_convex_drift` reports
+identity coverage in both directions. `CONVEX_PROMPT_READINESS_FIELDS` aligns
+the two completeness models so an item this catalog calls complete while the
+storefront calls it blocked is detectable.
+
+**Residual risk, and it is the real one:** none of that stops a person editing a
+dimension in Convex. Only the ownership decision in doc 05 does, and that
+decision has not been made by the team yet — this work only frames it.
 
 ### G.2 Shopify synchronisation
 

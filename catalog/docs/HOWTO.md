@@ -293,3 +293,68 @@ Raw records are append-only and carry the `parser_version` that read them. So:
 Never edit a `catalog_raw_record`. Update and delete are rewritten to no-ops at
 the database level, so an attempt fails silently by design rather than
 corrupting ingestion history.
+
+---
+
+## How to reconcile against the Convex storefront catalog
+
+The live site's catalog is in Convex `precise-raccoon-123`, in a separate
+repository. Background and the full adapter contract are in
+[`05-CONVEX-STOREFRONT.md`](05-CONVEX-STOREFRONT.md); this is the procedure.
+
+**1. Export the storefront catalog.** From the storefront repo, using its
+existing paginated exporter (a single-shot export exceeds Convex's 16 MB read
+limit):
+
+```bash
+node pipeline/madison-hero-sync/export-enriched.mjs
+# -> pipeline/madison-hero-sync/catalog-enriched.json
+```
+
+**2. Write the adapter** at `catalog/src/ingest/sources/convexStorefront.ts`.
+Three rules, all of which the pipeline already supports:
+
+- `sourceKey` is `products.websiteSku` — it uses this repo's SKU grammar, so it
+  joins with no fuzzy matching.
+- Parse dimensions with `parseConvexDimension`. Convex stores them as display
+  strings (`"110 ±2 mm"`); the catalog stores magnitude and tolerance
+  separately.
+- Emit `graceSku` and the Convex `_id` as **external ids**, never as identity.
+
+**3. Register it** in `catalog/src/cli/ingest.ts` and run
+`npm run catalog:ingest`. The source (`bb-convex-production`, rank 60) is
+already registered by migration `0006`, so nothing needs re-ranking.
+
+**4. Read the two reports that matter.**
+
+```sql
+-- identity coverage, both directions
+select drift_kind, count(*) from catalog_convex_drift group by 1;
+
+-- where the storefront disagrees with what we already knew
+select field, count(*) from catalog_conflict
+where status = 'open'
+  and conflict_id in (
+    select c.conflict_id from catalog_conflict c
+    join catalog_conflict_assertion ca using (conflict_id)
+    join catalog_fact_assertion fa using (assertion_id)
+    where fa.source_id = 'bb-convex-production')
+group by 1 order by 2 desc;
+```
+
+Expect a lot of conflicts on the first run — Convex at rank 60 meets the master
+spreadsheet at 50 and the scrape at 30 across ~2,300 shared SKUs. That backlog
+is the point of the exercise, not a failure of it.
+
+**5. Do not auto-resolve in Convex's favour.** Rank 60 means Convex beats the
+spreadsheets and loses to a human verification or a physical measurement. The
+storefront's own documentation says the live PDP outranks Convex where the two
+disagree, which is why `bb-live-pdp` sits at 65. Resolve conflicts through
+`catalog_field_resolution` as usual.
+
+**Ambiguity you will hit:** the legacy applicator token `Spry` maps to either
+`SPR` (perfume spray pump) or `FNM` (fine mist sprayer), and nothing in the
+legacy SKU distinguishes them. `resolveGraceApplicator` returns
+`{ outcome: 'ambiguous' }` rather than picking one. Resolve it from the Convex
+row's own `applicator` field — never by defaulting, which would mislabel every
+spray SKU in the catalog.

@@ -5,6 +5,16 @@ Knowledge Catalog. Everything here was established by reading this repository,
 not from assumption. Where a claim comes from a measurement, the command that
 produced it is given.
 
+> **Correction (scope).** This document audits *this repository*. It initially
+> concluded that Convex was aspirational, on the evidence that no Convex code
+> exists anywhere in the tree. That is true of this repo and false of the
+> business: the live bestbottles.company storefront is a **separate Next.js
+> repository** whose catalog runs on Convex production `precise-raccoon-123`
+> (~2,325 products) against a **different Sanity project** (`gh97irjh`, not the
+> `gv4os6ef` used here). Read
+> [`05-CONVEX-STOREFRONT.md`](05-CONVEX-STOREFRONT.md) alongside this document.
+> Sections A.2 and A.3 below are annotated where that changes the conclusion.
+
 ---
 
 ## A. Repository audit
@@ -33,9 +43,12 @@ What is actually here:
 | Media pipeline | `bottle-image-pipeline/` — 3,333 PNGs plus a Supabase `product_images` table. |
 | Tests | **None.** No test runner, no test files. `npm run build` runs `eslint` then `vite build`. |
 
-### A.2 Where product data lives today — five parallel stores
+### A.2 Where product data lives today — five parallel stores *in this repo*
 
-There is no single source of truth. There are five, and they disagree.
+There is no single source of truth. There are five *here*, and they disagree.
+A sixth — the Convex storefront catalog — lives outside this repository and is
+covered in [`05-CONVEX-STOREFRONT.md`](05-CONVEX-STOREFRONT.md); counting it,
+there are seven stores including `Nemat_Product_Catalog.csv`.
 
 | # | Store | Scale | Role today |
 |---|---|---|---|
@@ -64,21 +77,31 @@ print(len(u))"
 
 ### A.3 What is canonical today
 
-Nothing is, formally. In practice:
+Nothing in *this repository* is, formally. In practice:
 
+- **The Convex storefront catalog is the de facto canonical product catalog**
+  for the live site, and it is not in this repository. Its own pipeline
+  documentation states: *"Source of truth is BB Convex production
+  (`precise-raccoon-123`) — NOT the CSV."* This is the single most important
+  correction to the first version of this audit, which framed the catalog as
+  filling a vacuum. It is not a vacuum. See
+  [`05-CONVEX-STOREFRONT.md`](05-CONVEX-STOREFRONT.md) for the decision that
+  follows from it.
 - **Shopify is canonical for nothing yet.** The store is close to empty —
   `ShopifyProductGrid` ships a `DEMO_PRODUCTS` fallback with the comment
   "shown because your Shopify catalog is currently empty". Shopify is a
-  destination, not a source. This is the single most important audit finding,
-  because it means the catalog can be designed with Shopify as a *consumer*
-  without unpicking an established dependency.
+  destination, not a source, so it can be designed as a *consumer* without
+  unpicking an established dependency. That argument holds for Shopify; it does
+  **not** transfer to Convex, which is populated and live.
 - **`inventory.json` is canonical for the live site**, by default rather than
   by decision.
 - **Sanity is canonical for configurator layer imagery** and for the small
   amount of hand-curated compatibility that exists.
 - **The spreadsheets are canonical for specifications**, in the sense that they
   are where humans put new knowledge — but they reach the site only through a
-  hand-run script.
+  hand-run script. Note that the storefront pipeline has already demoted its
+  own CSV for the same reason: it is incomplete, and Convex is corrected via
+  backfill mutations instead.
 
 ### A.4 Data quality: five concrete defects found
 
@@ -252,6 +275,8 @@ or what is proposed.
 | Question ingestion | MISSING | **Built** — `catalog_customer_question` lifecycle. |
 | Review evidence | MISSING | **Built** — evidence and AI interpretation stored separately. |
 | Shopify mapping | PARTIAL (`shopifyProductId` on a Sanity doc) | **Refactored** — `catalog_external_id`. |
+| Convex storefront mapping | EXISTS (outside this repo, unmapped here) | **Built** — `convex_product`, `convex_product_group`, `grace_sku` + `catalog_convex_drift`. |
+| Convex ingestion adapter | MISSING | **Deferred** — needs a credential; contract specified in doc 05. |
 | Channel feeds | MISSING | **Deferred to P5** — schema is ready, transformers are not built. |
 | Public/private separation | MISSING | **Built** — `catalog_public_*` views + RLS deny-by-default. |
 | Consumer API layer | MISSING | **Deferred to P4** — the views are the stable contract. |

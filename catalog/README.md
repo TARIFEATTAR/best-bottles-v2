@@ -12,11 +12,12 @@ of truth.**
 
 ## Why this exists
 
-Before this, product knowledge lived in five places that disagreed: a 461-row
-`inventory.json` the site renders from, three JSON datasets under `data/`
-totalling 3,274 rows, 29 spreadsheets, a small Sanity dataset for the
-configurator, and 85 one-off scripts that moved data between them with no
-record of what wrote what.
+Before this, product knowledge lived in seven places that disagreed: a 461-row
+`inventory.json` this repo's site renders from, three JSON datasets under
+`data/` totalling 3,274 rows, 29 spreadsheets, a Sanity dataset for the
+configurator, 85 one-off scripts that moved data between them with no record of
+what wrote what — and, outside this repository, the live storefront's Convex
+catalog (~2,325 products) plus its own 2,321-row CSV.
 
 The catalog replaces that with one model that can answer:
 
@@ -60,6 +61,7 @@ altered.
 | [`docs/02-CANONICAL-ARCHITECTURE.md`](docs/02-CANONICAL-ARCHITECTURE.md) | Current vs proposed architecture, source-of-truth boundaries, the two decisions everything rests on, and the risk register |
 | [`docs/03-SCHEMA.md`](docs/03-SCHEMA.md) | Entity relationships, table-by-table reasoning, and the constraints that encode domain rules |
 | [`docs/04-MIGRATION-AND-PLAN.md`](docs/04-MIGRATION-AND-PLAN.md) | How legacy data moves in without loss, field-by-field mapping, what gets retired when, and the phased plan |
+| [`docs/05-CONVEX-STOREFRONT.md`](docs/05-CONVEX-STOREFRONT.md) | The live Convex storefront catalog: what it holds, why the first audit missed it, the ownership decision it forces, and the adapter contract |
 | [`docs/HOWTO.md`](docs/HOWTO.md) | Runbooks: import a supplier spreadsheet, add an attribute, add a compatibility relationship, resolve a conflict, extend a vocabulary, add a consumer |
 
 ---
@@ -99,8 +101,10 @@ catalog/
 
 `BB-BTL-8T4XKQ2M1P`. It encodes nothing about the product, so a corrected cap
 colour, a new photograph or a Shopify migration cannot move it. The SKU
-(`GBCylAmb5RollBlkSh`) stays as a business key. Shopify ids, GTINs and supplier
-part numbers are *mappings*, in `catalog_external_id`.
+(`GBCylAmb5RollBlkSh`) stays as a business key, as does the storefront's
+`graceSku` (`GB-EMP-CLR-50ML-AST-RED`) — both encode attributes, so both move
+when a fact is corrected. Shopify ids, Convex ids, GTINs and supplier part
+numbers are *mappings*, in `catalog_external_id`.
 
 Ids are derived deterministically from the (source, natural key) an item was
 first seen under, so re-importing the same row resolves to the same id instead
@@ -173,6 +177,22 @@ has an approved hero image yet, because approval has never been recorded
 anywhere. The catalog's job at this stage is to say so precisely.
 
 ---
+
+## The live storefront
+
+The live bestbottles.company site is a **separate Next.js repository** whose
+catalog runs on Convex `precise-raccoon-123` (~2,325 products) against Sanity
+project `gh97irjh` — not the `gv4os6ef` this repo uses. It is the closest thing
+to a canonical product catalog that exists today.
+
+Its `products.websiteSku` uses the same SKU grammar as this repo, so the two
+catalogs join directly with no fuzzy matching. Convex and the live PDP are
+registered as ranked sources (60 and 65), the identifier mappings and a drift
+report exist, and a `graceSku` codec is tested — but the ingestion adapter
+needs a credential this environment does not have.
+
+Read [`docs/05-CONVEX-STOREFRONT.md`](docs/05-CONVEX-STOREFRONT.md) before
+making any decision about which system owns a specification.
 
 ## What this phase deliberately does not include
 

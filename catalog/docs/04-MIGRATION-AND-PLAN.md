@@ -32,7 +32,15 @@ regenerates in about ten seconds).
 | `data/scraped_products.json` | 739 | `website_scrape` | 30 |
 | `inventory.json` | 461 | `legacy_database` | 40 |
 | `data/complete_products.json` | 2,274 | `internal_spreadsheet` | 50 |
+| `bb-convex-production` | ~2,325 | `legacy_database` | 60 — *registered, not yet ingested* |
+| `bb-live-pdp` | — | `website_scrape` | 65 — *registered, not yet ingested* |
 | `data/verified_products.json` | 261 | `employee_verification` | 90 |
+
+The two storefront sources are registered by migration `0006_convex_channel.sql`
+but have no adapter yet: this environment has no Convex credential and the
+storefront repository is not present. Their ranks are already correct, so
+ingesting them later needs no re-ranking. See
+[`05-CONVEX-STOREFRONT.md`](05-CONVEX-STOREFRONT.md).
 
 Adapters run in ascending rank order, but order does not decide outcomes —
 source rank does. Reversing the order produces the same canonical values, which
@@ -74,6 +82,8 @@ If a future parser change starts dropping rows, that test fails.
 | `imageUrl` / `image_url` | `catalog_media_asset` | **always `approved = false`** |
 | `productUrl` | `catalog_external_id` (`website_url`) | |
 | `inventory_id` | `catalog_external_id` (`legacy_inventory_id`) | **excluded from matching** — not unique |
+| Convex `_id` / `graceSku` / group id | `catalog_external_id` (`convex_product` / `grace_sku` / `convex_product_group`) | joins on `websiteSku`; adapter pending |
+| Convex `capStyle` / `trimColor` / `paperDollFamilyKey` / `graceDescription` | governed attributes | storefront-specific; does not widen the core tables |
 | `use_case` free text | `catalog_use_case_fitness` | structured where the vocabulary recognises it |
 | `category` / `subCategory` | *deliberately not mapped* | site navigation, not item type — see audit §A.4 |
 | everything else | `catalog_raw_record.payload` | preserved verbatim, nothing is thrown away |
@@ -108,6 +118,7 @@ still there.
 
 | Order | Consumer | Cut when |
 |---|---|---|
+| 0 | **Convex reconciliation** | as soon as a credential exists — it is a *read*, and it tells you how far apart the two catalogs actually are before anything else is decided |
 | 1 | Catalog health reporting | immediately — it has no dependants |
 | 2 | Product spec tables on the site | enough items are `active` |
 | 3 | Compatibility display on PDPs | verified edges exist for the top families |
@@ -126,7 +137,9 @@ still there.
 | 85 scripts in `scripts/` | Retire progressively. Any script that *writes* Sanity or Supabase product data should be replaced by a pipeline source before step 4, otherwise it reintroduces the duplicate-source-of-truth risk (G.1). Read-only inspection scripts can stay. |
 | Sanity `product` / `glassOption` / `capOption` / `fitmentVariant` | **Keep.** Sanity stays canonical for Paper Doll layer artwork and editorial. Mapped via `catalog_external_id.system = 'sanity_document'`. |
 | Supabase `product_images` | **Keep for now**, mapped via `supabase_product_image`. Fold into `catalog_media_asset` during P2, once approval state has an owner. |
-| `bestbottles-intelligence/` | Decide explicitly: it is a second partial implementation of the same domain, with `.next/` build output committed. Either fold it in or delete it — leaving it is the most likely source of future divergence. |
+| `bestbottles-intelligence/` | Decide explicitly: it is a second partial implementation of the same domain, with `.next/` build output committed. Either fold it in or delete it — leaving it is the most likely source of future divergence *within this repo*. |
+| Convex storefront catalog | **Keep.** Recommended role is the serving layer for the live site, fed by the catalog rather than authored in. Not a retirement — a change of ownership, and one the team has to agree to. See doc 05. |
+| `Nemat_Product_Catalog.csv` (2,321 SKUs) | Already demoted by the storefront pipeline itself. Becomes an ingestion input, not a store. |
 | `archive/`, `backup_20251204_125831/` | Stale copies. Delete once their SKUs are confirmed present in the catalog. |
 | `ARCHITECTURE.md` | **Correct or clearly label it.** It describes a Hydrogen/Convex system that does not exist here, and it is the most misleading document in the repository. |
 
@@ -176,6 +189,12 @@ Delivered because the migration strategy is unprovable without it.
 
 **Remaining in P1:**
 
+- A **Convex storefront adapter**. The mappings, source registration, graceSku
+  codec, dimension parser and drift view are built and tested; only the adapter
+  itself is missing, and it needs a Convex credential. The full contract is
+  specified in [`05-CONVEX-STOREFRONT.md`](05-CONVEX-STOREFRONT.md). This is
+  the highest-value remaining ingestion work, because it is what quantifies the
+  gap between the two catalogs.
 - A **loader** that writes staged output into Postgres. Deliberately not built:
   it needs a service-role credential and a decision about who runs it. The
   staging output is already in the shape the tables take.

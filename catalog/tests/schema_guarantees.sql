@@ -280,6 +280,74 @@ begin
 end
 $$;
 
+-- ------------------------------------------------- convex storefront channel ---
+
+select assert_accepted(
+  $$insert into catalog_external_id (catalog_id, system, external_id)
+    values ('BB-BTL-0000000001', 'convex_product', 'j57xk2p9convexrowid')$$,
+  'a Convex product id must be storable as a mapping');
+
+select assert_accepted(
+  $$insert into catalog_external_id (catalog_id, system, external_id)
+    values ('BB-BTL-0000000001', 'grace_sku', 'GB-EMP-CLR-50ML-AST-RED')$$,
+  'a graceSku must be storable as a second business key');
+
+select assert_rejected(
+  $$insert into catalog_external_id (catalog_id, system, external_id)
+    values ('BB-BTL-0000000003', 'grace_sku', 'GB-EMP-CLR-50ML-AST-RED')$$,
+  'one graceSku may not map to two catalog items');
+
+do $$
+declare rec record;
+begin
+  select * into rec from catalog_convex_drift where catalog_id = 'BB-BTL-0000000001';
+  if rec.drift_kind <> 'mapped' then
+    raise exception 'GUARANTEE BROKEN: a fully mapped item should read as mapped, got %', rec.drift_kind;
+  end if;
+
+  select * into rec from catalog_convex_drift where catalog_id = 'BB-CAP-0000000002';
+  if rec.drift_kind <> 'not_in_storefront' then
+    raise exception 'GUARANTEE BROKEN: an unmapped item should read as not_in_storefront, got %', rec.drift_kind;
+  end if;
+end
+$$;
+
+do $$
+declare convex_rank int; pdp_rank int; verified_rank int; measured_rank int;
+begin
+  select rank into convex_rank   from catalog_source where source_id = 'bb-convex-production';
+  select rank into pdp_rank      from catalog_source where source_id = 'bb-live-pdp';
+  select rank into verified_rank from catalog_source where source_id = 'verified-products';
+  select rank into measured_rank from catalog_source where source_id = 'physical-measurement';
+
+  if convex_rank is null or pdp_rank is null then
+    raise exception 'GUARANTEE BROKEN: the storefront sources must be registered';
+  end if;
+  -- The storefront pipeline treats the live PDP as the arbiter over Convex.
+  if pdp_rank <= convex_rank then
+    raise exception 'GUARANTEE BROKEN: the live PDP must outrank Convex (% vs %)', pdp_rank, convex_rank;
+  end if;
+  -- But neither may outrank a human verification or a physical measurement.
+  if convex_rank >= verified_rank or pdp_rank >= verified_rank then
+    raise exception 'GUARANTEE BROKEN: storefront sources must not outrank employee verification';
+  end if;
+  if pdp_rank >= measured_rank then
+    raise exception 'GUARANTEE BROKEN: storefront sources must not outrank a physical measurement';
+  end if;
+end
+$$;
+
+do $$
+declare n int;
+begin
+  select count(*) into n from catalog_attribute_definition
+  where key in ('cap_style', 'trim_color', 'paper_doll_family_key', 'grace_description');
+  if n <> 4 then
+    raise exception 'GUARANTEE BROKEN: storefront attributes must be declared, found %', n;
+  end if;
+end
+$$;
+
 rollback;
 
 \echo 'All schema guarantees hold.'
