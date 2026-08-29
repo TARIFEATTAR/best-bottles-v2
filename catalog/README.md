@@ -42,7 +42,17 @@ to redesign anything each time.
 npm run catalog:ingest          # ingest the legacy data; writes reports to catalog/out/
 npm run catalog:test            # 74 unit and integration tests
 npm run catalog:verify-schema   # apply migrations to a scratch DB and assert the guarantees
+
+# Reconcile the live site against the storefront catalog; emit spec backfill candidates
+node --experimental-strip-types catalog/src/cli/reconcile-storefront.ts \
+  --scrape <storefront>/data/bestbottles_raw_website_data.json \
+  --convex <storefront>/Nemat_Product_Catalog.csv \
+  --specs  <storefront>/data/grace_products_clean.json
 ```
+
+New to this codebase? Start with [`AGENTS.md`](../AGENTS.md) at the repo root —
+it names which repo serves the site, where truth ranks, and the rules that come
+from real production failures.
 
 `catalog:ingest` and `catalog:test` need only Node 22 — no new dependencies were
 added to the project. `catalog:verify-schema` needs a local PostgreSQL 14+.
@@ -64,6 +74,7 @@ altered.
 | [`docs/05-CONVEX-STOREFRONT.md`](docs/05-CONVEX-STOREFRONT.md) | The live Convex storefront catalog: what it holds, why the first audit missed it, the ownership decision it forces, and the adapter contract |
 | [`docs/06-CATALOG-TRUTH-AND-CSV-CONSOLIDATION.md`](docs/06-CATALOG-TRUTH-AND-CSV-CONSOLIDATION.md) | Which catalog file is authoritative (none of them), measured divergence between the CSV exports, and what consolidation should actually mean |
 | [`docs/07-MASTER-KNOWLEDGE-CATALOG-FOR-AI-AGENTS.md`](docs/07-MASTER-KNOWLEDGE-CATALOG-FOR-AI-AGENTS.md) | Scaling this to a company-wide knowledge catalog for Grace and every future agent: the four layers, the three failure classes proven by the Grace audit, extending scope to Nemat International, and the build order |
+| [`docs/08-ACCESS-AEO-GEO-AND-CHAT.md`](docs/08-ACCESS-AEO-GEO-AND-CHAT.md) | Where the catalog is stored, how each consumer reaches it, AEO/GEO from structured facts, the Grace chat surface, and the measured path to a 100/100 audit |
 | [`docs/HOWTO.md`](docs/HOWTO.md) | Runbooks: import a supplier spreadsheet, add an attribute, add a compatibility relationship, resolve a conflict, extend a vocabulary, add a consumer |
 
 ---
