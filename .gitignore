@@ -37,3 +37,6 @@ best-bottles-v2/
 # Office temp files
 .~lock.*
 *.~lock.*
+
+# Catalog ingestion staging output (derived; regenerate with `npm run catalog:ingest`)
+catalog/out/
