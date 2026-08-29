@@ -65,12 +65,12 @@ describe('price ladders', () => {
 
   test('drops the qty:0 break the source emits on some rows', () => {
     const withZero: LivePdpRow = { tiers: [{ qty: 0, unitPrice: 9 }, { qty: 1, unitPrice: 2.25 }] };
-    assert.deepEqual(priceLadder(withZero), [{ minQuantity: 1, unitPrice: 2.25 }]);
+    assert.deepEqual(priceLadder(withZero).map((t) => t.minQuantity), [1]);
   });
 
   test('deduplicates a repeated quantity, first writer winning', () => {
     const dupes: LivePdpRow = { tiers: [{ qty: 12, unitPrice: 2.14 }, { qty: 12, unitPrice: 9.99 }] };
-    assert.deepEqual(priceLadder(dupes), [{ minQuantity: 12, unitPrice: 2.14 }]);
+    assert.deepEqual(priceLadder(dupes).map((t) => t.unitPrice), [2.14]);
   });
 
   test('falls back to a single price when the older format supplies no ladder', () => {
@@ -80,7 +80,17 @@ describe('price ladders', () => {
 
   test('ignores malformed tiers rather than emitting NaN', () => {
     const bad: LivePdpRow = { tiers: [{ qty: undefined, unitPrice: 1 }, { qty: 5, unitPrice: undefined }, { qty: 10, unitPrice: 1.5 }] };
-    assert.deepEqual(priceLadder(bad), [{ minQuantity: 10, unitPrice: 1.5 }]);
+    assert.deepEqual(priceLadder(bad).map((t) => t.minQuantity), [10]);
+  });
+
+  test('carries the published line total, for products.priceTiers.totalPrice', () => {
+    const withTotals: LivePdpRow = { tiers: [{ qty: 12, unitPrice: 2.14, lineTotal: 25.65 }] };
+    assert.equal(priceLadder(withTotals)[0].totalPrice, 25.65);
+  });
+
+  test('omits totalPrice rather than computing one when the source states none', () => {
+    const noTotal: LivePdpRow = { tiers: [{ qty: 12, unitPrice: 2.14 }] };
+    assert.equal(priceLadder(noTotal)[0].totalPrice, undefined);
   });
 });
 

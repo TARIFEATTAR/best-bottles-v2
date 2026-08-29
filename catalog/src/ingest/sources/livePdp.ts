@@ -51,20 +51,38 @@ export const sku = (r: LivePdpRow): string | undefined => r.siteSku ?? r.website
  * `qty: 0` appears in the source on a handful of rows and is dropped — a
  * zero-quantity break is not a price break.
  */
-export function priceLadder(r: LivePdpRow): Array<{ minQuantity: number; unitPrice: number }> {
-  const seen = new Map<number, number>();
+export interface LadderStep {
+  minQuantity: number;
+  unitPrice: number;
+  /**
+   * Line total at this quantity, as published. Kept because the storefront's
+   * `products.priceTiers` validator is `{ minQty, totalPrice, unitPrice }` —
+   * dropping it would force the loader to recompute a number the site already
+   * states, and rounding would drift.
+   */
+  totalPrice?: number;
+}
+
+export function priceLadder(r: LivePdpRow): LadderStep[] {
+  const seen = new Map<number, LadderStep>();
   for (const t of r.tiers ?? []) {
     const q = Number(t.qty);
     const p = Number(t.unitPrice);
     if (!Number.isFinite(q) || q < 1) continue;
     if (!Number.isFinite(p) || p < 0) continue;
-    if (!seen.has(q)) seen.set(q, p);
+    if (seen.has(q)) continue;
+    const total = Number(t.lineTotal);
+    seen.set(q, {
+      minQuantity: q,
+      unitPrice: p,
+      totalPrice: Number.isFinite(total) && total > 0 ? total : undefined,
+    });
   }
   if (seen.size === 0) {
     const single = Number(r.price1pc);
-    if (Number.isFinite(single) && single > 0) seen.set(1, single);
+    if (Number.isFinite(single) && single > 0) seen.set(1, { minQuantity: 1, unitPrice: single });
   }
-  return [...seen.entries()].sort((a, b) => a[0] - b[0]).map(([minQuantity, unitPrice]) => ({ minQuantity, unitPrice }));
+  return [...seen.values()].sort((a, b) => a.minQuantity - b.minQuantity);
 }
 
 /** "US $50" -> 50. Returns undefined when no amount is stated. */
