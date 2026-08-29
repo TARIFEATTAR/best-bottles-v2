@@ -63,6 +63,7 @@ altered.
 | [`docs/04-MIGRATION-AND-PLAN.md`](docs/04-MIGRATION-AND-PLAN.md) | How legacy data moves in without loss, field-by-field mapping, what gets retired when, and the phased plan |
 | [`docs/05-CONVEX-STOREFRONT.md`](docs/05-CONVEX-STOREFRONT.md) | The live Convex storefront catalog: what it holds, why the first audit missed it, the ownership decision it forces, and the adapter contract |
 | [`docs/06-CATALOG-TRUTH-AND-CSV-CONSOLIDATION.md`](docs/06-CATALOG-TRUTH-AND-CSV-CONSOLIDATION.md) | Which catalog file is authoritative (none of them), measured divergence between the CSV exports, and what consolidation should actually mean |
+| [`docs/07-MASTER-KNOWLEDGE-CATALOG-FOR-AI-AGENTS.md`](docs/07-MASTER-KNOWLEDGE-CATALOG-FOR-AI-AGENTS.md) | Scaling this to a company-wide knowledge catalog for Grace and every future agent: the four layers, the three failure classes proven by the Grace audit, extending scope to Nemat International, and the build order |
 | [`docs/HOWTO.md`](docs/HOWTO.md) | Runbooks: import a supplier spreadsheet, add an attribute, add a compatibility relationship, resolve a conflict, extend a vocabulary, add a consumer |
 
 ---
