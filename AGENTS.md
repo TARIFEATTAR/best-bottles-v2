@@ -125,10 +125,12 @@ export carries `webPrice1pc` (99.9%), `webPrice12pc` (97.2%) and
 `webPrice10pc` (**1.9%**), with no `priceTiers` column. Every bulk quote beyond
 12 units is currently extrapolation.
 
-**The exporter truncates multi-field cells.** Seen in three places:
-`"27 ±0.5 mm Item Diameter: 19 ±"`, `"Ground"` for a ground-glass neck, and
-`"Size: GBPillar9BlkSht Nemat In"` in a neck column. Fix the exporter before
-backfilling, or the backfill will not stick.
+**Convex holds truncated/contaminated values — it is NOT an exporter bug.**
+`"27 ±0.5 mm Item Diameter: 19 ±"`, `"Ground"` for a ground-glass neck,
+`"Size: GBPillar9BlkSht Nemat In"` in a neck column. The identical damage
+appears in two exports six months apart, so the exports are faithful and the
+damage is upstream, from a lossy import. Fix it as a Convex data correction —
+`npm run catalog:corrections` builds the payload, split by risk.
 
 **The legacy `category` column is site navigation, not item type.** In this
 repo's `inventory.json`, 168 rows are categorised "Closures" and many are whole
@@ -146,12 +148,14 @@ npm run catalog:ingest          # ingest legacy datasets -> catalog/out/
 npm run catalog:test            # 92 unit + integration tests
 npm run catalog:verify-schema   # apply migrations to a scratch Postgres, assert guarantees
 
-# Reconcile the live site against the storefront catalog and produce
-# ready-to-run spec backfill candidates:
-node --experimental-strip-types catalog/src/cli/reconcile-storefront.ts \
-  --scrape <best-bottles-website>/docs/reviews/audit-2026-08-06/live-site-full-scrape.json \
-  --convex <best-bottles-website>/Nemat_Product_Catalog.csv \
-  --specs  <best-bottles-website>/data/grace_products_clean.json
+# Reconcile the live site against the storefront catalog (coverage + fidelity):
+npm run catalog:reconcile -- \
+  --scrape <storefront>/docs/reviews/audit-2026-08-06/live-site-full-scrape.json \
+  --convex <storefront>/Nemat_Product_Catalog.csv \
+  --specs  <storefront>/data/grace_products_clean.json
+
+# Build the Convex correction payload (fills, repairs, conflicts, price ladders):
+npm run catalog:corrections -- <same three arguments>
 ```
 
 `catalog:verify-schema` needs a local PostgreSQL 14+ (`PGBIN=` if not on PATH).

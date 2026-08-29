@@ -407,18 +407,37 @@ function buildClosureSpec(id: string, kind: ItemKind, fields: Map<string, Resolv
   };
 }
 
+type Break = { minQuantity: number; unitPrice: number };
+
+const isBreak = (v: unknown): v is Break =>
+  typeof v === 'object' && v !== null
+  && Number.isFinite((v as Break).minQuantity) && Number.isFinite((v as Break).unitPrice);
+
 function buildCommerce(id: string, fields: Map<string, ResolvedField>): CommerceRecord[] {
   const unitPrice = numberField(fields, 'commerce.unitPrice');
-  const breakRaw = fields.get('commerce.priceBreak')?.value as { minQuantity: number; unitPrice: number } | undefined;
+  const breakRaw = fields.get('commerce.priceBreak')?.value;
+  // A full published quantity ladder, e.g. from the live PDP. The legacy
+  // sources supply at most a single break, so both shapes are accepted.
+  const ladderRaw = fields.get('commerce.priceLadder')?.value;
   const moq = numberField(fields, 'commerce.minimumOrderQuantity');
   const caseQty = numberField(fields, 'commerce.caseQuantity');
   const lead = numberField(fields, 'commerce.leadTimeDays');
-  if (unitPrice === undefined && !breakRaw && moq === undefined && caseQty === undefined && lead === undefined) return [];
 
-  const priceBreaks: CommerceRecord['priceBreaks'] = [];
-  if (unitPrice !== undefined) priceBreaks.push({ minQuantity: 1, unitPrice });
-  if (breakRaw) priceBreaks.push(breakRaw);
-  priceBreaks.sort((a, b) => a.minQuantity - b.minQuantity);
+  const collected: Break[] = [];
+  if (Array.isArray(ladderRaw)) for (const b of ladderRaw) if (isBreak(b)) collected.push(b);
+  if (isBreak(breakRaw)) collected.push(breakRaw);
+  if (unitPrice !== undefined) collected.push({ minQuantity: 1, unitPrice });
+
+  if (collected.length === 0 && moq === undefined && caseQty === undefined && lead === undefined) return [];
+
+  // One price per quantity. The first writer wins, and the ladder is written
+  // first, so a published ladder is never overwritten by a looser single price.
+  const byQuantity = new Map<number, number>();
+  for (const b of collected) if (!byQuantity.has(b.minQuantity)) byQuantity.set(b.minQuantity, b.unitPrice);
+
+  const priceBreaks: CommerceRecord['priceBreaks'] = [...byQuantity.entries()]
+    .map(([minQuantity, unitPrice]) => ({ minQuantity, unitPrice }))
+    .sort((a, b) => a.minQuantity - b.minQuantity);
 
   return [{
     catalogId: id,

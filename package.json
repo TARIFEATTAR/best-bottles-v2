@@ -10,7 +10,9 @@
     "preview": "vite preview",
     "catalog:ingest": "node --experimental-strip-types catalog/src/cli/ingest.ts",
     "catalog:test": "node --experimental-strip-types --test catalog/tests/*.test.ts",
-    "catalog:verify-schema": "bash catalog/scripts/verify-schema.sh"
+    "catalog:verify-schema": "bash catalog/scripts/verify-schema.sh",
+    "catalog:reconcile": "node --experimental-strip-types catalog/src/cli/reconcile-storefront.ts",
+    "catalog:corrections": "node --experimental-strip-types catalog/src/cli/build-convex-corrections.ts"
   },
   "dependencies": {
     "@daily-co/daily-js": "^0.87.0",

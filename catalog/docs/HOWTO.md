@@ -358,3 +358,76 @@ legacy SKU distinguishes them. `resolveGraceApplicator` returns
 `{ outcome: 'ambiguous' }` rather than picking one. Resolve it from the Convex
 row's own `applicator` field — never by defaulting, which would mislabel every
 spray SKU in the catalog.
+
+---
+
+## How to apply the Convex correction payload
+
+Produces and applies the fixes for the two largest accuracy gaps: missing
+physical specs, and missing volume price ladders.
+
+**First, the diagnosis that shapes this.** The truncated values in the catalog
+export (`"Ground"` for a ground-glass neck) are **not an exporter bug**. The
+identical damage appears in `convex_products_export_20260228.csv` and in the
+much later `Nemat_Product_Catalog.csv` — two export runs six months apart,
+byte-identical. The exports are faithful; **Convex holds the damage**, from a
+lossy import. So the fix is a data correction in Convex, not a change to the
+export script.
+
+**1. Build the payload.**
+
+```bash
+npm run catalog:corrections -- \
+  --scrape <storefront>/docs/reviews/audit-2026-08-06/live-site-full-scrape.json \
+  --convex <storefront>/Nemat_Product_Catalog.csv \
+  --specs  <storefront>/data/grace_products_clean.json
+```
+
+**2. Apply in risk order.** Four files, four risk levels. Do not merge them.
+
+| File | Count | Risk | Action |
+|---|---|---|---|
+| `corrections-fill.json` | ~10,900 | lowest — writes only where the field is NULL | apply via `backfillPhysicalSpecs.ts`, which already fills NULLs only |
+| `corrections-repair.json` | ~18 | low — stored value is a strict *prefix* of the published one, so it is provably truncation | apply |
+| `corrections-decontaminate.json` | ~24 | low — stored value is the published one plus another field's label (`"66 ±1 mm Item Height without C"`) | apply |
+| `corrections-conflict.json` | ~19 | **do not auto-apply** | route to `catalog_conflict` for a human |
+
+The conflicts are genuinely two different claims, and the neck ones are
+compatibility-bearing:
+
+- `13-415` vs `13mm` (17 rows) — a GPI screw neck and a metric snap neck are
+  different geometries. Picking one silently produces a wrong "this cap fits".
+- `Plug` vs `8-425` — a closure *type* sitting in a neck-finish column.
+- `73 ±1 mm` vs `79 ±1 mm` — a real 6 mm disagreement.
+
+**3. Load the price ladders.** `price-tiers.json` holds **2,291 SKUs and 11,449
+break rows**, each `{ minQuantity, unitPrice }` ascending, plus
+`minimumPurchaseUsd`. Convex's schema already defines `priceTiers`; the export
+carries only `webPrice1pc` / `webPrice10pc` / `webPrice12pc`, so every quote
+beyond 12 units is currently extrapolation. A documented Grace fix requires
+bulk quotes to come from the published ladder — this is the data that makes
+that rule satisfiable.
+
+**4. Re-run and confirm.** `npm run catalog:reconcile` with the same inputs.
+`fill` should collapse to near zero; `conflict` should be the only class left.
+
+**Note on access.** This session has read-only access to the storefront repo
+and the egress proxy blocks Convex, so the payload is produced here and applied
+there. Nothing in this tool writes to Convex.
+
+### Ingesting the same data into the catalog
+
+The live PDP is also a first-class catalog source
+(`catalog/src/ingest/sources/livePdp.ts`, registered `bb-live-pdp`, rank 65).
+Add it to `catalog/src/cli/ingest.ts` to have ladders, tolerances and
+dimensions flow through the normal provenance and conflict machinery rather
+than as a one-off payload:
+
+```ts
+import { livePdpAdapter } from '../ingest/sources/livePdp.ts';
+// ...
+livePdpAdapter(resolve(repoRoot, '../best-bottles-website/docs/reviews/audit-2026-08-06/live-site-full-scrape.json')),
+```
+
+Because it outranks the spreadsheets, its dimensions win — but every
+disagreement is still recorded as a conflict rather than silently applied.
