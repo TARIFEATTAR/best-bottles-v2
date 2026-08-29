@@ -236,70 +236,116 @@ read.
 
 ## 7. Getting the Grace audit to 100/100
 
-You asked whether this needs another HTML scrape. **Measured answer: no.**
+You asked whether this needs another HTML scrape. **Measured answer: no — and
+the better cache is already committed.**
 
-I ran the reconciliation (`catalog/src/cli/reconcile-storefront.ts`) over the
-scrape already committed in the storefront repo
-(`data/bestbottles_raw_website_data.json`, 2,285 live PDP records) against
+There are two live-site scrapes in the storefront repo. Use the newer one:
+
+| | `data/bestbottles_raw_website_data.json` | `docs/reviews/audit-2026-08-06/live-site-full-scrape.json` |
+|---|---|---|
+| Records | 2,285 | **2,309** (2,303 `ok`, 6 `no_tiers`) |
+| Dimensions | bare (`"104"`) | **with tolerance (`"104 ±2 mm"`)** |
+| Pricing | single `price1pc` | **full `tiers[]` ladder** |
+| Extras | — | `minimumPurchase`, `itemType` |
+
+The raw page cache behind it is Firecrawl-based and gitignored (`/.firecrawl/`),
+so only the parsed output is in the repo — which is all the reconciler needs.
+Note the small discrepancy against the stated ~2,305 cached pages: the parsed
+file holds 2,309 records, 2,303 with a SKU, and 8 duplicate SKUs, giving **2,295
+distinct live SKUs**. Worth confirming which number the cache itself reports.
+
+Results from `catalog/src/cli/reconcile-storefront.ts` against
 `Nemat_Product_Catalog.csv`:
 
 **Coverage is already solved.**
 
 | | |
 |---|---|
-| live site distinct SKUs | 2,285 |
+| live distinct SKUs | 2,295 |
 | storefront distinct SKUs | 2,315 |
-| resolvable in both | **2,281 — 99.8% of live** |
-| live-only (would be a false "we don't carry that") | **4** |
-| storefront-only (orphans) | 34 |
-| duplicate SKUs in the storefront export | 2 |
+| resolvable in both | **2,289 — 99.7% of live** |
+| live-only (false "we don't carry that") | **6** |
+| storefront-only orphans | 26 |
+| duplicate SKUs | live 8, storefront 2 |
 
-The audit's "73% of SKU lookups fail" was a **tool-binding** defect — no
-exact-SKU tool was bound — not missing products. `getProductBySku` fixed the
-cause. Four live-only SKUs is a morning's work, not a scrape.
+The audit's "73% of SKU lookups fail" was a **tool-binding** defect, not missing
+products. Six live-only SKUs is a morning's work.
 
-**Fidelity is the wall, and it is severe.** On the SKUs that do resolve, the
-storefront catalog holds almost none of the physical specs Grace is asked for:
+**Fact fidelity — 35 real disagreements**, and most are export corruption rather
+than genuine conflict:
 
-| Field | Storefront export | Live PDP | Internal spec library |
+| Live PDP | Storefront | Count | Reading |
+|---|---|---|---|
+| `Ground glass neck with glass stopper` | `Ground` | 17 | **truncated** |
+| `13mm` | `13-415` | **7** | **genuine and serious** — a metric snap neck is not a GPI screw neck |
+| `13-415` | `Size: GBPillar9BlkSht Nemat In` | 1 | **field-mashing** — a SKU and company name landed in the neck column |
+| `snap on` | `snap` | 1 | truncated |
+| price disagreements | | 7 | **real, and large** — e.g. `ALU120MLLOTIONPUMPWHITE` live \$1.30 vs storefront \$0.35; `CJWHITEPLSSLFR2OZ` \$0.85 vs \$0.20 |
+
+*(An earlier run of this tool reported 85 neck conflicts. 54 were a
+false positive in the comparator — a JSON `null` compared against a CSV `""`.
+Fixed; absent now compares equal to absent.)*
+
+**Missing specs — the wall.** On the SKUs that resolve, the storefront holds
+almost none of the physical data Grace is asked for:
+
+| Field | Storefront | Live PDP | Spec library |
 |---|---|---|---|
 | `heightWithCap` | **0.6%** | 97.9% | 99.4% |
 | `heightWithoutCap` | **0.6%** | 91.7% | 79.0% |
-| `diameter` | **0.2%** | 55.8% | 99.4% |
+| `diameter` | **0.2%** | 55.9% | 99.4% |
 | `bottleWeightG` | **0.0%** | — | 78.3% |
 | `caseQuantity` | **0.0%** | — | 74.2% |
-| `neckThreadSize` | 97.5% | 97.5% | 95.8% |
+| `neckThreadSize` | 97.5% | 97.3% | 95.8% |
 
-Grace cannot answer "how tall is this bottle" for essentially the whole
-catalogue — and the same gap makes the Madison image pipeline emit `MISSING`
-placeholders, which is why gpt-image-2 invents bottle proportions.
+> **10,898 values across 2,308 SKUs are recoverable now, with no new scrape** —
+> written to `spec-backfill-candidates.json`, each tagged with its source and
+> rank (live PDP 65 outranks the spec library 50). Only **698 values genuinely
+> need physical measurement**, mostly `caseQuantity` (360) and `bottleWeightG`
+> (164).
 
-**The data is not lost, and the two sources are complementary** — the live PDP
-is strong on heights, the spec library on diameter, weight and case quantity.
-
-> **10,890 values across 2,299 SKUs are recoverable right now, with no new
-> scrape.** Written to `catalog/out/storefront-reconciliation/spec-backfill-candidates.json`,
-> each carrying its source and rank (live PDP 65 outranks the spec library 50).
-
-Only **706 values across all fields genuinely need physical measurement** —
-mostly `caseQuantity` (360) and `bottleWeightG` (164).
-
-`convex/backfillPhysicalSpecs.ts` was written to do exactly this job, fills only
+`convex/backfillPhysicalSpecs.ts` was written for exactly this, fills only
 NULLs, and per `docs/data_alignment/README.md` appears never to have run.
+
+**Volume pricing is the other large gap, and it is B2B-critical.**
+
+The live PDP publishes a full ladder for **2,295 SKUs across 106 distinct
+quantity breakpoints** — 1, 10, 12, 96, 100, 144, 216, 288, 576, 1440, 2880,
+5000, 15840 and more. **2,243 SKUs have a 144-unit break.**
+
+The storefront export carries three price columns: `webPrice1pc` (99.9%
+filled), `webPrice12pc` (97.2%), and `webPrice10pc` — **filled on 1.9%**.
+`qbPrice` is filled on 0.7%. There is no `priceTiers` column in the export at
+all, though the Convex schema defines one.
+
+So a wholesale customer asking "what's the price at 288?" — the ordinary
+question for this business — has no source behind it in the export. A
+documented Grace fix already requires that *"bulk quotes come from the published
+ladder, never extrapolation."* The ladder has to be imported for that rule to
+be satisfiable. `price-ladders.json` contains all 2,295, ready to load.
 
 ### Order of work
 
 1. **Run the spec backfill.** Biggest single accuracy gain available; no scrape,
-   no new tooling.
-2. **Fix the export path.** The few populated values are malformed —
-   `"27 ±0.5 mm Item Diameter: 19 ±"` — truncated concatenations, so whatever
-   generates `Nemat_Product_Catalog.csv` is mangling multi-field cells.
-3. **Import the 4 live-only SKUs; resolve the 34 orphans.**
-4. **Load the 106 field contradictions and the 1,429 Master-vs-Convex
+   no new tooling. 10,898 values, sourced and ranked.
+2. **Import the volume price ladders.** 2,295 SKUs, 106 breakpoints. Without
+   this, every bulk quote beyond 12 units is extrapolation.
+3. **Fix the export path.** Truncation is visible in three separate places —
+   `"27 ±0.5 mm Item Diameter: 19 ±"`, `"Ground"` for a ground-glass neck, and
+   `"Size: GBPillar9BlkSht Nemat In"` in a neck column. Multi-field cells are
+   being mashed and cut, so re-running the backfill will not stick until the
+   exporter is fixed.
+4. **Resolve the 7 metric-vs-GPI neck conflicts** (`13mm` vs `13-415`). These
+   are compatibility-bearing: a wrong neck produces a wrong "this cap fits".
+5. **Correct the 7 price disagreements**, some off by 3-4x.
+6. **Import the 6 live-only SKUs; resolve the 26 orphans; de-duplicate 8 live
+   and 2 storefront SKUs.**
+7. **Load the 106 field contradictions and the 1,429 Master-vs-Convex
    mismatches** as conflicts and work them.
-5. **Bind the four missing tools** (§3).
-6. **Make the audit a release gate** with an explicit criterion: *no "we don't
+8. **Bind the four missing tools** (§3).
+9. **Make the audit a release gate** with an explicit criterion: *no "we don't
    carry it" on any in-stock SKU*, run against a sampled SKU list every deploy.
-7. **Then** consider a fresh scrape — to re-verify after backfill, not to
-   discover. And note it cannot run from a cloud session until the network
-   policy allows `bestbottles.com`.
+10. **Then** consider a fresh scrape — to re-verify after backfill, not to
+    discover. Note it cannot run from a cloud session until the network policy
+    allows `bestbottles.com`, and `scrape_live_catalog.py` also needs a
+    Browserless credential.

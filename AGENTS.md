@@ -107,14 +107,28 @@ are malformed (`"27 ±0.5 mm Item Diameter: 19 ±"` — truncated concatenations
 **That data is not lost.** The live PDP scrape holds `heightWithCap` at 97.9%
 and `heightWithoutCap` at 91.7%; `data/grace_products_clean.json` holds
 `diameter` at 99.4%, `bottleWeightG` 78.3%, `caseQuantity` 74.2%. They are
-complementary. **10,890 values across 2,299 SKUs are recoverable with no new
-scrape.** `convex/backfillPhysicalSpecs.ts` was written to do exactly this and
-appears never to have run.
+complementary. **10,898 values across 2,308 SKUs are recoverable with no new
+scrape**; only 698 genuinely need measuring.
+`convex/backfillPhysicalSpecs.ts` was written to do exactly this and appears
+never to have run.
 
-**SKU coverage is fine.** 2,281 of 2,285 live SKUs resolve in the storefront
-catalog (99.8%); 4 live-only, 34 storefront-only. The audit's "73% of SKU
-lookups fail" was a *tool-binding* defect, since fixed by `getProductBySku` —
-not missing products.
+**SKU coverage is fine.** Against the newer August scrape
+(`docs/reviews/audit-2026-08-06/live-site-full-scrape.json`, 2,309 records /
+2,295 distinct SKUs — prefer it, it keeps dimensional tolerances and full price
+ladders), 2,289 of 2,295 live SKUs resolve (99.7%); 6 live-only, 26 orphans.
+The audit's "73% of SKU lookups fail" was a *tool-binding* defect, since fixed
+by `getProductBySku` — not missing products.
+
+**Volume pricing is missing from the export.** The live PDP publishes ladders
+for 2,295 SKUs across 106 quantity breakpoints (2,243 have a 144 break). The
+export carries `webPrice1pc` (99.9%), `webPrice12pc` (97.2%) and
+`webPrice10pc` (**1.9%**), with no `priceTiers` column. Every bulk quote beyond
+12 units is currently extrapolation.
+
+**The exporter truncates multi-field cells.** Seen in three places:
+`"27 ±0.5 mm Item Diameter: 19 ±"`, `"Ground"` for a ground-glass neck, and
+`"Size: GBPillar9BlkSht Nemat In"` in a neck column. Fix the exporter before
+backfilling, or the backfill will not stick.
 
 **The legacy `category` column is site navigation, not item type.** In this
 repo's `inventory.json`, 168 rows are categorised "Closures" and many are whole
@@ -135,7 +149,7 @@ npm run catalog:verify-schema   # apply migrations to a scratch Postgres, assert
 # Reconcile the live site against the storefront catalog and produce
 # ready-to-run spec backfill candidates:
 node --experimental-strip-types catalog/src/cli/reconcile-storefront.ts \
-  --scrape <best-bottles-website>/data/bestbottles_raw_website_data.json \
+  --scrape <best-bottles-website>/docs/reviews/audit-2026-08-06/live-site-full-scrape.json \
   --convex <best-bottles-website>/Nemat_Product_Catalog.csv \
   --specs  <best-bottles-website>/data/grace_products_clean.json
 ```

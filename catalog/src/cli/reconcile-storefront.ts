@@ -29,11 +29,36 @@ import { parseLength, parseVolumeMl } from '../domain/units.ts';
 import { parseNeckFinish, neckFinishesMate } from '../domain/vocab.ts';
 import { normaliseSku } from '../ingest/matching.ts';
 
+/**
+ * Two live-scrape formats exist and both are supported.
+ *
+ *   legacy  data/bestbottles_raw_website_data.json      key `websiteSku`, bare
+ *           dimensions ("104"), single `price1pc`
+ *   full    docs/reviews/.../live-site-full-scrape.json key `siteSku`,
+ *           dimensions WITH tolerance ("104 ±2 mm"), full `tiers[]` ladder
+ *
+ * Prefer the full one: it preserves the published tolerance, which the catalog
+ * stores as a first-class value, and it carries the volume ladder rather than
+ * a single unit price.
+ */
+interface PriceTier { qty?: number; unitPrice?: number }
 interface ScrapeRow {
-  websiteSku?: string; productUrl?: string; itemName?: string; itemDescription?: string;
+  websiteSku?: string; siteSku?: string;
+  productUrl?: string; url?: string; status?: string;
+  itemName?: string; itemDescription?: string; itemType?: string;
   capacity?: string; heightWithCap?: string; heightWithoutCap?: string; diameter?: string;
   neckThreadSize?: string; price1pc?: number | string; imageUrl?: string;
+  minimumPurchase?: string; tiers?: PriceTier[];
 }
+
+const scrapeSku = (r: ScrapeRow): string | undefined => r.siteSku ?? r.websiteSku;
+
+/** Unit price at qty 1, from either format. */
+const scrapeUnitPrice = (r: ScrapeRow): number | undefined => {
+  const tier = (r.tiers ?? []).find((t) => Number(t.qty) === 1) ?? (r.tiers ?? [])[0];
+  if (tier?.unitPrice !== undefined) return Number(tier.unitPrice);
+  return num(r.price1pc);
+};
 
 type CsvRow = Record<string, string>;
 
@@ -43,8 +68,8 @@ const COMPARED_FIELDS = [
   { field: 'heightWithCap', scrape: (r: ScrapeRow) => mm(r.heightWithCap), convex: (r: CsvRow) => mm(r.heightWithCap), kind: 'number' as const },
   { field: 'heightWithoutCap', scrape: (r: ScrapeRow) => mm(r.heightWithoutCap), convex: (r: CsvRow) => mm(r.heightWithoutCap), kind: 'number' as const },
   { field: 'diameter', scrape: (r: ScrapeRow) => mm(r.diameter), convex: (r: CsvRow) => mm(r.diameter), kind: 'number' as const },
-  { field: 'neckThreadSize', scrape: (r: ScrapeRow) => r.neckThreadSize, convex: (r: CsvRow) => r.neckThreadSize, kind: 'neck' as const },
-  { field: 'price1pc', scrape: (r: ScrapeRow) => num(r.price1pc), convex: (r: CsvRow) => num(r.webPrice1pc), kind: 'money' as const },
+  { field: 'neckThreadSize', scrape: (r: ScrapeRow) => blank(r.neckThreadSize), convex: (r: CsvRow) => blank(r.neckThreadSize), kind: 'neck' as const },
+  { field: 'price1pc', scrape: (r: ScrapeRow) => scrapeUnitPrice(r), convex: (r: CsvRow) => num(r.webPrice1pc), kind: 'money' as const },
 ];
 
 /** Dimensions are bare numbers on both sides; the column name supplies mm. */
@@ -52,6 +77,16 @@ function mm(raw: unknown): number | undefined {
   if (raw === null || raw === undefined || String(raw).trim() === '') return undefined;
   const withUnit = parseLength(String(raw).trim().match(/(mm|cm|in)$/i) ? String(raw) : `${String(raw).trim()}mm`);
   return withUnit?.value;
+}
+
+/**
+ * Absent is absent: a CSV cell is "" where JSON is null, and treating those as
+ * a disagreement manufactures false positives. (It did: an earlier run reported
+ * 85 neck-thread conflicts, 54 of which were only null-vs-empty.)
+ */
+function blank(raw: unknown): string | undefined {
+  const t = String(raw ?? '').trim();
+  return t === '' || t.toLowerCase() === 'none' || t.toLowerCase() === 'null' ? undefined : t;
 }
 
 function num(raw: unknown): number | undefined {
@@ -103,8 +138,9 @@ const convex = parseCsv(readFileSync(convexPath, 'utf8'));
 const scrapeBySku = new Map<string, ScrapeRow>();
 const scrapeDupes: string[] = [];
 for (const r of scrape) {
-  if (!r.websiteSku?.trim()) continue;
-  const k = normaliseSku(r.websiteSku);
+  const sku = scrapeSku(r);
+  if (!sku?.trim()) continue;
+  const k = normaliseSku(sku);
   if (scrapeBySku.has(k)) scrapeDupes.push(k);
   else scrapeBySku.set(k, r);
 }
@@ -165,7 +201,11 @@ const byField = (rows: Mismatch[]) => {
 mkdirSync(outDir, { recursive: true });
 const write = (name: string, v: unknown) => writeFileSync(resolve(outDir, name), `${JSON.stringify(v, null, 2)}\n`);
 
-write('coverage-live-only.json', liveOnly.map((k) => ({ websiteSku: k, productUrl: scrapeBySku.get(k)!.productUrl, itemName: scrapeBySku.get(k)!.itemName })));
+write('coverage-live-only.json', liveOnly.map((k) => ({
+  websiteSku: k,
+  productUrl: scrapeBySku.get(k)!.productUrl ?? scrapeBySku.get(k)!.url,
+  itemName: scrapeBySku.get(k)!.itemName ?? scrapeBySku.get(k)!.itemDescription,
+})));
 write('coverage-convex-only.json', convexOnly.map((k) => ({ websiteSku: k, graceSku: convexBySku.get(k)!.graceSku, stockStatus: convexBySku.get(k)!.stockStatus })));
 write('fidelity-mismatches.json', mismatches);
 write('fidelity-missing-on-convex.json', missingOnConvex);
@@ -277,6 +317,34 @@ if (specsPath) {
     console.log('\n  still unknown after backfill (needs measurement):');
     for (const x of stillMissing) console.log(`  ${String(x.count).padStart(5)}  ${x.field}`);
   }
+}
+
+/* ---- volume price ladders -------------------------------------------- *
+ * A documented Grace fix requires bulk quotes to come from the published
+ * ladder rather than extrapolation. The live PDP publishes the whole ladder;
+ * the storefront export carries only 1pc / 10pc / 12pc columns, so any deeper
+ * break Grace is asked about has no source unless the ladder is imported.
+ * ---------------------------------------------------------------------- */
+const withTiers = [...scrapeBySku.values()].filter((r) => (r.tiers ?? []).length > 0);
+if (withTiers.length) {
+  const breakpoints = new Map<number, number>();
+  for (const r of withTiers) {
+    for (const t of r.tiers ?? []) {
+      if (t.qty !== undefined) breakpoints.set(Number(t.qty), (breakpoints.get(Number(t.qty)) ?? 0) + 1);
+    }
+  }
+  const ladders = withTiers.map((r) => ({
+    websiteSku: normaliseSku(scrapeSku(r)!),
+    minimumPurchase: r.minimumPurchase,
+    tiers: (r.tiers ?? []).map((t) => ({ minQuantity: Number(t.qty), unitPrice: Number(t.unitPrice) })),
+  }));
+  write('price-ladders.json', ladders);
+
+  const deep = [...breakpoints.entries()].sort((a, b) => a[0] - b[0]).filter(([q]) => q > 12);
+  console.log(`\n=== VOLUME PRICE LADDERS (live PDP) ===`);
+  console.log(`  SKUs with a published ladder  ${withTiers.length}`);
+  console.log(`  quantity breaks observed      ${[...breakpoints.keys()].sort((a, b) => a - b).join(', ')}`);
+  console.log(`  breaks beyond the storefront's 1/10/12 columns: ${deep.map(([q, n]) => `${q}(${n})`).join(' ')}`);
 }
 
 console.log(`\nReports written to ${outDir}`);
