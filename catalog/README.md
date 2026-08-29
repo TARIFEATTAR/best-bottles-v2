@@ -62,6 +62,7 @@ altered.
 | [`docs/03-SCHEMA.md`](docs/03-SCHEMA.md) | Entity relationships, table-by-table reasoning, and the constraints that encode domain rules |
 | [`docs/04-MIGRATION-AND-PLAN.md`](docs/04-MIGRATION-AND-PLAN.md) | How legacy data moves in without loss, field-by-field mapping, what gets retired when, and the phased plan |
 | [`docs/05-CONVEX-STOREFRONT.md`](docs/05-CONVEX-STOREFRONT.md) | The live Convex storefront catalog: what it holds, why the first audit missed it, the ownership decision it forces, and the adapter contract |
+| [`docs/06-CATALOG-TRUTH-AND-CSV-CONSOLIDATION.md`](docs/06-CATALOG-TRUTH-AND-CSV-CONSOLIDATION.md) | Which catalog file is authoritative (none of them), measured divergence between the CSV exports, and what consolidation should actually mean |
 | [`docs/HOWTO.md`](docs/HOWTO.md) | Runbooks: import a supplier spreadsheet, add an attribute, add a compatibility relationship, resolve a conflict, extend a vocabulary, add a consumer |
 
 ---
@@ -190,6 +191,11 @@ catalogs join directly with no fuzzy matching. Convex and the live PDP are
 registered as ranked sources (60 and 65), the identifier mappings and a drift
 report exist, and a `graceSku` codec is tested — but the ingestion adapter
 needs a credential this environment does not have.
+
+**This repository does not serve that site.** Its Vercel project
+(`best-bottles-v2`, framework vite) has only preview deployments from agent
+branches; the storefront runs from the `best-bottles-website` Vercel project
+(framework nextjs), deploying to production from `main`.
 
 Read [`docs/05-CONVEX-STOREFRONT.md`](docs/05-CONVEX-STOREFRONT.md) before
 making any decision about which system owns a specification.

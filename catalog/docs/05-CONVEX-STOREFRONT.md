@@ -5,6 +5,16 @@ audit.** That version said Best Bottles product data lived in five stores and
 that nothing was canonical. There is a sixth store, it is live, and it is the
 closest thing to a canonical product catalog that currently exists.
 
+> **Verified 2026-08-29.** Everything below was originally inferred from the
+> `madison-hero-sync` pipeline documentation. It has since been checked
+> directly against the Vercel API and a clone of the storefront repository.
+> Confirmed: Sanity project `gh97irjh` (376 references in the storefront repo,
+> zero references to this repo's `gv4os6ef`), Convex `precise-raccoon-123`
+> (43 references) and `helpful-elephant-638` (18). The storefront repository is
+> **`asalastudio/best-bottles-website`** (public) — the local folder
+> `Best-Bottles-Website-02-20-2026` is a working copy of it. The account owner
+> has confirmed `gh97irjh` is the Sanity project going forward.
+
 ---
 
 ## What was missed, and why
@@ -28,13 +38,64 @@ describes a running production system.
 ## What actually exists
 
 ```
-Convex production     precise-raccoon-123.convex.cloud     ~2,325 product rows
+Convex production     precise-raccoon-123.convex.cloud     products + productGroups
 Convex dev            helpful-elephant-638.convex.cloud
-Sanity project        gh97irjh, dataset "production"
-Storefront repo       Best-Bottles-Website-02-20-2026/     Next.js App Router
+Sanity project        gh97irjh, dataset "production"       ← confirmed, and the one going forward
+Storefront repo       asalastudio/best-bottles-website     Next.js App Router (public)
+  local working copy  Best-Bottles-Website-02-20-2026/
+Vercel project        best-bottles-website (prj_GHwEFaEB…) framework: nextjs
+Production URL        https://www.bestbottles.com          src/lib/seo.ts PRODUCTION_SITE_URL
+Staging URL           bestbottles.company                  per the repo's own SEO audit
 Live PDP              src/app/products/[slug]/page.tsx
-Catalog CSV           Nemat_Product_Catalog.csv            2,321 SKUs
+Catalog CSV           Nemat_Product_Catalog.csv            2,321 SKUs (a partial export)
 ```
+
+### Which Vercel project serves the site
+
+| | `best-bottles-v2` (this repo) | `best-bottles-website` (storefront) |
+|---|---|---|
+| Vercel project | `prj_a2vv3MEP0Sujqy…` | `prj_GHwEFaEB2YYcMK…` |
+| Framework | vite | **nextjs** |
+| Created | 2025-12-12 | 2026-02-26 |
+| Production deployments | **none in the last ~2 months** | many, from `main` |
+| Recent deployments | preview only, all from `claude/*` branches | PRs #61–#64: Grace on OpenAI Realtime, Paper Doll, catalog refine |
+| Domains seen via API | `.vercel.app` aliases only | `.vercel.app` aliases only |
+
+**This repository is not serving the Best Bottles site.** Every one of its
+recent Vercel deployments is a preview build of an agent branch
+(`target: null`); there is no production deployment in the window checked. The
+Best Bottles storefront — staging and production — is the
+`best-bottles-website` project.
+
+One caveat worth stating rather than glossing: the Vercel API returned only
+auto-assigned `.vercel.app` aliases for both projects, so the binding of
+`bestbottles.company` / `www.bestbottles.com` to a project was **not**
+confirmed from the API. It is asserted by `src/lib/seo.ts` and the repo's SEO
+audit, not by a domain record I read.
+
+### The Convex schema, read directly
+
+`convex/schema.ts` in the storefront repo:
+
+- **`products` — 61 fields**: `productId, websiteSku, graceSku, category,
+  family, shape, color, capacity, capacityMl, capacityOz, applicator, capColor,
+  trimColor, capStyle, capHeight, ballMaterial, neckThreadSize, heightWithCap,
+  heightWithoutCap, diameter, depthMm, widthMm, bottleWeightG, caseQuantity,
+  caseWeightG, qbPrice, webPrice1pc, webPrice10pc, webPrice12pc, priceTiers,
+  priceTiersSyncedAt, stockStatus, itemName, itemDescription, imageUrl,
+  imageUrlCapOff, productUrl, dataGrade, bottleCollection, useCaseDescription,
+  fitmentStatus, components, graceDescription, assemblyType, componentGroup,
+  verified, importSource, productGroupId, shopifyVariantId,
+  shopifyInventoryItemId, shopifyUpdatedAt, shopifySellable,
+  shopifySellableReason, shopifySellableCheckedAt, paperDollBodyUrl,
+  paperDollFitmentUrl, paperDollCapUrl, paperDollRollerUrl,
+  paperDollLayerOrder, paperDollReady, paperDollProcessedAt`
+- **`productGroups` — 23 fields**, including `paperDollFamilyKey`,
+  `primaryGraceSku`, `heroImageUrl`, `lastSyncedAt`, `csvRowCount`.
+
+Note `dataGrade`, `verified` and `importSource` — Convex already carries a
+provenance and quality model of its own. That is further evidence for treating
+it as a peer system to reconcile with, not a dumb serving layer.
 
 Note the Sanity project id: **`gh97irjh`**. This repository uses **`gv4os6ef`**.
 They are two different Sanity projects. Any statement about "the Sanity data"
